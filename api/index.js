@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const server = express();
+const mongoose = require("mongoose");
 
 
 server.use(express.urlencoded({ extended: true, limit: "50mb"}));
