@@ -11,11 +11,13 @@ const useStyles = makeStyles((theme) => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    width: 400,
+    width: 500,
   },
   input: {
     marginLeft: theme.spacing(1),
-
+    boxShadow:"none",
+   
+    borderBottom:"1px solid #8C4A3C66",
     flex: 1,
   },
   iconButton: {
