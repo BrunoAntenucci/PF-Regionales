@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
+    marginTop: '70px'
   },
 });
 
@@ -29,9 +30,9 @@ function Navbar() {
         textColor="primary"
         centered
       >
-        <Tab label="Item One" />
-        <Tab label="Item Two" />
-        <Tab label="Item Three" />
+        <Tab label="Categorias" />
+        <Tab label="Ofertas" />
+        <Tab label="Historial" />
       </Tabs>
     </Paper>
     )

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     width: 400,
   },
   input: {
-    marginLeft: theme.spacing(1),
+    marginLeft: theme.spacing(2),
 
     flex: 1,
   },
@@ -29,7 +29,7 @@ function Navbar() {
         <Paper component="form" className={classes.root}>
             <InputBase
             className={classes.input}
-            placeholder="Search Google Maps"
+            placeholder="Search a product"
             inputProps={{ 'aria-label': 'Search' }}
             />
             <IconButton type="submit" className={classes.iconButton} aria-label="search">
