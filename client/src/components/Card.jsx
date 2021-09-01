@@ -10,10 +10,10 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 200,
+    minWidth: 200,
   },
   media: {
-    height: 200,
+    height: 250,
   },
 });
 function Card({title, category, price, image}) {
@@ -27,9 +27,9 @@ function Card({title, category, price, image}) {
             title={title}
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            {/* <Typography gutterBottom variant="h5" component="h2">
             {title}
-            </Typography>
+            </Typography> */}
             <Typography variant="h4" color="textSecondary" component="p">
            $ {price}
             </Typography>
