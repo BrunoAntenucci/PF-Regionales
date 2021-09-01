@@ -3,32 +3,7 @@ import Header from './Header';
 import { getProducts } from '../actions/index';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-=======
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   import { createTheme , ThemeProvider} from '@material-ui/core';
 const theme = createTheme({
