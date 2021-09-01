@@ -3,39 +3,49 @@ const Schema = mongoose.Schema;
 
 const storeSchema = new Schema({
     storeId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: ObjectId,
         auto: true,
-        requiered: true
+        required: true
     },
     name: {
         type: String,
-        requiered: true
+        required: true
     },
     description: {
         type: String,
-        requiered: true
+        required: true
     },
     city: {
         type: String,
-        requiered: true
+        required: true
     },
     id_category: {
-        type: Array,
-        requiered: true
+        type: [
+            {
+                type: mongoose.ObjectId,
+                ref: "Category"
+            }
+        ],
+        required: true
     },
     id_product: {
-        type: Array,
-        requiered: true
+        type: [
+            {
+                type: mongoose.ObjectId,
+                ref: "Product"
+            }
+        ],
+        required: true
     },
     address: {
         type: String,
-        requiered: true
+        required: true
     },
     reputation: {
         type: Number,
-        requiered: true
+        required: true
     }
-})
+}, { timestamps: true })
 
 const Store = mongoose.model("Store", storeSchema)
 
