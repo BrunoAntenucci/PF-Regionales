@@ -6,10 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Searchbar from './Searchbar';
 import Navbar from './Navbar';
 
+
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
+  
   toolbar: {
     minHeight: 128,
     alignItems: 'flex-start',

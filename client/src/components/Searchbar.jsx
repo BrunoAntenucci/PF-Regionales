@@ -10,20 +10,7 @@ import { getProductsByName } from '../actions';
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    width: 400,
-  },
-  input: {
-    marginLeft: theme.spacing(2),
-
-    flex: 1,
-  },
-  iconButton: {
-    padding: 10,
-  },
+  
 }));
 
 function Navbar() {
