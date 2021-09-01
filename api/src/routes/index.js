@@ -5,7 +5,7 @@ const logout = require("./logout")
 const user = require("./user");
 const paymentInfo = require("./paymentInfo");
 const shipInfo = require("./shipInfo");
-
+const categoryRouter = require('./CategoryRoute');
 
 const router = Router();
 
@@ -15,9 +15,9 @@ router.use("/logout", logout);
 router.use("/user", user);
 router.use("/paymentInfo", paymentInfo);
 router.use("/shipInfo", shipInfo);
+router.use("/category", categoryRouter);
 
 router.get("/", (req, res, next) => {
-    res.send("HOME.Rutas posibles: /signup, ,/signin, /logout, /user, /paymentInfo, /shipInfo")
+    res.send("HOME.Rutas posibles: /signup, ,/signin, /logout, /user, /paymentInfo, /shipInfo, /category")
 })
-
 module.exports = router;
