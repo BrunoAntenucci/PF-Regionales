@@ -14,17 +14,24 @@ const useStyles = makeStyles(e => ({
     justifyContent:"space-evenly",
     padding:"15px 40px",
     backgroundColor:"#0000003e",
+    flexWrap:"wrap"
     // "&:hover": {
     //   backgroundColor: 'rgb(7, 177, 77, 0.42)'
     // }
   },section:{
     display:"flex",
-    margin: "40px",
+    margin: "40px 60px",
     flexDirection:"column",
     background:e.palette.secondary.light,
   },leyend:{
+    display:"flex",
+    flexDirection:"row",
     margin: "20px 60px",
     color:"#ffffff",
+  },link:{
+    margin:"10px 20px 10px 20px",
+    textDecoration:"none",
+    color:"#1626b1"
   }
 
 }));
@@ -53,18 +60,18 @@ function Home() {
     return (
       
         <div>
-            <Header />
+           
             <section className={classes.section}>
             <div className={classes.leyend}>
              <h1> Productos</h1>
-             <Link to="/products"><p>ver más</p></Link>
+             <Link className={classes.link} to="/products"><p>ver más</p></Link>
             </div>
             
             <div className={classes.products}>
             {
                 filterProductsByCat()?.map(p => { return(
 
-                  <Card                    
+                  <Card                
                   title= {p?.title}
                   price={p?.price}
                   category={p?.category}

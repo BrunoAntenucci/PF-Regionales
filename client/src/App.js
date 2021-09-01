@@ -5,6 +5,7 @@ import Home from './components/Home';
 import './App.css';
  
 import { createTheme , ThemeProvider} from '@material-ui/core';
+import Header from "./components/Header";
 const theme = createTheme({
     palette: {
       primary: {
@@ -44,6 +45,7 @@ function App() {
     
     <BrowserRouter>
     <ThemeProvider theme={theme}>
+    <Header />
       <Switch>
         <Route exact path = "/" component = {Home} />
       </Switch>
