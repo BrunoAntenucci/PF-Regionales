@@ -11,7 +11,7 @@ const shipInfoSchema = new Schema({
         required: true
     },
     postal_code: {
-        type: String,
+        type: Number,
         required: true
     },
     address_name: {
@@ -19,7 +19,7 @@ const shipInfoSchema = new Schema({
         required: true
     },
     address_number: {
-        type: String,
+        type: Number,
         required: true
     }
 }, { timestamps: true })

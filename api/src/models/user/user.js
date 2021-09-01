@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt-nodejs");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -19,9 +20,17 @@ const userSchema = new Schema({
         required: true
     },
     role: String,
-    ship_info_id: Number,
-    payment_info_id: Number,
+    ship_info: [{ type: Schema.ObjectId, ref: "ShipInfo"}],
+    payment_info: [{ type: Schema.ObjectId, ref: "PaymentInfo"}],
 }, { timestamps: true })
+
+userSchema.methods.encryptPassword = (password) => {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+};
+
+userSchema.methods.comparePassword = function(password) { //no utilizo arrow function para tener mayor scope.
+    return bcrypt.compareSync(password, this.password); //Retorna true o false dependiendo si la comparacion es correcta o no.
+}
 
 const User = mongoose.model("User", userSchema);
 
