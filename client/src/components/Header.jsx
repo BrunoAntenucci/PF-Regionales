@@ -6,12 +6,22 @@ import { makeStyles } from '@material-ui/core/styles';
 import Searchbar from './Searchbar';
 import Navbar from './Navbar';
 
+
 const useStyles = makeStyles((theme) => ({
+
+  
+ 
+  
+  
+  
+  
+  
   root: {
     // display:"flex",
     // alignItems:"space-around"
     alignItems: "none"
   },
+                                         
   toolbar: {
     // backgroundColor:theme.palette.primary.light,
     display:"flex",
