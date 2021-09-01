@@ -1,6 +1,36 @@
 import React from 'react';
 import Header from './Header';
-import { createTheme , ThemeProvider} from '@material-ui/core';
+import { getProducts } from '../actions/index';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+=======
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  import { createTheme , ThemeProvider} from '@material-ui/core';
 const theme = createTheme({
     palette: {
       primary: {
@@ -35,12 +65,31 @@ const theme = createTheme({
     //   }
     },
   });
+
   
 function Home() {
+    const dispatch = useDispatch();
+    const allProducts = useSelector((state) => state.products);
+
+    useEffect(() => {
+        dispatch(getProducts())
+    }, [dispatch])
+
+
     return (
         <ThemeProvider theme={theme}>
         <div>
             <Header />
+            {
+                allProducts?.map(p => { return(
+                    <div key={p.id}>
+                    <p>{p.title}</p>
+                    <p>Price: {p.price}</p>
+                    <p>Category: {p.category}</p>
+                    {p.image}
+                    </div>
+                )})
+            }
         </div>
         </ThemeProvider>
     )
