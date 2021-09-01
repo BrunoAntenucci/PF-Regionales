@@ -10,6 +10,12 @@ function rootReducer(state = initialState, action) {
                 products: action.payload
                 
             }
+        
+        case 'GET_PRODUCTS_BY_NAME':
+            return {
+                ...state,
+                products: action.payload
+            }
             default: return state;
         }
     }

@@ -18,7 +18,7 @@ function Home() {
             <Header />
             {
                 allProducts?.map(p => { return(
-                    <div>
+                    <div key={p.id}>
                     <p>{p.title}</p>
                     <p>Price: {p.price}</p>
                     <p>Category: {p.category}</p>
