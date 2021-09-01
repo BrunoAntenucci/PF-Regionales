@@ -15,7 +15,7 @@ const paymentInfoSchema = new Schema({
         required: true
     },
     number_CC: {
-        type: String,
+        type: Number,
         required: true
     },
     expiration_date_CC: {
@@ -23,7 +23,7 @@ const paymentInfoSchema = new Schema({
         required: true
     },
     security_number_CC: {
-        type: String,
+        type: Number,
         required: true
     }
 }, { timestamps: true })

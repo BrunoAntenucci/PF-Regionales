@@ -1,15 +1,23 @@
-const { Router } = require('express');
-const router = Router();
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
-
+const { Router } = require("express");
+const signup = require("./signup");
+const signin = require("./signin");
+const logout = require("./logout")
+const user = require("./user");
+const paymentInfo = require("./paymentInfo");
+const shipInfo = require("./shipInfo");
 const categoryRouter = require('./CategoryRoute');
 
+const router = Router();
 
+router.use("/signup", signup);
+router.use("/signin", signin);
+router.use("/logout", logout);
+router.use("/user", user);
+router.use("/paymentInfo", paymentInfo);
+router.use("/shipInfo", shipInfo);
+router.use("/category", categoryRouter);
 
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
-router.use("/", categoryRouter);
-
-
+router.get("/", (req, res, next) => {
+    res.send("HOME.Rutas posibles: /signup, ,/signin, /logout, /user, /paymentInfo, /shipInfo, /category")
+})
 module.exports = router;

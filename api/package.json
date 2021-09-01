@@ -11,11 +11,16 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "bcrypt-nodejs": "0.0.3",
+    "connect-flash": "^0.1.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "mongodb": "^4.1.1",
     "mongoose": "^6.0.2",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   }
 }
