@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header';
-import { getProducts } from '../actions/index';
+import { getProducts, getCategories } from '../actions/index';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from './Card';
@@ -45,10 +45,13 @@ function Home() {
         dispatch(getProducts())
     }, [dispatch])
 
+
+    
+
     //solo función de ejemplo
     const filterProductsByCat = () => {
       var arr = []
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 4; i++) {
         
           arr.push(allProducts[i])
         
