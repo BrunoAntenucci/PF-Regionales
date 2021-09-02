@@ -2,10 +2,8 @@ const { Router } = require('express');
 const router = Router(); 
 const Product = require('../models/Product');
 const Category = require('../models/Category');
-const mongoose = require('mongoose');
 
-
-router.post("/products", async (req, res) => {
+router.post("/", async (req, res) => {
     const {name,description,price, quantity, category, image} = req.body; 
     console.log(req.body)
     if (!name || !description || !price  || !category || !quantity || !image) {
@@ -27,7 +25,7 @@ router.post("/products", async (req, res) => {
     // }
 });
 
-router.get("/products", (req, res) => {
+router.get("/", (req, res) => {
     Product.find({}, (err, products) => {
       Category.populate(products, { path: "category" }, (err, products) => {
         res.status(200).send(products);
@@ -35,12 +33,8 @@ router.get("/products", (req, res) => {
     });
   });
 
-
-
-
-router.get("/products/:id", async (req, res) => { 
+router.get("/:id", async (req, res) => { 
     const {id} = req.params; 
-    
     Product.find({ _id: id }, function(err, product) {
         if (err) {
             return res.json({msj: 'Product missing!'});
@@ -48,8 +42,6 @@ router.get("/products/:id", async (req, res) => {
             return res.json({product});
         }
     })
-    
-
 });
 
 /*
