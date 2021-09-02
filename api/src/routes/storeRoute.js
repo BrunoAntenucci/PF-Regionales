@@ -2,8 +2,7 @@ const { Router } = require('express');
 const router = Router();
 const Store = require('../models/store/store.js');
 
-router.post('/createstore', async (req, res) => {
-
+router.post('/', async (req, res) => {
     const newStore = new Store({
         name: req.body.name,
         description: req.body.description,
@@ -22,7 +21,7 @@ router.post('/createstore', async (req, res) => {
     }
 })
 
-router.get('/stores', async (req, res) => {
+router.get('/', async (req, res) => {
     try{
         const name = req.query.name;
         if(name) {
@@ -37,7 +36,7 @@ router.get('/stores', async (req, res) => {
     }
 })
 
-router.get('/stores/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try{
         const store = await Store.findById(req.params.id);
         console.log(store)
@@ -50,7 +49,7 @@ router.get('/stores/:id', async (req, res) => {
     }
 })
 
-router.patch('/stores/:id', async (req, res) => {
+router.patch('/:id', async (req, res) => {
     try{
         const store = await Store.findByIdAndUpdate(req.params.id, req.body, { new: true })
         if(!store){
@@ -62,7 +61,7 @@ router.patch('/stores/:id', async (req, res) => {
     }
 }) 
 
-router.delete('/stores/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try{
         const store = await Store.findByIdAndDelete(req.params.id)
         if(!store){
