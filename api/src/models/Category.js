@@ -7,7 +7,7 @@ const CategorySchema = new Schema({
         unique: true
     },
     
-}, { timestamps: true, versionKey: false})
+}, { timestamps: true, versionKey: false});
 
 
 
