@@ -1,3 +1,5 @@
+import axios from 'react'
+
 const initialState = {
     products : []
 }
@@ -9,15 +11,22 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 products: action.payload
                 
-            }
-        
+            }       
         case 'GET_PRODUCTS_BY_NAME':
             return {
                 ...state,
                 products: action.payload
             }
-            default: return state;
+        case 'POST_PRODUCT':
+            const payload = action.payload
+            const response = axios.post('https://localhost:3001/product', payload);
+                return {
+                    ...state,
+                    products: response
+                }
+        default: return state;
         }
+
     }
 
 

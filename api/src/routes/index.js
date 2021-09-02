@@ -21,6 +21,7 @@ router.use("/category", categoryRouter);
 router.use("/product", productRouter);
 router.use("/store", storeRouter);
 
+
 router.get("/", (req, res, next) => {
     res.send("HOME.Rutas posibles: /signup, ,/signin, /logout, /user, /paymentInfo, /shipInfo, /category, /stores")
 })

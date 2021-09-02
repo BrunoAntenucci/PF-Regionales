@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import './App.css';
 import Home from './components/Home';
+import ProductCreation from "./components/ProductCreation";
 import './App.css';
  
 import { createTheme , ThemeProvider} from '@material-ui/core';
@@ -48,6 +49,7 @@ function App() {
     <Header />
       <Switch>
         <Route exact path = "/" component = {Home} />
+        <Route exact path = "/creation" component = {ProductCreation} />
       </Switch>
       </ThemeProvider>
     </BrowserRouter>

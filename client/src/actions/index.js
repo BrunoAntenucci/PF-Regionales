@@ -27,3 +27,17 @@ export function getProductsByName(payload) {
         }
     }
 }
+
+export function postProducts(payload){
+    return async function(dispatch){
+        return dispatch({
+            type: 'POST_PRODUCT',
+            payload: payload
+        })
+    }
+    
+    //async function(dispatch){
+    //    const response = await axios.post('https://localhost:3001/product', payload);
+    //    return response;
+    //}
+}
