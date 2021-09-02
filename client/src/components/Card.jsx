@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     height: 300,
   },
 });
-function Card({title, category, price, image}) {
+function Card({name, category, price, image}) {
     const classes = useStyles();
     return (
         <CardMUI className={classes.root}>
@@ -25,7 +25,7 @@ function Card({title, category, price, image}) {
           <CardMedia
             className={classes.media}
             image={image}
-            // title={title}
+            name={name}
           />
           <CardContent>
             {/* <Typography gutterBottom variant="h5" component="h2">
@@ -35,7 +35,7 @@ function Card({title, category, price, image}) {
            $ {price}
             </Typography>
             <Typography variant="body1" color="textSecondary" component="p">
-            {category}
+            {/* {category} */}
             </Typography>
           </CardContent>
         </CardActionArea>
