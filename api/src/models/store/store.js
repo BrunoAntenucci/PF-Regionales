@@ -1,9 +1,9 @@
-const mongoose = requiere('mongoose');
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const storeSchema = new Schema({
     storeId: {
-        type: ObjectId,
+        type: Schema.Types.ObjectId,
         auto: true,
         required: true
     },
@@ -26,7 +26,7 @@ const storeSchema = new Schema({
                 ref: "Category"
             }
         ],
-        required: true
+        required: false
     },
     id_product: {
         type: [
@@ -35,7 +35,7 @@ const storeSchema = new Schema({
                 ref: "Product"
             }
         ],
-        required: true
+        required: false
     },
     address: {
         type: String,
@@ -45,7 +45,7 @@ const storeSchema = new Schema({
         type: Number,
         required: true
     }
-}, { timestamps: true })
+}, { timestamps: true} )
 
 const Store = mongoose.model("Store", storeSchema)
 
