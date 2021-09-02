@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../actions/index';
@@ -6,6 +6,7 @@ import Card from './Card';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,16 +39,18 @@ function Products() {
             {
                 allProducts?.map(p => {
                     return (
-                        <div>
-                                <Grid item xs={3}>     
+                        <Fragment>
+                            <Grid item xs={3}>     
+                            <Link to={'/detail/' + p.id}>
                                     <Card                    
-                                        name= {p.title}
+                                        name= {p.name}
                                         price={p.price}
-                                        category={p.category}
+                                        category={p.category.name}
                                         image={p.image}
                                         />
-                                </Grid>
-                        </div>
+                            </Link>
+                            </Grid>
+                        </Fragment>
                     )
                 })
             }

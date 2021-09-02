@@ -4,6 +4,7 @@ import './App.css';
 import Home from './components/Home';
 import './App.css';
 import Products from "./components/Products";
+import ProductDetail from "./components/ProductDetail";
 import { createTheme , ThemeProvider} from '@material-ui/core';
 import Header from "./components/Header";
 
@@ -50,6 +51,7 @@ function App() {
       <Switch>
         <Route exact path = "/" component = {Home} />
         <Route exact path = "/products" component = {Products} />
+        <Route path="/detail/:id" component={ProductDetail} /> 
       </Switch>
       </ThemeProvider>
     </BrowserRouter>
