@@ -27,3 +27,17 @@ export function getProductsByName(payload) {
         }
     }
 }
+
+export function getCategories() {
+    return async function (dispatch) {
+        try {
+            const categories = await axios.get('https://fakestoreapi.com/products/categories');
+            return dispatch ({
+                type: 'GET_CATEGORIES',
+                payload: categories.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}

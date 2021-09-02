@@ -25,7 +25,7 @@ function Card({title, category, price, image}) {
           <CardMedia
             className={classes.media}
             image={image}
-            title={title}
+            // title={title}
           />
           <CardContent>
             {/* <Typography gutterBottom variant="h5" component="h2">

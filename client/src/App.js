@@ -3,9 +3,10 @@ import { Route, Switch, BrowserRouter } from "react-router-dom";
 import './App.css';
 import Home from './components/Home';
 import './App.css';
- 
+import Products from "./components/Products";
 import { createTheme , ThemeProvider} from '@material-ui/core';
 import Header from "./components/Header";
+
 const theme = createTheme({
     palette: {
       primary: {
@@ -48,6 +49,7 @@ function App() {
     <Header />
       <Switch>
         <Route exact path = "/" component = {Home} />
+        <Route exact path = "/products" component = {Products} />
       </Switch>
       </ThemeProvider>
     </BrowserRouter>

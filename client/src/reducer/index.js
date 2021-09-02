@@ -1,5 +1,6 @@
 const initialState = {
-    products : []
+    products : [],
+    categories: []
 }
 
 function rootReducer(state = initialState, action) {
@@ -10,6 +11,12 @@ function rootReducer(state = initialState, action) {
                 products: action.payload
                 
             }
+        
+        case 'GET_CATEGORIES':
+            return {
+                ...state,
+                categories: action.payload
+        }
         
         case 'GET_PRODUCTS_BY_NAME':
             return {

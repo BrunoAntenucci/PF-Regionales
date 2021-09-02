@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getCategories } from '../actions';
 
 
 import InputLabel from '@material-ui/core/InputLabel';
@@ -53,8 +56,14 @@ const useStyles = makeStyles(theme => ({
 
 
 function Navbar() {
+  const dispatch = useDispatch();
+    const categ = useSelector((state) => state.categories);
     const classes = useStyles();
   const [value, setValue] = React.useState(0);
+
+  useEffect(() => {
+    dispatch(getCategories())
+}, [dispatch])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -80,10 +89,14 @@ function Navbar() {
           id="demo-simple-select"
           onChange={handleChange}
         >
-          <MenuItem value={"Todo"}>Todo</MenuItem>
+          {
+            categ?.map(
+              c => <MenuItem value={c.category} key={c.id}>{c}</MenuItem>
+              )}
+          {/* <MenuItem value={"Todo"}>Todo</MenuItem>
           <MenuItem value={"Indumentaria"}>Indumentaria</MenuItem>
           <MenuItem value={"Tecnología"}>Tecnología</MenuItem>
-          <MenuItem value={"Muebles"}>Muebles</MenuItem>
+          <MenuItem value={"Muebles"}>Muebles</MenuItem> */}
         </Select>
       </FormControl>
         <Tab label="historial" color="secondary"/>
