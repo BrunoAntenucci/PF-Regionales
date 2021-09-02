@@ -2,8 +2,8 @@ import React from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import './App.css';
 import Home from './components/Home';
-import SignupForm from './components/SignupForm';
-import LogInForm from './components/LogInForm';
+import SignInForm from './components/SignInForm';
+import SignUpForm from './components/SignUpForm'
 import './App.css';
 
 function App() {
@@ -11,8 +11,8 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path = "/" component = {Home} />
-        <Route path="/signup" component={SignupForm} />
-        <Route path="/login" component={LogInForm} />
+        <Route exact path="/signin" component={SignInForm} />
+        <Route exact path="/signup" component={SignUpForm} />
       </Switch>
     </BrowserRouter>
   );
