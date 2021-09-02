@@ -51,6 +51,7 @@ function App() {
       <Switch>
         <Route exact path = "/" component = {Home} />
         <Route exact path = "/products" component = {Products} />
+        
         <Route path="/detail/:id" component={ProductDetail} /> 
       </Switch>
       </ThemeProvider>
