@@ -1,16 +1,20 @@
-const express = require('express');
+const express = require("express");
 const morgan = require('morgan');
-const server = express();
-const mongoose = require("mongoose");
-const routes = require('./routes/index.js');
+const routes = require("./routes/index");
+const passport = require("passport")
+const session = require("express-session");
+const flash = require("connect-flash")
+require("./passport/local-auth");
 
-server.name = 'REGIONALES';
+const server = express();
+server.name= "REGIONALES";
+
+server.use(express.urlencoded({ extended: true, limit: "50mb"}));
 
 const connDB = require('./db.js');
 connDB();
-
-server.use(express.urlencoded({ extended: true, limit: "50mb"}));
 server.use(express.json({limit: "50mb"}))
+
 server.use(morgan('dev'));
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); 
@@ -20,17 +24,28 @@ server.use((req, res, next) => {
   next();
 });
 
-server.use('/', routes);
+server.use(session({
+  secret: "grupo09",
+  resave: false,
+  saveUninitialized: false
+}))
+server.use(flash());
+server.use(passport.initialize());
+server.use(passport.session());
 
+server.use((req, res, next) => { //para mostrar el mensaje de flash
+  server.locals.singupMessage = req.flash("singupMessage")
+  next();
+})
+
+server.use("/", routes);
+
+// Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
-  const status = err.status || 500;
-  const message = err.message || err;
-  console.error(err);
-  res.status(status).send(message);
+    const status = err.status || 500; //Status = 500 es un error de servidor.
+    const message  = err.message || err; //Si es un objeto, guardo el mensaje de ese obj. Y si es un string, lo guardo directamente
+    console.error(err);
+    res.status(status).send(message);
 });
 
 module.exports = server;
-
-// server.listen(3001, () => {
-//     console.log('Listening at 3001')
-// })
