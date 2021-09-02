@@ -1,72 +1,92 @@
 import React from 'react';
 import Header from './Header';
-import { getProducts } from '../actions/index';
+import { getProducts, getCategories } from '../actions/index';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Card from './Card';
+import { makeStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
-  
-  import { createTheme , ThemeProvider} from '@material-ui/core';
-const theme = createTheme({
-    palette: {
-      primary: {
-        light: '#d0ebc1',
-        main: '#BAD799',
-        dark: '#798f60',
-        contrastText: '#fff',
-      },
-      secondary: {
-        light: '#b3a773e4',
-        main: '#97630e',
-        dark: '#5f3e0a',
-        contrastText: '#000',
-      },
-      transparent: {
-        light: '#ffffff',
-        main: '#fafafa0',
-        dark: '#000000',
-        contrastText: '#000',
-      },
-    //   error:{
+const useStyles = makeStyles(e => ({
+  products: {
+    display:"flex",
+    flexDirection:"row",
+    justifyContent:"space-evenly",
+    padding:"15px 40px",
+    backgroundColor:"#0000003e",
+    flexWrap:"wrap"
+    // "&:hover": {
+    //   backgroundColor: 'rgb(7, 177, 77, 0.42)'
+    // }
+  },section:{
+    display:"flex",
+    margin: "40px 60px",
+    flexDirection:"column",
+    background:e.palette.secondary.light,
+  },leyend:{
+    display:"flex",
+    flexDirection:"row",
+    margin: "20px 60px",
+    color:"#ffffff",
+  },link:{
+    margin:"10px 20px 10px 20px",
+    textDecoration:"none",
+    color:"#1626b1"
+  }
 
-    //   },
-    //   warning:{
-
-    //   },
-    //   info:{
-
-    //   },
-    //   success:{
-
-    //   }
-    },
-  });
+}));
 
   
 function Home() {
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products);
-
+    const classes = useStyles()
     useEffect(() => {
         dispatch(getProducts())
     }, [dispatch])
 
 
+    
+
+    //solo función de ejemplo
+    const filterProductsByCat = () => {
+      var arr = []
+      for (let i = 0; i < 4; i++) {
+        
+          arr.push(allProducts[i])
+        
+        
+      }
+      return arr
+    }
+
     return (
-        <ThemeProvider theme={theme}>
+      
         <div>
-            <Header />
+           
+            <section className={classes.section}>
+            <div className={classes.leyend}>
+             <h1> Productos</h1>
+             <Link className={classes.link} to="/products"><p>ver más</p></Link>
+            </div>
+            
+            <div className={classes.products}>
             {
-                allProducts?.map(p => { return(
-                    <div key={p.id}>
-                    <p>{p.title}</p>
-                    <p>Price: {p.price}</p>
-                    <p>Category: {p.category}</p>
-                    {p.image}
-                    </div>
+                filterProductsByCat()?.map(p => { return(
+
+                  <Card                
+                  title= {p?.title}
+                  price={p?.price}
+                  category={p?.category}
+                  image={p?.image}
+              />
+                   
                 )})
             }
+            </div>
+            </section>
         </div>
-        </ThemeProvider>
+       
     )
 }
 

@@ -5,7 +5,7 @@ const {server , database} = process.env;
 
 const connDB = async () => {
     try {
-        await mongoose.connect(`mongodb://${server}/${database}`, {
+        await mongoose.connect(`mongodb+srv://${server}/${database}`, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
