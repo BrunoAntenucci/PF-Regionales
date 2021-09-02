@@ -51,7 +51,7 @@ router.get("/:id", async (req, res) => {
     "_id": "61302d138fe3fe25b9bb6ea5",
     "name": "electronica",
 
-    "_id": "61302d5f8fe3fe25b9bb6ea8",
+    "_id": "6130f92ff3d685f0abf597bf",
     "name": "bebidas",
 
     "_id": "61302d648fe3fe25b9bb6eab",
