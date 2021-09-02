@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
     width:"90%",
     color:"#8C4A3C",
    backgroundColor:theme.palette.primary.dark,
-    padding:"20px 50px",
-    margin: "40px 0 0 50px",
+    padding:"10px",
+    margin: "20px auto 0px",
     borderRadius:"5px",
     display:"flex",
     justifyContent:"space-between",
@@ -38,11 +38,16 @@ const useStyles = makeStyles(theme => ({
      padding:"0px 55px"
   },
   buttons:{
+    
     color:"#fff",
+    padding:"0 8px"
   },paper:{
     width: "max-content"
+  },tabs:{
+    
+    padding:"0 10px"
   },formControl:{
-    margin: theme.spacing(1),
+    margin:"0 10px",
     minWidth: 120,
   
   },
@@ -78,20 +83,23 @@ function Navbar() {
       <Tabs
         value={value}
         onChange={handleChange}
+        size="small" 
         indicatorColor="secondary"
         textColor="secondary"
         centered
       >
         <FormControl className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">Categorías</InputLabel>
-        <Select
+        <Select size="small" 
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           onChange={handleChange}
         >
           {
             categ?.map(
-              c => <MenuItem value={c.category} key={c.id}>{c}</MenuItem>
+              c => <MenuItem value={c} className={classes.tabs} key={c.id}>
+                {c}
+                </MenuItem>
               )}
           {/* <MenuItem value={"Todo"}>Todo</MenuItem>
           <MenuItem value={"Indumentaria"}>Indumentaria</MenuItem>
@@ -99,8 +107,8 @@ function Navbar() {
           <MenuItem value={"Muebles"}>Muebles</MenuItem> */}
         </Select>
       </FormControl>
-        <Tab label="historial" color="secondary"/>
-        <Tab label="ofertas" color="secondary"/>
+        <Tab label="historial" size="small"  className={classes.tabs} color="secondary"/>
+        <Tab label="ofertas" size="small"  className={classes.tabs} color="secondary"/>
    
         {/* <Tab label="Item Three" /> */}
         
@@ -110,9 +118,9 @@ function Navbar() {
     {/* <Paper  className={classes.navegation}> */}
          
     <div className={classes.navegation}> 
-  <Button className={classes.buttons}>conectá</Button>
-  <Button  className={classes.buttons}>ingresá</Button>
-  <Button  className={classes.buttons}>mis compras</Button>
+  <Button  size="small" className={classes.buttons}>crear cuenta</Button>
+  <Button  size="small"  className={classes.buttons}>ingresá</Button>
+  <Button  size="small"  className={classes.buttons}>mis compras</Button>
 </div>
 
         {/* </Paper> */}

@@ -11,27 +11,42 @@ const useStyles = makeStyles(e => ({
   products: {
     display:"flex",
     flexDirection:"row",
-    justifyContent:"space-evenly",
+    justifyContent:"center",
     padding:"15px 40px",
-    backgroundColor:"#0000003e",
-    flexWrap:"wrap"
+    backgroundColor:"#0000001b",
+    flexWrap:"wrap",
+    flexBasis: "100%",
     // "&:hover": {
     //   backgroundColor: 'rgb(7, 177, 77, 0.42)'
     // }
   },section:{
     display:"flex",
-    margin: "40px 60px",
+    margin: "40px auto",
     flexDirection:"column",
-    background:e.palette.secondary.light,
+    // background:e.palette.secondary.dark,
+   
+    borderBottom: `1px solid ${ e.palette.primary.dark}` ,
+    
+   
+    minWidth: "1300px",
   },leyend:{
     display:"flex",
     flexDirection:"row",
-    margin: "20px 60px",
-    color:"#ffffff",
+    margin: "0px 30px",
+    color:e.palette.secondary.main,
+    background:"#ffffff32",
+    flexWrap:"wrap",
+    borderBottom: `1px solid ${ e.palette.primary.dark}`,
+    //borderTop: `3px solid ${ e.palette.secondary.dark}`,
+    borderRadius:"2px"
   },link:{
-    margin:"10px 20px 10px 20px",
+    margin:"50px 30px 0px 20px",
     textDecoration:"none",
-    color:"#1626b1"
+    color:e.palette.secondary.light
+  },
+  h1:{
+    fontSize:"2.2em",
+    marginTop:"50px"
   }
 
 }));
@@ -66,7 +81,7 @@ function Home() {
            
             <section className={classes.section}>
             <div className={classes.leyend}>
-             <h1> Productos</h1>
+             <h1 className={classes.h1}> Productos</h1>
              <Link className={classes.link} to="/products"><p>ver más</p></Link>
             </div>
             

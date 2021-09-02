@@ -10,11 +10,11 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 200,
+    minWidth: 300,
     margin: "20px"
   },
   media: {
-    height: 250,
+    height: 300,
   },
 });
 function Card({title, category, price, image}) {

@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Searchbar from './Searchbar';
 import Navbar from './Navbar';
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,13 +37,18 @@ const useStyles = makeStyles((theme) => ({
     
   },
   searchAndLogo: {
-    width: "50%",
+    width: "100%",
     display:"flex",
     flexDirection:"row",
     justifyContent:"space-between",
-    marginTop:"20px"
+    marginTop:"10px"
   },searchbar:{
     
+  },
+  logo:{
+    margin:"2px 10px",
+    textDecoration: "none",
+    color:"white"
   }
  
 }));
@@ -57,9 +63,9 @@ function Header() {
               <Toolbar className={classes.toolbar}  >
               
                 <div className={classes.searchAndLogo}>
-                LOGO
+                <Link to="/" className={classes.logo}>LOGO</Link>
                 <Searchbar className={classes.searchbar} />   
-               
+               <div className={classes.logo} style={{width:"50px"}}></div>{/*este div sirve para lograr el centrado del search sin margin*/ }
                 </div>
                 
                   
