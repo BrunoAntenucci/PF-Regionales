@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
     font: {
         marginLeft: '10px',
-        padding: "10px 20px",
+        padding: "2px 20px",
         marginTop: '10px',
         marginBottom: '30px',
         textAlign:"center",
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         maxHeight:"500px",
         margin:"100px 20px",
         minWidth:"200px",
-        //border: "5px solid "+theme.palette.secondary.dark,
+        border: "5px solid "+theme.palette.primary.main,
         borderRadius:"20px",
         position:"sticky",
         background:theme.palette.primary.light,
@@ -64,7 +64,7 @@ function Products() {
             <div className={classes.font}>
                 <Typography 
 
-                variant="h3"
+                variant="h4"
                  gutterBottom="true" 
                  ml={1} color="secondary">
                     Lista de Productos
