@@ -14,6 +14,7 @@ router.post("/create", async (req, res) => {
 router.get('/', async (req, res) => {
     let data = await Category.find({});
     res.json(data)
+    
 })
 
 router.get('/:name', async (req, res) => {

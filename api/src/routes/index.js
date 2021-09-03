@@ -26,6 +26,7 @@ router.use("/", paginadoProductRouter)
 router.use("/store", storeRouter);
 router.use("/cart", cart);
 
+
 router.get("/", (req, res, next) => {
     console.log(req)
     res.send("HOME.Rutas posibles: /signup, /signin, /logout, /user, /paymentInfo, /shipInfo, /category, /stores")

@@ -48,6 +48,7 @@ export function signUp(firstname, lastname, email, password) {
       }
     };
 }
+
 export const loginUser = (email, password) => {
 	return async function (dispatch){
         try{
@@ -72,12 +73,12 @@ export const loginUser = (email, password) => {
         }
 	};
 };
+
 export function logOut() {
     return function (dispatch) {
       dispatch({ type: 'LOG_OUT' });
     };
 }
-
 
 export function getCategories() {
     return async function (dispatch) {
@@ -91,6 +92,19 @@ export function getCategories() {
             console.log(error)
         }
     }
+}
+
+export function postProducts(payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.post('http://localhost:3001/product', payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
 }
 
 export function getProductDetail(id) {
