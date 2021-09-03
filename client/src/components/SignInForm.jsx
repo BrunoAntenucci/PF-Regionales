@@ -4,12 +4,12 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import axios from 'axios';
 import { loginUser } from '../actions';
 // import GoogleLogin from 'react-google-login';
 
 const SignInForm = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const [values, setValues] = useState({
         email : "",
         password:""
