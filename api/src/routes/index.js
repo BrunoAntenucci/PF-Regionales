@@ -18,7 +18,7 @@ router.use("/user", user);
 router.use("/paymentInfo", paymentInfo);
 router.use("/shipInfo", shipInfo);
 router.use("/category", categoryRouter);
-router.use("/product", productRouter);
+router.use("/", productRouter);
 router.use("/store", storeRouter);
 
 router.get("/", (req, res, next) => {
