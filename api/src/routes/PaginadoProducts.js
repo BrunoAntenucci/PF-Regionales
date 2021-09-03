@@ -3,10 +3,7 @@ const router = Router();
 const Product = require('../models/Product');
 
 
-
-
-
-router.get('/product/page/:page', (req, res, next) => {
+router.get('/page/:page', (req, res, next) => {
     let porPage = 3;
     let page = req.params.page || 1;
   

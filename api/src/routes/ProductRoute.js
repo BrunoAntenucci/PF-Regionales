@@ -16,16 +16,9 @@ router.post("/product", async (req, res) => {
     const product = await newProduct.save();
     res.json(product);
 
-    // try {
-    //     await newProduct.save();
-    //     res.json('Product Created');
-    // } catch (error) {
-    //     console.log(error);
-    //     res.status(500).send('Server error');
-    // }
 });
 
-router.get("/product", (req, res) => {
+router.get("/", (req, res) => {
     Product.find({}, (err, products) => {
       Category.populate(products, { path: "category" }, (err, products) => {
         res.status(200).send(products);
@@ -33,16 +26,14 @@ router.get("/product", (req, res) => {
     });
   });
 
-
-
-router.get("/product/search/:name", async (req, res) => {
+router.get("/search/:name", async (req, res) => {
     const { name } = req.params;
     const nameProduct = await Product.find({name:{ $regex: name, $options:'i' }});
     return res.status(200).send(nameProduct);
 });
 
 
-router.get("/product/:id",  (req, res) => { 
+router.get("/:id",  (req, res) => { 
     const {id} = req.params; 
     
       Product.find({ _id: id }, (err, product) => {
@@ -56,7 +47,7 @@ router.get("/product/:id",  (req, res) => {
 
 });
 
-router.put("/product/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
     try {
         const {id} = req.params;
         await Product.findByIdAndUpdate({ _id: id },{ ...req.body });
@@ -66,7 +57,7 @@ router.put("/product/:id", async (req, res) => {
     }
 
 });
-router.delete("/product/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try {
       const {id }= req.params;
       await Product.deleteOne({ _id: id });
