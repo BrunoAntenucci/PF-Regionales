@@ -63,7 +63,8 @@ function Header() {
               
                 <div className={classes.searchAndLogo}>
                 
-                <img src={imgLogo}   className={classes.logo} alt="logo"/>
+                <Link to="/">
+                <img src={imgLogo}   className={classes.logo} alt="logo"/></Link>
                 
                 <Searchbar className={classes.searchbar} />   
                <div className={classes.logo} style={{width:"50px"}}>
