@@ -16,13 +16,6 @@ router.post("/product", async (req, res) => {
     const product = await newProduct.save();
     res.json(product);
 
-    // try {
-    //     await newProduct.save();
-    //     res.json('Product Created');
-    // } catch (error) {
-    //     console.log(error);
-    //     res.status(500).send('Server error');
-    // }
 });
 
 router.get("/product", (req, res) => {
@@ -65,6 +58,7 @@ router.put("/product/:id", async (req, res) => {
     }
 
 });
+
 router.delete("/product/:id", async (req, res) => {
     try {
       const {id }= req.params;
@@ -88,5 +82,7 @@ router.delete("/product/:id", async (req, res) => {
     "_id": "6131649ca16c17b5b015bc72",
     "name": "carnes",
 */
+
+
 
 module.exports = router;
