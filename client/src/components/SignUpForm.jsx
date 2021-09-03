@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 // import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -15,7 +14,8 @@ const SignUpForm = () => {
         lastName: undefined,
         dni: undefined,
         email: undefined,
-        password: undefined
+        password: undefined,
+        passMatch: false
     });
     const [errors, setErrors] = useState({}); 
     const handleFirstName = (e) => {
