@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage:`url (${imgLogo})`,
     width:"20px",
     height:"20px",
-    backgroundSize:"",
+    backgroundSize:"cover",
     margin:"2px 10px",
     textDecoration: "none",
     color:"white"
@@ -61,7 +61,7 @@ function Header() {
               <Toolbar className={classes.toolbar}  >
               
                 <div className={classes.searchAndLogo}>
-                <Link to="/" ><div className={classes.logo}></div></Link>
+                <div className={classes.logo}></div>
                 <Searchbar className={classes.searchbar} />   
                <div className={classes.logo} style={{width:"50px"}}></div>{/*este div sirve para lograr el centrado del search sin margin*/ }
                 </div>
