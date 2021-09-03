@@ -3,10 +3,14 @@ import { Route, Switch, BrowserRouter } from "react-router-dom";
 import './App.css';
 import Home from './components/Home';
 import ProductCreation from "./components/ProductCreation";
+import SignInForm from './components/SignInForm';
+import SignUpForm from './components/SignUpForm'
 import './App.css';
- 
+import Products from "./components/Products";
+import ProductDetail from "./components/ProductDetail";
 import { createTheme , ThemeProvider} from '@material-ui/core';
 import Header from "./components/Header";
+
 const theme = createTheme({
     palette: {
       primary: {
@@ -50,6 +54,10 @@ function App() {
       <Switch>
         <Route exact path = "/" component = {Home} />
         <Route exact path = "/creation" component = {ProductCreation} />
+        <Route exact path="/signin" component={SignInForm} />
+        <Route exact path="/signup" component={SignUpForm} />
+        <Route exact path = "/products" component = {Products} />
+        <Route path="/detail/:id" component={ProductDetail} /> 
       </Switch>
       </ThemeProvider>
     </BrowserRouter>
