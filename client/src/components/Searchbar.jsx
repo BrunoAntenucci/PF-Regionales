@@ -7,6 +7,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { getProductsByName } from '../actions';
+//import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 function Navbar() {
 
   const dispatch = useDispatch();
+  //let history = useHistory ();
   const [name, setName] = useState('');
 
   const handleInputChange = (e) => {
@@ -46,6 +48,7 @@ function Navbar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    //history.push("/products");
     dispatch(getProductsByName(name));
     setName('');    
   }
@@ -64,10 +67,11 @@ function Navbar() {
             type="submit" 
             className={classes.iconButton} 
             aria-label="search"
-            onClick = {(e) => handleSubmit(e)}
+            
             >
             <SearchIcon />
             </IconButton>        
+            <input type="submit" value="Send Request" onClick = {(e) => handleSubmit(e)}></input>
       </Paper>
     )
 }

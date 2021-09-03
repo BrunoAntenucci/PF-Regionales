@@ -140,8 +140,8 @@ function Navbar() {
         >
           {
             categ?.map(
-              c => <MenuItem value={c} className={classes.tabs} key={c.id}>
-                {c}
+              c => <MenuItem value={c.name} className={classes.tabs} key={c.id}>
+                {c.name}
                 </MenuItem>
               )}
           {/* <MenuItem value={"Todo"}>Todo</MenuItem>
