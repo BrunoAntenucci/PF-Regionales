@@ -4,10 +4,11 @@ const CategorySchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true
+        unique: true  
     },
+    product: [{type: Schema.ObjectId, ref: 'Product',}]
     
-}, { timestamps: true, versionKey: false})
+}, { timestamps: true, versionKey: false});
 
 
 

@@ -1,6 +1,11 @@
 const initialState = {
     products : [],
+
     user: {}
+
+    categories: [],
+    prodDetail: []
+
 }
 
 function rootReducer(state = initialState, action) {
@@ -12,11 +17,18 @@ function rootReducer(state = initialState, action) {
                 
             }
         
+        case 'GET_CATEGORIES':
+            return {
+                ...state,
+                categories: action.payload
+        }
+        
         case 'GET_PRODUCTS_BY_NAME':
             return {
                 ...state,
                 products: action.payload
             }
+
             case 'SIGNUP':
                 return {
                     ...state,
@@ -32,7 +44,18 @@ function rootReducer(state = initialState, action) {
                     ...state, 
                     user:{}
                 }
-        default: return state;
+ 
+
+        case 'GET_PRODUCT_DETAIL':
+            return {
+                ...state,
+                prodDetail: action.payload
+            }
+
+
+
+            default: return state;
+
         }
     }
 
