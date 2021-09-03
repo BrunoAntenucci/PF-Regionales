@@ -1,6 +1,7 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("../models/user/user");
+const Guest = require("../models/guest/guest");
 
 /*
 1°: El usuario se autentifica.
@@ -47,7 +48,12 @@ passport.use('local-signin', new LocalStrategy({ //Comprobar si el usuario exist
     passwordField: "password",
     passReqToCallback: true
 }, async (req, email, password, done) => {
+    const guest = await Guest.findById(req.sessionID);
     const user = await User.findOne({ email: email});
+    if (guest && guest.cart.length !== 0) {
+        user.cart = [...user.cart, ...guest.cart]
+        user.save();
+    }
     if (!user) {
         return done(null, false, req.flash("singinMessage", "User not found."));
     }

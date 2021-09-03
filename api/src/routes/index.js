@@ -8,6 +8,8 @@ const shipInfo = require("./shipInfo");
 const categoryRouter = require('./CategoryRoute');
 const productRouter = require('./ProductRoute');
 const storeRouter = require("./storeRoute.js");
+const cart = require("./cart");
+const Guest = require("../models/guest/guest");
 
 const router = Router();
 
@@ -20,8 +22,10 @@ router.use("/shipInfo", shipInfo);
 router.use("/category", categoryRouter);
 router.use("/", productRouter);
 router.use("/store", storeRouter);
+router.use("/cart", cart);
 
-router.get("/", (req, res, next) => {
+router.get("/", async (req, res, next) => {
+    console.log(req)
     res.send("HOME.Rutas posibles: /signup, ,/signin, /logout, /user, /paymentInfo, /shipInfo, /category, /stores")
 })
 
