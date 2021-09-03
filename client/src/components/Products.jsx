@@ -27,7 +27,7 @@ function Products() {
     useEffect(() => {
         dispatch(getProducts());
     }, [dispatch])
-
+    console.log(allProducts)
     return (
         <div className={classes.root}>
             <div className={classes.font}>
@@ -41,12 +41,13 @@ function Products() {
                     return (
                         <Fragment>
                             <Grid item xs={3}>     
-                            <Link to={'/detail/' + p.id}>
+                            <Link to={'/detail/' + p?._id}>
+                                <h3>{p.id}</h3>
                                     <Card                    
-                                        name= {p.name}
-                                        price={p.price}
-                                        category={p.category.name}
-                                        image={p.image}
+                                        name= {p?.name}
+                                        price={p?.price}
+                                        category={p?.category?.name}
+                                        image={p?.image}
                                         />
                             </Link>
                             </Grid>

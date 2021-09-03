@@ -5,21 +5,16 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Searchbar from './Searchbar';
 import Navbar from './Navbar';
-
+import { Link } from 'react-router-dom';
+import imgLogo from '../img/market.png'
 
 const useStyles = makeStyles((theme) => ({
 
-  
- 
-  
-  
-  
-  
-  
   root: {
     // display:"flex",
     // alignItems:"space-around"
-    alignItems: "none"
+    alignItems: "none",
+    marginTop:"170px"
   },
                                          
   toolbar: {
@@ -27,22 +22,32 @@ const useStyles = makeStyles((theme) => ({
     display:"flex",
     flexDirection: "column",
     justifyContent:"center",
-    minHeight: "max-content",
+    //minHeight: "max-content",
    boxShadow:"none",
-    paddingTop: theme.spacing(1),
+    //paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2),
     alignItems: "flex-start",
     
     
   },
   searchAndLogo: {
-    width: "50%",
+    width: "100%",
     display:"flex",
     flexDirection:"row",
     justifyContent:"space-between",
-    marginTop:"20px"
+    marginTop:"10px"
   },searchbar:{
     
+  },
+  logo:{
+    backgroundImage:`url (${imgLogo})`,
+    width:"60px",
+    height:"60px",
+    position: "relative",
+    backgroundSize:"cover",
+    margin:"2px",
+    textDecoration: "none",
+    color:"white"
   }
  
 }));
@@ -53,13 +58,18 @@ function Header() {
 
         return (
           <div className={classes.root} >
-            <AppBar position="static" color="primary" >
+            <AppBar position="fixed" color="primary" >
               <Toolbar className={classes.toolbar}  >
               
                 <div className={classes.searchAndLogo}>
-                LOGO
+                
+                <Link to="/">
+                <img src={imgLogo}   className={classes.logo} alt="logo"/></Link>
+                
                 <Searchbar className={classes.searchbar} />   
-               
+               <div className={classes.logo} style={{width:"50px"}}>
+              
+               </div>{/*este div sirve para lograr el centrado del search sin margin*/ }
                 </div>
                 
                   
@@ -68,6 +78,9 @@ function Header() {
                    
               </Toolbar>
             </AppBar>
+            
+
+            
           </div>
     )
 }

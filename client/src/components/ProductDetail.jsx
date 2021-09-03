@@ -15,7 +15,7 @@ function ProductDetail(props) {
     const detail = useSelector((state) => state.prodDetail);
     console.log(detail)
 
-   
+
 
     return (
         <div>
@@ -23,7 +23,7 @@ function ProductDetail(props) {
                 detail.product?.map(p => {
                     return (
                         <div>    
-                            name= {p.name}
+                            name= {p?.name}
                             description={p.description}
                             price={p.price}
                             category={p.category.name}
