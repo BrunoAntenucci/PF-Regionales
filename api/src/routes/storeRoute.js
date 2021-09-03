@@ -2,7 +2,7 @@ const { Router } = require('express');
 const router = Router();
 const Store = require('../models/store/store.js');
 
-router.post('/', async (req, res) => {
+router.post('/create', async (req, res) => {
     const newStore = new Store({
         name: req.body.name,
         description: req.body.description,

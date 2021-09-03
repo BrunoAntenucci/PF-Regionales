@@ -20,9 +20,21 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    role: String,
-    ship_info: [{ type: Schema.ObjectId, ref: "ShipInfo"}],
-    payment_info: [{ type: Schema.ObjectId, ref: "PaymentInfo"}],
+    role: {
+        type: String
+    },
+    ship_info: [{ 
+        type: Schema.ObjectId, 
+        ref: "ShipInfo"
+    }],
+    payment_info: [{ 
+        type: Schema.ObjectId, 
+        ref: "PaymentInfo"
+    }],
+    cart: [{
+        type: Schema.ObjectId,
+        ref: "Product"
+    }]
 }, { timestamps: true })
 
 userSchema.methods.encryptPassword = (password) => {
