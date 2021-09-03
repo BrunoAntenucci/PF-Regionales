@@ -6,21 +6,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Searchbar from './Searchbar';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
-
+import imgLogo from '../img/market.png'
 
 const useStyles = makeStyles((theme) => ({
 
-  
- 
-  
-  
-  
-  
-  
   root: {
     // display:"flex",
     // alignItems:"space-around"
-    alignItems: "none"
+    alignItems: "none",
+    marginTop:"170px"
   },
                                          
   toolbar: {
@@ -46,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
     
   },
   logo:{
+    backgroundImage:`url (${imgLogo})`,
+    width:"20px",
+    height:"20px",
+    backgroundSize:"",
     margin:"2px 10px",
     textDecoration: "none",
     color:"white"
@@ -59,11 +57,11 @@ function Header() {
 
         return (
           <div className={classes.root} >
-            <AppBar position="static" color="primary" >
+            <AppBar position="fixed" color="primary" >
               <Toolbar className={classes.toolbar}  >
               
                 <div className={classes.searchAndLogo}>
-                <Link to="/" className={classes.logo}>LOGO</Link>
+                <Link to="/" ><div className={classes.logo}></div></Link>
                 <Searchbar className={classes.searchbar} />   
                <div className={classes.logo} style={{width:"50px"}}></div>{/*este div sirve para lograr el centrado del search sin margin*/ }
                 </div>
