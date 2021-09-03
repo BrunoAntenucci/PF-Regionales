@@ -28,16 +28,30 @@ export function getProductsByName(payload) {
     }
 }
 
+export function getCategories() {
+    return async function (dispatch) {
+        try {
+            const categories = await axios.get('http://localhost:3001/category');
+            return dispatch ({
+                type: 'GET_CATEGORIES',
+                payload: categories.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 export function postProducts(payload){
-    return async function(dispatch){
-        return dispatch({
-            type: 'POST_PRODUCT',
-            payload: payload
-        })
+    return async function (dispatch){
+        try{
+        const aux = await axios.post('http://localhost:3001/product', payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
     }
     
-    //async function(dispatch){
-    //    const response = await axios.post('https://localhost:3001/product', payload);
-    //    return response;
-    //}
 }
+

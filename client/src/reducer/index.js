@@ -1,7 +1,8 @@
 import axios from 'react'
 
 const initialState = {
-    products : []
+    products : [],
+    categories: []
 }
 
 function rootReducer(state = initialState, action) {
@@ -17,13 +18,17 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 products: action.payload
             }
-        case 'POST_PRODUCT':
-            const payload = action.payload
-            const response = axios.post('https://localhost:3001/product', payload);
+        case 'GET_CATEGORIES':
+            return {
+                ...state,
+                categories: action.payload
+            }
+
+        case 'POST_PRODUCT':            
                 return {
                     ...state,
-                    products: response
-                }
+            }
+            
         default: return state;
         }
 

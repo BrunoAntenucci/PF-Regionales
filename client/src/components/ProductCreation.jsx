@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { postProducts } from '../actions';
-import { useDispatch } from 'react-redux';
+import { getCategories, postProducts } from '../actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 function validate(input){
     let errors = {};
@@ -15,9 +15,9 @@ function validate(input){
     if(!input.price){
         errors.price = 'Se requiere un precio';
     }
-    //if(!input.category){
-    //    errors.category = 'Se requiere una categoria';
-    //}
+    if(!input.category){
+        errors.category = 'Se requiere una categoria';
+    }
     if(!input.quantity){
         errors.quantity = 'Se requiere una cantidad';
     }
@@ -29,17 +29,30 @@ function validate(input){
 
 export default function ProductCreation(){
     const dispatch = useDispatch();
-    const history = useHistory();
+    //const history = useHistory();
     const [ errors, setErrors ] = useState({});
 
     const [ input, setInput ] = useState({
         name: '',
         description: '',
         price: '',
-        //category:'',
-        quantity: '',
+        category: [],
+        quantity: 0,
         image: '',
     });
+
+    useEffect(() => {
+        dispatch(getCategories());
+    }, [dispatch])
+
+    const categories = useSelector((state) => state.categories)
+
+    function handleCategories(e){
+        setInput({
+            ...input,
+            category: [...input.category, e.target.value]
+        })
+    } 
 
     function handleChange(e){
         setInput({
@@ -55,24 +68,27 @@ export default function ProductCreation(){
     }
 
     function handleSubmit(e){
-        if(!errors.name) {
-        e.preventDefault();
+        if(!errors.name || !errors.description || !errors.price || !errors.category || !errors.quantity || !errors.image) {
+        e.preventDefault();   
         dispatch(postProducts(input));
-        alert('Product created');
+        alert('Product created');     
         setInput({
             name: '',
             description: '',
             price: '',
-            //category:'',
-            quantity: '',
+            category: [],
+            quantity: 0,
             image: '',
         })
-        history.push('/')
+        console.log(input)
+
+        //history.push('/')
         }else{
         e.preventDefault();
         alert('Form incomplete');
         }
     }
+
 
     return(
         <div>
@@ -114,18 +130,16 @@ export default function ProductCreation(){
                             <p>{errors.price}</p>
                         )}
                     </div>
-                    {/*<div>
-                        <label>Category</label>
-                        <input
-                        type='text'
-                        value={input.category}
-                        name='category'
-                        onChange={handleChange}
-                        />
-                        {errors.category && (
-                            <p>{errors.category}</p>
-                        )}
-                    </div>*/}
+                    <div>
+                        <select onChange={handleCategories}>
+                            {
+                                categories.map((e) => 
+                                <option value={e._id}>{e.name}</option>
+                                )
+                            }
+                        </select>
+                        <ul>{input.category.map(e => <li>{e}</li>)}</ul>
+                    </div>
                     <div>
                         <label>Cantidad</label>
                         <input

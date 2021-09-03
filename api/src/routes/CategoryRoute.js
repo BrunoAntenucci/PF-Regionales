@@ -14,6 +14,7 @@ router.post("/", async (req, res) => {
 router.get('/', async (req, res) => {
     let data = await Category.find({});
     res.json(data)
+    
 })
 
 module.exports = router;
