@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme) => ({
     display:"flex",
     flexDirection: "column",
     justifyContent:"center",
-    minHeight: "max-content",
+    //minHeight: "max-content",
    boxShadow:"none",
-    paddingTop: theme.spacing(1),
+    //paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2),
     alignItems: "flex-start",
     
@@ -41,10 +41,11 @@ const useStyles = makeStyles((theme) => ({
   },
   logo:{
     backgroundImage:`url (${imgLogo})`,
-    width:"20px",
-    height:"20px",
+    width:"60px",
+    height:"60px",
+    position: "relative",
     backgroundSize:"cover",
-    margin:"2px 10px",
+    margin:"2px",
     textDecoration: "none",
     color:"white"
   }
@@ -61,9 +62,13 @@ function Header() {
               <Toolbar className={classes.toolbar}  >
               
                 <div className={classes.searchAndLogo}>
-                <div className={classes.logo}></div>
+                
+                <img src={imgLogo}   className={classes.logo} alt="logo"/>
+                
                 <Searchbar className={classes.searchbar} />   
-               <div className={classes.logo} style={{width:"50px"}}></div>{/*este div sirve para lograr el centrado del search sin margin*/ }
+               <div className={classes.logo} style={{width:"50px"}}>
+              
+               </div>{/*este div sirve para lograr el centrado del search sin margin*/ }
                 </div>
                 
                   
@@ -72,6 +77,9 @@ function Header() {
                    
               </Toolbar>
             </AppBar>
+            
+
+            
           </div>
     )
 }

@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     color:"#8C4A3C",
    backgroundColor:theme.palette.primary.dark,
     padding:"10px",
-    margin: "20px auto 0px",
+    margin: "0px auto 0px",
     borderRadius:"5px",
     display:"flex",
     justifyContent:"space-between",
