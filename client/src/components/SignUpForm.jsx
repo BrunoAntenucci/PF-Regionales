@@ -44,11 +44,12 @@ const SignUpForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(register.passMatch){
-            const response = await dispatch (signUp(register.email, register.password))
+            let response = await dispatch (signUp(register.email, register.password))
+            if(response === "Account created"){
+                alert('The account is created successfully');
+            }
         }
-        if(response === "Account created"){
-            alert('The account is created successfully');
-        } else {
+         else {
             return alert('"Passwords dont match"')
         }
         history.push('/');
@@ -58,10 +59,10 @@ const SignUpForm = () => {
             <h1>Welcome</h1>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <input type="text" id="firstName" placeholder="Firstname" name="firstName" onChange={(e) => handleFirstName} required/>
-                {errors?.firstName?.type === 'required' && "First name is required"}
+                
                 
                 <input type="text" id="lastName" name="lastName" placeholder="LastName" onChange={(e) => handleLastName} required/>
-                {errors.lastName && "Last name is required"}
+                
 
                 <input name="dni" id="dni" type="number" placeholder="DNI" onChange={(e) => handleDni} required/>
                 <input name="email" id="email" type="email" placeholder="Email" onChange={(e) => handleEmail} required/>
