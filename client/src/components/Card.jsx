@@ -26,6 +26,7 @@ function Card({name, category, price, image}) {
             className={classes.media}
             image={image}
             name={name}
+            alt={name}
           />
           <CardContent>
             {/* <Typography gutterBottom variant="h5" component="h2">
@@ -40,9 +41,7 @@ function Card({name, category, price, image}) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
-            detalles
-          </Button>
+          
           
         </CardActions>
       </CardMUI>

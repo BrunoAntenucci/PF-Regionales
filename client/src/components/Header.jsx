@@ -67,9 +67,9 @@ function Header() {
                 <img src={imgLogo}   className={classes.logo} alt="logo"/></Link>
                 
                 <Searchbar className={classes.searchbar} />   
-               <div className={classes.logo} style={{width:"50px"}}>
-              
-               </div>{/*este div sirve para lograr el centrado del search sin margin*/ }
+                <Link to="/">
+                <img src={imgLogo}   className={classes.logo} alt="logo"/></Link>
+                {/*este div sirve para lograr el centrado del search sin margin*/ }
                 </div>
                 
                   
