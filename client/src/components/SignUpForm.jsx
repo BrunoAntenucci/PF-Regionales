@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { signUp } from '../actions';
+import { Link } from 'react-router-dom';
 
 const SignUpForm = () => {
     // const { register, errors, handleSubmit } = useForm();

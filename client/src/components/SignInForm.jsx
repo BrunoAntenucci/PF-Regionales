@@ -41,15 +41,14 @@ const SignInForm = () => {
         } else if (!values.password){
             alert("Required password")
         } else (!values.email && !values.password) 
-            alert("Required credentials")
-        
+            {alert("Required credentials")}
         history.push('/');
     }
 
     return(
         <div>
             <h1>Signup Form</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit}>
             
                 <input type="text" name="user" placeholder="Email" onChange={handleChangeEmail} required/>
                 <span>{errors?.email?.message}</span>
