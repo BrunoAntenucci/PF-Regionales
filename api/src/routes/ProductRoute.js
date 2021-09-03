@@ -25,23 +25,14 @@ router.post("/product", async (req, res) => {
     // }
 });
 
-// router.get("/product", (req, res) => {
-//     Product.find({}, (err, products) => {
-//       Category.populate(products, { path: "category" }, (err, products) => {
-//         res.status(200).send(products);
-//       });
-//     });
-//   });
+router.get("/product", (req, res) => {
+    Product.find({}, (err, products) => {
+      Category.populate(products, { path: "category" }, (err, products) => {
+        res.status(200).send(products);
+      });
+    });
+  });
 
-router.get("/product", async(req,res)=>{
-  const options={
-    limit:5,
-    page:1,
-    populate: 'category'
-  }
-  const pag= await Product.paginate({}, options);
-  res.json(pag);
-})
 
 
 router.get("/product/search/:name", async (req, res) => {
