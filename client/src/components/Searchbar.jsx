@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
+    height:"40px",
     width: 500,
   },
   input: {

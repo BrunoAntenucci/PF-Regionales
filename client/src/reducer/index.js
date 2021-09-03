@@ -1,6 +1,7 @@
 const initialState = {
     products : [],
-    categories: []
+    categories: [],
+    prodDetail: []
 }
 
 function rootReducer(state = initialState, action) {
@@ -23,6 +24,15 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 products: action.payload
             }
+
+        case 'GET_PRODUCT_DETAIL':
+            return {
+                ...state,
+                prodDetail: action.payload
+            }
+
+
+
             default: return state;
         }
     }
