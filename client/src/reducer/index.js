@@ -17,7 +17,21 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 products: action.payload
             }
-        
+            case 'SIGNUP':
+                return {
+                    ...state,
+                    user: action.payload,
+                };
+            case 'SIGNIN':
+                return{
+                    ...state, 
+                    user: action.payload
+                }   
+            case 'LOG_OUT':
+                return{
+                    ...state, 
+                    user:{}
+                }
         default: return state;
         }
     }
