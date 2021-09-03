@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import { getProducts, getCategories } from '../actions/index';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from './Card';
 import { makeStyles } from '@material-ui/core';
@@ -55,6 +55,10 @@ const useStyles = makeStyles(e => ({
 function Home() {
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products);
+
+    
+
+
     const classes = useStyles()
     useEffect(() => {
         dispatch(getProducts())

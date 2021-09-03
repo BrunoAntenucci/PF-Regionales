@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../actions/index';
 import Card from './Card';
@@ -46,15 +46,36 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function Products() {
+    const [page, setPage] = useState(1);
+
     const classes = useStyles();
 
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products);
 
     useEffect(() => {
-        dispatch(getProducts());
-    }, [dispatch])
+        dispatch(getProducts(page));
+    }, [dispatch, page])
     console.log(allProducts)
+
+    const prev = (e) => {
+        e.preventDefault();
+        if(page <= 1) {
+            setPage(1);
+        } else {
+            setPage(page - 1)
+        }
+    }
+
+    const next = (e) => {
+        e.preventDefault();
+        if(allProducts.length < 3) {
+            return
+        } else {
+            setPage(page + 1)
+        }
+    }
+
     return (
         <div className={classes.root}>
                <aside className={classes.aside}>
@@ -76,7 +97,7 @@ function Products() {
                 alignItems="flex-start"
                 className={classes.products}>
             {
-                allProducts?.map(p => {
+                allProducts.products?.map(p => {
                     return (
                         <Fragment>
                             
@@ -102,6 +123,13 @@ function Products() {
             }
             </Grid>
             </section>
+            <button onClick={(e) =>{prev(e)}} disabled={page <=1}>
+                {"<--Prev"}
+            </button>
+            <button onClick={(e) =>{next(e)}} disabled={allProducts.length <=3}>
+            {/* disabled={allProducts.products.length <=3} */}
+                {"Next-->"}
+            </button>
         </div>
     )
 }

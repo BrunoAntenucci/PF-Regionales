@@ -4,7 +4,7 @@ const initialState = {
     products : [],
     categories: [],
     user: {},
-    categories: [],
+    //categories: [],
     prodDetail: [],
 }
 

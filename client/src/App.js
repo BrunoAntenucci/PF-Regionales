@@ -52,11 +52,11 @@ function App() {
     <ThemeProvider theme={theme}>
     <Header />
       <Switch>
-        <Route exact path = "/" component = {Home} />
+        {/* <Route exact path = "/" component = {Home} /> */}
         <Route exact path = "/creation" component = {ProductCreation} />
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
-        <Route exact path = "/products" component = {Products} />
+        <Route exact path = "/" component = {Products} />
         <Route path="/detail/:id" component={ProductDetail} /> 
       </Switch>
       </ThemeProvider>

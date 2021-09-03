@@ -1,9 +1,23 @@
 import axios from 'axios';
 
-export function getProducts() {
+// export function getProducts() {
+//     return async function (dispatch) {
+//         try {
+//             const prod = await axios.get('http://localhost:3001/product/');
+//             return dispatch ({
+//                 type: 'GET_PRODUCTS',
+//                 payload: prod.data
+//             })
+//         } catch (error) {
+//             console.log(error)
+//         }
+//     }
+// }
+
+export function getProducts(page) {
     return async function (dispatch) {
         try {
-            const prod = await axios.get('http://localhost:3001/product/');
+            const prod = await axios.get('http://localhost:3001/product/page/' + page);
             return dispatch ({
                 type: 'GET_PRODUCTS',
                 payload: prod.data
