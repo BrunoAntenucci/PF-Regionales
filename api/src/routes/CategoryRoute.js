@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = Router();
-const Category = require('../models/Category')
+const Category = require('../models/Category');
+const Product = require('../models/Product')
 
 router.post("/create", async (req, res) => {
     const {name} = req.body;
@@ -16,6 +17,15 @@ router.get('/', async (req, res) => {
     res.json(data)
     
 })
+
+// router.get('/', (req, res) => {
+//     Category.find({},(err, categories) =>{
+//         Product.populate(categories, {path: "product"}, (err, categories) =>{
+//             res.status(200).send(categories);
+//         })
+//     });
+
+// });
 
 router.get('/:name', async (req, res) => {
     const name  = req.params.name

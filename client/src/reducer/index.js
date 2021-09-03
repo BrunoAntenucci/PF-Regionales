@@ -2,6 +2,7 @@ import axios from 'react'
 
 const initialState = {
     products : [],
+    products2: [],
     categories: [],
     user: {},
     //categories: [],
@@ -10,10 +11,17 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
     switch (action.type) {
-        case 'GET_PRODUCTS':
+        case 'GET_PRODUCTS': //paginado
             return {
                 ...state,
-                products: action.payload
+                products: action.payload,
+                products2: action.payload
+              }
+              case 'GET_ALL_PRODUCTS': //todos los productos
+            return {
+                ...state,
+                products: action.payload,
+                products2: action.payload
               }
         case 'GET_PRODUCTS_BY_NAME':
             return {

@@ -126,7 +126,7 @@ function Products() {
             <button onClick={(e) =>{prev(e)}} disabled={page <=1}>
                 {"<--Prev"}
             </button>
-            <button onClick={(e) =>{next(e)}} disabled={allProducts.length <=3}>
+            <button onClick={(e) =>{next(e)}} disabled={allProducts?.length <=3}>
             {/* disabled={allProducts.products.length <=3} */}
                 {"Next-->"}
             </button>

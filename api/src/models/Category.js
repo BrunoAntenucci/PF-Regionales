@@ -6,7 +6,7 @@ const CategorySchema = new Schema({
         required: true,
         unique: true  
     },
-    product: [{type: Schema.ObjectId, ref: 'Product',}]
+    //product: [{type: Schema.ObjectId, ref: 'Product',}]
     
 }, { timestamps: true, versionKey: false});
 
