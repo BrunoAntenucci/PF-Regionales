@@ -1,8 +1,6 @@
 const initialState = {
     products : [],
-
-    user: {}
-
+    user: {},
     categories: [],
     prodDetail: []
 
@@ -51,10 +49,7 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 prodDetail: action.payload
             }
-
-
-
-            default: return state;
+        default: return state;
 
         }
     }
