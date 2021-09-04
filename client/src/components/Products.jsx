@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts } from '../actions/index';
+import { getProducts, page } from '../actions/index';
 import Card from './Card';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import Paginate from './Paginate';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,15 +47,27 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function Products() {
-    const classes = useStyles();
-
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products);
+    const pageN = useSelector((state) => state.page);
 
+    const [render, setRender] = useState('');
+    const [prodPerPage] = useState(9);
+    const indexOfLastProd = pageN * prodPerPage; 
+    const indexOfFirstProd = indexOfLastProd - prodPerPage;  
+    const currentProd = allProducts.slice(indexOfFirstProd, indexOfLastProd); 
+
+    const paginate = (pageNumber) => {
+        dispatch(page(pageNumber));
+    }
+    
     useEffect(() => {
         dispatch(getProducts());
     }, [dispatch])
     console.log(allProducts)
+    
+    const classes = useStyles();
+    
     return (
         <div className={classes.root}>
                <aside className={classes.aside}>
@@ -76,7 +89,7 @@ function Products() {
                 alignItems="flex-start"
                 className={classes.products}>
             {
-                allProducts?.map(p => {
+                currentProd?.map(p => {
                     return (
                         <Fragment>
                             
@@ -102,6 +115,11 @@ function Products() {
             }
             </Grid>
             </section>
+            <Paginate
+                    prodPerPage = {prodPerPage}
+                    allProducts = {allProducts.length}
+                    paginate = {paginate}
+                />
         </div>
     )
 }
