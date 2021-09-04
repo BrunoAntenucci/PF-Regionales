@@ -27,7 +27,7 @@ router.post("/product", async (req, res) => {
 
 router.get("/product", (req, res) => {
     Product.find({}, (err, products) => {
-      Category.populate(products, { path: "category" }, (err, products) => {
+      Category.populate(products, { path: "Category" }, (err, products) => {
         res.status(200).send(products);
       });
     });

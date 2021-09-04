@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const Category = require('../models/Category')
+const Product = require('../models/Product')
 
 router.post("/create", async (req, res) => {
     const {name} = req.body;
@@ -14,6 +15,12 @@ router.post("/create", async (req, res) => {
 router.get('/', async (req, res) => {
     let data = await Category.find({});
     res.json(data)
+
+    //Category.find({}, (err, category) => {
+    //    Product.aggregate(category, { path: "Products" }, (err, category) => {
+    //      res.status(200).send(category);
+    //    });
+    //  });
     
 })
 

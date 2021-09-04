@@ -138,7 +138,10 @@ export default function ProductCreation(){
                                 )
                             }
                         </select>
-                        <ul>{input.category.map(e => <li>{e}</li>)}</ul>
+                        <ul>{input.category.map(e => {
+                            const aux = categories.find(i => i._id === e)
+                            return <p>{aux.name}</p>
+                        })}</ul>
                     </div>
                     <div>
                         <label>Cantidad</label>
