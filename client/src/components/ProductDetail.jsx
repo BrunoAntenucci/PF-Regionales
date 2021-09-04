@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getCategories, getProductDetail } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
 function ProductDetail(props) {
 
     const classes = useStyles();
+    const history = useHistory();
+
+    function handleClick(e) {
+        e.preventDefault();
+        history.push('/products')
+    }
 
     console.log(props)
     const dispatch = useDispatch();
@@ -47,33 +54,29 @@ function ProductDetail(props) {
             {
                 detail.product?.map(p => {
                     return (
-                        <div>    
-                            <Grid container spacing={4} direction="column"
+                        <div>
+                            <Grid container spacing={3} direction="row"
                             justifyContent="center"
-                            alignItems="center">
-                                <Grid item xs>
+                            alignItems="center" marginTop="150px">
+                                <Grid item xs={5}>
                                     <Paper className={classes.paper}><img src={p?.image} className={classes.image} alt="prod_img"/></Paper>
                                 </Grid>
-                            </Grid>
-                            <Grid container spacing={4} direction="column"
-                            justifyContent="center"
-                            alignItems="center">
-                                <Grid item xs>
+                                <Grid item xs={7}>
                                     <Paper className={classes.paper}>{p.name}</Paper>
-                                    <Paper className={classes.paper}>{p.description}</Paper>                                    
-                                    <Paper className={classes.paper}>Categorias:</Paper>
-                                    <Paper className={classes.paper}><ul>{p.category.map(e => {
-                                                                        const aux = categories.find(i => i._id === e)
-                                                                        return <p>{aux.name}</p>
-                                                                    })}</ul>
+                                    <Paper className={classes.paper}>{p.description}</Paper>
+                                    <Paper className={classes.paper}>Categoria:
+                                        <ul>{p.category.map(e => {
+                                            const aux = categories.find(i => i._id === e)
+                                            return <p>{aux.name}</p>
+                                        })}</ul>
                                     </Paper>
                                     <Paper className={classes.paper}>Precio: ${p.price}</Paper>
                                 </Grid>
                             </Grid>
-                            
+                            <button type='submit' onClick={(e) => handleClick(e)}>Volver</button>   
                         </div>
                     )
-                })
+                             })
             }
         </div>
     )
