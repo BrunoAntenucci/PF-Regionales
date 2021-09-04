@@ -23,10 +23,10 @@ const ProductSchema = new mongoose.Schema({
         trim: true,
         required: true,
     },
-    category: {
+    category: [{
         type: mongoose.Schema.ObjectId,
         ref: "Category",
-    },
+    }],
     quantity: {
         type: Number
     },

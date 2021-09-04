@@ -8,7 +8,7 @@ const shipInfo = require("./shipInfo");
 const categoryRouter = require('./CategoryRoute');
 const productRouter = require('./ProductRoute');
 const storeRouter = require("./storeRoute.js");
-const paginadoProductRouter = require("./paginadoProducts")
+const paginadoProductRouter = require("./PaginadoProducts")
 const cart = require("./cart");
 const Guest = require("../models/guest/guest");
 
@@ -25,6 +25,7 @@ router.use("/", productRouter);
 router.use("/", paginadoProductRouter)
 router.use("/store", storeRouter);
 router.use("/cart", cart);
+
 
 router.get("/", (req, res, next) => {
     console.log(req)

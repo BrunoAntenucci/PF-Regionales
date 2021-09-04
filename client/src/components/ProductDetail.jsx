@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getProductDetail } from '../actions/index';
+import { getCategories, getProductDetail } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -61,9 +62,21 @@ const useStyles = makeStyles((theme) => ({
 function ProductDetail(props) {
 
     const classes = useStyles();
+    const history = useHistory();
+
+    function handleClick(e) {
+        e.preventDefault();
+        history.push('/products')
+    }
 
     console.log(props)
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getCategories());
+    }, [dispatch])
+
+    const categories = useSelector((state) => state.categories)
     
     useEffect(() => {
         dispatch(getProductDetail(props.match.params.id));
@@ -73,12 +86,12 @@ function ProductDetail(props) {
     console.log(detail)
 
 
-
     return (
         <div className={classes.root}>
             {
                 detail.product?.map(p => {
                     return (
+
                         <div className={classes.content}>
                         <div className={classes.contentLeft}>       
                     <div className={classes.imageDiv}>                       
@@ -104,13 +117,20 @@ function ProductDetail(props) {
                             
                             </div>
                             <div className={classes.info}>
-                            <h3 className={classes.paper}>Categoria: {p.category}</h3>
+                            <h3 className={classes.paper}>Categoria: 
+                              <ul className={classes.paper} >{p.category.map(e => {
+                                            const aux = categories.find(i => i._id === e)
+                                            return <p>{aux.name}</p>
+                                        })}</ul>
+                              </h3>
                                     <h3 className={classes.paper}>{p.description}</h3>
                             </div>
                             </div>
+<button type='submit' onClick={(e) => handleClick(e)}>Volver</button>  
+
                         </div>
                     )
-                })
+                             })
             }
         </div>
     )
