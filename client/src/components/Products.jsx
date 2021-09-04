@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
     },
     section:{
-        margin:"0 52px"
+        margin:"0 "
     },
     products:{
         background:"#eee",
@@ -70,9 +70,9 @@ function Products() {
     
     return (
         <div className={classes.root}>
-               <aside className={classes.aside}>
+               {/* <aside className={classes.aside}>
                     <div></div>
-                </aside>
+                </aside> */}
                 <section className={classes.section}>
             <div className={classes.font}>
                 <Typography 
@@ -103,7 +103,7 @@ function Products() {
                                                     name= {p?.name}
                                                     price={p?.price}
                                                     category={p?.category?.name}
-                                                    image={p?.image}
+                                                    image={p?.image }
                                                     />
                                         </Link>
                                     </Grid>

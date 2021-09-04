@@ -169,7 +169,7 @@ function Navbar() {
           onChange={handleChange}
         >
           <option className={classes.options} selected="selected" >
-               todas
+               Todas
                 </option >
           {
             categ?.map(
