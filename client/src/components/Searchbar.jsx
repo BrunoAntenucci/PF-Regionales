@@ -67,11 +67,11 @@ function Navbar() {
             type="submit" 
             className={classes.iconButton} 
             aria-label="search"
-            
+            onClick = {(e) => handleSubmit(e)}
             >
             <SearchIcon />
             </IconButton>        
-            <input type="submit" value="Send Request" onClick = {(e) => handleSubmit(e)}></input>
+          
       </Paper>
     )
 }
