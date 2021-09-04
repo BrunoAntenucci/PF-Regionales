@@ -57,3 +57,10 @@ export function getProductDetail(id) {
         }
     }
 }
+
+export function page (payload) {
+    return {
+        type: 'PAGE',
+        payload
+    }
+}

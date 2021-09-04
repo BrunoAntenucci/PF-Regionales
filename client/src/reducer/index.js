@@ -1,7 +1,8 @@
 const initialState = {
     products : [],
     categories: [],
-    prodDetail: []
+    prodDetail: [],
+    page: 1
 }
 
 function rootReducer(state = initialState, action) {
@@ -29,6 +30,12 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 prodDetail: action.payload
+            }
+        
+            case 'PAGE': 
+            return {
+                ...state,
+                page: action.payload
             }
 
 
