@@ -8,7 +8,7 @@ const shipInfo = require("./shipInfo");
 const categoryRouter = require('./CategoryRoute');
 const productRouter = require('./ProductRoute');
 const storeRouter = require("./storeRoute.js");
-const paginadoProductRouter = require("./paginadoProducts")
+const paginadoProductRouter = require("./PaginadoProducts")
 const cart = require("./cart");
 const Guest = require("../models/guest/guest");
 

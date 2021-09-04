@@ -117,7 +117,7 @@ function Products() {
             </section>
             <Paginate
                     prodPerPage = {prodPerPage}
-                    allProducts = {allProducts.length}
+                    allProducts = {allProducts?.length}
                     paginate = {paginate}
                 />
         </div>
