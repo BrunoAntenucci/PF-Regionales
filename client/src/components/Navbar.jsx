@@ -69,9 +69,11 @@ const useStyles = makeStyles(theme => ({
 
 
 function Navbar() {
+
   const dispatch = useDispatch();
     const categ = useSelector((state) => state.categories);
     const classes = useStyles();
+
   const [value, setValue] = React.useState(0);
   const [log,setLog] = React.useState(false)
 

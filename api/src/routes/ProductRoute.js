@@ -34,6 +34,7 @@ router.get("/product", (req, res) => {
   });
 
 
+
 router.get("/product/search/:name", async (req, res) => {
     const { name } = req.params;
     const nameProduct = await Product.find({name:{ $regex: name, $options:'i' }});

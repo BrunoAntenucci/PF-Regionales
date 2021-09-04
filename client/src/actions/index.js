@@ -29,6 +29,57 @@ export function getProductsByName(payload) {
     }
 }
 
+export function signUp(firstname, lastname, email, password) {
+    return async function (dispatch) {
+      try {
+        const response = await axios.post("http://localhost:3001/signup", {
+          firstname,
+          lastname,
+          email,
+          password,
+        });
+        dispatch({ type: 'SIGNUP', payload: response.data});
+        return "Account created";
+      } catch (error) {
+        if (error.response.status === 400) {
+          console.log(error.response.data.message);
+          return error.response.data.message;
+        }
+      }
+    };
+}
+
+export const loginUser = (email, password) => {
+	return async function (dispatch){
+        try{
+            const response = await axios.post("http://localhost:3001/signin",{
+                email, password
+            })
+            if(response.data){
+                await dispatch({
+                    type: 'SIGNIN',
+                    payload: {
+                        email: response.data.email,
+                        password: response.data.password
+                    }
+                })
+                return 'Logged in succesfully'
+            } else {
+                return response.data.message
+            }
+        }
+        catch(error){
+            console.log(error)
+        }
+	};
+};
+
+export function logOut() {
+    return function (dispatch) {
+      dispatch({ type: 'LOG_OUT' });
+    };
+}
+
 export function getCategories() {
     return async function (dispatch) {
         try {
@@ -41,6 +92,19 @@ export function getCategories() {
             console.log(error)
         }
     }
+}
+
+export function postProducts(payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.post('http://localhost:3001/product', payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
 }
 
 export function getProductDetail(id) {
