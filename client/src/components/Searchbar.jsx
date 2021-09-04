@@ -71,7 +71,7 @@ function Navbar() {
             >
             <SearchIcon />
             </IconButton>        
-            <input type="submit" value="Send Request" onClick = {(e) => handleSubmit(e)}></input>
+            <input type="submit" value="Submit" onClick = {(e) => handleSubmit(e)}></input>
       </Paper>
     )
 }

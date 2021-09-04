@@ -26,7 +26,8 @@ function rootReducer(state = initialState, action) {
         case 'GET_PRODUCTS_BY_NAME':
             return {
                 ...state,
-                products: action.payload
+                products: action.payload,
+                products2: action.payload
             }
         case 'GET_CATEGORIES':
             return {

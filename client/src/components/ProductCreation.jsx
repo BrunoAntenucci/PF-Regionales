@@ -138,8 +138,21 @@ export default function ProductCreation(){
                                 )
                             }
                         </select>
-                        <ul>{input.category.map(e => <li>{e}</li>)}</ul>
+                        <ul>{input.category.map(e => {
+                            const aux = categories.find(i => i._id === e)
+                            return <p>{aux.name}</p>
+                        })}</ul>
                     </div>
+                    {/* <div>
+                        <select onChange={handleCategories}>
+                            {
+                                categories.map((e) => 
+                                <option value={e._id}>{e.name}</option>
+                                )
+                            }
+                        </select>
+                        <ul>{input.category.map(e => <li>{e}</li>)}</ul>
+                    </div> */}
                     <div>
                         <label>Cantidad</label>
                         <input

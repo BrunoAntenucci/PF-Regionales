@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getProductDetail } from '../actions/index';
+import { getProductDetail, getCategories } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 function ProductDetail(props) {
 
     const classes = useStyles();
+    const categories = useSelector((state) => state.categories)
 
     console.log(props)
     const dispatch = useDispatch();
@@ -31,6 +32,10 @@ function ProductDetail(props) {
     useEffect(() => {
         dispatch(getProductDetail(props.match.params.id));
     },[dispatch, props.match.params.id]);
+
+    useEffect(() => {
+        dispatch(getCategories());
+    }, [dispatch])
     
     const detail = useSelector((state) => state.prodDetail);
     console.log(detail)
@@ -56,7 +61,13 @@ function ProductDetail(props) {
                                 <Grid item xs>
                                     <Paper className={classes.paper}>{p.name}</Paper>
                                     <Paper className={classes.paper}>{p.description}</Paper>
-                                    <Paper className={classes.paper}>Categoria: {p.category}</Paper>
+                                    {/* <Paper className={classes.paper}>Categoria: {p.category}</Paper> */}
+                                    <Paper className={classes.paper}>Categoria:</Paper>
+                                    {/* <Paper className={classes.paper}>{categories.find(i => i._id === p.category)?.name}</Paper> */}
+                                    <Paper className={classes.paper}><ul>{p.category.map(e => {
+                                            const aux = categories.find(i => i._id === e)
+                                            return <p>{aux.name}</p>
+                                        })}</ul></Paper>
                                     <Paper className={classes.paper}>Precio: ${p.price}</Paper>
                                 </Grid>
                             </Grid>

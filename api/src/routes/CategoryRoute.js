@@ -40,4 +40,28 @@ router.delete('/delete', async (req, res) => {
     res.json({ msg: 'Category eliminated'})
 })
 
+router.get("/:id",  (req, res) => { 
+    const {id} = req.params; 
+
+      Category.find({ _id: id }, (err, category) => {
+        if (err) {
+            return res.json({msj: 'Category missing!'});
+        } else {
+            return res.json({category});
+        }
+    })
+
+});
+
+router.put("/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        await Category.findByIdAndUpdate({ _id: id },{ ...req.body });
+        res.send("Category updated!");
+    } catch (err) {
+        console.log("Error: " + err);
+    }
+
+});
+
 module.exports = router;
