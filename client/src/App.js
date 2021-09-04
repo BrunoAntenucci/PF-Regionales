@@ -14,7 +14,7 @@ import Header from "./components/Header";
 const theme = createTheme({
     palette: {
       primary: {
-        light: '#d0ebc1',
+        light: '#d0ebc155',
         main: '#BAD799',
         dark: '#798f60',
         contrastText: '#fff',

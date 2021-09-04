@@ -16,6 +16,7 @@ const useStyles = makeStyles(e => ({
     backgroundColor:"#0000001b",
     flexWrap:"wrap",
     flexBasis: "100%",
+    
     // "&:hover": {
     //   backgroundColor: 'rgb(7, 177, 77, 0.42)'
     // }
@@ -33,8 +34,10 @@ const useStyles = makeStyles(e => ({
     display:"flex",
     flexDirection:"row",
     margin: "0px 30px",
+    background: "rgb(83,83,83)",
+background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
     color:e.palette.secondary.main,
-    background:"#ffffff32",
+    //background:"#ffffff32",
     flexWrap:"wrap",
     borderBottom: `1px solid ${ e.palette.primary.dark}`,
     //borderTop: `3px solid ${ e.palette.secondary.dark}`,
