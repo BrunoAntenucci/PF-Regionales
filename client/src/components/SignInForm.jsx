@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,40 +11,35 @@ import { loginUser } from '../actions';
 const SignInForm = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const [values, setValues] = useState({
-        email : "",
-        password:""
+    const [input, setInput] = useState({
+        email : '',
+        password:''
     })
+    const [errors, setErrors] = useState({});
 
-    // const [errors, setErrors] = useState({
-    //     email: "Invalid Email Address / Already In Use",
-    //     emailSignIn: "Email does not exist",
-    //     passwordSignIn: "Incorrect Password"
-    // })
-
-    // Handlers
     const handleChangeEmail = (e) => {
-        setValues({...values, email:e.target.value})
+        setInput({...input, email:e.target.value})
     }
     const handleChangePassword= (e) => {
-        setValues({...values, password:e.target.value})
+        setInput({...input, password:e.target.value})
     }
-    // Submit functions
+   
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (values.email && values.password){
-            let message = await dispatch(loginUser(values.email, values.password));
-            if (message === "Logged in succesfully"){
-                alert("Welcome!");
+        if (input.email && input.password){
+            let response = await axios.post("http://localhost:3001/signin", input);
+            let data = response.data
+            if(data.done){
+                alert('Loggin succesfully')
             }
         }
-        else if(!values.email && !values.password) {
+        else if(!input.email && !input.password) {
             alert("Required credentials")
         }      
-        else if (!values.email){ 
+        else if (!input.email){ 
                 alert("Required email!")
             }
-        else if (!values.password){
+        else if (!input.password){
                 alert("Required password")
             }
         

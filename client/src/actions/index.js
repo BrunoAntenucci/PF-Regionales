@@ -75,7 +75,7 @@ export const loginUser = (email, password) => {
 export function isUser() {
     return async function (dispatch){
         const response = await axios.get("http://localhost:3001/signin");
-        dispatch({type: 'GET_USER', payload: response.data})
+        // await dispatch({type: 'GET_USER', payload: response.data})
     }
 };       
 export function logOut() {

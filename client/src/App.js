@@ -55,10 +55,7 @@ function App() {
 
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
-
-
         <Route exact path = "/products" component = {Products} />
-        
         <Route path="/detail/:id" component={ProductDetail} /> 
 
       </Switch>
