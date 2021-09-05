@@ -31,10 +31,10 @@ const userSchema = new Schema({
         type: Schema.ObjectId, 
         ref: "PaymentInfo"
     }],
-    cart: [{
+    cart: {
         type: Schema.ObjectId,
-        ref: "Product"
-    }]
+        ref: "Cart"
+    }
 }, { timestamps: true })
 
 userSchema.methods.encryptPassword = (password) => {

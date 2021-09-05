@@ -2,10 +2,6 @@ const { Router } = require('express');
 const router = Router(); 
 const Product = require('../models/Product');
 
-
-
-
-
 router.get('/product/page/:page', (req, res, next) => {
     let porPage = 3;
     let page = req.params.page || 1;
@@ -26,7 +22,6 @@ router.get('/product/page/:page', (req, res, next) => {
       });
   });
 
-
 //  router.get("/product", async(req,res)=>{
 //   const options={
 //     limit:5,
@@ -36,6 +31,5 @@ router.get('/product/page/:page', (req, res, next) => {
 //   const pag= await Product.paginate({}, options);
 //   res.json(pag);
 // })
-
 
   module.exports = router;
