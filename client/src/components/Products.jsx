@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Paginate from './Paginate';
+import Header from './Header';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -84,6 +85,7 @@ function Products() {
     
     return (
         <div className={classes.root}>
+            <Header />
                {/* <aside className={classes.aside}>
                     <div></div>
                 </aside> */}

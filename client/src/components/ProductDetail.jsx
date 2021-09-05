@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         boxShadow:" 10px 5px 5px #0002",
       borderRadius:"10px",
       width: "fit-content",
-      margin:"220px auto",
+      margin:"30px auto",
       padding:"20px",
       background:"#eee",
     },
