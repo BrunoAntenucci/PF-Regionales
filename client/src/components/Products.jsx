@@ -97,10 +97,10 @@ function Products() {
                 alignItems="flex-start"
                 className={classes.products}>
             {
-                currentProd?.map(p => {
+                currentProd?.map((p,i) => {
                     return (
                         
-                        <Fragment>
+                        <Fragment key={i}>
                             
                              
                                
