@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function Header() {
+function Header(props) {
   const dispatch = useDispatch();
         const classes = useStyles();
 
@@ -90,7 +90,7 @@ function Header() {
                 </div>
                 
                   
-                <Navbar  />  
+                <Navbar guest={props.guest} setGuest={props.setGuest}/>  
               
                    
               </Toolbar>

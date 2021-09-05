@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getCategories } from '../actions';
+import NavBarMati from "../components/NavBarMati";
 
 
 import InputLabel from '@material-ui/core/InputLabel';
@@ -109,7 +110,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function Navbar() {
+function Navbar(props) {
 
   const dispatch = useDispatch();
     const categ = useSelector((state) => state.categories);
@@ -194,12 +195,12 @@ function Navbar() {
         textColor="secondary"
         centered
       >
-        
      
         <Tab label="historial" size="small"  className={classes.tabs} color="secondary"/>
         <Tab label="ofertas" size="small"  className={classes.tabs} color="secondary"/>
    
         {/* <Tab label="Item Three" /> */}
+        
         
       </Tabs>
     
@@ -208,7 +209,7 @@ function Navbar() {
    
     </div> 
     {/* <Paper  className={classes.navegation}> */}
-         
+    <NavBarMati guest={props.guest} setGuest={props.setGuest}/>
     <div className={classes.navegation}> 
   {!log&&
   <NoUser/>

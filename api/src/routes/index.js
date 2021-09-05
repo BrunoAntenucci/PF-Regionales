@@ -8,6 +8,7 @@ const shipInfo = require("./shipInfo");
 const categoryRouter = require('./CategoryRoute');
 const productRouter = require('./ProductRoute');
 const storeRouter = require("./storeRoute.js");
+const googleAuthenticate = require("./googleAuthenticate")
 const paginadoProductRouter = require("./paginadoProducts")
 const cartOld = require("./cart");
 const cart = require("./cart2");
@@ -27,8 +28,8 @@ router.use("/", productRouter);
 router.use("/", paginadoProductRouter)
 router.use("/store", storeRouter);
 router.use("/cart", cart);
+router.use("/google", googleAuthenticate)
 router.use("/cartOld", cartOld);
-
 
 router.get("/", (req, res, next) => {
     console.log(req)
