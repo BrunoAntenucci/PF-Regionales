@@ -168,7 +168,7 @@ function Navbar() {
         <select name="categories" className={classes.select}
           onChange={handleChange}
         >
-          <option className={classes.options} selected="selected" >
+          <option className={classes.options} value="selected" >
                Todas
                 </option >
           {
