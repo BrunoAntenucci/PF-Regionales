@@ -12,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import NavBarMati from './NavBarMati';
 
 import { Button, ButtonGroup } from '@material-ui/core';
 import iconUser from '../img/icon-user.png'
@@ -149,25 +150,8 @@ function Navbar(props) {
           <MenuItem value={"Indumentaria"}>Indumentaria</MenuItem>
           <MenuItem value={"Tecnología"}>Tecnología</MenuItem>
           <MenuItem value={"Muebles"}>Muebles</MenuItem> */}
-<<<<<<< HEAD
         </Select>
       </FormControl>
-=======
-        </select >
-        </div>
-         <Paper  className={classes.paper}>
-       <div>
-      
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        size="small" 
-        indicatorColor="secondary"
-        textColor="secondary"
-        centered
-      >
-     
->>>>>>> 17d4dcfa3d6ff20f0fdfb5369f04d2494cf97164
         <Tab label="historial" size="small"  className={classes.tabs} color="secondary"/>
         <Tab label="ofertas" size="small"  className={classes.tabs} color="secondary"/>
    
