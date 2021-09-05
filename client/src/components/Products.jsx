@@ -105,10 +105,10 @@ function Products() {
                 alignItems="flex-start"
                 className={classes.products}>
             {
-                currentProd.length > 0 ? currentProd.map(p => {
+
                     return (
                         
-                        <Fragment>
+                        <Fragment >
                             
                              
                                
@@ -119,36 +119,9 @@ function Products() {
                                                 <Card                    
                                                     name= {p?.name}
                                                     price={p?.price}
-                                                    category={p?.category.map(e => {
+                                                    category={p?.category.map((e,i) => {
                                                         const aux = categories.find(i => i._id === e)
-                                                        return <p>{aux?.name}</p>
-                                                    })}
-                                                    image={p?.image }
-                                                    />
-                                        </Link>
-                                    </Grid>
-                                
-                            
-                        </Fragment>
-                    )
-                })
-                : allProducts.length > 0 ? allProducts.map(p => {
-                    return (
-                        
-                        <Fragment>
-                            
-                             
-                               
-                                    <Grid item xs={4}>     
-                                        <Link to={'/detail/' + p?._id}
-                                        style={{textDecoration:"none"}}>
-                                            <h3>{p.id}</h3>
-                                                <Card                    
-                                                    name= {p?.name}
-                                                    price={p?.price}
-                                                    category={p?.category.map(e => {
-                                                        const aux = categories.find(i => i._id === e)
-                                                        return <p>{aux?.name}</p>
+                                                        return <p key={i}>{aux?.name}</p>
                                                     })}
                                                     image={p?.image }
                                                     />

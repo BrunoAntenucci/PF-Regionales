@@ -168,12 +168,12 @@ function Navbar() {
         <select name="categories" className={classes.select}
           onChange={handleChange}
         >
-          <option className={classes.options} selected="selected" >
+          <option className={classes.options} value="selected" >
                Todas
                 </option >
           {
             categ?.map(
-              c => <option className={classes.options} value={c.name} className={classes.tabs} key={c.id}>
+              (c,i) => <option className={classes.options} value={c.name} className={classes.tabs} key={i}>
                 {c.name}
                 </option >
               )}
