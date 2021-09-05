@@ -13,7 +13,9 @@ function rootReducer(state = initialState, action) {
         case 'GET_PRODUCTS':
             return {
                 ...state,
-                products: action.payload
+                products: action.payload,
+                page: 1
+                
               }
         case 'GET_PRODUCTS_BY_NAME':
             return {

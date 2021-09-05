@@ -26,7 +26,7 @@ function Card({name, category, price, image}) {
             className={classes.media}
             image={image}
             name={name}
-            alt={name}
+            title={name}
           />
           <CardContent>
             {/* <Typography gutterBottom variant="h5" component="h2">
@@ -36,7 +36,7 @@ function Card({name, category, price, image}) {
            $ {price}
             </Typography>
             <Typography variant="body1" color="textSecondary" component="p">
-            {/* {category} */}
+            {category}
             </Typography>
           </CardContent>
         </CardActionArea>

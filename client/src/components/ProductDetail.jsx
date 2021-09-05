@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         boxShadow:" 10px 5px 5px #0002",
       borderRadius:"10px",
       width: "fit-content",
-      margin:"220px auto",
+      margin:"30px auto",
       padding:"20px",
       background:"#eee",
     },
@@ -56,6 +56,17 @@ const useStyles = makeStyles((theme) => ({
         fontSize:"36px",
         color:"black",
         fontFamily:"roboto"
+    },
+    buttonBack:{
+        background:"#fff",
+        padding:"10px",
+        color:"#555",
+        fontFamily:"tahoma",
+        fontWeight:"700",
+        borderRadius:"10px",
+        margin:"2px 40px",
+        cursor:"pointer",
+        border:"1px solid" +theme.palette.secondary.light
     }
   }));
 
@@ -108,6 +119,9 @@ function ProductDetail(props) {
                 <img src={p?.image?p.image:market} className={classes.image} alt="producto"/>
                
                         </div>
+                        <button type='submit'
+                        className={classes.buttonBack}
+                         onClick={(e) => handleClick(e)}>Volver</button> 
                          </div>     
                          <div className={classes.contentRight}>     
                              <div className={classes.info}>  
@@ -136,7 +150,7 @@ function ProductDetail(props) {
                                     <h3 className={classes.paper}>{p.description}</h3>
                             </div>
                             </div>
-<button type='submit' onClick={(e) => handleClick(e)}>Volver</button>  
+ 
 
                         </div>
                     )

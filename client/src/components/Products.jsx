@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, page } from '../actions/index';
+import { getProducts, page, getCategories } from '../actions/index';
 import Card from './Card';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Paginate from './Paginate';
+import Header from './Header';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -56,6 +57,7 @@ function Products() {
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products);
     const pageN = useSelector((state) => state.page);
+    const categories = useSelector((state) => state.categories)
 
     const [render, setRender] = useState('');
     const [prodPerPage] = useState(9);
@@ -72,12 +74,18 @@ function Products() {
         dispatch(getProducts());
         document.title = "E-Market"
     }, [dispatch])
+
+    useEffect(() => {
+        dispatch(getCategories());
+        
+    }, [dispatch])
     
   
     const classes = useStyles();
     
     return (
         <div className={classes.root}>
+            <Header />
                {/* <aside className={classes.aside}>
                     <div></div>
                 </aside> */}
@@ -97,10 +105,10 @@ function Products() {
                 alignItems="flex-start"
                 className={classes.products}>
             {
-                currentProd?.map((p,i) => {
+
                     return (
                         
-                        <Fragment key={i}>
+                        <Fragment >
                             
                              
                                
@@ -111,7 +119,10 @@ function Products() {
                                                 <Card                    
                                                     name= {p?.name}
                                                     price={p?.price}
-                                                    category={p?.category?.name}
+                                                    category={p?.category.map((e,i) => {
+                                                        const aux = categories.find(i => i._id === e)
+                                                        return <p key={i}>{aux?.name}</p>
+                                                    })}
                                                     image={p?.image }
                                                     />
                                         </Link>
@@ -121,6 +132,7 @@ function Products() {
                         </Fragment>
                     )
                 })
+                : <p>No existen productos bajo esa descripcion</p>
             }
             </Grid>
             

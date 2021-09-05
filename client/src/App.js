@@ -50,7 +50,7 @@ function App() {
     
     <BrowserRouter>
     <ThemeProvider theme={theme}>
-    <Header />
+    {/* <Header /> */}
       <Switch>
         <Route exact path = "/" component = {Products} />
         <Route exact path = "/creation" component = {ProductCreation} />
