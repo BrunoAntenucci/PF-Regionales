@@ -48,9 +48,11 @@ function Navbar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(name){
     dispatch(getProductsByName(name));
     //history.push("/products");
-    setName('');    
+    setName('');   
+    }
   }
 
 
