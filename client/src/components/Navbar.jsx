@@ -173,7 +173,7 @@ function Navbar() {
                 </option >
           {
             categ?.map(
-              c => <option className={classes.options} value={c.name} className={classes.tabs} key={c.id}>
+              (c,i) => <option className={classes.options} value={c.name} className={classes.tabs} key={i}>
                 {c.name}
                 </option >
               )}
