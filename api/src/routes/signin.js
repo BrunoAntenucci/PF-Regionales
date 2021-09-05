@@ -9,6 +9,7 @@ router.get("/", (req, res, next) => {
     } else {
         return res.json(false)
     }
+    // res.send("GET DE SINGIN")
 })
 
 router.post("/", passport.authenticate("local-signin", {

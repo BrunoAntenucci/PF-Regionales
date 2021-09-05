@@ -6,9 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getCategories } from '../actions';
-import NavBarMati from "../components/NavBarMati";
-
-
+import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -106,15 +104,12 @@ const useStyles = makeStyles(theme => ({
   },
   
 }));
-
-
-
-
 function Navbar(props) {
 
+
   const dispatch = useDispatch();
-    const categ = useSelector((state) => state.categories);
-    const classes = useStyles();
+  const categ = useSelector((state) => state.categories);
+  const classes = useStyles();
 
   const [value, setValue] = React.useState(0);
   const [log,setLog] = React.useState(false)
@@ -139,12 +134,12 @@ function Navbar(props) {
   const NoUser = () => {
     return (
       <>
-<Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
-  crear cuenta
+  <Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
+    <Link to='/signup'>crear cuenta</Link>
   </Button>
   <Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
-    ingresá
-    </Button>
+    <Link to='/signin'>ingresá</Link>  
+  </Button>
     </>)
     
     
@@ -152,21 +147,45 @@ function Navbar(props) {
   const User = () => {
     return (
       <>
- <img src={iconUser} onClick={handleOnClickLogSign} className={classes.iconuser}/>
-<Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
-  Usuario
+  <img src={iconUser} onClick={handleOnClickLogSign} className={classes.iconuser}/>
+  <Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
+    Usuario
   </Button>
- <Button  size="small"  className={classes.buttons}>
-  favoritos
+  <Button  size="small"  className={classes.buttons}>
+    Favoritos
   </Button>
-    </>)
-  }
+  <Button  size="small"  className={classes.buttons}>
+    Cerrar Sesión 
+  </Button>
+      </>)
+    }
     return (
+
+      <div className={classes.root} color="primary"> 
+        
+
+       <Paper  className={classes.paper}>
+       <div>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          size="small" 
+          indicatorColor="secondary"
+          textColor="secondary"
+          centered
+        >
+        <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label">Categorías</InputLabel>
+        <Select size="small" 
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+
       <div className={classes.root} color="primary">
         <div className={classes.divLeft}>
         <div className={classes.divSelect}>
         <label htmlFor="categories" className={classes.label}>Categorías</label>
         <select name="categories" className={classes.select}
+
           onChange={handleChange}
         >
           <option className={classes.options} value="selected" >
@@ -211,14 +230,14 @@ function Navbar(props) {
     {/* <Paper  className={classes.navegation}> */}
     <NavBarMati guest={props.guest} setGuest={props.setGuest}/>
     <div className={classes.navegation}> 
-  {!log&&
-  <NoUser/>
-  }
-  {log&&
-  <User/>
-  }
-  <Button  size="small"  className={classes.buttons}>mis compras</Button>
-</div>
+      {!log&&
+      <NoUser/>
+      }
+      {/* {log&&
+      <User/>
+      } */}
+    <Button  size="small"  className={classes.buttons}>mis compras</Button>
+    </div>
 
         {/* </Paper> */}
     </div>
