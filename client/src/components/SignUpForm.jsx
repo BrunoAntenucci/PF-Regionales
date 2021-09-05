@@ -187,7 +187,7 @@ const SignUpForm = () => {
                 required
                 fullWidth
                 id="lastName"
-                onChange={e => handleFirstName(e)}
+                onChange={e => handleLastName(e)}
                 label="Last Name"
                 name="last_name"
                 autoComplete="lname"
