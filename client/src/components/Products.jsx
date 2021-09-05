@@ -70,6 +70,7 @@ function Products() {
     
     useEffect(() => {
         dispatch(getProducts());
+        document.title = "E-Market"
     }, [dispatch])
     
   

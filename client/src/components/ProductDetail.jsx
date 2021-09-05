@@ -63,6 +63,7 @@ function ProductDetail(props) {
 
     const classes = useStyles();
     const history = useHistory();
+    const detail = useSelector((state) => state.prodDetail);
 
     function handleClick(e) {
         e.preventDefault();
@@ -74,7 +75,16 @@ function ProductDetail(props) {
 
     useEffect(() => {
         dispatch(getCategories());
+        
     }, [dispatch])
+    useEffect(() => {
+        var product =   detail?.product?.find( e => e)
+        document.title = product?.name
+        return(()=>{
+            document.title = "E-Market"
+            
+        })
+    }, [detail?.product])
 
     const categories = useSelector((state) => state.categories)
     
@@ -82,7 +92,7 @@ function ProductDetail(props) {
         dispatch(getProductDetail(props.match.params.id));
     },[dispatch, props.match.params.id]);
     
-    const detail = useSelector((state) => state.prodDetail);
+    //const detail = useSelector((state) => state.prodDetail);
     console.log(detail)
 
 
