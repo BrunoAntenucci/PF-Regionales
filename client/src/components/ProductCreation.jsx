@@ -52,6 +52,10 @@ export default function ProductCreation(){
             ...input,
             category: [...input.category, e.target.value]
         })
+        setErrors(validate({
+            ...input,
+            [e.target.name]: e.target.value,
+        }))
     } 
 
     function handleChange(e){
