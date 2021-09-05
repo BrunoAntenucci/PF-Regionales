@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, page } from '../actions/index';
+import { getProducts, page, getCategories } from '../actions/index';
 import Card from './Card';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -56,6 +56,7 @@ function Products() {
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products);
     const pageN = useSelector((state) => state.page);
+    const categories = useSelector((state) => state.categories)
 
     const [render, setRender] = useState('');
     const [prodPerPage] = useState(9);
@@ -71,6 +72,11 @@ function Products() {
     useEffect(() => {
         dispatch(getProducts());
         document.title = "E-Market"
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(getCategories());
+        
     }, [dispatch])
     
   
@@ -97,7 +103,7 @@ function Products() {
                 alignItems="flex-start"
                 className={classes.products}>
             {
-                currentProd?.map(p => {
+                currentProd.length > 0 ? currentProd.map(p => {
                     return (
                         
                         <Fragment>
@@ -111,7 +117,10 @@ function Products() {
                                                 <Card                    
                                                     name= {p?.name}
                                                     price={p?.price}
-                                                    category={p?.category?.name}
+                                                    category={p?.category.map(e => {
+                                                        const aux = categories.find(i => i._id === e)
+                                                        return <p>{aux?.name}</p>
+                                                    })}
                                                     image={p?.image }
                                                     />
                                         </Link>
@@ -121,6 +130,7 @@ function Products() {
                         </Fragment>
                     )
                 })
+                : <p>No existen productos bajo esa descripcion</p>
             }
             </Grid>
             
