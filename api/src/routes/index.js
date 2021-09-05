@@ -11,6 +11,8 @@ const storeRouter = require("./storeRoute.js");
 const paginadoProductRouter = require("./paginadoProducts")
 const cartOld = require("./cart");
 const cart = require("./cart2");
+//const Guest = require("../models/guest/guest");
+
 
 const router = Router();
 

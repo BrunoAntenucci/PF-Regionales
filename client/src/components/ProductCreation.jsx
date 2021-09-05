@@ -52,6 +52,10 @@ export default function ProductCreation(){
             ...input,
             category: [...input.category, e.target.value]
         })
+        setErrors(validate({
+            ...input,
+            [e.target.name]: e.target.value,
+        }))
     } 
 
     function handleChange(e){
@@ -67,28 +71,31 @@ export default function ProductCreation(){
         console.log(input)
     }
 
-    function handleSubmit(e){
-        if(!errors.name || !errors.description || !errors.price || !errors.category || !errors.quantity || !errors.image) {
-        e.preventDefault();   
-        dispatch(postProducts(input));
-        alert('Product created');     
+    function handleClose(e){
         setInput({
-            name: '',
-            description: '',
-            price: '',
-            category: [],
-            quantity: 0,
-            image: '',
+            ...input,
+            category: input.category.filter(cat => cat !== e)
         })
-        console.log(input)
-
-        //history.push('/')
-        }else{
-        e.preventDefault();
-        alert('Form incomplete');
-        }
     }
 
+    function handleSubmit(e){
+        if(!errors.name || !errors.description || !errors.price || !errors.category || !errors.quantity || !errors.image) {
+            e.preventDefault();
+            alert('Form incomplete');
+        }else{
+            e.preventDefault();   
+            dispatch(postProducts(input));
+            alert('Product created');     
+            setInput({
+                name: '',
+                description: '',
+                price: '',
+                category: [],
+                quantity: 0,
+                image: '',
+            })
+        }
+    }
 
     return(
         <div>
@@ -138,7 +145,7 @@ export default function ProductCreation(){
                                 )
                             }
                         </select>
-                        <ul>{input.category.map(e => <li>{e}</li>)}</ul>
+
                     </div>
                     <div>
                         <label>Cantidad</label>
@@ -167,6 +174,13 @@ export default function ProductCreation(){
                     </div>
                     <button type='submit'>Crear Producto</button>
                 </form>
+                        <ul>{input.category.map(e => {
+                            const aux = categories.find(i => i._id === e)
+                            return <div>
+                                        <p>{aux.name}</p>
+                                        <button onClick={() => handleClose(e)}>X</button>
+                                   </div>
+                        })}</ul>
                 <Link to='/'>
                     <button>Volver</button>
                 </Link>

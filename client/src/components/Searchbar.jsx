@@ -48,9 +48,11 @@ function Navbar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //history.push("/products");
+    if(name){
     dispatch(getProductsByName(name));
-    setName('');    
+    //history.push("/products");
+    setName('');   
+    }
   }
 
 
@@ -67,11 +69,11 @@ function Navbar() {
             type="submit" 
             className={classes.iconButton} 
             aria-label="search"
-            
+            onClick = {(e) => handleSubmit(e)}
             >
             <SearchIcon />
             </IconButton>        
-            <input type="submit" value="Send Request" onClick = {(e) => handleSubmit(e)}></input>
+          
       </Paper>
     )
 }

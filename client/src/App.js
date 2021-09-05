@@ -14,7 +14,7 @@ import Header from "./components/Header";
 const theme = createTheme({
     palette: {
       primary: {
-        light: '#d0ebc1',
+        light: '#d0ebc155',
         main: '#BAD799',
         dark: '#798f60',
         contrastText: '#fff',
@@ -50,9 +50,9 @@ function App() {
     
     <BrowserRouter>
     <ThemeProvider theme={theme}>
-    <Header />
+    {/* <Header /> */}
       <Switch>
-        <Route exact path = "/" component = {Home} />
+        <Route exact path = "/" component = {Products} />
         <Route exact path = "/creation" component = {ProductCreation} />
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />

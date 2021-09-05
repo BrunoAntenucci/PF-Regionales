@@ -3,9 +3,9 @@ import axios from 'react'
 const initialState = {
     products : [],
     categories: [],
-    user: {},
-    categories: [],
     prodDetail: [],
+    page: 1,
+    user: {},
 }
 
 function rootReducer(state = initialState, action) {
@@ -13,7 +13,9 @@ function rootReducer(state = initialState, action) {
         case 'GET_PRODUCTS':
             return {
                 ...state,
-                products: action.payload
+                products: action.payload,
+                page: 1
+                
               }
         case 'GET_PRODUCTS_BY_NAME':
             return {
@@ -49,7 +51,12 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 prodDetail: action.payload
             }
-        default: return state;
+        case 'PAGE': 
+            return {
+                ...state,
+                page: action.payload
+            }
+         default: return state;
         }
 }
 

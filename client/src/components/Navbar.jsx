@@ -52,7 +52,10 @@ const useStyles = makeStyles(theme => ({
     minWidth: 120,
   
   },
-
+  divLeft:{
+    display:"flex",
+    flexDirection:"row"
+  },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },iconuser:{
@@ -62,7 +65,45 @@ const useStyles = makeStyles(theme => ({
     borderRadius:"50%",
     color:"white",
     border:"2px solid black"
-  }
+  },
+  divSelect:{
+    display:"flex",
+    flexDirection:"column",
+    margin:"0 8px",
+    background:"#fff",
+    borderRight:"3px solid"+theme.palette.primary.main,
+    borderLeft:"3px solid"+theme.palette.primary.main,
+  },
+  select:{
+    color:"#959595",
+    border:"none",
+    background:"#eeeeeeee",
+    
+    width:"150px",
+    height:"2em",
+    fontSize:"1.1em",
+    textAlign:"center",
+    borderTop:"3px solid #fff",
+   
+    
+    outline:"none",
+    '&:active': {
+      background: "#cecece",
+   },
+   '&:focus': {
+    //borderTop:"2px solid"+theme.palette.secondary.main,
+ },
+  },
+  label:{
+    color:"#959595",
+    fontSize:"0.8em",
+    textAlign:"center",
+    letterSpacing:".5px",
+    
+    background:"#ffffff"
+    
+  },
+  
 }));
 
 
@@ -120,11 +161,31 @@ function Navbar() {
     </>)
   }
     return (
-      <div className={classes.root} color="primary"> 
-        
-
+      <div className={classes.root} color="primary">
+        <div className={classes.divLeft}>
+        <div className={classes.divSelect}>
+        <label htmlFor="categories" className={classes.label}>Categorías</label>
+        <select name="categories" className={classes.select}
+          onChange={handleChange}
+        >
+          <option className={classes.options} value="selected" >
+               Todas
+                </option >
+          {
+            categ?.map(
+              (c,i) => <option className={classes.options} value={c.name} className={classes.tabs} key={i}>
+                {c.name}
+                </option >
+              )}
+          {/* <MenuItem value={"Todo"}>Todo</MenuItem>
+          <MenuItem value={"Indumentaria"}>Indumentaria</MenuItem>
+          <MenuItem value={"Tecnología"}>Tecnología</MenuItem>
+          <MenuItem value={"Muebles"}>Muebles</MenuItem> */}
+        </select >
+        </div>
          <Paper  className={classes.paper}>
        <div>
+      
       <Tabs
         value={value}
         onChange={handleChange}
@@ -133,33 +194,19 @@ function Navbar() {
         textColor="secondary"
         centered
       >
-        <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Categorías</InputLabel>
-        <Select size="small" 
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          onChange={handleChange}
-        >
-          {
-            categ?.map(
-              c => <MenuItem value={c.name} className={classes.tabs} key={c.id}>
-                {c.name}
-                </MenuItem>
-              )}
-          {/* <MenuItem value={"Todo"}>Todo</MenuItem>
-          <MenuItem value={"Indumentaria"}>Indumentaria</MenuItem>
-          <MenuItem value={"Tecnología"}>Tecnología</MenuItem>
-          <MenuItem value={"Muebles"}>Muebles</MenuItem> */}
-        </Select>
-      </FormControl>
+        
+     
         <Tab label="historial" size="small"  className={classes.tabs} color="secondary"/>
         <Tab label="ofertas" size="small"  className={classes.tabs} color="secondary"/>
    
         {/* <Tab label="Item Three" /> */}
         
       </Tabs>
-      </div>
+    
+      </div> 
     </Paper>
+   
+    </div> 
     {/* <Paper  className={classes.navegation}> */}
          
     <div className={classes.navegation}> 
