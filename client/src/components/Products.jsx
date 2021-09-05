@@ -18,15 +18,17 @@ const useStyles = makeStyles((theme) => ({
     },
     font: {
         marginLeft: '10px',
-        padding: "2px 20px",
-        marginTop: '10px',
-        marginBottom: '30px',
+        padding: "10px 20px",
+        //marginTop: '10px',
+        marginBottom: '0px',
         textAlign:"center",
+        color:theme.palette.primary.dark,
         borderLeft:"3px solid "+theme.palette.secondary.dark,
         borderRight:"3px solid "+theme.palette.secondary.dark,
         //borderBottom:"6px solid "+theme.palette.secondary.dark,
-        borderRadius:"25px",
-        background:"#eee"
+        borderRadius:"2px",
+        background: "rgb(83,83,83)",
+background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+theme.palette.primary.light+" 76%, "+theme.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
     },
     aside:{
         maxHeight:"500px",
@@ -43,6 +45,10 @@ const useStyles = makeStyles((theme) => ({
     },
     products:{
         background:"#eee",
+    },
+    cpaginate:{
+        margin: "20px auto",
+        width:"max-content"
     }
   }));
 
@@ -59,13 +65,14 @@ function Products() {
 
     const paginate = (pageNumber) => {
         dispatch(page(pageNumber));
+        window.scroll(0, 0)//UX
     }
     
     useEffect(() => {
         dispatch(getProducts());
     }, [dispatch])
-    console.log(allProducts)
     
+  
     const classes = useStyles();
     
     return (
@@ -78,8 +85,8 @@ function Products() {
                 <Typography 
 
                 variant="h4"
-                 gutterBottom="true" 
-                 ml={1} color="secondary">
+                 
+                 ml={1} >
                     Lista de Productos
                 </Typography>
             </div>
@@ -91,6 +98,7 @@ function Products() {
             {
                 currentProd?.map(p => {
                     return (
+                        
                         <Fragment>
                             
                              
@@ -114,13 +122,18 @@ function Products() {
                 })
             }
             </Grid>
-            </section>
-            <Paginate
+            
+           <div className={classes.cpaginate}>
+            <Paginate 
                     prodPerPage = {prodPerPage}
                     allProducts = {allProducts?.length}
                     paginate = {paginate}
+                    pageN = {pageN}
                 />
+                </div>
+                 </section>
         </div>
+        
     )
 }
 
