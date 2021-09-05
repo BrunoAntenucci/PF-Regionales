@@ -1,5 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 const User = require("../models/user/user");
 const Guest = require("../models/guest/guest");
 
@@ -62,3 +63,30 @@ passport.use('local-signin', new LocalStrategy({ //Comprobar si el usuario exist
     }
     done(null, user);
 }))
+
+
+
+passport.use(new GoogleStrategy({
+    clientID: "877213886996-6eh2aq2fkencrbht8io13oq13vuprkj3.apps.googleusercontent.com",
+    clientSecret: "t5-OeEbjLYkZ8bUIvoPhvnzp",
+    callbackURL: "http://localhost:3001/google/callback",
+    passReqToCallback: true
+  },
+  async(req, accessToken, refreshToken, profile, done) => {
+    const user = await User.findOne(
+        {email: profile.email}
+    )
+    if (user) {
+        return done(null, user);
+    } else {
+        const newUser = new User({})
+        newUser.first_name = profile.given_name;
+        newUser.last_name = profile.family_name;
+        newUser.email = profile.email;
+        newUser.password = newUser.encryptPassword(profile.id);
+        await newUser.save();
+        return done(null, newUser);
+    }
+
+  }
+));
