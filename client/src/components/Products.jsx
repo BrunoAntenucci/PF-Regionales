@@ -53,7 +53,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
     }
   }));
 
-function Products() {
+function Products(props) {
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products);
     const pageN = useSelector((state) => state.page);
@@ -85,7 +85,7 @@ function Products() {
     
     return (
         <div className={classes.root}>
-            <Header />
+            <Header guest={props.guest} setGuest={props.setGuest}/>
                {/* <aside className={classes.aside}>
                     <div></div>
                 </aside> */}
