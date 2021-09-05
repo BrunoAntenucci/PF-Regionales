@@ -76,12 +76,12 @@ function App() {
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
         <Route exact path = "/products" component = {Products} />
-        <Route exact path="/signupMati">
+        {/* <Route exact path="/signupMati">
           <SignUpFormMati />
         </Route>
         <Route exact path="/signinMati">
           <SignInFormMati />
-        </Route>
+        </Route> */}
         <Route path="/detail/:id" component={ProductDetail} /> 
       </Switch>
       </ThemeProvider>
