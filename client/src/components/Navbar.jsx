@@ -95,10 +95,10 @@ function Navbar(props) {
     return (
       <>
   <Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
-    <Link to='/signup'>crear cuenta</Link>
+    <Link style={{textDecoration:"none" , color:"white"}} to='/signup' >crear cuenta</Link>
   </Button>
   <Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
-    <Link to='/signin'>ingresá</Link>  
+    <Link style={{textDecoration:"none", color:"white"}} to='/signin' >ingresá</Link>  
   </Button>
     </>)
     
@@ -162,7 +162,9 @@ function Navbar(props) {
       </div>
     </Paper>
     {/* <Paper  className={classes.navegation}> */}
-    <NavBarMati guest={props.guest} setGuest={props.setGuest}/>
+
+    {/* comentado de momento, perdón mati */}
+    {/* <NavBarMati guest={props.guest} setGuest={props.setGuest}/> */}
     <div className={classes.navegation}> 
       {!log&&
       <NoUser/>
