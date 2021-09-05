@@ -98,7 +98,7 @@ export default function ProductCreation(){
     }
 
     return(
-        <div>
+        <div >
             <h1>Crear Un Nuevo Producto</h1>
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div>
@@ -138,13 +138,16 @@ export default function ProductCreation(){
                         )}
                     </div>
                     <div>
-                        <select onChange={handleCategories}>
+                        <select onChange={handleCategories} required>
                             {
                                 categories.map((e) => 
                                 <option value={e._id}>{e.name}</option>
                                 )
                             }
                         </select>
+                        {errors.category && (
+                            <p>{errors.category}</p>
+                        )}
 
                     </div>
                     <div>
@@ -174,13 +177,15 @@ export default function ProductCreation(){
                     </div>
                     <button type='submit'>Crear Producto</button>
                 </form>
-                        <ul>{input.category.map(e => {
+                           
+                        <ul >{input.category.map(e => {
                             const aux = categories.find(i => i._id === e)
-                            return <div>
+                            return <div style={{display:'flex', flexDirection:'row'}}>
                                         <p>{aux.name}</p>
-                                        <button onClick={() => handleClose(e)}>X</button>
+                                        <button onClick={() => handleClose(e)}>x</button>
                                    </div>
                         })}</ul>
+                       
                 <Link to='/'>
                     <button>Volver</button>
                 </Link>
