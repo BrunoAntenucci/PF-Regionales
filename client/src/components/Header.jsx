@@ -6,7 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Searchbar from './Searchbar';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
-import imgLogo from '../img/market.png'
+import imgLogo from '../img/market.png';
+import { useDispatch } from 'react-redux';
+import { getProducts } from '../actions';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -41,20 +43,33 @@ const useStyles = makeStyles((theme) => ({
   },
   logo:{
     backgroundImage:`url (${imgLogo})`,
-    width:"60px",
-    height:"60px",
+    width:"75px",
+    height:"75px",
     position: "relative",
     backgroundSize:"cover",
     margin:"2px",
     textDecoration: "none",
     color:"white"
+  },
+  buttonLogo:{
+    background:"#0000",
+    border: "none"
+
   }
  
 }));
 
 
+
+
 function Header() {
+  const dispatch = useDispatch();
         const classes = useStyles();
+
+        const handleClick = (e) => {
+          e.preventDefault();
+          dispatch(getProducts());
+        }
 
         return (
           <div className={classes.root} >
@@ -62,13 +77,15 @@ function Header() {
               <Toolbar className={classes.toolbar}  >
               
                 <div className={classes.searchAndLogo}>
-                
-                <Link to="/">
-                <img src={imgLogo}   className={classes.logo} alt="logo"/></Link>
+                <button className={classes.buttonLogo}
+                onClick={(e) => handleClick(e)}>
+                  <Link to = '/products'><img src={imgLogo}   className={classes.logo} alt="logo"/></Link></button>
+                {/* <Link to="/products">
+                <img src={imgLogo}   className={classes.logo} alt="logo"/></Link> */}
                 
                 <Searchbar className={classes.searchbar} />   
-                <Link to="/">
-                <img src={imgLogo}   className={classes.logo} alt="logo"/></Link>
+                <Link to="/products">
+                <img src={imgLogo}   className={classes.logo} style={{display:"none"}} alt="logo"/></Link>
                 {/*este div sirve para lograr el centrado del search sin margin*/ }
                 </div>
                 

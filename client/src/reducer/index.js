@@ -1,9 +1,12 @@
+import axios from 'react'
+
 const initialState = {
     products : [],
-    user: {},
     categories: [],
     prodDetail: [],
-    log: false
+    log: false,
+    page: 1,
+    user: {},
 
 }
 
@@ -12,20 +15,19 @@ function rootReducer(state = initialState, action) {
         case 'GET_PRODUCTS':
             return {
                 ...state,
-                products: action.payload
+                products: action.payload,
+                page: 1
                 
-            }
-        
-        case 'GET_CATEGORIES':
-            return {
-                ...state,
-                categories: action.payload
-        }
-        
+              }
         case 'GET_PRODUCTS_BY_NAME':
             return {
                 ...state,
                 products: action.payload
+            }
+        case 'GET_CATEGORIES':
+            return {
+                ...state,
+                categories: action.payload
             }
 
         case 'SIGNUP':
@@ -46,19 +48,32 @@ function rootReducer(state = initialState, action) {
         case 'GET_USER':
             return {
                 ...state,
-                log: true
+                log: true,
+              user:{}
             }
+
+
+        case 'POST_PRODUCT':            
+                return {
+                    ...state,
+            }
+        
+               
+       
+       
 
         case 'GET_PRODUCT_DETAIL':
             return {
                 ...state,
                 prodDetail: action.payload
             }
-        default: return state;
-
+        case 'PAGE': 
+            return {
+                ...state,
+                page: action.payload
+            }
+         default: return state;
         }
-    }
-
-
+}
 
 export default rootReducer;

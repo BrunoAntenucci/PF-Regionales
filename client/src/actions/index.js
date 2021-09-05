@@ -48,6 +48,7 @@ export function signUp(firstname, lastname, email, password) {
       }
     };
 }
+
 export const loginUser = (email, password) => {
 	return async function (dispatch){
         try{
@@ -72,19 +73,20 @@ export const loginUser = (email, password) => {
         }
 	};
 };
+
 export function isUser() {
     return async function (dispatch){
         const response = await axios.get("http://localhost:3001/signin");
         // await dispatch({type: 'GET_USER', payload: response.data})
     }
 };       
+
 export function logOut() {
     return async function (dispatch){
         const response = await axios.get("http://localhost:3001/logout");
         dispatch({type: 'LOG_OUT', payload: response.data})
     }
 }
-
 
 export function getCategories() {
     return async function (dispatch) {
@@ -100,6 +102,19 @@ export function getCategories() {
     }
 }
 
+export function postProducts(payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.post('http://localhost:3001/product', payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
 export function getProductDetail(id) {
     return async function(dispatch) {
         try {
@@ -112,5 +127,12 @@ export function getProductDetail(id) {
         } catch (error) {
             console.log(error)
         }
+    }
+}
+
+export function page (payload) {
+    return {
+        type: 'PAGE',
+        payload
     }
 }

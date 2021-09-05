@@ -27,4 +27,15 @@ router.get('/product/page/:page', (req, res, next) => {
   });
 
 
+//  router.get("/product", async(req,res)=>{
+//   const options={
+//     limit:5,
+//     page:1,
+//     populate: 'category'
+//   }
+//   const pag= await Product.paginate({}, options);
+//   res.json(pag);
+// })
+
+
   module.exports = router;

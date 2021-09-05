@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import './App.css';
 import Home from './components/Home';
+import ProductCreation from "./components/ProductCreation";
 import SignInForm from './components/SignInForm';
 import SignUpForm from './components/SignUpForm'
 import './App.css';
@@ -13,7 +14,7 @@ import Header from "./components/Header";
 const theme = createTheme({
     palette: {
       primary: {
-        light: '#d0ebc1',
+        light: '#d0ebc155',
         main: '#BAD799',
         dark: '#798f60',
         contrastText: '#fff',
@@ -49,15 +50,14 @@ function App() {
     
     <BrowserRouter>
     <ThemeProvider theme={theme}>
-    <Header />
+    {/* <Header /> */}
       <Switch>
-        <Route exact path = "/" component = {Home} />
-
+        <Route exact path = "/" component = {Products} />
+        <Route exact path = "/creation" component = {ProductCreation} />
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
         <Route exact path = "/products" component = {Products} />
         <Route path="/detail/:id" component={ProductDetail} /> 
-
       </Switch>
       </ThemeProvider>
     </BrowserRouter>

@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const Category = require('../models/Category')
+const Product = require('../models/Product')
 
 router.post("/create", async (req, res) => {
     const {name} = req.body;
@@ -14,6 +15,13 @@ router.post("/create", async (req, res) => {
 router.get('/', async (req, res) => {
     let data = await Category.find({});
     res.json(data)
+
+    //Category.find({}, (err, category) => {
+    //    Product.aggregate(category, { path: "Products" }, (err, category) => {
+    //      res.status(200).send(category);
+    //    });
+    //  });
+    
 })
 
 router.get('/:name', async (req, res) => {
@@ -28,5 +36,29 @@ router.delete('/delete', async (req, res) => {
     await Category.deleteOne({ name:name })
     res.json({ msg: 'Category eliminated'})
 })
+
+router.get("/:id",  (req, res) => { 
+    const {id} = req.params; 
+
+      Category.find({ _id: id }, (err, category) => {
+        if (err) {
+            return res.json({msj: 'Category missing!'});
+        } else {
+            return res.json({category});
+        }
+    })
+
+});
+
+router.put("/:id", async (req, res) => {
+    try {
+        const {id} = req.params;
+        await Category.findByIdAndUpdate({ _id: id },{ ...req.body });
+        res.send("Category updated!");
+    } catch (err) {
+        console.log("Error: " + err);
+    }
+
+});
 
 module.exports = router;
