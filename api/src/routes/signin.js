@@ -4,7 +4,11 @@ const passport = require("passport");
 const router = Router();
 
 router.get("/", (req, res, next) => {
-    res.send("GET DE SINGIN")
+    if (req.user) {
+        return res.json(req.user)
+    } else {
+        return res.json(false)
+    }
 })
 
 router.post("/", passport.authenticate("local-signin", {

@@ -9,8 +9,8 @@ const categoryRouter = require('./CategoryRoute');
 const productRouter = require('./ProductRoute');
 const storeRouter = require("./storeRoute.js");
 const paginadoProductRouter = require("./paginadoProducts")
-const cart = require("./cart");
-const Guest = require("../models/guest/guest");
+const cartOld = require("./cart");
+const cart = require("./cart2");
 
 const router = Router();
 
@@ -25,6 +25,7 @@ router.use("/", productRouter);
 router.use("/", paginadoProductRouter)
 router.use("/store", storeRouter);
 router.use("/cart", cart);
+router.use("/cartOld", cartOld);
 
 
 router.get("/", (req, res, next) => {

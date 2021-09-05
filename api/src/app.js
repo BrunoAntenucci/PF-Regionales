@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const routes = require("./routes/index");
 const passport = require("passport")
 const session = require("express-session");
-const flash = require("connect-flash")
+const flash = require("connect-flash");
 require("./passport/local-auth");
 
 const server = express();
