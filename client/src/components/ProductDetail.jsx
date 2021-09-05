@@ -99,10 +99,10 @@ function ProductDetail(props) {
     return (
         <div className={classes.root}>
             {
-                detail.product?.map(p => {
+                detail.product?.map((p,i) => {
                     return (
 
-                        <div className={classes.content}>
+                        <div className={classes.content} key={i}>
                         <div className={classes.contentLeft}>       
                     <div className={classes.imageDiv}>                       
                 <img src={p?.image?p.image:market} className={classes.image} alt="producto"/>
@@ -128,9 +128,9 @@ function ProductDetail(props) {
                             </div>
                             <div className={classes.info}>
                             <h3 className={classes.paper}>Categoria: 
-                              <ul className={classes.paper} >{p.category.map(e => {
+                              <ul className={classes.paper} >{p.category.map((e,i) => {
                                             const aux = categories.find(i => i._id === e)
-                                            return <p>{aux.name}</p>
+                                            return <p key={i}>{aux.name}</p>
                                         })}</ul>
                               </h3>
                                     <h3 className={classes.paper}>{p.description}</h3>
