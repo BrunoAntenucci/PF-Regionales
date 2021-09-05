@@ -136,3 +136,51 @@ export function page (payload) {
         payload
     }
 }
+
+export function logOutMati() {
+    return function(dispatch) {
+        return axios.get("http://localhost:3001/logout")
+            .then((result) => {
+                dispatch({
+                    type: "LOG_OUT_MATI",
+                    payload: result.data
+                })
+            })
+    }
+}
+
+export function signUpMati(userInfo) {
+    return function(dispatch) {
+        return axios.post("http://localhost:3001/signup", userInfo)
+            .then((result) => {
+                dispatch({
+                    type: "SIGN_UP_MATI",
+                    payload: result.data
+                })
+            })
+    }
+}
+
+export function signInMati(userInfo) {
+    return function(dispatch) {
+        return axios.post("http://localhost:3001/signin", userInfo)
+            .then((result) => {
+                dispatch({
+                    type: "SIGN_IN_MATI",
+                    payload: result.data
+                })
+            })
+    }
+}
+
+export function guestMati() {
+    return function(dispatch) {
+        return axios.get("http://localhost:3001/signin")
+            .then((result) => {
+                dispatch({
+                    type: "GUEST_CHECK",
+                    payload: result.data
+                })
+            })
+    }
+}

@@ -72,6 +72,20 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 page: action.payload
             }
+        case "LOG_OUT_MATI":
+            return {
+                ...state
+            }
+        case "SIGN_UP_MATI": 
+            return {
+                ...state
+            }
+        case "SIGN_IN_MATI": 
+            return {
+                ...state
+            }
+        case "GUEST_CHECK":
+            return action.payload
          default: return state;
         }
 }

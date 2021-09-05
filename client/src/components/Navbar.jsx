@@ -7,8 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getCategories } from '../actions';
 import { Link } from 'react-router-dom';
-
-
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -65,9 +63,8 @@ const useStyles = makeStyles(theme => ({
     border:"2px solid black"
   }
 }));
+function Navbar(props) {
 
-
-function Navbar() {
 
   const dispatch = useDispatch();
   const categ = useSelector((state) => state.categories);
@@ -152,18 +149,36 @@ function Navbar() {
           <MenuItem value={"Indumentaria"}>Indumentaria</MenuItem>
           <MenuItem value={"Tecnología"}>Tecnología</MenuItem>
           <MenuItem value={"Muebles"}>Muebles</MenuItem> */}
+<<<<<<< HEAD
         </Select>
       </FormControl>
+=======
+        </select >
+        </div>
+         <Paper  className={classes.paper}>
+       <div>
+      
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        size="small" 
+        indicatorColor="secondary"
+        textColor="secondary"
+        centered
+      >
+     
+>>>>>>> 17d4dcfa3d6ff20f0fdfb5369f04d2494cf97164
         <Tab label="historial" size="small"  className={classes.tabs} color="secondary"/>
         <Tab label="ofertas" size="small"  className={classes.tabs} color="secondary"/>
    
         {/* <Tab label="Item Three" /> */}
         
+        
       </Tabs>
       </div>
     </Paper>
     {/* <Paper  className={classes.navegation}> */}
-         
+    <NavBarMati guest={props.guest} setGuest={props.setGuest}/>
     <div className={classes.navegation}> 
       {!log&&
       <NoUser/>
