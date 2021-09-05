@@ -44,7 +44,7 @@ const SignUpForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(register.passMatch){
-            let response = await dispatch (signUp(register.email, register.password))
+            let response = await dispatch (signUp (register.email, register.password))
             if(response === "Account created"){
                 alert('The account is created successfully');
             }
@@ -72,7 +72,7 @@ const SignUpForm = () => {
             </form>
 
             <div>
-                <span>Do yo have account</span>
+                <span>Do yo have account? </span>
                 <Link to='/signin'>Sign In</Link>
             </div>
         </div>

@@ -2,7 +2,8 @@ const initialState = {
     products : [],
     user: {},
     categories: [],
-    prodDetail: []
+    prodDetail: [],
+    log: false
 
 }
 
@@ -27,22 +28,26 @@ function rootReducer(state = initialState, action) {
                 products: action.payload
             }
 
-            case 'SIGNUP':
-                return {
-                    ...state,
-                    user: action.payload,
-                };
-            case 'SIGNIN':
-                return{
-                    ...state, 
-                    user: action.payload
-                }   
-            case 'LOG_OUT':
-                return{
-                    ...state, 
-                    user:{}
-                }
- 
+        case 'SIGNUP':
+            return {
+                ...state,
+                user: action.payload,
+            };
+        case 'SIGNIN':
+            return{
+                ...state, 
+                user: action.payload
+            }   
+        case 'LOG_OUT':
+            return{
+                ...state, 
+                log: false
+            }
+        case 'GET_USER':
+            return {
+                ...state,
+                log: true
+            }
 
         case 'GET_PRODUCT_DETAIL':
             return {
