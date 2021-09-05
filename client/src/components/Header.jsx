@@ -63,11 +63,11 @@ function Header() {
               
                 <div className={classes.searchAndLogo}>
                 
-                <Link to="/">
+                <Link to="/products">
                 <img src={imgLogo}   className={classes.logo} alt="logo"/></Link>
                 
                 <Searchbar className={classes.searchbar} />   
-                <Link to="/">
+                <Link to="/products">
                 <img src={imgLogo}   className={classes.logo} style={{display:"none"}} alt="logo"/></Link>
                 {/*este div sirve para lograr el centrado del search sin margin*/ }
                 </div>

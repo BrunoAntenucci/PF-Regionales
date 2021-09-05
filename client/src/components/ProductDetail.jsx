@@ -6,7 +6,7 @@ import { getCategories, getProductDetail } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
+import market from '../img/market.png'
 const useStyles = makeStyles((theme) => ({
     root: {
         boxShadow:" 10px 5px 5px #0002",
@@ -95,7 +95,7 @@ function ProductDetail(props) {
                         <div className={classes.content}>
                         <div className={classes.contentLeft}>       
                     <div className={classes.imageDiv}>                       
-                <img src={p?.image} className={classes.image} alt="prod_img"/>
+                <img src={p?.image?p.image:market} className={classes.image} alt="producto"/>
                
                         </div>
                          </div>     
