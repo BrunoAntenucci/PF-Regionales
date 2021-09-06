@@ -91,6 +91,7 @@ React.useEffect(()=>{
             let response = await axios.post("http://localhost:3001/signin", input);
             let data = response.data
             if(data.done){
+                dispatch()
                 alert('Loggin succesfully')
             }
         }
