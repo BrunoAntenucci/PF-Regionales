@@ -37,18 +37,20 @@ const theme = createTheme({
         dark: '#000000',
         contrastText: '#000',
       },
-    //   error:{
-
-    //   },
+       error:{
+        light:"#fdd6",
+        main:"#722",
+        dark:"#311"
+      },
     //   warning:{
 
     //   },
     //   info:{
 
     //   },
-    //   success:{
-
-    //   }
+      success:{
+        main:"#55a"
+      }
     },
   });
 

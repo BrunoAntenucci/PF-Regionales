@@ -179,8 +179,18 @@ React.useEffect(()=>{
             >
               Sign In
             </Button>
+            {/* <Button
+              onClick={handleSubmitGoogle} REVISAR!!!!
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              href="http://localhost:3001/google/auth"
+            >
+              Sign In with Google
+            </Button> */}
             <Button
-              //onClick={handleSubmitGoogle} REVISAR!!!!!!!!!!!
               type="submit"
               fullWidth
               variant="contained"

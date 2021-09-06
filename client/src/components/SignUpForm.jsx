@@ -250,6 +250,7 @@ const SignUpForm = () => {
           >
             Sign Up
           </Button> */}
+          
           <Grid container justifyContent="flex-end">
             <Grid item>
               <LinkMUI href="/signin" variant="body2">
@@ -257,6 +258,7 @@ const SignUpForm = () => {
               </LinkMUI>
             </Grid>
           </Grid>
+          
         </form>
       </div>
       <Box mt={5}>
