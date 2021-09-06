@@ -12,7 +12,7 @@ const googleAuthenticate = require("./googleAuthenticate")
 const paginadoProductRouter = require("./PaginadoProducts")
 const cartOld = require("./cart");
 const cart = require("./cart2");
-//const Guest = require("../models/guest/guest");
+const order = require("./order")
 
 
 const router = Router();
@@ -30,6 +30,7 @@ router.use("/store", storeRouter);
 router.use("/cart", cart);
 router.use("/google", googleAuthenticate)
 router.use("/cartOld", cartOld);
+router.use("/order", order)
 
 router.get("/", (req, res, next) => {
     console.log(req)
