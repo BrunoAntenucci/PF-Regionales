@@ -64,6 +64,7 @@ function Navbar() {
             placeholder="Search a product"
             inputProps={{ 'aria-label': 'Search' }}
             onChange = {(e) => handleInputChange(e)}
+            value ={name}
             />
             <IconButton 
             type="submit" 
@@ -75,6 +76,7 @@ function Navbar() {
             </IconButton>        
           
       </Paper>
+      
     )
 }
 

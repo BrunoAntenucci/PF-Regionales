@@ -7,7 +7,7 @@ const CategorySchema = new Schema({
         unique: true,
         
     },
-    //product: [{type: mongoose.Schema.ObjectId, ref: 'Product'}]
+    product: [{type: Schema.ObjectId, ref: 'Product'}]
     
 }, { timestamps: true, versionKey: false});
 

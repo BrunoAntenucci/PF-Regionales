@@ -24,8 +24,8 @@ router.use("/user", user);
 router.use("/paymentInfo", paymentInfo);
 router.use("/shipInfo", shipInfo);
 router.use("/category", categoryRouter);
-router.use("/", productRouter);
-router.use("/", paginadoProductRouter)
+router.use("/product", productRouter);
+router.use("/product", paginadoProductRouter)
 router.use("/store", storeRouter);
 router.use("/cart", cart);
 router.use("/google", googleAuthenticate)

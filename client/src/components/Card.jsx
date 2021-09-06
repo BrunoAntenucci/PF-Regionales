@@ -11,16 +11,23 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   root: {
     minWidth: 300,
-    margin: "20px"
+    margin: "20px",
+    height: 300,
+    width: 300,
   },
   media: {
-    height: 300,
+    height: 200,
+    width: 200,
   },
 });
 function Card({name, category, price, image}) {
     const classes = useStyles();
     return (
-        <CardMUI className={classes.root}>
+        <CardMUI 
+        style={{
+          display: 'grid',
+          justifyContent: 'center'}} 
+          className={classes.root}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
