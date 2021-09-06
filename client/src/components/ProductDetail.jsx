@@ -142,7 +142,7 @@ function ProductDetail(props) {
                             <h3 className={classes.paper}>Categoria: 
                               <ul className={classes.paper} >{p.category.map((e,i) => {
                                             const aux = categories.find(i => i._id === e)
-                                            return <p key={i}>{aux.name}</p>
+                                            return aux?<p key={i}>{aux.name}</p>:null
                                         })}</ul>
                               </h3>
                                     <h3 className={classes.paper}>{p.description}</h3>
