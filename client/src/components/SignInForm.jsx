@@ -85,10 +85,11 @@ React.useEffect(()=>{
         setInput({...input, password:e.target.value})
     }
    
-    const handleSubmitGoogle = async (e) => {
+    function handleSubmitGoogle(e) {
         e.preventDefault();
-        await axios.get("http://localhost:3001/google/auth");
-        history.push('/google/auth')
+        axios.get("http://localhost:3001/google/auth")
+        //axios.get("http://localhost:3001/google/auth");
+        //history.push('/google/auth')
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -179,15 +180,17 @@ React.useEffect(()=>{
               Sign In
             </Button>
             <Button
-              onClick={handleSubmitGoogle}
+              //onClick={handleSubmitGoogle} REVISAR!!!!!!!!!!!
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              href="http://localhost:3001/google/auth"
             >
               Sign In with Google
             </Button>
+              
             <Grid container>
               <Grid item xs>
                 <LinkMUI href="/saveAccount" variant="body2">
