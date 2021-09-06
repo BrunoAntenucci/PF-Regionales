@@ -9,6 +9,9 @@ import { Link } from 'react-router-dom';
 import imgLogo from '../img/market.png';
 import { useDispatch } from 'react-redux';
 import { getProducts } from '../actions';
+import ProductCreation from './ProductCreation';
+import { Button } from '@material-ui/core';
+
 
 const useStyles = makeStyles((theme) => ({
 
@@ -55,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
     background:"#0000",
     border: "none"
 
+  },
+  button:{
+    height:"fit-content",
+    backgroundColor:theme.palette.primary.dark
   }
  
 }));
@@ -84,8 +91,13 @@ function Header(props) {
                 <img src={imgLogo}   className={classes.logo} alt="logo"/></Link> */}
                 
                 <Searchbar className={classes.searchbar} />   
-                <Link to="/products">
-                <img src={imgLogo}   className={classes.logo} style={{display:"none"}} alt="logo"/></Link>
+                
+                <Button
+                className={classes.button}
+                 variant="contained" color="primary">
+                   <Link to = '/creation' style={{textDecoration:"none", color:"white"}}>  crear producto</Link>
+                    </Button>
+                    
                 {/*este div sirve para lograr el centrado del search sin margin*/ }
                 </div>
                 
