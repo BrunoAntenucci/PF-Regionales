@@ -51,9 +51,9 @@ function Navbar() {
     if(name){
     dispatch(getProductsByName(name));
     //history.push("/products");
-    // setName('');   
-    let inputId = document.getElementById("dataInput");
-    inputId.value = ""; 
+    setName('');   
+    // let inputId = document.getElementById("dataInput");
+    // inputId.value = ""; 
     }
   }
 

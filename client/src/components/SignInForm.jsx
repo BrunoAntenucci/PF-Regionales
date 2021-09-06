@@ -178,13 +178,23 @@ React.useEffect(()=>{
             >
               Sign In
             </Button>
-            <Button
+            {/* <Button
               onClick={handleSubmitGoogle}
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+            >
+              Sign In with Google
+            </Button> */}
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              href="http://localhost:3001/google/auth"
             >
               Sign In with Google
             </Button>
