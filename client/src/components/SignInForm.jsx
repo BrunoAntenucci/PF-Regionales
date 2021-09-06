@@ -85,26 +85,32 @@ React.useEffect(()=>{
         setInput({...input, password:e.target.value})
     }
    
+    const handleSubmitGoogle = async (e) => {
+        e.preventDefault();
+        await axios.get("http://localhost:3001/google/auth");
+        history.push('/google/auth')
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (input.email && input.password){
-            let response = await axios.post("http://localhost:3001/signin", input);
-            let data = response.data
-            if(data.done){
+            await axios.post("http://localhost:3001/signin", input);
+            // let data = response.data
+            // if(data.done){
                 alert('Loggin succesfully')
-            }
-        }
-        else if(!input.email && !input.password) {
-            alert("Required credentials")
-        }      
-        else if (!input.email){ 
-                alert("Required email!")
-            }
-        else if (!input.password){
-                alert("Required password")
+                
             }
         
-        history.push('/');
+        // else if(!input.email && !input.password) {
+        //     alert("Required credentials")
+        // }      
+        // else if (!input.email){ 
+        //         alert("Required email!")
+        //     }
+        // else if (!input.password){
+        //         alert("Required password")
+        //     }
+        
+        history.push('/profile');
     }
 
     return(
@@ -143,7 +149,7 @@ React.useEffect(()=>{
               fullWidth
               id="email"
               label="Email Address"
-              name="user"
+              name="email"
               autoComplete="email"
               autoFocus
             />
@@ -171,6 +177,16 @@ React.useEffect(()=>{
               className={classes.submit}
             >
               Sign In
+            </Button>
+            <Button
+              onClick={handleSubmitGoogle}
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In with Google
             </Button>
             <Grid container>
               <Grid item xs>

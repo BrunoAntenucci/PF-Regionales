@@ -51,7 +51,9 @@ function Navbar() {
     if(name){
     dispatch(getProductsByName(name));
     //history.push("/products");
-    setName('');   
+    // setName('');   
+    let inputId = document.getElementById("dataInput");
+    inputId.value = ""; 
     }
   }
 
@@ -60,11 +62,12 @@ function Navbar() {
     return (
         <Paper component="form" className={classes.root}>
             <InputBase
+            id="dataInput"
             className={classes.input}
             placeholder="Search a product"
             inputProps={{ 'aria-label': 'Search' }}
             onChange = {(e) => handleInputChange(e)}
-            value={name}
+            value ={name}
             />
             <IconButton 
             type="submit" 
@@ -76,6 +79,7 @@ function Navbar() {
             </IconButton>        
           
       </Paper>
+      
     )
 }
 

@@ -130,7 +130,7 @@ const SignUpForm = () => {
             //     })
             // }
             alert('The account is created successfully');
-            history.push('/');
+            history.push('/profile');
             }
         } 
         console.log(register)
