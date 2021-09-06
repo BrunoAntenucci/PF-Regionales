@@ -6,9 +6,6 @@ import { logOutMati } from "../actions/index"
 function NavBarMati(props) {
     const dispatch = useDispatch();
 
-
-
-
     function logOutButton() {
         dispatch(logOutMati);
         return props.setGuest(true);
