@@ -82,8 +82,7 @@ function Navbar(props) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
-
+  
   // const handleOnClickLogSign = (e) => {
   //   e.preventDefault()
   //   if(!log){
@@ -103,6 +102,9 @@ function Navbar(props) {
   //   <Link style={{textDecoration:"none", color:"white"}} to='/signin' >ingresá</Link>  
   // </Button>
   //   </>)
+
+
+
     
     
   // }

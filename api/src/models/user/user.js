@@ -34,7 +34,11 @@ const userSchema = new Schema({
     cart: {
         type: Schema.ObjectId,
         ref: "Cart"
-    }
+    },
+    order: [{
+        type: Schema.ObjectId,
+        ref: "Order"
+    }]
 }, { timestamps: true })
 
 userSchema.methods.encryptPassword = (password) => {

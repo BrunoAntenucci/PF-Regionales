@@ -5,6 +5,7 @@ import Home from './components/Home';
 import ProductCreation from "./components/ProductCreation";
 import SignInForm from './components/SignInForm';
 import SignUpForm from './components/SignUpForm'
+import Profile from './components/Profile';
 import './App.css';
 import Products from "./components/Products";
 import ProductDetail from "./components/ProductDetail";
@@ -36,18 +37,20 @@ const theme = createTheme({
         dark: '#000000',
         contrastText: '#000',
       },
-    //   error:{
-
-    //   },
+       error:{
+        light:"#fdd6",
+        main:"#722",
+        dark:"#311"
+      },
     //   warning:{
 
     //   },
     //   info:{
 
     //   },
-    //   success:{
-
-    //   }
+      success:{
+        main:"#55a"
+      }
     },
   });
 
@@ -76,6 +79,10 @@ function App() {
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
         <Route exact path = "/products" component = {Products} />
+
+
+        <Route exact path = "/profile" component = {Profile} />
+
         {/* <Route exact path="/signupMati">
           <SignUpFormMati />
         </Route>

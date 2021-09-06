@@ -4,6 +4,7 @@ const routes = require("./routes/index");
 const passport = require("passport")
 const session = require("express-session");
 const flash = require("connect-flash");
+const cors = require("cors");
 require("./passport/local-auth");
 
 const server = express();
@@ -16,10 +17,11 @@ connDB();
 server.use(express.json({limit: "50mb"}))
 
 server.use(morgan('dev'));
+server.use(cors());
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); 
   res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });

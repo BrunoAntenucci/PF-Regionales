@@ -9,10 +9,10 @@ const categoryRouter = require('./CategoryRoute');
 const productRouter = require('./ProductRoute');
 const storeRouter = require("./storeRoute.js");
 const googleAuthenticate = require("./googleAuthenticate")
-const paginadoProductRouter = require("./paginadoProducts")
+const paginadoProductRouter = require("./PaginadoProducts")
 const cartOld = require("./cart");
 const cart = require("./cart2");
-//const Guest = require("../models/guest/guest");
+const order = require("./order")
 
 
 const router = Router();
@@ -24,12 +24,13 @@ router.use("/user", user);
 router.use("/paymentInfo", paymentInfo);
 router.use("/shipInfo", shipInfo);
 router.use("/category", categoryRouter);
-router.use("/", productRouter);
-router.use("/", paginadoProductRouter)
+router.use("/product", productRouter);
+router.use("/product", paginadoProductRouter)
 router.use("/store", storeRouter);
 router.use("/cart", cart);
 router.use("/google", googleAuthenticate)
 router.use("/cartOld", cartOld);
+router.use("/order", order)
 
 router.get("/", (req, res, next) => {
     console.log(req)
