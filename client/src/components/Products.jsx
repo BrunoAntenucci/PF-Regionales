@@ -15,7 +15,11 @@ const useStyles = makeStyles((theme) => ({
       display:"flex",
       flexDirection:"row",
       justifyContent:"center",
+
+
+
      margin: "230px 0 auto " 
+
     },
     font: {
         marginLeft: '10px',
