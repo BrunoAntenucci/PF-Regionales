@@ -13,7 +13,7 @@ router.post("/create", async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    let data = await Category.find({});
+    let data = await Category.find({}).populate('product')
     res.json(data)
 
     //Category.find({}, (err, category) => {
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
     //    });
     //  });
     
-})
+});
 
 router.get('/:name', async (req, res) => {
     const name  = req.params.name
