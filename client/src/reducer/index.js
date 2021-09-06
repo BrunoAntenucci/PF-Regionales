@@ -46,10 +46,13 @@ function rootReducer(state = initialState, action) {
         case 'GET_USER':
             return {
                 ...state,
-                log: true,
               user:action.payload
             }
-
+        case 'USER_CHECK':
+            return{
+                ...state, 
+                user: action.payload
+            }
 
         case 'POST_PRODUCT':            
                 return {

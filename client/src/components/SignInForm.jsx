@@ -94,8 +94,6 @@ React.useEffect(()=>{
         e.preventDefault();
         if (input.email && input.password){
             await axios.post("http://localhost:3001/signin", input);
-            // let data = response.data
-            // if(data.done){
                 alert('Loggin succesfully')
                 
             }
@@ -110,7 +108,7 @@ React.useEffect(()=>{
         //         alert("Required password")
         //     }
         
-        history.push('/profile');
+        history.push('/');
     }
 
     return(

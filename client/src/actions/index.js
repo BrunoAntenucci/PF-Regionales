@@ -79,12 +79,24 @@ export function isUser(userInfo) {
         return axios.post("http://localhost:3001/signin", userInfo)
             .then((response) => {
                 dispatch({
-                    type: "GET_USER",
+                    type: "GET_USER_INFO",
                     payload: response.data
                 })
             })
     }
-};       
+}; 
+
+export function userCheck() {
+    return function(dispatch) {
+        return axios.get("http://localhost:3001/signin")
+            .then((result) => {
+                dispatch({
+                    type: "USER_CHECK",
+                    payload: result.data
+                })
+            })
+    }
+}
 
 export function logOut() {
     return async function (dispatch){
