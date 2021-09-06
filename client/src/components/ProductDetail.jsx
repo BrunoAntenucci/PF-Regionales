@@ -1,12 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getCategories, getProductDetail } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import market from '../img/market.png'
+import { Button } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         boxShadow:" 10px 5px 5px #0002",
@@ -58,15 +59,10 @@ const useStyles = makeStyles((theme) => ({
         fontFamily:"roboto"
     },
     buttonBack:{
-        background:"#fff",
         padding:"10px",
-        color:"#555",
-        fontFamily:"tahoma",
-        fontWeight:"700",
-        borderRadius:"10px",
+    
         margin:"2px 40px",
-        cursor:"pointer",
-        border:"1px solid" +theme.palette.secondary.light
+       
     }
   }));
 
@@ -119,9 +115,11 @@ function ProductDetail(props) {
                 <img src={p?.image?p.image:market} className={classes.image} alt="producto"/>
                
                         </div>
-                        <button type='submit'
-                        className={classes.buttonBack}
-                         onClick={(e) => handleClick(e)}>Volver</button> 
+                        <Button
+                className={classes.buttonBack}
+                 variant="contained" color="primary">
+                   <Link to = '/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
+                    </Button>
                          </div>     
                          <div className={classes.contentRight}>     
                              <div className={classes.info}>  
@@ -144,7 +142,7 @@ function ProductDetail(props) {
                             <h3 className={classes.paper}>Categoria: 
                               <ul className={classes.paper} >{p.category.map((e,i) => {
                                             const aux = categories.find(i => i._id === e)
-                                            return <p key={i}>{aux.name}</p>
+                                            return aux?<p key={i}>{aux.name}</p>:null
                                         })}</ul>
                               </h3>
                                     <h3 className={classes.paper}>{p.description}</h3>
