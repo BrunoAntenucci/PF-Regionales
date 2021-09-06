@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
       display:"flex",
       flexDirection:"row",
       justifyContent:"center",
-     margin: "230px 0 " 
+     margin: "230px 0 auto " 
     },
     font: {
         marginLeft: '10px',
@@ -34,7 +34,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
     aside:{
         maxHeight:"500px",
         margin:"100px 20px",
-        minWidth:"200px",
+        minWidth:"300px",
         border: "5px solid "+theme.palette.primary.main,
         borderRadius:"20px",
         position:"sticky",
@@ -46,6 +46,11 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
     },
     products:{
         background:"#eee",
+        width: 1100,
+
+    borderRadius: '5%',
+   
+
     },
     cpaginate:{
         margin: "20px auto",
@@ -156,7 +161,7 @@ function Products(props) {
                         </Fragment>
                     )
                 })
-                : <p>No existen productos bajo esa descripcion</p>
+                : <h1>CARGANDO</h1>
             }
             </Grid>
             
@@ -169,6 +174,7 @@ function Products(props) {
                 />
                 </div>
                  </section>
+                 
         </div>
         
     )
