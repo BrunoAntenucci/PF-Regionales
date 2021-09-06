@@ -1,5 +1,3 @@
-import axios from 'react'
-
 const initialState = {
     products : [],
     categories: [],
@@ -49,7 +47,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 log: true,
-              user:{}
+              user:action.payload
             }
 
 
@@ -57,10 +55,6 @@ function rootReducer(state = initialState, action) {
                 return {
                     ...state,
             }
-        
-               
-       
-       
 
         case 'GET_PRODUCT_DETAIL':
             return {

@@ -74,10 +74,15 @@ export const loginUser = (email, password) => {
 	};
 };
 
-export function isUser() {
-    return async function (dispatch){
-        const response = await axios.get("http://localhost:3001/signin");
-        // await dispatch({type: 'GET_USER', payload: response.data})
+export function isUser(userInfo) {
+    return function (dispatch) {
+        return axios.post("http://localhost:3001/signin", userInfo)
+            .then((response) => {
+                dispatch({
+                    type: "GET_USER",
+                    payload: response.data
+                })
+            })
     }
 };       
 
