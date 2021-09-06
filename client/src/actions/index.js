@@ -74,6 +74,20 @@ export const loginUser = (email, password) => {
 	};
 };
 
+export function userCheck() {
+    return function(dispatch) {
+        return axios.get("http://localhost:3001/signin")
+            .then((result) => {
+                console.log(result.data, 'result')
+                dispatch({
+                    type: "GUEST_CHECK",
+                    payload: result.data
+                })
+            })
+    }
+}
+
+
 export function isUser(userInfo) {
     return function (dispatch) {
         return axios.post("http://localhost:3001/signin", userInfo)
@@ -83,6 +97,7 @@ export function isUser(userInfo) {
                     payload: response.data
                 })
             })
+
     }
 };       
 
