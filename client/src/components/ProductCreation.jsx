@@ -170,7 +170,7 @@ export default function ProductCreation(){
 
     function handleSubmit(e){
         console.log(e)
-        if(!errors.name || !errors.description || !errors.price || !errors.category || !errors.quantity || !errors.image) {
+        if(errors.name || errors.description || errors.price || errors.category || errors.quantity || errors.image) {
             e.preventDefault();
             alert('Form incomplete');
         }else{
@@ -295,7 +295,7 @@ export default function ProductCreation(){
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
-              required
+              
               value={input.name}
               name='name'
              label="Nombre"
@@ -310,7 +310,7 @@ export default function ProductCreation(){
           
           <Grid item xs={12} sm={6}>
             <TextField
-              required
+              
           
               value={input.description}
                  name='description'
@@ -345,7 +345,7 @@ export default function ProductCreation(){
           </Grid>
           <Grid item xs={12} sm={3}>
             <TextField
-              required
+              
             value={input.quantity}
               name='quantity'
              onChange={handleChange}
@@ -359,7 +359,7 @@ export default function ProductCreation(){
           </Grid>
           <Grid item xs={12}  sm={3}>
             <TextField
-              required
+              
               
               label="precio"
               value={input.price}
@@ -375,7 +375,7 @@ export default function ProductCreation(){
         
           <Grid item xs={12} sm={12}>
             <TextField
-              required
+              
               value={input.image}
              name='image'   
              onChange={handleChange}
