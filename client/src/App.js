@@ -69,19 +69,19 @@ function App() {
     <ThemeProvider theme={theme}>
     {/* <Header /> */}
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/" >
           <Products guest={guest} setGuest={setGuest}/>
         </Route>
         <Route exact path = "/creation" component = {ProductCreation} />
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
         <Route exact path = "/products" component = {Products} />
-        <Route exact path="/signupMati">
+        {/* <Route exact path="/signupMati">
           <SignUpFormMati />
         </Route>
         <Route exact path="/signinMati">
           <SignInFormMati />
-        </Route>
+        </Route> */}
         <Route path="/detail/:id" component={ProductDetail} /> 
       </Switch>
       </ThemeProvider>

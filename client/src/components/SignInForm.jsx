@@ -29,7 +29,7 @@ const SignInForm = () => {
         if (input.email && input.password){
             let response = await axios.post("http://localhost:3001/signin", input);
             let data = response.data
-            if(data.done){
+            if(data){
                 alert('Loggin succesfully')
             }
         }

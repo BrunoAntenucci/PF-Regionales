@@ -73,7 +73,18 @@ export const loginUser = (email, password) => {
         }
 	};
 };
-
+export function userCheck() {
+    return function(dispatch) {
+        return axios.get("http://localhost:3001/signin")
+            .then((result) => {
+                console.log(result.data, 'result')
+                dispatch({
+                    type: "GUEST_CHECK",
+                    payload: result.data
+                })
+            })
+    }
+}
 export function isUser() {
     return async function (dispatch){
         const response = await axios.get("http://localhost:3001/signin");
