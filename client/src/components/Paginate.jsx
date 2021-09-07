@@ -52,7 +52,7 @@ function Paginate({ prodPerPage, allProducts, paginate, pageN}) {
         pageNumbers.push(i)
     }
     
-    console.log(pageN)
+    //console.log(pageN)
    
     return (
        <>
@@ -60,8 +60,8 @@ function Paginate({ prodPerPage, allProducts, paginate, pageN}) {
             <ul className={classes.ul}>
                     {
                         pageNumbers && pageNumbers.map(num => {
-                            console.log(num + " num")
-                            console.log(pageN +" pageN")
+                            // console.log(num + " num")
+                            // console.log(pageN +" pageN")
                          if (num === pageN){
                             return(<li key={num}>
                                     <button className={classes.buttonPage}

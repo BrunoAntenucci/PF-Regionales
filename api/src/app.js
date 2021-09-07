@@ -5,6 +5,7 @@ const passport = require("passport")
 const session = require("express-session");
 const flash = require("connect-flash");
 const cors = require("cors");
+const cookieParser = require('cookie-parser');
 require("./passport/local-auth");
 
 const server = express();
@@ -15,6 +16,7 @@ server.use(express.urlencoded({ extended: true, limit: "50mb"}));
 const connDB = require('./db.js');
 connDB();
 server.use(express.json({limit: "50mb"}))
+server.use(cookieParser("grupo09"))
 
 server.use(morgan('dev'));
 server.use(cors());
@@ -28,8 +30,8 @@ server.use((req, res, next) => {
 
 server.use(session({
   secret: "grupo09",
-  resave: false,
-  saveUninitialized: false
+  resave: true,
+  saveUninitialized: true
 }))
 server.use(flash());
 server.use(passport.initialize());

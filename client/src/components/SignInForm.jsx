@@ -91,17 +91,18 @@ React.useEffect(()=>{
         //axios.get("http://localhost:3001/google/auth");
         //history.push('/google/auth')
     }
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => { //yo@yo.com 12345
         e.preventDefault();
-        if (input.email && input.password){
+        // if (input.email && input.password){
 
             await axios.post("http://localhost:3001/signin", input);
+            console.log(input, 'input')
             // let data = response.data
             // if(data.done){
 
                 alert('Loggin succesfully')
                 
-            }
+            //}
         
         // else if(!input.email && !input.password) {
         //     alert("Required credentials")

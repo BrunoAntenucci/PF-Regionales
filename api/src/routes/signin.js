@@ -5,7 +5,9 @@ const router = Router();
 
 router.get("/", (req, res, next) => {
     if (req.user) {
+        console.log(user, 'req user')
         return res.json(req.user)
+        
     } else {
         return res.json(false)
     }

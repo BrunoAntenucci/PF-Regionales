@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { userCheck, logOutMati } from '../actions/index';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 // import { userCheck } from '../actions/index';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -57,14 +58,18 @@ const User = () => {
     // const user = useSelector(state => state.user)
     const [log, setLog] = useState()
     const userVerify = useSelector (state => state.user)
+    const [data, setData] = useState(null)
 
-    function logOutButton(e) {
+    const logOutButton =  (e) => {
         e.preventDefault();
         dispatch(logOutMati());
         console.log(logOutMati, 'logout')
     }
-   useEffect (() => {
-    dispatch( userCheck())
+  
+    useEffect (async () => {
+        const response = await axios.get("http://localhost:3001/signin")
+        setData(response.data)
+        console.log(response.data, 'data')
         // let verify = async () => {
         //     const userVerify = await dispatch( userCheck())
         //     if(userVerify){
@@ -74,19 +79,19 @@ const User = () => {
         // verify()
         
     }, [])
-    console.log(userVerify, 'log user')
+    // console.log(response.data, 'data')
 
     return(
         <div>
-            {(log === false) ? <>
+            {data ? <>
                 <img src={iconUser}  className={classes.iconuser}/>
                 <Button  size="small"  className={classes.buttons}>
-                    Usuario
+                    {data.first_name}
                 </Button>
                 <Button  size="small"  className={classes.buttons}>
                     Favoritos
                 </Button>
-                <Button  size="small"  className={classes.buttons} onCLick={(e) =>logOutButton(e)}>
+                 <Button  size="small"  className={classes.buttons} onCLick={(e) =>logOutButton(e)}>
                     Cerrar Sesión 
                 </Button>
                     </> : 

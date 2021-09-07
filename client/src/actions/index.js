@@ -55,6 +55,7 @@ export const loginUser = (email, password) => {
             const response = await axios.post("http://localhost:3001/signin",{
                 email, password
             })
+            console.log('response', response.data)
             if(response.data){
                 await dispatch({
                     type: 'SIGNIN',
@@ -76,11 +77,11 @@ export const loginUser = (email, password) => {
 
 export function userCheck() {
     return function(dispatch) {
-        return axios.get("http://localhost:3001/signin")
+        return axios.get("http://localhost:3001/user")
             .then((result) => {
                 console.log(result.data, 'result')
                 dispatch({
-                    type: "GUEST_CHECK",
+                    type: "GET_USER",
                     payload: result.data
                 })
             })
