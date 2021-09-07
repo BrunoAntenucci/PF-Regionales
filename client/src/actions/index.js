@@ -189,3 +189,11 @@ export function guestMati() {
             })
     }
 }
+export function filterProducts (payload) {
+    return async function (dispatch) {
+        var json = axios.get(`/api/products/?category=${payload.category || ""}`)
+        return dispatch({ 
+            type: 'FILTER_PRODUCTS', payload: json.data })
+       
+    }
+}
