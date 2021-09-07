@@ -8,9 +8,11 @@ router.get("/auth", passport.authenticate('google', {
 }));
 
 router.get("/callback", passport.authenticate('google', {
-    successRedirect: "/",
+    successRedirect: "http://localhost:3000/",
     failureRedirect: "/google/failure",
-}))
+}), (req, res) => {
+    res.send("Logged in with google")
+})
 
 router.get("/failure", (req, res, next) => {
     res.send("Something went wrong!");
