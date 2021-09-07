@@ -82,7 +82,7 @@ function Navbar(props) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  
+  }
   // const handleOnClickLogSign = (e) => {
   //   e.preventDefault()
   //   if(!log){
