@@ -77,7 +77,6 @@ function ProductDetail(props) {
         history.push('/products')
     }
 
-    console.log(props)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -100,7 +99,6 @@ function ProductDetail(props) {
     },[dispatch, props.match.params.id]);
     
     //const detail = useSelector((state) => state.prodDetail);
-    console.log(detail)
 
 
     return (

@@ -4,23 +4,20 @@ const Category = require('../models/Category')
 const Product = require('../models/Product')
 
 router.post("/create", async (req, res) => {
-    const {name} = req.body;
+    const {name,product} = req.body;
     let category = await Category.findOne({name}) 
     if(category) return res.status(404).json({error:'Its already exist. Please try again!'})
-    const newCategory = new Category({name});
+    const newCategory = new Category({name,product});
     category = await newCategory.save();
     res.json(category);       
 });
 
 router.get('/', async (req, res) => {
-    let data = await Category.find({}).populate('product')
+    let data = await Category.find({}).populate('product',{
+        name: 1,
+        description: 1
+    })
     res.json(data)
-
-    //Category.find({}, (err, category) => {
-    //    Product.aggregate(category, { path: "Products" }, (err, category) => {
-    //      res.status(200).send(category);
-    //    });
-    //  });
     
 });
 
