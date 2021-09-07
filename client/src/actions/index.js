@@ -99,6 +99,26 @@ export function signIn(userInfo) {
     }
 }
 
+export function signInGoogle() {
+    return function(dispatch) {
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "http://localhost:3001/google/auth"
+          })
+          .then((res) => {
+            console.log("[ACTION]RES SINGIN: ", res.data)
+            dispatch({
+                type: "SIGN_IN",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
 export function signUp(userInfo) {
     return function(dispatch) {
         return axios({

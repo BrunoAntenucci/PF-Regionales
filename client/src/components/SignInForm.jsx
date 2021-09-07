@@ -19,7 +19,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 //------IMPORT ACTIONS------//
-import { signIn } from "../actions/index";
+import { signIn, signInGoogle } from "../actions/index";
 
 function Copyright() {
     return (
@@ -86,7 +86,7 @@ React.useEffect(()=>{
    
     function handleSubmitGoogle(e) {
         e.preventDefault();
-        axios.get("http://localhost:3001/google/auth")
+        //dispatch(signInGoogle())
     }
     console.log(input)
     function handleSubmit(e) {
@@ -160,17 +160,6 @@ React.useEffect(()=>{
             >
               Sign In
             </Button>
-            {/* <Button
-              onClick={handleSubmitGoogle} REVISAR!!!!
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              href="http://localhost:3001/google/auth"
-            >
-              Sign In with Google
-            </Button> */}
             <Button
               type="submit"
               fullWidth
@@ -181,6 +170,16 @@ React.useEffect(()=>{
             >
               Sign In with Google
             </Button>
+            {/* <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              href="http://localhost:3001/google/auth"
+            >
+              Sign In with Google
+            </Button> */}
               
             <Grid container>
               <Grid item xs>
