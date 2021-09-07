@@ -77,7 +77,7 @@ const User = () => {
             {(user) ? <>
                 <img src={iconUser}  className={classes.iconuser}/>
                 <Button  size="small"  className={classes.buttons}>
-                    Usuario
+                    {user.first_name}
                 </Button>
                 <Button  size="small"  className={classes.buttons}>
                     Favoritos

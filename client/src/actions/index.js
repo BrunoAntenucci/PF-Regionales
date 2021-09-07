@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+//------------------PRODUCTS----------------------------
 export function getProducts() {
     return async function (dispatch) {
         try {
@@ -70,13 +71,13 @@ export function getProductDetail(id) {
         }
     }
 }
-
 export function page(payload) {
     return {
         type: 'PAGE',
         payload
     }
 }
+//----------------------LOGIN--------------------------
 
 export function signIn(userInfo) {
     return function(dispatch) {

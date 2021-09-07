@@ -1,8 +1,11 @@
 const express = require("express");
+const cors = require("cors");
+const passport = require("passport")
+const cookieParser = require('cookie-parser');
+const session = require("express-session");
+const bodyParser = require("body-parser");
 const morgan = require('morgan');
 const routes = require("./routes/index");
-const passport = require("passport")
-const session = require("express-session");
 const flash = require("connect-flash");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
@@ -10,9 +13,7 @@ require("./passport/local-auth");
 
 const server = express();
 server.name= "REGIONALES";
-
-server.use(express.urlencoded({ extended: true, limit: "50mb"}));
-
+//--------------------------------DATABASE------------------------------------------------------------//
 const connDB = require('./db.js');
 connDB();
 server.use(express.json({limit: "50mb"}))
@@ -34,22 +35,68 @@ server.use(session({
   saveUninitialized: true
 }))
 server.use(flash());
+server.use(bodyParser.json());
+server.use(express.urlencoded({ extended: true}));
+server.use(express.json());
+server.use(cors({
+  origin: "http://localhost:3000", //<-- FRONTEND
+  credentials: true
+}));
+server.use(session({
+  secret: "regionales",
+  resave: true,
+  saveUninitialized: true
+}));
+server.use(cookieParser("regionales"));
 server.use(passport.initialize());
 server.use(passport.session());
-
+require("./passport/local-auth")(passport);
 server.use((req, res, next) => { //para mostrar el mensaje de flash
   server.locals.singupMessage = req.flash("singupMessage")
   next();
 })
-
+//--------------------------------ROUTES-------------------------------------------------------------//
 server.use("/", routes);
 
-// Error catching endware.
+//--------------------------------CONTROL GENERALIZADO DE ERRORES-----------------------------------//
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
-    const status = err.status || 500; //Status = 500 es un error de servidor.
-    const message  = err.message || err; //Si es un objeto, guardo el mensaje de ese obj. Y si es un string, lo guardo directamente
-    console.error(err);
-    res.status(status).send(message);
+  const status = err.status || 500; //Status = 500 es un error de servidor.
+  const message  = err.message || err; //Si es un objeto, guardo el mensaje de ese obj. Y si es un string, lo guardo directamente
+  console.error(err);
+  res.status(status).send(message);
 });
-
+//--------------------------------EXPORT------------------------------------------------------------//
 module.exports = server;
+
+
+
+// server.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); 
+//   res.header('Access-Control-Allow-Credentials', true);
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+//   next();
+// });
+
+// server.use(cookieSession({
+//   maxAge: 48 * 60 * 60 * 1000,
+//   keys: ["grupo09"]
+// }))
+// server.use(session({
+//   secret: "grupo09",
+//   //cookie: {
+//     //  secure: true
+//     //},
+//     resave: true,
+//     saveUninitialized: true,
+//     //store: new MongoStore({ mongooseConnection: moongose.connection })
+//   }))
+// server.use(cookieParser("grupo09"));
+// server.use(flash());
+// server.use(passport.initialize());
+// server.use(passport.session());
+
+// server.use((req, res, next) => { //para mostrar el mensaje de flash
+//   server.locals.singupMessage = req.flash("singupMessage")
+//   next();
+// })

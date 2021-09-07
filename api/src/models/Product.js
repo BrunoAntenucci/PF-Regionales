@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2')
+const {Schema,model} = require('mongoose');
+// const mongoosePaginate = require('mongoose-paginate-v2')
+// const mongoPopulate = require('mongoose-autopopulate')
 
 
-
-const ProductSchema = new mongoose.Schema({
+const ProductSchema = Schema({
     user: {
-        type: mongoose.Schema.ObjectId, 
+        type: Schema.ObjectId, 
         ref: "User" 
     },
     name: {
@@ -24,7 +24,7 @@ const ProductSchema = new mongoose.Schema({
         required: true,
     },
     category: [{
-        type: mongoose.Schema.ObjectId,
+        type: Schema.ObjectId,
         ref: "Category",
     }],
     quantity: {
@@ -39,6 +39,7 @@ const ProductSchema = new mongoose.Schema({
     timestamps: true, versionKey: false
 })
 
-ProductSchema.plugin(mongoosePaginate)
+// ProductSchema.plugin(mongoosePaginate)
+// ProductSchema.plugin(mongoPopulate);
 
-module.exports = mongoose.model("Product", ProductSchema);
+module.exports = model("Product", ProductSchema);
