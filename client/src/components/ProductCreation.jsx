@@ -158,7 +158,6 @@ export default function ProductCreation(){
             ...input,
             [e.target.name]: e.target.value,
         }))
-        console.log(input)
     }
 
     function handleClose(e){
