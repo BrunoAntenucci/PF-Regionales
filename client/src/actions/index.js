@@ -153,7 +153,7 @@ export function checkUser() {
             url: "http://localhost:3001/signin"
           })
           .then((res) => {
-              console.log("[ACTION]RES CHECKUSER: ", res.data)
+              console.log("[ACTION]RES CHECKUSER: ", res.data.first_name)
             dispatch({
                 type: "CHECK_USER",
                 payload: res.data

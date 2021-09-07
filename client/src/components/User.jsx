@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import iconUser from '../img/icon-user.png'
+import axios from 'axios';
 //------IMPORT ACTIONS------//
 import { checkUser, logOut } from '../actions/index';
 
@@ -53,12 +54,32 @@ const useStyles = makeStyles(theme => ({
 const User = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user)
+    //const user = useSelector(state => state.user)
+    const [data, setData] = useState(null)
 
-    useEffect(() => {
-      dispatch(checkUser())
-    }, [])
+    // useEffect(() => {
+    //   dispatch(checkUser())
+    // }, [])
+    useEffect((data) => {
+        axios({
+            method: "get",
+            withCredentials: true,
+            url: "http://localhost:3001/signin"
+          })
+          .then((res) => {
+            console.log("[ACTION]RES CHECKUSER: ", res.data.first_name)
+            setData(res.data)
+        })
+           
+        }, [])
 
+    // useEffect(() => {
+    //     let verifyAdmin = async () => {
+    //         const authorized = await checkUser();
+    //         setData(authorized.data)
+    //     }
+    //     verifyAdmin();
+    // },[])
 
     function handleCheckGuest(e) {
       e.preventDefault();
@@ -69,15 +90,15 @@ const User = () => {
       window.location.reload(false);
     }
 
-    console.log("USER: ", user)
+    //console.log("USER: ", user)
 
     return(
         <div>
             {/* <button onClick={handleCheckGuest}>USER CHECK</button> */}
-            {(user) ? <>
+            {data ? <>
                 <img src={iconUser}  className={classes.iconuser}/>
                 <Button  size="small"  className={classes.buttons}>
-                    {user.first_name}
+                    {data.first_name}
                 </Button>
                 <Button  size="small"  className={classes.buttons}>
                     Favoritos
