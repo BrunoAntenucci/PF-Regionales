@@ -7,33 +7,14 @@ const bodyParser = require("body-parser");
 const morgan = require('morgan');
 const routes = require("./routes/index");
 const flash = require("connect-flash");
-const cors = require("cors");
-const cookieParser = require('cookie-parser');
-require("./passport/local-auth");
-
+//const cookieSession = require("cookie-session");
 const server = express();
 server.name= "REGIONALES";
 //--------------------------------DATABASE------------------------------------------------------------//
 const connDB = require('./db.js');
 connDB();
-server.use(express.json({limit: "50mb"}))
-server.use(cookieParser("grupo09"))
-
+//--------------------------------MIDDLEWARE----------------------------------------------------------//
 server.use(morgan('dev'));
-server.use(cors());
-server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); 
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  next();
-});
-
-server.use(session({
-  secret: "grupo09",
-  resave: true,
-  saveUninitialized: true
-}))
 server.use(flash());
 server.use(bodyParser.json());
 server.use(express.urlencoded({ extended: true}));

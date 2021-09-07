@@ -73,7 +73,7 @@ const User = () => {
 
     return(
         <div>
-            <button onClick={handleCheckGuest}>USER CHECK</button>
+            {/* <button onClick={handleCheckGuest}>USER CHECK</button> */}
             {(user) ? <>
                 <img src={iconUser}  className={classes.iconuser}/>
                 <Button  size="small"  className={classes.buttons}>

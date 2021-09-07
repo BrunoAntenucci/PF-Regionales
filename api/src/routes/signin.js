@@ -5,9 +5,7 @@ const router = Router();
 
 router.get("/", (req, res, next) => {
     if (req.user) {
-        console.log(user, 'req user')
-        return res.json(req.user)
-        
+        return res.send(req.user)
     } else {
         return res.send(false)
     }
