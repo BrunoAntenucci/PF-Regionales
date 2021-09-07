@@ -1,14 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { userCheck, logOutMati } from '../actions/index';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-// import { userCheck } from '../actions/index';
-
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import iconUser from '../img/icon-user.png'
+//------IMPORT ACTIONS------//
+import { checkUser, logOut } from '../actions/index';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -55,43 +53,36 @@ const useStyles = makeStyles(theme => ({
 const User = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    // const user = useSelector(state => state.user)
-    const [log, setLog] = useState()
-    const userVerify = useSelector (state => state.user)
-    const [data, setData] = useState(null)
+    const user = useSelector(state => state.user)
 
-    const logOutButton =  (e) => {
-        e.preventDefault();
-        dispatch(logOutMati());
-        console.log(logOutMati, 'logout')
-    }
-  
-    useEffect (async () => {
-        const response = await axios.get("http://localhost:3001/signin")
-        setData(response.data)
-        console.log(response.data, 'data')
-        // let verify = async () => {
-        //     const userVerify = await dispatch( userCheck())
-        //     if(userVerify){
-        //         setLog(true)
-        //     } else {setLog(false)}
-        // } 
-        // verify()
-        
+    useEffect(() => {
+      dispatch(checkUser())
     }, [])
-    // console.log(response.data, 'data')
+
+
+    function handleCheckGuest(e) {
+      e.preventDefault();
+      dispatch(checkUser())
+    }
+    function handleLogOut(e) {
+      dispatch(logOut())
+      window.location.reload(false);
+    }
+
+    console.log("USER: ", user)
 
     return(
         <div>
-            {data ? <>
+            <button onClick={handleCheckGuest}>USER CHECK</button>
+            {(user) ? <>
                 <img src={iconUser}  className={classes.iconuser}/>
                 <Button  size="small"  className={classes.buttons}>
-                    {data.first_name}
+                    Usuario
                 </Button>
                 <Button  size="small"  className={classes.buttons}>
                     Favoritos
                 </Button>
-                 <Button  size="small"  className={classes.buttons} onCLick={(e) =>logOutButton(e)}>
+                <Button  size="small"  className={classes.buttons} onClick={handleLogOut}>
                     Cerrar Sesión 
                 </Button>
                     </> : 
@@ -101,7 +92,7 @@ const User = () => {
                       crear cuenta </Link>
                 </Button>
                 <Button  size="small" className={classes.buttons}>
-                  <Link style={{textDecoration:"none", color:"white"}} to='/signin' >
+                  <Link style={{textDecoration:"none", color:"white"}} to='/signin'>
                       ingresá</Link>  
                 </Button>
                   </> }

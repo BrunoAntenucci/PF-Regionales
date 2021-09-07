@@ -2,10 +2,9 @@ const initialState = {
     products : [],
     categories: [],
     prodDetail: [],
-    log: false,
     page: 1,
-    user: {},
-
+    user: false,
+    guest: {}
 }
 
 function rootReducer(state = initialState, action) {
@@ -15,7 +14,6 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 products: action.payload,
                 page: 1
-                
               }
         case 'GET_PRODUCTS_BY_NAME':
             return {
@@ -27,39 +25,10 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 categories: action.payload
             }
-
-        case 'SIGNUP':
-            return {
-                ...state,
-                user: action.payload,
-            };
-        case 'SIGNIN':
-            return{
-                ...state, 
-                user: action.payload
-            }   
-        case 'LOG_OUT':
-            return{
-                ...state, 
-                log: false
-            }
-        case 'GET_USER':
-            return {
-                ...state,
-              user:action.payload
-            }
-        case 'GUEST_CHECK':
-            return{
-                ...state, 
-                user: action.payload
-            }
-
-
         case 'POST_PRODUCT':            
-                return {
-                    ...state,
+            return {
+            ...state,
             }
-
         case 'GET_PRODUCT_DETAIL':
             return {
                 ...state,
@@ -70,20 +39,24 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 page: action.payload
             }
-        case "LOG_OUT_MATI":
+        case "SIGN_IN": 
+            return {
+                ...state,
+                user: action.payload
+            }
+        case "SIGN_UP":
+            return {
+                ...state,
+            }
+        case "LOG_OUT":
             return {
                 ...state
             }
-        case "SIGN_UP_MATI": 
+        case "CHECK_USER":
             return {
-                ...state
+                ...state,
+                user: action.payload
             }
-        case "SIGN_IN_MATI": 
-            return {
-                ...state
-            }
-        case "GUEST_CHECK":
-            return action.payload
          default: return state;
         }
 }

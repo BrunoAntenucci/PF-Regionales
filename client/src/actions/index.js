@@ -29,86 +29,6 @@ export function getProductsByName(payload) {
     }
 }
 
-export function signUp(firstname, lastname, email, password) {
-    return async function (dispatch) {
-      try {
-        const response = await axios.post("http://localhost:3001/signup", {
-          firstname,
-          lastname,
-          email,
-          password,
-        });
-        dispatch({ type: 'SIGNUP', payload: response.data});
-        return "Account created";
-      } catch (error) {
-        if (error.response.status === 400) {
-          console.log(error.response.data.message);
-          return error.response.data.message;
-        }
-      }
-    };
-}
-
-export const loginUser = (email, password) => {
-	return async function (dispatch){
-        try{
-            const response = await axios.post("http://localhost:3001/signin",{
-                email, password
-            })
-            console.log('response', response.data)
-            if(response.data){
-                await dispatch({
-                    type: 'SIGNIN',
-                    payload: {
-                        email: response.data.email,
-                        password: response.data.password
-                    }
-                })
-                return 'Logged in succesfully'
-            } else {
-                return response.data.message
-            }
-        }
-        catch(error){
-            console.log(error)
-        }
-	};
-};
-
-export function userCheck() {
-    return function(dispatch) {
-        return axios.get("http://localhost:3001/user")
-            .then((result) => {
-                console.log(result.data, 'result')
-                dispatch({
-                    type: "GET_USER",
-                    payload: result.data
-                })
-            })
-    }
-}
-
-
-export function isUser(userInfo) {
-    return function (dispatch) {
-        return axios.post("http://localhost:3001/signin", userInfo)
-            .then((response) => {
-                dispatch({
-                    type: "GET_USER",
-                    payload: response.data
-                })
-            })
-
-    }
-};       
-
-export function logOut() {
-    return async function (dispatch){
-        const response = await axios.get("http://localhost:3001/logout");
-        dispatch({type: 'LOG_OUT', payload: response.data})
-    }
-}
-
 export function getCategories() {
     return async function (dispatch) {
         try {
@@ -151,57 +71,113 @@ export function getProductDetail(id) {
     }
 }
 
-export function page (payload) {
+export function page(payload) {
     return {
         type: 'PAGE',
         payload
     }
 }
 
-export function logOutMati() {
+export function signIn(userInfo) {
     return function(dispatch) {
-        return axios.get("http://localhost:3001/logout")
-            .then((result) => {
-                dispatch({
-                    type: "LOG_OUT_MATI",
-                    payload: result.data
-                })
+        return axios({
+            method: "post",
+            data: {
+              email: userInfo.email,
+              password: userInfo.password
+            },
+            withCredentials: true,
+            url: "http://localhost:3001/signin"
+          })
+          .then((res) => {
+            console.log("[ACTION]RES SINGIN: ", res.data)
+            dispatch({
+                type: "SIGN_IN",
+                payload: res.data
             })
+          })
     }
 }
 
-export function signUpMati(userInfo) {
+export function signInGoogle() {
     return function(dispatch) {
-        return axios.post("http://localhost:3001/signup", userInfo)
-            .then((result) => {
-                dispatch({
-                    type: "SIGN_UP_MATI",
-                    payload: result.data
-                })
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "http://localhost:3001/google/auth"
+          })
+          .then((res) => {
+            console.log("[ACTION]RES SINGIN: ", res.data)
+            dispatch({
+                type: "SIGN_IN",
+                payload: res.data
             })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
 }
 
-export function signInMati(userInfo) {
+export function signUp(userInfo) {
     return function(dispatch) {
-        return axios.post("http://localhost:3001/signin", userInfo)
-            .then((result) => {
-                dispatch({
-                    type: "SIGN_IN_MATI",
-                    payload: result.data
-                })
+        return axios({
+            method: "post",
+            data: {
+                first_name: userInfo.first_name,
+                last_name: userInfo.last_name,
+                email: userInfo.email,
+                password: userInfo.password
+            },
+            withCredentials: true,
+            url: "http://localhost:3001/signup"
+          })
+          .then((res) => {
+            console.log("[ACTION]RES SINGUP: ", res.data)
+            dispatch({
+                type: "SIGN_UP",
+                payload: res.data
             })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
 }
 
-export function guestMati() {
+export function checkUser() {
     return function(dispatch) {
-        return axios.get("http://localhost:3001/signin")
-            .then((result) => {
-                dispatch({
-                    type: "GUEST_CHECK",
-                    payload: result.data
-                })
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "http://localhost:3001/signin"
+          })
+          .then((res) => {
+              console.log("[ACTION]RES CHECKUSER: ", res.data)
+            dispatch({
+                type: "CHECK_USER",
+                payload: res.data
             })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function logOut() {
+    return function(dispatch) {
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "http://localhost:3001/logout"
+          })
+          .then((res) => {
+              console.log("[ACTION]RES LOGOUT: ", res)
+            dispatch({
+                type: "LOG_OUT",
+                payload: res.data
+            })
+          })
     }
 }

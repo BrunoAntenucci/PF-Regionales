@@ -12,7 +12,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import NavBarMati from './NavBarMati';
 
 import User from './User';
 
@@ -66,7 +65,7 @@ const useStyles = makeStyles(theme => ({
     border:"2px solid black"
   }
 }));
-function Navbar(props) {
+function Navbar() {
 
 
   const dispatch = useDispatch();
@@ -78,7 +77,7 @@ function Navbar(props) {
 
   useEffect(() => {
     dispatch(getCategories())
-  }, [dispatch])
+}, [dispatch])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -122,7 +121,7 @@ function Navbar(props) {
   //   Cerrar Sesión 
   // </Button>
   //     </>)
-  //   }
+
     return (
       <div className={classes.root} color="primary"> 
         
