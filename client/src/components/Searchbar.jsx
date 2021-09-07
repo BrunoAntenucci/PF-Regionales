@@ -1,4 +1,7 @@
 import React from 'react';
+import axios from 'axios'
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -6,9 +9,9 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { getProductsByName } from '../actions';
+import { getProductsByName, getProducts } from '../actions';
 //import { useHistory } from 'react-router-dom';
-
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 const useStyles = makeStyles((theme) => ({
 
@@ -36,6 +39,21 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar() {
 
+  const [prod, setProd] = useState("")
+  useEffect(async() => {
+    const response = await axios.get("http://localhost:3001/product")
+    console.log("response", response)
+    setProd(response.data)
+  }, []);
+  console.log(prod)
+   
+    
+    
+
+
+
+  
+  
   const dispatch = useDispatch();
   //let history = useHistory ();
   const [name, setName] = useState('');
@@ -56,30 +74,54 @@ function Navbar() {
     }
   }
 
+  const handleOnSelect = ({name}) => {
+    // the item selected
+    
+    if(name){
+    dispatch(getProductsByName(name));
+    //history.push("/products");
+    setName('');   
+    // let inputId = document.getElementById("dataInput");
+    // inputId.value = ""; 
+    }
+    console.log(name)
+  }
+  
+  const handleOnSearch = (string, results) => {
+    // onSearch will have as the first callback parameter
+    // the string searched and for the second the results.
+    console.log(string, results)
+  }
+  //--------------AUTOCOMPLETE
+  
+  
+
 
     const classes = useStyles();
     return (
+      
         <Paper component="form" className={classes.root}>
-            <InputBase
-            id="dataInput"
-            className={classes.input}
-            placeholder="Search a product"
-            inputProps={{ 'aria-label': 'Search' }}
-            onChange = {(e) => handleInputChange(e)}
-            value ={name}
-            />
-            <IconButton 
-            type="submit" 
-            className={classes.iconButton} 
-            aria-label="search"
-            onClick = {(e) => handleSubmit(e)}
-            >
-            <SearchIcon />
-            </IconButton>        
+          <div style={{ width: 400 }}>
           
+         
+            <Autocomplete
+              id="custom-autocomplete"
+              options={prod}
+              style={{ width: 350 }}
+               
+                //filter value
+                
+            />      
+           </div>
+            <div className="App">
+      <header className="App-header">
+      
+      </header>
+    </div>
+
       </Paper>
       
     )
-}
+    }
 
 export default Navbar
