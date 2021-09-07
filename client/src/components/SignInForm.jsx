@@ -110,7 +110,7 @@ React.useEffect(()=>{
         //         alert("Required password")
         //     }
         
-        history.push('/profile');
+        history.push('/');
     }
 
     return(

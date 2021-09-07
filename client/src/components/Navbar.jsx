@@ -78,11 +78,11 @@ function Navbar(props) {
 
   useEffect(() => {
     dispatch(getCategories())
-}, [dispatch])
+  }, [dispatch])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  
+  }
   // const handleOnClickLogSign = (e) => {
   //   e.preventDefault()
   //   if(!log){
@@ -185,4 +185,4 @@ function Navbar(props) {
     )
 }
 
-export default Navbar
+export default Navbar;
