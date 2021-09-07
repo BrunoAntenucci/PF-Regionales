@@ -43,7 +43,6 @@ function Navbar() {
   const handleInputChange = (e) => {
     e.preventDefault();
     setName(e.target.value);
-    console.log(name);
   }
 
   const handleSubmit = (e) => {

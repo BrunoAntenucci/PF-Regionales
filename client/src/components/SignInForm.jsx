@@ -3,11 +3,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import { loginUser } from '../actions';
 // import GoogleLogin from 'react-google-login';
-  //import card template
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,6 +18,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+//------IMPORT ACTIONS------//
+import { signIn, signInGoogle } from "../actions/index";
 
 function Copyright() {
     return (
@@ -85,12 +84,12 @@ React.useEffect(()=>{
         setInput({...input, password:e.target.value})
     }
    
-    const handleSubmitGoogle = async (e) => {
+    function handleSubmitGoogle(e) {
         e.preventDefault();
-        await axios.get("http://localhost:3001/google/auth");
-        history.push('/google/auth')
+        //dispatch(signInGoogle())
     }
-    const handleSubmit = async (e) => {
+    console.log(input)
+    function handleSubmit(e) {
         e.preventDefault();
         if (input.email && input.password){
             await axios.post("http://localhost:3001/signin", input);
@@ -176,16 +175,6 @@ React.useEffect(()=>{
             >
               Sign In
             </Button>
-            {/* <Button
-              onClick={handleSubmitGoogle}
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In with Google
-            </Button> */}
             <Button
               type="submit"
               fullWidth
@@ -196,6 +185,17 @@ React.useEffect(()=>{
             >
               Sign In with Google
             </Button>
+            {/* <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              href="http://localhost:3001/google/auth"
+            >
+              Sign In with Google
+            </Button> */}
+              
             <Grid container>
               <Grid item xs>
                 <LinkMUI href="/saveAccount" variant="body2">

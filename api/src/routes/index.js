@@ -12,7 +12,9 @@ const googleAuthenticate = require("./googleAuthenticate")
 const paginadoProductRouter = require("./PaginadoProducts")
 const cartOld = require("./cart");
 const cart = require("./cart2");
-//const Guest = require("../models/guest/guest");
+const order = require("./order")
+const passport = require("passport");
+const auth = require("./auth")
 
 
 const router = Router();
@@ -30,10 +32,15 @@ router.use("/store", storeRouter);
 router.use("/cart", cart);
 router.use("/google", googleAuthenticate)
 router.use("/cartOld", cartOld);
+router.use("/order", order)
+router.use("/auth", auth)
 
 router.get("/", (req, res, next) => {
-    console.log(req)
-    res.send("HOME.Rutas posibles: /signup, /signin, /logout, /user, /paymentInfo, /shipInfo, /category, /stores")
+    console.log("index route: ", req.user)
+    res.send(req.user)
+})
+router.get("/failure/signin", (req, res, next) => {
+    res.send("MAL SIGN IN")
 })
 
 module.exports = router;

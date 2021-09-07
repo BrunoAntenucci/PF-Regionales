@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
     border:"2px solid black"
   }
 }));
-function Navbar(props) {
+function Navbar() {
 
 
   const dispatch = useDispatch();
@@ -188,5 +188,4 @@ function Navbar(props) {
     )
 }
 
-export default Navbar
-
+export default Navbar;

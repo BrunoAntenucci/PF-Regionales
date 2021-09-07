@@ -19,6 +19,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+//------IMPORT ACTIONS------//
+import { signUp } from "../actions/index";
 
 function Copyright() {
     return (
@@ -109,26 +111,7 @@ const SignUpForm = () => {
         if(register.passMatch === false){
             alert('"Passwords dont match"')
         } else {
-            // dispatch(signUp(register))
-            await axios.post("http://localhost:3001/signup", register)
-            // let response = await axios.post("http://localhost:3001/signup", register)
-            // let data = response.data;
-            // if(data.user){
-            //     setRegister(register)
-            // }
-            // if(!data.user){
-            //     setErrors({
-            //         message:data.message
-            //     })
-            // } else {
-            //     setRegister({
-            //         firstName:'',
-            //         lastName: '',
-            //         // dni: '',
-            //         email:'',
-            //         password:''
-            //     })
-            // }
+            dispatch(signUp(register))
             alert('The account is created successfully');
             history.push('/');
             }

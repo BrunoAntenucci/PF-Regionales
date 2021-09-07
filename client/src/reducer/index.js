@@ -2,10 +2,9 @@ const initialState = {
     products : [],
     categories: [],
     prodDetail: [],
-    log: false,
     page: 1,
-    user: {},
-
+    user: false,
+    guest: {}
 }
 
 function rootReducer(state = initialState, action) {
@@ -15,7 +14,6 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 products: action.payload,
                 page: 1
-                
               }
         case 'GET_PRODUCTS_BY_NAME':
             return {
@@ -26,64 +24,54 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 categories: action.payload
-            }
+            }    
 
-        case 'SIGNUP':
+        // case 'SIGNUP':
+        //     return {
+        //         ...state,
+        //         user: action.payload,
+        //     };
+        // case 'SIGNIN':
+        //     return{
+        //         ...state, 
+        //         user: action.payload
+        //     }   
+        // case 'LOG_OUT':
+        //     return{
+        //         ...state, 
+        //         log: false
+        //     }
+        // case 'GET_USER':
+        //     return {
+        //         ...state,
+        //       user:action.payload
+        //     }
+        // case 'USER_CHECK':
+        //     return{
+        //         ...state, 
+        //         user: action.payload
+        //     }
+
+        case "SIGN_IN": 
             return {
                 ...state,
-                user: action.payload,
-            };
-        case 'SIGNIN':
-            return{
-                ...state, 
                 user: action.payload
-            }   
-        case 'LOG_OUT':
-            return{
-                ...state, 
-                log: false
             }
-        case 'GET_USER':
+        case "SIGN_UP":
             return {
                 ...state,
-              user:action.payload
             }
-        case 'USER_CHECK':
-            return{
-                ...state, 
+        case "LOG_OUT":
+            return {
+                ...state
+            }
+        case "CHECK_USER":
+            return {
+                ...state,
                 user: action.payload
             }
 
-        case 'POST_PRODUCT':            
-                return {
-                    ...state,
-            }
-
-        case 'GET_PRODUCT_DETAIL':
-            return {
-                ...state,
-                prodDetail: action.payload
-            }
-        case 'PAGE': 
-            return {
-                ...state,
-                page: action.payload
-            }
-        case "LOG_OUT_MATI":
-            return {
-                ...state
-            }
-        case "SIGN_UP_MATI": 
-            return {
-                ...state
-            }
-        case "SIGN_IN_MATI": 
-            return {
-                ...state
-            }
-        case "GUEST_CHECK":
-            return action.payload
-         default: return state;
+        default: return state;
         }
 }
 

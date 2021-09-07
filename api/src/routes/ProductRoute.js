@@ -16,23 +16,15 @@ router.post("/", async (req, res) => {
     const product = await newProduct.save();
     res.json(product);
 
-    // try {
-    //     await newProduct.save();
-    //     res.json('Product Created');
-    // } catch (error) {
-    //     console.log(error);
-    //     res.status(500).send('Server error');
-    // }
+   
 });
 
-router.get("/", (req, res) => {
-    Product.find({}, (err, products) => {
-      Category.populate(products, { path: "category" }, (err, products) => {
-        res.status(200).send(products);
+router.get("/", async (req, res) => {
+  const allProducts = await Product.find({}).populate('category',{
+      name:1
+    })
+        res.status(200).send(allProducts);
       });
-    });
-  });
-
 
 
 router.get("/search/:name", async (req, res) => {
@@ -90,5 +82,19 @@ router.delete("/:id", async (req, res) => {
     "_id": "6131649ca16c17b5b015bc72",
     "name": "carnes",
 */
+// router.get('/filter/categories', async (req, res) => {
+//   try {
+//       let categories = await Product.distinct('category')
+//       if (!categories) {
+//           return res.status(400).json({
+//               error: 'Categories not found'
+//           });
+//       }
+//       res.json(categories);
 
+//   } catch (error) {
+//       console.log(error)
+//       res.status(500).send('Server Error')
+//   }
+// });
 module.exports = router;

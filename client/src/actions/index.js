@@ -147,57 +147,113 @@ export function getProductDetail(id) {
     }
 }
 
-export function page (payload) {
+export function page(payload) {
     return {
         type: 'PAGE',
         payload
     }
 }
 
-export function logOutMati() {
+export function signIn(userInfo) {
     return function(dispatch) {
-        return axios.get("http://localhost:3001/logout")
-            .then((result) => {
-                dispatch({
-                    type: "LOG_OUT_MATI",
-                    payload: result.data
-                })
+        return axios({
+            method: "post",
+            data: {
+              email: userInfo.email,
+              password: userInfo.password
+            },
+            withCredentials: true,
+            url: "http://localhost:3001/signin"
+          })
+          .then((res) => {
+            console.log("[ACTION]RES SINGIN: ", res.data)
+            dispatch({
+                type: "SIGN_IN",
+                payload: res.data
             })
+          })
     }
 }
 
-export function signUpMati(userInfo) {
+export function signInGoogle() {
     return function(dispatch) {
-        return axios.post("http://localhost:3001/signup", userInfo)
-            .then((result) => {
-                dispatch({
-                    type: "SIGN_UP_MATI",
-                    payload: result.data
-                })
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "http://localhost:3001/google/auth"
+          })
+          .then((res) => {
+            console.log("[ACTION]RES SINGIN: ", res.data)
+            dispatch({
+                type: "SIGN_IN",
+                payload: res.data
             })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
 }
 
-export function signInMati(userInfo) {
+export function signUp(userInfo) {
     return function(dispatch) {
-        return axios.post("http://localhost:3001/signin", userInfo)
-            .then((result) => {
-                dispatch({
-                    type: "SIGN_IN_MATI",
-                    payload: result.data
-                })
+        return axios({
+            method: "post",
+            data: {
+                first_name: userInfo.first_name,
+                last_name: userInfo.last_name,
+                email: userInfo.email,
+                password: userInfo.password
+            },
+            withCredentials: true,
+            url: "http://localhost:3001/signup"
+          })
+          .then((res) => {
+            console.log("[ACTION]RES SINGUP: ", res.data)
+            dispatch({
+                type: "SIGN_UP",
+                payload: res.data
             })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
 }
 
-export function guestMati() {
+export function checkUser() {
     return function(dispatch) {
-        return axios.get("http://localhost:3001/signin")
-            .then((result) => {
-                dispatch({
-                    type: "GUEST_CHECK",
-                    payload: result.data
-                })
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "http://localhost:3001/signin"
+          })
+          .then((res) => {
+              console.log("[ACTION]RES CHECKUSER: ", res.data)
+            dispatch({
+                type: "CHECK_USER",
+                payload: res.data
             })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function logOut() {
+    return function(dispatch) {
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "http://localhost:3001/logout"
+          })
+          .then((res) => {
+              console.log("[ACTION]RES LOGOUT: ", res)
+            dispatch({
+                type: "LOG_OUT",
+                payload: res.data
+            })
+          })
     }
 }

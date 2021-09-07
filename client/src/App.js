@@ -11,10 +11,9 @@ import Products from "./components/Products";
 import ProductDetail from "./components/ProductDetail";
 import { createTheme , ThemeProvider} from '@material-ui/core';
 import Header from "./components/Header";
-import SignUpFormMati from "./components/signUpFormMati";
-import SignInFormMati from "./components/signInFormMati";
 import { useDispatch } from "react-redux";
 import { guestMati } from "./actions";
+import { userCheck } from "./actions";
 
 
 const theme = createTheme({
@@ -57,14 +56,8 @@ const theme = createTheme({
 
 
 function App() {
-  const dispatch = useDispatch()
 
   const [guest, setGuest] = useState(true)
-  useEffect(() => {
-    dispatch(guestMati)
-  }, [])
-  
-  console.log("GUEST:", guest)
 
   return (
     
@@ -72,20 +65,16 @@ function App() {
     <ThemeProvider theme={theme}>
     {/* <Header /> */}
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/" >
           <Products guest={guest} setGuest={setGuest}/>
         </Route>
         <Route exact path = "/creation" component = {ProductCreation} />
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
         <Route exact path = "/products" component = {Products} />
+
+
         <Route exact path = "/profile" component = {Profile} />
-        {/* <Route exact path="/signupMati">
-          <SignUpFormMati />
-        </Route>
-        <Route exact path="/signinMati">
-          <SignInFormMati />
-        </Route> */}
         <Route path="/detail/:id" component={ProductDetail} /> 
       </Switch>
       </ThemeProvider>

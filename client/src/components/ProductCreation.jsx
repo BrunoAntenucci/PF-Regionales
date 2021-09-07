@@ -138,27 +138,33 @@ export default function ProductCreation(){
     const categories = useSelector((state) => state.categories)
 
     function handleCategories(e){
-        setInput({
-            ...input,
-            category: [...input.category, e.target.value]
-        })
-        setErrors(validate({
-            ...input,
-            [e.target.name]: e.target.value,
-        }))
+      if (input.category.includes(e.target.value)) {
+        alert("Categoria repetida, prueba con otra!");                
+        
+    }else{
+      setInput({
+          ...input,
+          category: [...input.category, e.target.value]
+      })
+      setErrors(validate({
+          ...input,
+          [e.target.name]: e.target.value,
+      }))
+
+    }
     } 
 
     function handleChange(e){
         setInput({
             ...input,
             [e.target.name]: e.target.value,
-
-        })
-        setErrors(validate({
-            ...input,
-            [e.target.name]: e.target.value,
-        }))
+          })
+          setErrors(validate({
+              ...input,
+              [e.target.name]: e.target.value,
+          }))
         console.log(input)
+
     }
 
     function handleClose(e){
