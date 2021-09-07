@@ -72,7 +72,7 @@ function Products(props) {
     const [prodPerPage] = useState(9);
     const indexOfLastProd = pageN * prodPerPage; 
     const indexOfFirstProd = indexOfLastProd - prodPerPage;  
-    const currentProd = allProducts.slice(indexOfFirstProd, indexOfLastProd); 
+    const currentProd = allProducts?.slice(indexOfFirstProd, indexOfLastProd); 
 
     const paginate = (pageNumber) => {
         dispatch(page(pageNumber));

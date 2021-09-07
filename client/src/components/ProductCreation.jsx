@@ -158,13 +158,13 @@ export default function ProductCreation(){
         setInput({
             ...input,
             [e.target.name]: e.target.value,
-
           })
           setErrors(validate({
               ...input,
               [e.target.name]: e.target.value,
           }))
         console.log(input)
+
     }
 
     function handleClose(e){

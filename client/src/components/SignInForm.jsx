@@ -3,11 +3,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import { loginUser } from '../actions';
 // import GoogleLogin from 'react-google-login';
-  //import card template
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,6 +18,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+//------IMPORT ACTIONS------//
+import { signIn } from "../actions/index";
 
 function Copyright() {
     return (
@@ -88,32 +87,12 @@ React.useEffect(()=>{
     function handleSubmitGoogle(e) {
         e.preventDefault();
         axios.get("http://localhost:3001/google/auth")
-        //axios.get("http://localhost:3001/google/auth");
-        //history.push('/google/auth')
     }
-    const handleSubmit = async (e) => {
+    console.log(input)
+    function handleSubmit(e) {
         e.preventDefault();
-        if (input.email && input.password){
-
-            await axios.post("http://localhost:3001/signin", input);
-            // let data = response.data
-            // if(data.done){
-
-                alert('Loggin succesfully')
-                
-            }
-        
-        // else if(!input.email && !input.password) {
-        //     alert("Required credentials")
-        // }      
-        // else if (!input.email){ 
-        //         alert("Required email!")
-        //     }
-        // else if (!input.password){
-        //         alert("Required password")
-        //     }
-        
-        history.push('/products');
+        dispatch(signIn(input))
+        history.push("/")
     }
 
     return(
