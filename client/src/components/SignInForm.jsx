@@ -91,23 +91,8 @@ React.useEffect(()=>{
     console.log(input)
     function handleSubmit(e) {
         e.preventDefault();
-        if (input.email && input.password){
-            await axios.post("http://localhost:3001/signin", input);
-                alert('Loggin succesfully')
-                
-            }
-        
-        // else if(!input.email && !input.password) {
-        //     alert("Required credentials")
-        // }      
-        // else if (!input.email){ 
-        //         alert("Required email!")
-        //     }
-        // else if (!input.password){
-        //         alert("Required password")
-        //     }
-        
-        history.push('/');
+        dispatch(signIn(input))
+        history.push("/")
     }
 
     return(
@@ -118,7 +103,6 @@ React.useEffect(()=>{
             
                 <input type="text" name="user" placeholder="Email" onChange={handleChangeEmail} required/>
                // <span>{errors?.email?.message}</span> 
-
                 <input type="password" placeholder="Password" onChange={handleChangePassword} required/>
               // <span>{errors?.password?.message}</span>
                 <Link to="/saveAccount">Do you forget?</Link>
@@ -220,4 +204,4 @@ React.useEffect(()=>{
 
 }
 
-export default SignInForm;
+export default SignInForm

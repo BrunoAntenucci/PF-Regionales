@@ -24,34 +24,21 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 categories: action.payload
-            }    
-
-        // case 'SIGNUP':
-        //     return {
-        //         ...state,
-        //         user: action.payload,
-        //     };
-        // case 'SIGNIN':
-        //     return{
-        //         ...state, 
-        //         user: action.payload
-        //     }   
-        // case 'LOG_OUT':
-        //     return{
-        //         ...state, 
-        //         log: false
-        //     }
-        // case 'GET_USER':
-        //     return {
-        //         ...state,
-        //       user:action.payload
-        //     }
-        // case 'USER_CHECK':
-        //     return{
-        //         ...state, 
-        //         user: action.payload
-        //     }
-
+            }
+        case 'POST_PRODUCT':            
+            return {
+            ...state,
+            }
+        case 'GET_PRODUCT_DETAIL':
+            return {
+                ...state,
+                prodDetail: action.payload
+            }
+        case 'PAGE': 
+            return {
+                ...state,
+                page: action.payload
+            }
         case "SIGN_IN": 
             return {
                 ...state,
@@ -70,8 +57,7 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 user: action.payload
             }
-
-        default: return state;
+         default: return state;
         }
 }
 
