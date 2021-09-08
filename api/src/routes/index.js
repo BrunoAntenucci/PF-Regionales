@@ -36,7 +36,7 @@ router.use("/order", order)
 router.use("/auth", auth)
 
 router.get("/", (req, res, next) => {
-    console.log("index route: ", req.user)
+    console.log(req)
     res.send(req.user)
 })
 router.get("/failure/signin", (req, res, next) => {
