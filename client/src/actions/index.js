@@ -56,6 +56,19 @@ export function postProducts(payload){
     
 }
 
+export function postStore(payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.post('http://localhost:3001/store', payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
 export function getProductDetail(id) {
     return async function(dispatch) {
         try {

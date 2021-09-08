@@ -3,21 +3,7 @@ const router = Router();
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 
-router.post("/", async (req, res) => {
-    const {user,name,description,price, quantity, category, image} = req.body; 
-    console.log(req.body)
-    if (!user, !name || !description || !price  || !category || !quantity || !image) {
-        return res.status(400).json({
-            error: 'Something is missing!',
-        });
-    } 
 
-    const newProduct = await new Product({user, name, description, price, category , quantity, image})
-    const product = await newProduct.save();
-    res.json(product);
-
-   
-});
 
 router.get("/", async (req, res) => {
   const allProducts = await Product.find({}).populate('category',{
