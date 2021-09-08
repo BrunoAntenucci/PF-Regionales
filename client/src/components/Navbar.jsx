@@ -5,14 +5,22 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+
+import { getCategories, getFilterProducts } from '../actions';
+
 import { checkUser, getCategories } from '../actions';
+
 import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+
+import NavBarMati from './NavBarMati';
+
 import cartEmpty from '../img/cart-empty.png'
+
 import User from './User';
 
 import { Button, ButtonGroup } from '@material-ui/core';
@@ -85,13 +93,24 @@ const useStyles = makeStyles(theme => ({
     color:theme.palette.primary.dark,
   }
 }));
+
+
+
+
+
+
+
+function Navbar(props) {
+
 function Navbar() {
+
 
 
   const dispatch = useDispatch();
   const categ = useSelector((state) => state.categories);
   const classes = useStyles();
-
+ 
+ 
   const [value, setValue] = React.useState(0);
 
   useEffect(() => {
@@ -101,6 +120,59 @@ function Navbar() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   }
+
+
+  function handlerFilterCategory(e) {
+    e.preventDefault()
+    dispatch(getFilterProducts(e.target.value))
+
+  }
+
+
+
+
+  // const handleOnClickLogSign = (e) => {
+  //   e.preventDefault()
+  //   if(!log){
+  //     setLog(true)
+  //   }else{
+  //     setLog(false)
+  //   }
+  //   console.log(log)
+  // }
+  // const NoUser = () => {
+  //   return (
+  //     <>
+  // <Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
+  //   <Link style={{textDecoration:"none" , color:"white"}} to='/signup' >crear cuenta</Link>
+  // </Button>
+  // <Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
+  //   <Link style={{textDecoration:"none", color:"white"}} to='/signin' >ingresá</Link>  
+  // </Button>
+  //   </>)
+
+
+
+    
+    
+  // }
+  // const User = () => {
+  //   return (
+  //     <>
+  // <img src={iconUser} onClick={handleOnClickLogSign} className={classes.iconuser}/>
+  // <Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
+  //   Usuario
+  // </Button>
+  // <Button  size="small"  className={classes.buttons}>
+  //   Favoritos
+  // </Button>
+  // <Button  size="small"  className={classes.buttons}>
+  //   Cerrar Sesión 
+  // </Button>
+  //     </>)
+  //   }
+
+
     return (
       <div className={classes.root} color="primary"> 
         
@@ -120,14 +192,16 @@ function Navbar() {
         <Select size="small" 
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          onChange={handleChange}
+          onChange={e => handlerFilterCategory(e)}
         >
+          <option className={classes.formControl} value="" selected defaultValue>Todo</option>
           {
             categ?.map(
               c => <MenuItem value={c.name} className={classes.tabs} key={c.id}>
                 {c.name}
                 </MenuItem>
               )}
+              
           {/* <MenuItem value={"Todo"}>Todo</MenuItem>
           <MenuItem value={"Indumentaria"}>Indumentaria</MenuItem>
           <MenuItem value={"Tecnología"}>Tecnología</MenuItem>

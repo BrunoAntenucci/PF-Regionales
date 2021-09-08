@@ -5,9 +5,15 @@ const initialState = {
     categories: [],
     prodDetail: [],
     page: 1,
+
+    user: {},
+    categ: [],
+    allProducts: [],
+
     user: false,
     guest: {},
     wishlist: getWishListLocalStorage()
+
 }
 
 function rootReducer(state = initialState, action) {
@@ -16,7 +22,13 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 products: action.payload,
+
+                allProducts: action.payload,
+                // page: 1
+                
+
                 page: 1
+
               }
         case 'GET_PRODUCTS_BY_NAME':
             return {
@@ -55,6 +67,30 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state
             }
+
+        case "GUEST_CHECK":
+            return action.payload
+        case 'FILTER_PRODUCTS':
+            var allProducts = state.allProducts;
+            var productByCategory = []
+            if( action.payload !== ''){
+                for (var i=0; i<allProducts.length; i++) {
+                for (var j=0; j<allProducts[i].category.length; j++) {
+                    if (allProducts[i].category[j].name === action.payload) {
+                    productByCategory.push(allProducts[i])
+                    }
+                }
+                }
+            }else{
+                productByCategory = allProducts
+            }
+            return {
+                ...state, 
+                products: productByCategory
+
+            }
+         default: return state;
+
         case "CHECK_USER":
             return {
                 ...state,
@@ -62,7 +98,11 @@ function rootReducer(state = initialState, action) {
             }
         
         default: return state;
+
         }
 }
 
+
 export default rootReducer;
+
+
