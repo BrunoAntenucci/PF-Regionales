@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { deleteFav } from "../actions";
 
 const FavCard = ({name, price, image, _id, description}) => {
-    const userId = windows.localStorage.getItem('userId');
+    const userId = window.localStorage.getItem('userId');
     const dispatch = useDispatch();
     const deleteOfList = () => {
         dispatch(deleteFav({userId, productId: _id}))

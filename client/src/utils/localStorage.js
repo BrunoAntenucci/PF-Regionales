@@ -1,7 +1,7 @@
 //MIS COMPRAS
 export function getCartLocalStorage() {
     const data = window.localStorage.getItem("cart");
-    return data ? JSON.parse(data) : [];
+    return data ? JSON.parse(data) : []; //parse para pasarlo a objeto
 }
   
 export function setCartLocalStorage(product) {
