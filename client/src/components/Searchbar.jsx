@@ -1,9 +1,14 @@
 import React from 'react';
+import { useEffect } from 'react';
+import axios from 'axios'
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+// import { Autocomplete } from '@material-ui/lab';
+// import TextField from "@material-ui/core/TextField"
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
+// import InputBase from '@material-ui/core/InputBase';
+// import IconButton from '@material-ui/core/IconButton';
+// import SearchIcon from '@material-ui/icons/Search';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { getProductsByName } from '../actions';
@@ -38,45 +43,85 @@ function Navbar() {
 
   const dispatch = useDispatch();
   //let history = useHistory ();
-  const [name, setName] = useState('');
+  // const [name, setName] = useState('');
 
-  const handleInputChange = (e) => {
-    e.preventDefault();
-    setName(e.target.value);
-  }
+  // const handleInputChange = (e) => {
+  //   e.preventDefault();
+  //   setName(e.target.value);
+  // }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if(name){
+  //   dispatch(getProductsByName(name));
+  //   //history.push("/products");
+  //   setName('');   
+  //   // let inputId = document.getElementById("dataInput");
+  //   // inputId.value = ""; 
+  //   }
+  // }
+
+
+  // --------------------AUTOCOMPLETE---------------------------------
+
+  const [prod, setProd] = useState("")
+  useEffect(async() => {
+    const response = await axios.get("http://localhost:3001/product")
+    console.log("response", response)
+    setProd(response.data)
+  }, []);
+  console.log(prod)
+
+  const handleOnSelect = ({name}) => {
+    // the item selected
+
     if(name){
     dispatch(getProductsByName(name));
     //history.push("/products");
-    setName('');   
+    // setName('');
     // let inputId = document.getElementById("dataInput");
     // inputId.value = ""; 
     }
+    console.log(name)
+  }
+
+  const handleOnSearch = (e) => {
+    if(e){
+      dispatch(getProductsByName(e));
+      //history.push("/products");
+      // setName('');
+      // let inputId = document.getElementById("dataInput");
+      // inputId.value = ""; 
+      }
+      console.log(e, "hola")
+  
   }
 
 
     const classes = useStyles();
     return (
         <Paper component="form" className={classes.root}>
-            <InputBase
-            id="dataInput"
-            className={classes.input}
-            placeholder="Search a product"
-            inputProps={{ 'aria-label': 'Search' }}
-            onChange = {(e) => handleInputChange(e)}
-            value ={name}
-            />
-            <IconButton 
-            type="submit" 
-            className={classes.iconButton} 
-            aria-label="search"
-            onClick = {(e) => handleSubmit(e)}
-            >
-            <SearchIcon />
-            </IconButton>        
-          
+         
+          <div style={{ width: 500 }}>
+            <ReactSearchAutocomplete
+             id="dataInput"
+             className={classes.input}
+             showIcon={true}
+             maxResults={"5"}
+            items={prod}
+            fuseOptions={{ keys: ["name", "description"] }}
+            resultStringKeyName="name"
+            onSearch={handleOnSearch}
+            
+            // onClick = {handleSubmit}
+            onSelect={handleOnSelect}
+            // size={"small"}
+            style={{ width: 300 }}
+            placeholder={"Search products..."}
+            />               
+          </div>
+           
+           
       </Paper>
       
     )
