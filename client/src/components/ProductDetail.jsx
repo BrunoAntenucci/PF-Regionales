@@ -99,6 +99,30 @@ function ProductDetail(props) {
     },[dispatch, props.match.params.id]);
     
     //const detail = useSelector((state) => state.prodDetail);
+    //console.log(detail);
+
+    //---------------LOCAL STORAGE--------------------
+    // useEffect(() => {
+    //     const localStorageContent = localStorage.getItem('history');
+
+    // let historial;
+    // if(!localStorageContent) {
+    //     historial = [];
+    // } else {
+    //     historial = JSON.parse(localStorageContent);
+    // }
+    // console.log('history', localStorageContent);
+    // console.log('historial', historial);
+
+    // if(!historial.some(p=> detail.product.map(pd => pd._id).includes(p._id)) ) {
+    //     historial.push(...detail.product);
+    // }
+    
+  
+    // localStorage.setItem('history', JSON.stringify(historial));
+    // }, [detail.product])
+    
+    //------------------------------------------------
 
 
     return (

@@ -76,6 +76,7 @@ function App() {
 
         <Route exact path = "/profile" component = {Profile} />
         <Route path="/detail/:id" component={ProductDetail} /> 
+       
       </Switch>
       </ThemeProvider>
     </BrowserRouter>
