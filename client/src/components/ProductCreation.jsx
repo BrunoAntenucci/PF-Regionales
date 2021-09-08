@@ -45,6 +45,7 @@ background: "linear-gradient(120deg, #ffffff 0%, "+theme.palette.primary.light+"
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
+        bottom: "7px"
       },
       selectEmpty: {
         marginTop: theme.spacing(2),
@@ -65,6 +66,7 @@ background: "linear-gradient(120deg, #ffffff 0%, "+theme.palette.primary.light+"
        display:'flex', 
        flexDirection:'row',
         width:"fit-content",
+        alignItems:"center",
         background:theme.palette.primary.main,
         borderRadius:"10px",
         padding:"10px",
@@ -89,7 +91,11 @@ background: "linear-gradient(120deg, #ffffff 0%, "+theme.palette.primary.light+"
           display:"flex",
           flexDirection:"row",
           justifyContent:"space-between"
-      }
+      },
+      cateroriesSelect:{
+        
+      },
+      
       }));
 
 
@@ -333,6 +339,7 @@ export default function ProductCreation(){
           <FormControl className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">categorías</InputLabel>
         <Select
+        className={classes.cateroriesSelect}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           

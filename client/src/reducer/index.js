@@ -1,10 +1,13 @@
+import { getWishListLocalStorage, setWishListLocalStorage } from '../utils/localStorage';
+
 const initialState = {
     products : [],
     categories: [],
     prodDetail: [],
     page: 1,
     user: false,
-    guest: {}
+    guest: {},
+    wishlist: getWishListLocalStorage()
 }
 
 function rootReducer(state = initialState, action) {
@@ -57,7 +60,8 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 user: action.payload
             }
-         default: return state;
+        
+        default: return state;
         }
 }
 
