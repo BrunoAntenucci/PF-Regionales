@@ -142,6 +142,7 @@ function ProductDetail(props) {
     
             localStorage.setItem('history', JSON.stringify(historial));
         }
+        console.log(JSON.parse(localStorage.getItem('history')))
     }
     //---------------LOCAL STORAGE--------------------
     // useEffect(() => {
@@ -215,13 +216,13 @@ function ProductDetail(props) {
 
                             </div>
                                     
-                                        <div className={classes.cardDiv}>
+                                        <div className={classes.cardDiv}
+                                        onClick={() => handleCartClick(detail.product)}>
                                 <Typography
                                     className={classes.cardTypo}
-                                    variant="body1" color="primary" component="p"
-                                    
+                                    variant="body1" color="primary" component="p"                                  
                                     >
-                                    <button onClick={() => handleCartClick(detail.product)}>añadir al carrito</button> 
+                                    añadir al carrito
                                         </Typography>
                                     <img src={cartEmpty} className={classes.cart}></img>
                                     </div>
