@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-//------------------PRODUCTS----------------------------
 export function getProducts() {
     return async function (dispatch) {
         try {
@@ -71,14 +70,14 @@ export function getProductDetail(id) {
         }
     }
 }
-//--------------------PAGINATION---------------------
+
 export function page(payload) {
     return {
         type: 'PAGE',
         payload
     }
 }
-//----------------------LOGIN--------------------------
+
 export function signIn(userInfo) {
     return function(dispatch) {
         return axios({
@@ -154,7 +153,7 @@ export function checkUser() {
             url: "http://localhost:3001/signin"
           })
           .then((res) => {
-              console.log("[ACTION]RES CHECKUSER: ", res.data)
+              console.log("[ACTION]RES CHECKUSER: ", res.data.first_name)
             dispatch({
                 type: "CHECK_USER",
                 payload: res.data

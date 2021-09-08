@@ -5,7 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getCategories } from '../actions';
+import { checkUser, getCategories } from '../actions';
 import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -93,7 +93,6 @@ function Navbar() {
   const classes = useStyles();
 
   const [value, setValue] = React.useState(0);
-  const [log,setLog] = React.useState(false)
 
   useEffect(() => {
     dispatch(getCategories())
@@ -102,7 +101,6 @@ function Navbar() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   }
-
     return (
       <div className={classes.root} color="primary"> 
         

@@ -19,7 +19,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 //------IMPORT ACTIONS------//
-import { signIn, signInGoogle } from "../actions/index";
+import { checkUser, signIn, signInGoogle } from "../actions/index";
 
 function Copyright() {
     return (
@@ -92,6 +92,7 @@ React.useEffect(()=>{
     function handleSubmit(e) {
         e.preventDefault();
         dispatch(signIn(input))
+        dispatch(checkUser())
         history.push("/")
     }
 
