@@ -5,7 +5,9 @@ const router = Router();
 
 router.get("/", (req, res, next) => {
     req.logOut();
-    res.redirect("/")
+    //res.clearCookie('userid');
+    res.send(req.user)
+    //res.redirect("/");
 })
 
 

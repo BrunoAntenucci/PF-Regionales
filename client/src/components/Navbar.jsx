@@ -5,14 +5,22 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+
 import { getCategories, getFilterProducts } from '../actions';
+
+import { checkUser, getCategories } from '../actions';
+
 import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+
 import NavBarMati from './NavBarMati';
+
+import cartEmpty from '../img/cart-empty.png'
+
 import User from './User';
 
 import { Button, ButtonGroup } from '@material-ui/core';
@@ -63,6 +71,26 @@ const useStyles = makeStyles(theme => ({
     borderRadius:"50%",
     color:"white",
     border:"2px solid black"
+  },
+  myCart:{
+    //background:theme.palette.secondary.dark
+  },
+  cart:{
+    padding:"7px",
+    margin:"0 5px",
+    width:"20px",
+   alignSelf:"center",
+    height:"20px",
+    justifySelf: "end",
+    background:theme.palette.primary.main,
+     borderRadius:"50%",
+     border:"3px solid white"
+    
+  },
+  cardTypo:{
+    height:"max-content",
+    padding:"3px 5px",
+    color:theme.palette.primary.dark,
   }
 }));
 
@@ -71,7 +99,11 @@ const useStyles = makeStyles(theme => ({
 
 
 
+
 function Navbar(props) {
+
+function Navbar() {
+
 
 
   const dispatch = useDispatch();
@@ -80,7 +112,6 @@ function Navbar(props) {
  
  
   const [value, setValue] = React.useState(0);
-  const [log,setLog] = React.useState(false)
 
   useEffect(() => {
     dispatch(getCategories())
@@ -89,6 +120,7 @@ function Navbar(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   }
+
 
   function handlerFilterCategory(e) {
     e.preventDefault()
@@ -139,6 +171,8 @@ function Navbar(props) {
   // </Button>
   //     </>)
   //   }
+
+
     return (
       <div className={classes.root} color="primary"> 
         
@@ -188,14 +222,13 @@ function Navbar(props) {
     {/* comentado de momento, perdón mati */}
     {/* <NavBarMati guest={props.guest} setGuest={props.setGuest}/> */}
     <div className={classes.navegation}> 
-    <User />
-      {/* {!log&&
-      <NoUser/>
-      } */}
-      {/* {log&&
-      <User/>
-      } */}
+      <User />
+   
     <Button  size="small"  className={classes.buttons}>mis compras</Button>
+    <Button  size="small"  className={classes.buttons+" "+classes.myCart}>
+      mi carrito
+    <img src={cartEmpty} className={classes.cart}></img>
+    </Button>
     </div>
 
         {/* </Paper> */}
@@ -203,4 +236,4 @@ function Navbar(props) {
     )
 }
 
-export default Navbar
+export default Navbar;
