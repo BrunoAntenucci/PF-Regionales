@@ -92,6 +92,7 @@ React.useEffect(()=>{
     function handleSubmit(e) {
         e.preventDefault();
         dispatch(signIn(input))
+        dispatch(checkUser())
         history.push("/")
     }
 

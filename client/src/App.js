@@ -66,7 +66,7 @@ function App() {
     {/* <Header /> */}
       <Switch>
         <Route exact path="/" >
-          {/* <Products guest={guest} setGuest={setGuest}/>  */}
+          <Products guest={guest} setGuest={setGuest}/> 
           <Products/>
         </Route>
         <Route exact path = "/creation" component = {ProductCreation} />

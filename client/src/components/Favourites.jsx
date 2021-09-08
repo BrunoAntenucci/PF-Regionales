@@ -9,18 +9,7 @@ const Favourites = () => {
       <h1>Favoritos</h1>
       <div>
         {wishlist.length ? (
-          wishlist.map(
-            ({ product: { imageUrl, name, price, _id, description } }, i) => (
-              <FavCard
-                key={i}
-                imageUrl={imageUrl}
-                name={name}
-                price={price}
-                _id={_id}
-                description={description}
-              />
-            )
-          )
+          wishlist.map()
         ) : (
           <div>
             <p>No tienes favoritos aún</p>

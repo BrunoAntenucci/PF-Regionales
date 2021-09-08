@@ -55,26 +55,11 @@ const User = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const user = useSelector(state => state.user)
-    // const [data, setData] = useState(null)
 
     useEffect( () => {
         dispatch(checkUser())
-        // setData(data)
-    }, [])
+    }, [dispatch])
 
-   
-    // useEffect((data) => {
-    //     axios({
-    //         method: "get",
-    //         withCredentials: true,
-    //         url: "http://localhost:3001/signin"
-    //       })
-    //       .then((res) => {
-    //         console.log("[ACTION]RES CHECKUSER: ", res.data.first_name)
-    //         setData(res.data)
-    //     })
-           
-    //     }, [])
 
     function handleCheckGuest(e) {
       e.preventDefault();
@@ -90,10 +75,10 @@ const User = () => {
     return(
         <div>
             {/* <button onClick={handleCheckGuest}>USER CHECK</button> */}
-            {user  ? <>
+            {user ? <>
                 <img src={iconUser}  className={classes.iconuser}/>
                 <Button  size="small"  className={classes.buttons}>
-                    {user.first_name}
+                    {user.first_name}                   
                 </Button>
                 <Button  size="small"  className={classes.buttons}>
                     Favoritos
