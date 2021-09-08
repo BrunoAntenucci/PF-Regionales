@@ -8,9 +8,12 @@ export default function Profile (userInfo) {
     return (
         <div>
             <h3>Mi usuario</h3>
-            {/* <h2>{first_name}{last_name}</h2>
-            <h4>{email}</h4> */}
-            
+            {user? (
+                <>
+                    <h2>{user.first_name}{user.last_name}</h2>
+            <h4>{user.email}</h4>
+                </>
+            ) : null}
         </div>
     )
 }

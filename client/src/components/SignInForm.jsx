@@ -103,7 +103,6 @@ React.useEffect(()=>{
             
                 <input type="text" name="user" placeholder="Email" onChange={handleChangeEmail} required/>
                // <span>{errors?.email?.message}</span> 
-
                 <input type="password" placeholder="Password" onChange={handleChangePassword} required/>
               // <span>{errors?.password?.message}</span>
                 <Link to="/saveAccount">Do you forget?</Link>
@@ -205,4 +204,4 @@ React.useEffect(()=>{
 
 }
 
-export default SignInForm;
+export default SignInForm

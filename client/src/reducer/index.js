@@ -2,7 +2,6 @@ const initialState = {
     products : [],
     categories: [],
     prodDetail: [],
-    log: false,
     page: 1,
     user: false,
     guest: {}

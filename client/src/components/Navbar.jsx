@@ -82,45 +82,6 @@ function Navbar() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   }
-  // const handleOnClickLogSign = (e) => {
-  //   e.preventDefault()
-  //   if(!log){
-  //     setLog(true)
-  //   }else{
-  //     setLog(false)
-  //   }
-  //   console.log(log)
-  // }
-  // const NoUser = () => {
-  //   return (
-  //     <>
-  // <Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
-  //   <Link style={{textDecoration:"none" , color:"white"}} to='/signup' >crear cuenta</Link>
-  // </Button>
-  // <Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
-  //   <Link style={{textDecoration:"none", color:"white"}} to='/signin' >ingresá</Link>  
-  // </Button>
-  //   </>)
-
-
-
-    
-    
-  // }
-  // const User = () => {
-  //   return (
-  //     <>
-  // <img src={iconUser} onClick={handleOnClickLogSign} className={classes.iconuser}/>
-  // <Button  size="small" onClick={handleOnClickLogSign} className={classes.buttons}>
-  //   Usuario
-  // </Button>
-  // <Button  size="small"  className={classes.buttons}>
-  //   Favoritos
-  // </Button>
-  // <Button  size="small"  className={classes.buttons}>
-  //   Cerrar Sesión 
-  // </Button>
-  //     </>)
 
     return (
       <div className={classes.root} color="primary"> 
@@ -169,13 +130,8 @@ function Navbar() {
     {/* comentado de momento, perdón mati */}
     {/* <NavBarMati guest={props.guest} setGuest={props.setGuest}/> */}
     <div className={classes.navegation}> 
-    <User />
-      {/* {!log&&
-      <NoUser/>
-      } */}
-      {/* {log&&
-      <User/>
-      } */}
+      <User />
+   
     <Button  size="small"  className={classes.buttons}>mis compras</Button>
     </div>
 
