@@ -5,7 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getCategories } from '../actions';
+import { getCategories, getFilterProducts } from '../actions';
 import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,7 +13,6 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NavBarMati from './NavBarMati';
-
 import User from './User';
 
 import { Button, ButtonGroup } from '@material-ui/core';
@@ -66,13 +65,20 @@ const useStyles = makeStyles(theme => ({
     border:"2px solid black"
   }
 }));
+
+
+
+
+
+
 function Navbar(props) {
 
 
   const dispatch = useDispatch();
   const categ = useSelector((state) => state.categories);
   const classes = useStyles();
-
+ 
+ 
   const [value, setValue] = React.useState(0);
   const [log,setLog] = React.useState(false)
 
@@ -83,6 +89,16 @@ function Navbar(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   }
+
+  function handlerFilterCategory(e) {
+    e.preventDefault()
+    dispatch(getFilterProducts(e.target.value))
+
+  }
+
+
+
+
   // const handleOnClickLogSign = (e) => {
   //   e.preventDefault()
   //   if(!log){
@@ -142,14 +158,16 @@ function Navbar(props) {
         <Select size="small" 
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          onChange={handleChange}
+          onChange={e => handlerFilterCategory(e)}
         >
+          <option className={classes.formControl} value="" selected defaultValue>Todo</option>
           {
             categ?.map(
               c => <MenuItem value={c.name} className={classes.tabs} key={c.id}>
                 {c.name}
                 </MenuItem>
               )}
+              
           {/* <MenuItem value={"Todo"}>Todo</MenuItem>
           <MenuItem value={"Indumentaria"}>Indumentaria</MenuItem>
           <MenuItem value={"Tecnología"}>Tecnología</MenuItem>

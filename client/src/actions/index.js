@@ -204,3 +204,12 @@ export function guestMati() {
             })
     }
 }
+
+
+export function getFilterProducts (payload) {
+    return {
+        type: 'FILTER_PRODUCTS',
+        payload      
+    
+    }
+}
