@@ -77,6 +77,7 @@ function App() {
         <Route exact path="/favourites" component={Favourites} />
         <Route exact path = "/profile" component = {Profile} />
         <Route path="/detail/:id" component={ProductDetail} /> 
+       
       </Switch>
       </ThemeProvider>
     </BrowserRouter>
