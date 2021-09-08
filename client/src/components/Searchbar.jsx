@@ -112,9 +112,6 @@ function Navbar() {
               
               style={{ width: 300 }}
               renderInput={(params) => <TextField {...params} label="Search" variant="outlined" />}
-              renderOption={(option) => {
-                return <h4>{`${option.name} |${option.description}`}</h4>
-              }}
               
               onSelect={handleSubmit()}
               onInputChange={handleSubmit()}
