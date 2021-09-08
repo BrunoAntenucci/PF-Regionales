@@ -60,7 +60,24 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 user: action.payload
             }
-        
+        case "ADD_FAV":
+            const findProd = state.products.find(
+                ({product: {_id}}) => _id === action.payload
+            );
+            const addFav = findProd && state.wishlist.concar(findProd);
+            findProd && setWishListLocalStorage(addFav)
+            return {
+                ...state, 
+                wishlist: addFav
+            }
+        case "DELETE_FAV":
+            const deleteFav = state.products.filter(
+                (e) => e.product._id !== action.payload);
+                setWishListLocalStorage(deleteFav)
+            return {
+                ...state, 
+                wishlist: deleteFav
+            }    
         default: return state;
         }
 }

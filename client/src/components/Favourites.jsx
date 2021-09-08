@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import FavCard from "./FavCard";
 
 const Favourites = () => {
   const wishlist = useSelector((state) => state.wishlist);
@@ -9,7 +10,16 @@ const Favourites = () => {
       <h1>Favoritos</h1>
       <div>
         {wishlist.length ? (
-          wishlist.map()
+          wishlist.map(({product: {name, price, image, _id, description}, i}) => (
+            <FavCard
+                key={i}
+                image={image}
+                name={name}
+                price={price}
+                _id={_id}
+                description={description}
+                />
+          ))
         ) : (
           <div>
             <p>No tienes favoritos aún</p>

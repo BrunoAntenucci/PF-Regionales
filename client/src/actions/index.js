@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { URL } from '../utils/constants';
 
 export function getProducts() {
     return async function (dispatch) {
@@ -77,7 +78,7 @@ export function page(payload) {
         payload
     }
 }
-
+//---------LOGING USER ----------------------
 export function signIn(userInfo) {
     return function(dispatch) {
         return axios({
@@ -179,5 +180,33 @@ export function logOut() {
                 payload: res.data
             })
           })
+    }
+}
+//----------WISHLIST----------
+export function addFav (body) {
+    return async function (dispatch) {
+        const response = await axios.post(URL.URL_FAVORITES, body);
+        return dispatch({
+            type: "ADD_FAV",
+            payload: response.data
+        })
+    } 
+};
+export function getFav (id){
+    return async function (dispatch) {
+        const response = await axios.get(`${URL.URL_FAVORITES}?userId=${id}`)
+        return dispatch({
+            type: "GET_FAV",
+            payload: response.data
+        })
+    }
+}
+export function deleteFav (body) {
+    return async function (dispatch){
+        const response = await axios.delete(URL.URL_FAVORITES, body)
+        return dispatch({
+            type: "DELETE_FAV",
+            payload: response.data
+        })
     }
 }

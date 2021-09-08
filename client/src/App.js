@@ -6,6 +6,7 @@ import ProductCreation from "./components/ProductCreation";
 import SignInForm from './components/SignInForm';
 import SignUpForm from './components/SignUpForm'
 import Profile from './components/Profile';
+import Favourites from "./components/Favourites";
 import './App.css';
 import Products from "./components/Products";
 import ProductDetail from "./components/ProductDetail";
@@ -73,8 +74,7 @@ function App() {
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
         <Route exact path = "/products" component = {Products} />
-
-
+        <Route exact path="/favourites" component={Favourites} />
         <Route exact path = "/profile" component = {Profile} />
         <Route path="/detail/:id" component={ProductDetail} /> 
       </Switch>
