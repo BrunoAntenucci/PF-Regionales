@@ -89,7 +89,7 @@ function rootReducer(state = initialState, action) {
                 products: productByCategory
 
             }
-         default: return state;
+     
 
         case "CHECK_USER":
             return {

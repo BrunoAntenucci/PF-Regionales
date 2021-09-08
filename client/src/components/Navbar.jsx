@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 import { getCategories, getFilterProducts } from '../actions';
 
-import { checkUser, getCategories } from '../actions';
+import { checkUser, } from '../actions';
 
 import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -17,7 +17,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import NavBarMati from './NavBarMati';
+
 
 import cartEmpty from '../img/cart-empty.png'
 
@@ -100,7 +100,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function Navbar(props) {
+
 
 function Navbar() {
 

@@ -73,11 +73,7 @@ function Products(props) {
     const [prodPerPage , setProdPerPage] = useState(9)
     const indexOfLastProd = pageN * prodPerPage; 
     const indexOfFirstProd = indexOfLastProd - prodPerPage;  
-
     const currentProd = allProducts && allProducts.slice(indexOfFirstProd, indexOfLastProd); 
-
-    const currentProd = allProducts?.slice(indexOfFirstProd, indexOfLastProd); 
-
 
     const paginate = (pageNumber) => {
         setPageN(pageNumber);
@@ -96,7 +92,7 @@ function Products(props) {
     
   
     const classes = useStyles();
-    console.log(currentProd)
+    
     return (
         <div className={classes.root}>
             <Header guest={props.guest} setGuest={props.setGuest}/>
@@ -124,13 +120,8 @@ function Products(props) {
                         
                         <Fragment>              
                                     <Grid item xs={4}>     
-
                                         <Link to={'/detail/' + p?._id}
                                         style={{textDecoration:"none"}}>
-
-                                      
-                                       
-
                                             <h3>{p?.id}</h3>
                                                 <Card                    
                                                     name= {p?.name}
@@ -140,9 +131,8 @@ function Products(props) {
                                                         return <p>{aux?.name}</p>
                                                     })}
                                                     image={p?.image }
-                                                    id={p?._id}
                                                     />
-                                       
+                                        </Link>
                                     </Grid>
                                 
                             
@@ -157,8 +147,9 @@ function Products(props) {
                              
                                
                                     <Grid item xs={4}>     
-                                    
-                                            <h3>{p?.id}</h3>
+                                        <Link to={'/detail/' + p?._id}
+                                        style={{textDecoration:"none"}}>
+                                            <h3>{p.id}</h3>
                                                 <Card                    
                                                     name= {p?.name}
                                                     price={p?.price}
@@ -167,9 +158,8 @@ function Products(props) {
                                                         return <p>{aux?.name}</p>
                                                     })}
                                                     image={p?.image }
-                                                    id={p?._id}
                                                     />
-                                        
+                                        </Link>
                                     </Grid>
                                 
                             

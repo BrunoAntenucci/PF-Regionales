@@ -171,8 +171,8 @@ export function getFilterProducts (payload) {
     return {
         type: 'FILTER_PRODUCTS',
         payload      
-    
-
+    } 
+}
 export function logOut() {
     return function(dispatch) {
         return axios({
