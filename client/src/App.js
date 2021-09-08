@@ -25,7 +25,7 @@ const theme = createTheme({
         contrastText: '#fff',
       },
       secondary: {
-        light: '#b3a773e4',
+        light: '#b3a77388',
         main: '#97630e',
         dark: '#5f3e0a',
         contrastText: '#000',
@@ -66,7 +66,8 @@ function App() {
     {/* <Header /> */}
       <Switch>
         <Route exact path="/" >
-          <Products guest={guest} setGuest={setGuest}/>
+          <Products guest={guest} setGuest={setGuest}/> 
+          <Products/>
         </Route>
         <Route exact path = "/creation" component = {ProductCreation} />
         <Route exact path="/signin" component={SignInForm} />
@@ -76,6 +77,7 @@ function App() {
 
         <Route exact path = "/profile" component = {Profile} />
         <Route path="/detail/:id" component={ProductDetail} /> 
+       
       </Switch>
       </ThemeProvider>
     </BrowserRouter>

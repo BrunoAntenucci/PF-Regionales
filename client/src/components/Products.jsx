@@ -65,17 +65,18 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
 function Products(props) {
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products);
-    const pageN = useSelector((state) => state.page);
     const categories = useSelector((state) => state.categories)
-
+    // const pageN = useSelector((state) => state.page);
+    const [pageN, setPageN] = useState(1);
     const [render, setRender] = useState('');
-    const [prodPerPage] = useState(9);
+    // const [prodPerPage] = useState(9);
+    const [prodPerPage , setProdPerPage] = useState(9)
     const indexOfLastProd = pageN * prodPerPage; 
     const indexOfFirstProd = indexOfLastProd - prodPerPage;  
-    const currentProd = allProducts?.slice(indexOfFirstProd, indexOfLastProd); 
+    const currentProd = allProducts && allProducts.slice(indexOfFirstProd, indexOfLastProd); 
 
     const paginate = (pageNumber) => {
-        dispatch(page(pageNumber));
+        setPageN(pageNumber);
         window.scroll(0, 0)//UX
     }
     
@@ -114,18 +115,18 @@ function Products(props) {
                 alignItems="flex-start"
                 className={classes.products}>
               {
-                currentProd.length > 0 ? currentProd.map(p => {
+                currentProd?.length > 0 ? currentProd.map(p => {
                     return (
                         
                         <Fragment>              
                                     <Grid item xs={4}>     
                                         <Link to={'/detail/' + p?._id}
                                         style={{textDecoration:"none"}}>
-                                            <h3>{p.id}</h3>
+                                            <h3>{p?.id}</h3>
                                                 <Card                    
                                                     name= {p?.name}
                                                     price={p?.price}
-                                                    category={p?.category.map(e => {
+                                                    category={p?.category?.map(e => {
                                                         const aux = categories.find(i => i._id === e)
                                                         return <p>{aux?.name}</p>
                                                     })}
@@ -138,7 +139,7 @@ function Products(props) {
                         </Fragment>
                     )
                 })
-                : allProducts.length > 0 ? allProducts.map(p => {
+                : allProducts?.length > 0 ? allProducts.map(p => {
                     return (
                         
                         <Fragment>
@@ -184,4 +185,4 @@ function Products(props) {
     )
 }
 
-export default Products
+export default Products;

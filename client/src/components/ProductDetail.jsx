@@ -7,7 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import market from '../img/market.png'
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
+import cartEmpty from '../img/cart-empty.png'
 const useStyles = makeStyles((theme) => ({
     root: {
         boxShadow:" 10px 5px 5px #0002",
@@ -63,7 +64,35 @@ const useStyles = makeStyles((theme) => ({
     
         margin:"2px 40px",
        
-    }
+    },
+    cardDiv:{
+        display: "flex",
+        justifyContent: "center",
+        alignItems:"center",
+        flexDirection:"row",
+        padding:"3px 10px",
+        borderRadius:"10px",
+        background:theme.palette.primary.light,
+        cursor:"pointer",
+        border:"1px solid "+theme.palette.primary.main
+      },
+      cart:{
+        padding:"7px",
+        margin:"0 5px",
+        width:"16px",
+       
+        height:"16px",
+        justifySelf: "end",
+        background:theme.palette.primary.main,
+         borderRadius:"50%",
+         border:"3px solid white"
+        
+      },
+      cardTypo:{
+        height:"max-content",
+        padding:"3px 5px",
+        color:theme.palette.primary.dark,
+      }
   }));
 
 function ProductDetail(props) {
@@ -97,8 +126,46 @@ function ProductDetail(props) {
     useEffect(() => {
         dispatch(getProductDetail(props.match.params.id));
     },[dispatch, props.match.params.id]);
+
+    const handleCartClick = (detail) => {
+        let historial = [];
+
+        if(!localStorage.getItem('history')) {
+            historial.push(detail[0]);
+            localStorage.setItem('history', JSON.stringify(historial));
+        } else {
+            historial = JSON.parse(localStorage.getItem('history'));
+
+            if(!historial.some(p=> detail.map(pd => pd._id).includes(p._id)) ) {
+                historial.push(...detail);
+            }
     
-    //const detail = useSelector((state) => state.prodDetail);
+            localStorage.setItem('history', JSON.stringify(historial));
+        }
+        console.log(JSON.parse(localStorage.getItem('history')))
+    }
+    //---------------LOCAL STORAGE--------------------
+    // useEffect(() => {
+    //     const localStorageContent = localStorage.getItem('history');
+
+    // let historial;
+    // if(!localStorageContent) {
+    //     historial = [];
+    // } else {
+    //     historial = JSON.parse(localStorageContent);
+    // }
+    // console.log('history', localStorageContent);
+    // console.log('historial', historial);
+
+    // if(!historial.some(p=> detail.product.map(pd => pd._id).includes(p._id)) ) {
+    //     historial.push(...detail.product);
+    // }
+    
+  
+    // localStorage.setItem('history', JSON.stringify(historial));
+    // }, [detail.product])
+    
+    //------------------------------------------------
 
 
     return (
@@ -113,11 +180,13 @@ function ProductDetail(props) {
                 <img src={p?.image?p.image:market} className={classes.image} alt="producto"/>
                
                         </div>
+                       
                         <Button
                 className={classes.buttonBack}
                  variant="contained" color="primary">
                    <Link to = '/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
                     </Button>
+                   
                          </div>     
                          <div className={classes.contentRight}>     
                              <div className={classes.info}>  
@@ -144,7 +213,21 @@ function ProductDetail(props) {
                                         })}</ul>
                               </h3>
                                     <h3 className={classes.paper}>{p.description}</h3>
+
                             </div>
+                                    
+                                        <div className={classes.cardDiv}
+                                        onClick={() => handleCartClick(detail.product)}>
+                                <Typography
+                                    className={classes.cardTypo}
+                                    variant="body1" color="primary" component="p"                                  
+                                    >
+                                    añadir al carrito
+                                        </Typography>
+                                    <img src={cartEmpty} className={classes.cart}></img>
+                                    </div>
+                                
+                            
                             </div>
  
 
