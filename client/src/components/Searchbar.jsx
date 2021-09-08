@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios'
 import Autocomplete from '@material-ui/lab/Autocomplete';
+
+import TextField from "@material-ui/core/TextField"
 import { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -59,12 +61,12 @@ function Navbar() {
   const [name, setName] = useState('');
 
   const handleInputChange = (e) => {
-    e.preventDefault();
-    setName(e.target.value);
+    
+    setName();
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    
     if(name){
     dispatch(getProductsByName(name));
     //history.push("/products");
@@ -101,23 +103,29 @@ function Navbar() {
     return (
       
         <Paper component="form" className={classes.root}>
-          <div style={{ width: 400 }}>
-          
-         
+          <div style={{ width: 300 }}>
             <Autocomplete
-              id="custom-autocomplete"
+              id="combo-box-demo"
               options={prod}
-              style={{ width: 350 }}
-               
-                //filter value
-                
-            />      
-           </div>
-            <div className="App">
+              size={"small"}
+              getOptionLabel={(option) => `${option.name} | ${option.description}`}
+              
+              style={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="Search" variant="outlined" />}
+              renderOption={(option) => {
+                return <h4>{`${option.name} |${option.description}`}</h4>
+              }}
+              
+              onSelect={handleSubmit()}
+              onInputChange={handleSubmit()}
+              
+            />
+          </div>
+          <div className="App">
       <header className="App-header">
       
       </header>
-    </div>
+          </div>
 
       </Paper>
       
