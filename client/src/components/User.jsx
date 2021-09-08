@@ -54,32 +54,27 @@ const useStyles = makeStyles(theme => ({
 const User = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    //const user = useSelector(state => state.user)
-    const [data, setData] = useState(null)
+    const user = useSelector(state => state.user)
+    // const [data, setData] = useState(null)
 
-    // useEffect(() => {
-    //   dispatch(checkUser())
-    // }, [])
-    useEffect((data) => {
-        axios({
-            method: "get",
-            withCredentials: true,
-            url: "http://localhost:3001/signin"
-          })
-          .then((res) => {
-            console.log("[ACTION]RES CHECKUSER: ", res.data.first_name)
-            setData(res.data)
-        })
+    useEffect( () => {
+        dispatch(checkUser())
+        // setData(data)
+    }, [])
+
+   
+    // useEffect((data) => {
+    //     axios({
+    //         method: "get",
+    //         withCredentials: true,
+    //         url: "http://localhost:3001/signin"
+    //       })
+    //       .then((res) => {
+    //         console.log("[ACTION]RES CHECKUSER: ", res.data.first_name)
+    //         setData(res.data)
+    //     })
            
-        }, [])
-
-    // useEffect(() => {
-    //     let verifyAdmin = async () => {
-    //         const authorized = await checkUser();
-    //         setData(authorized.data)
-    //     }
-    //     verifyAdmin();
-    // },[])
+    //     }, [])
 
     function handleCheckGuest(e) {
       e.preventDefault();
@@ -95,10 +90,10 @@ const User = () => {
     return(
         <div>
             {/* <button onClick={handleCheckGuest}>USER CHECK</button> */}
-            {data ? <>
+            {user  ? <>
                 <img src={iconUser}  className={classes.iconuser}/>
                 <Button  size="small"  className={classes.buttons}>
-                    {data.first_name}
+                    {user.first_name}
                 </Button>
                 <Button  size="small"  className={classes.buttons}>
                     Favoritos
