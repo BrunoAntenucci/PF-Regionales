@@ -14,7 +14,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import cartEmpty from '../img/cart-empty.png'
 import User from './User';
-
+import History from './History';
 import { Button, ButtonGroup } from '@material-ui/core';
 import iconUser from '../img/icon-user.png'
 const useStyles = makeStyles(theme => ({
@@ -175,7 +175,9 @@ function Navbar() {
           <MenuItem value={"Muebles"}>Muebles</MenuItem> */}
         </Select>
       </FormControl>
+      <Link to="/history" style={{textDecoration:"none", color:"inherit"}}>
         <Tab label="historial" size="small"  className={classes.tabs} color="secondary"/>
+        </Link>
         <Tab label="ofertas" size="small"  className={classes.tabs} color="secondary"/>
    
         {/* <Tab label="Item Three" /> */}

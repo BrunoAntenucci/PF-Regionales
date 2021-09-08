@@ -9,6 +9,7 @@ import { Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Paginate from './Paginate';
 import Header from './Header';
+import History from './History';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -89,9 +90,21 @@ function Products(props) {
         
     }, [dispatch])
     
+    const HandleHistoryOnClick=(name,price,category,image,id)=>{
+        var historyArray= [];
+        historyArray.push({name,price,category,image,id })
+        if(historyArray.length>10){
+            historyArray.pop()
+        }
+        localStorage.setItem("historyProducts",JSON.stringify({name,price,category,image,id }))
+        
+            console.log(localStorage.getItem("historyProducts"))
+
+            //<History history={historyArray}/>
+    }
   
     const classes = useStyles();
-    console.log(currentProd)
+   
     return (
         <div className={classes.root}>
             <Header guest={props.guest} setGuest={props.setGuest}/>
@@ -119,7 +132,16 @@ function Products(props) {
                         
                         <Fragment>              
                                     <Grid item xs={4}>     
-                                      
+                                    <div 
+                                    onClick={() => {HandleHistoryOnClick(
+                                       
+                                        p?.name,
+                                        p?.price,
+                                        p?.category,
+                                        p?.image,
+                                        p?._id
+                                        )}}
+                                        >
                                        
                                             <h3>{p?.id}</h3>
                                                 <Card                    
@@ -131,8 +153,9 @@ function Products(props) {
                                                     })}
                                                     image={p?.image }
                                                     id={p?._id}
+                                                    
                                                     />
-                                       
+                                       </div>
                                     </Grid>
                                 
                             
@@ -147,6 +170,16 @@ function Products(props) {
                              
                                
                                     <Grid item xs={4}>     
+                                    <div 
+                                    onClick={e => {HandleHistoryOnClick(
+                                        e,
+                                        p?.name,
+                                        p?.price,
+                                        p?.category,
+                                        p?.image,
+                                        p?._id
+                                        )}}
+                                        >
                                     
                                             <h3>{p?.id}</h3>
                                                 <Card                    
@@ -158,8 +191,16 @@ function Products(props) {
                                                     })}
                                                     image={p?.image }
                                                     id={p?._id}
+                                                    onClick={e => {HandleHistoryOnClick(
+                                                        e,
+                                                        p?.name,
+                                                        p?.price,
+                                                        p?.category,
+                                                        p?.image,
+                                                        p?._id
+                                                        )}}
                                                     />
-                                        
+                                        </div>
                                     </Grid>
                                 
                             
