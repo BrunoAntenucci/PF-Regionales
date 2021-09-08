@@ -10,16 +10,24 @@ root:{
 
 
 }))
-function History({history}){
+function History(){
 
     const classes = useStyles()
-    console.log(history)
+   var historyProducts = JSON.parse(localStorage.getItem("historyProducts"))
+   historyProducts = historyProducts.reverse()
+   console.log(historyProducts)
 return(<>
 
     <Header />
     <div className={classes.root}>
-    
-    <p>{history}</p>
+        {historyProducts.map((e)=>{
+            return( <div>
+                <h1>{e.name}</h1>
+                <p>{e.price}</p>
+                </div>)
+           
+        })}
+  
     
     </div>
     </>

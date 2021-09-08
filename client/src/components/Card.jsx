@@ -60,7 +60,7 @@ const useStyles = makeStyles((e) =>({
 }));
 function Card({name, category, price, image, id}) {
     const classes = useStyles();
-    console.log(id)
+  
     return (
         <CardMUI 
          

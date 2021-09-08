@@ -92,20 +92,24 @@ function Products(props) {
     
     const HandleHistoryOnClick=(name,price,category,image,id)=>{
         var historyArray= [];
-        historyArray.push({name,price,category,image,id })
-        if(historyArray.length>10){
-            historyArray.pop()
-        }
-       var historyArrayJSON = JSON.stringify(historyArray)
-       var localStorageJSON =  JSON.stringify(localStorage.getItem("historyProducts"))
-       
-       console.log(localStorageJSON)
-        localStorage.setItem("historyProducts", {
-            ...localStorageJSON,
-            historyArrayJSON })
         
-            console.log(localStorage.getItem("historyProducts"))
+        
+       // var historyArraySTringify = JSON.stringify(historyArray)
+        if(!localStorage.getItem("historyProducts")){
+            historyArray.push({name,price,category,image,id })
+            localStorage.setItem("historyProducts", JSON.stringify(historyArray))
+        }else{
+            historyArray = JSON.parse(localStorage.getItem("historyProducts"))
 
+            historyArray.push({name,price,category,image,id })
+            //var allProducts = localStorage.getItem("historyProducts").concat(historyArraySTringify)
+            localStorage.setItem("historyProducts", JSON.stringify(historyArray))
+        }
+       
+      // console.log(historyArrayParse)
+        //var Parseado = JSON.parse(localStorage.getItem("historyProducts"))
+        
+        console.log( JSON.parse(localStorage.getItem("historyProducts")))
             //<History history={historyArray}/>
     }
   
