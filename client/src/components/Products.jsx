@@ -96,7 +96,13 @@ function Products(props) {
         if(historyArray.length>10){
             historyArray.pop()
         }
-        localStorage.setItem("historyProducts",JSON.stringify({name,price,category,image,id }))
+       var historyArrayJSON = JSON.stringify(historyArray)
+       var localStorageJSON =  JSON.stringify(localStorage.getItem("historyProducts"))
+       
+       console.log(localStorageJSON)
+        localStorage.setItem("historyProducts", {
+            ...localStorageJSON,
+            historyArrayJSON })
         
             console.log(localStorage.getItem("historyProducts"))
 
