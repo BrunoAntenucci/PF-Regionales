@@ -126,8 +126,45 @@ function ProductDetail(props) {
     useEffect(() => {
         dispatch(getProductDetail(props.match.params.id));
     },[dispatch, props.match.params.id]);
+
+    const handleCartClick = (detail) => {
+        let historial = [];
+
+        if(!localStorage.getItem('history')) {
+            historial.push(detail[0]);
+            localStorage.setItem('history', JSON.stringify(historial));
+        } else {
+            historial = JSON.parse(localStorage.getItem('history'));
+
+            if(!historial.some(p=> detail.map(pd => pd._id).includes(p._id)) ) {
+                historial.push(...detail);
+            }
     
-    //const detail = useSelector((state) => state.prodDetail);
+            localStorage.setItem('history', JSON.stringify(historial));
+        }
+    }
+    //---------------LOCAL STORAGE--------------------
+    // useEffect(() => {
+    //     const localStorageContent = localStorage.getItem('history');
+
+    // let historial;
+    // if(!localStorageContent) {
+    //     historial = [];
+    // } else {
+    //     historial = JSON.parse(localStorageContent);
+    // }
+    // console.log('history', localStorageContent);
+    // console.log('historial', historial);
+
+    // if(!historial.some(p=> detail.product.map(pd => pd._id).includes(p._id)) ) {
+    //     historial.push(...detail.product);
+    // }
+    
+  
+    // localStorage.setItem('history', JSON.stringify(historial));
+    // }, [detail.product])
+    
+    //------------------------------------------------
 
 
     return (
@@ -181,8 +218,10 @@ function ProductDetail(props) {
                                         <div className={classes.cardDiv}>
                                 <Typography
                                     className={classes.cardTypo}
-                                    variant="body1" color="primary" component="p">
-                                    añadir al carrito 
+                                    variant="body1" color="primary" component="p"
+                                    
+                                    >
+                                    <button onClick={() => handleCartClick(detail.product)}>añadir al carrito</button> 
                                         </Typography>
                                     <img src={cartEmpty} className={classes.cart}></img>
                                     </div>
