@@ -115,7 +115,7 @@ function Navbar() {
 
   useEffect(() => {
     dispatch(getCategories())
-}, [dispatch])
+  }, [dispatch])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

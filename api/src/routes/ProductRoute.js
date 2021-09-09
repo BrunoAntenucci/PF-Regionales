@@ -1,24 +1,24 @@
 const { Router } = require('express');
 const router = Router(); 
+const Schema = require('mongoose')
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 
 
 router.post("/", async (req, res) => {
-    const {user,name,description,price, quantity, category, image} = req.body; 
-    console.log(req.body)
-    if ( !name || !description || !price  || !category || !quantity || !image) {
-        return res.status(400).json({
-            error: 'Something is missing!',
-        });
-    } 
+  const { user, name, description, price, quantity, category, image } = req.body; 
+  console.log(req.body)
+  if ( !name || !description || !price  || !category || !quantity || !image) {
+      return res.status(400).json({
+          error: 'Something is missing!',
+      });
+  } 
 
-    const newProduct = await new Product({user, name, description, price, category , quantity, image})
-    const product = await newProduct.save();
-    res.json(product);
-
-   
+  const newProduct = await new Product({user, name, description, price, category , quantity, image})
+  const product = await newProduct.save();
+  res.json(product);
 });
+
 
 router.get("/", async (req, res) => {
   const allProducts = await Product.find({}).populate('category',{
@@ -49,16 +49,18 @@ router.get("/:id",  (req, res) => {
 
 });
 
-router.put("/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
     try {
         const {id} = req.params;
+        console.log(id)
         await Product.findByIdAndUpdate({ _id: id },{ ...req.body });
-        res.send("Product updated!");
+        res.status(200).send("Product updated!");
     } catch (err) {
         console.log("Error: " + err);
     }
 
 });
+
 router.delete("/:id", async (req, res) => {
     try {
       const {id }= req.params;

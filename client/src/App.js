@@ -9,12 +9,15 @@ import Profile from './components/Profile';
 import './App.css';
 import Products from "./components/Products";
 import ProductDetail from "./components/ProductDetail";
+import StoreCreation from './components/StoreCreation';
 import { createTheme , ThemeProvider} from '@material-ui/core';
 import Header from "./components/Header";
 import { useDispatch } from "react-redux";
 import { guestMati } from "./actions";
 import { userCheck } from "./actions";
+import ModifyProduct from "./components/ModifyProduct";
 import History from "./components/History";
+
 
 const theme = createTheme({
     palette: {
@@ -73,8 +76,9 @@ function App() {
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
         <Route exact path = "/products" component = {Products} />
+        <Route exact path = "/storecreation" component = {StoreCreation} />
+        <Route exact path = "/modifyProduct/:id" component = {ModifyProduct} />
         <Route exact path = "/history" component = {History} />
-      
         <Route exact path = "/profile" component = {Profile} />
         <Route path="/detail/:id" component={ProductDetail} /> 
        

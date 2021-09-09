@@ -84,7 +84,7 @@ React.useEffect(()=>{
         setInput({...input, password:e.target.value})
     }
    
-    function handleSubmitGoogle(e) {
+    const handleSubmitGoogle = async (e) => {
         e.preventDefault();
         //dispatch(signInGoogle())
     }
@@ -172,7 +172,6 @@ React.useEffect(()=>{
               variant="contained"
               color="primary"
               className={classes.submit}
-              href="http://localhost:3001/google/auth"
             >
               Sign In with Google
             </Button>
