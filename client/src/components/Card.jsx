@@ -12,7 +12,8 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((e) =>({
   root: {
     minWidth: 300,
-    margin: "20px",
+    marginLeft: "30px",
+    margin: "30px 0",
     height: "fit-content",
     width: 300,
   },
@@ -60,27 +61,29 @@ const useStyles = makeStyles((e) =>({
 }));
 function Card({name,category, price, image, id}) {
     const classes = useStyles();
+
     //console.log(id)
     const handleCartClick = (name, price, image, id) => {
       let historial = [];
 
         let detail ={name, price, image, _id :id}
-        console.log("data",detail)
-      if(!localStorage.getItem('history')) {
-          historial.push(detail);
-          localStorage.setItem('history', JSON.stringify(historial));
-      } else {
-          historial = JSON.parse(localStorage.getItem('history'));
+      //   console.log("data",detail)
+      // if(!localStorage.getItem('history')) {
+      //     historial.push(detail);
+      //     localStorage.setItem('history', JSON.stringify(historial));
+      // } else {
+      //     historial = JSON.parse(localStorage.getItem('history'));
 
-           if(!historial.some(p=> detail._id == p._id) ) {
-            historial.push(detail);
-           }
+      //      if(!historial.some(p=> detail._id == p._id) ) {
+      //       historial.push(detail);
+      //      }
   
-          localStorage.setItem('history', JSON.stringify(historial));
-      }
+      //     localStorage.setItem('history', JSON.stringify(historial));
+      // }
       
       //console.log(JSON.parse(localStorage.getItem('history')))
   }
+
     return (
         <CardMUI 
          

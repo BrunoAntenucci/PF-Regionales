@@ -10,7 +10,11 @@ const orderSchema = new Schema({
         type: String,
         enum: ["Creada", "Procesando", "Cancelada", "Completa"],
         default: "Creada"
-    }
+    },
+    ship_info: { 
+        type: Schema.ObjectId, 
+        ref: "ShipInfo"
+    },
 }, {
     timestamps: true
 })

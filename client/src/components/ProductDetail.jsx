@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import market from '../img/market.png'
 import { Button, Typography } from '@material-ui/core';
 import cartEmpty from '../img/cart-empty.png'
+//--------IMPORT ACTIONS-----------//
+import { addProductToCart, removeProductFromCart } from '../actions/index';
 const useStyles = makeStyles((theme) => ({
     root: {
         boxShadow:" 10px 5px 5px #0002",
@@ -97,16 +99,17 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductDetail(props) {
 
+    const dispatch = useDispatch();
     const classes = useStyles();
     const history = useHistory();
     const detail = useSelector((state) => state.prodDetail);
+    const user = useSelector(state => state.user)
 
     function handleClick(e) {
         e.preventDefault();
         history.push('/products')
     }
 
-    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getCategories());
@@ -127,22 +130,98 @@ function ProductDetail(props) {
         dispatch(getProductDetail(props.match.params.id));
     },[dispatch, props.match.params.id]);
 
-    const handleCartClick = (detail) => {
-        let historial = [];
-
-        if(!localStorage.getItem('history')) {
-            historial.push(detail[0]);
-            localStorage.setItem('history', JSON.stringify(historial));
-        } else {
+    const handleCartClick = async (detail) => {
+        let historial = { 
+            items: [],
+            total: 0
+        };
+        const item = {
+            product: {
+                _id: detail[0]._id,
+                price: parseInt(detail[0].price),
+                name: detail[0].name,
+                description: detail[0].description,
+                image: detail[0].image,
+            },
+            quantity: 1,
+            subTotal: parseInt(detail[0].price)
+        }
+        // const item = {
+        //     _id: detail[0]._id,
+        //     price: parseInt(detail[0].price),
+        //     name: detail[0].name,
+        //     description: detail[0].description,
+        //     image: detail[0].image,
+        //     subTotal: parseInt(detail[0].price),
+        //     quantity: 1
+        // }
+        if (user) {
+            dispatch(addProductToCart(item.product._id, parseInt(item.product.price)))
+        }
+        if(!localStorage.history && !user) {
+            historial.items.push(item)
+            historial.total += item.product.price;
+            return localStorage.setItem('history', JSON.stringify(historial));
+        } 
+        if (localStorage.history && !user) {
             historial = JSON.parse(localStorage.getItem('history'));
-
-            if(!historial.some(p=> detail.map(pd => pd._id).includes(p._id)) ) {
-                historial.push(...detail);
+            // if(!historial.some(p=> detail.map(pd => pd._id).includes(p._id)) ) {
+            //     historial.push(...detail);
+            // }
+            for (var i=0; i<historial.items.length; i++) {
+                if (historial.items[i].product._id === item.product._id) {
+                    historial.items[i].quantity++;
+                    historial.items[i].subTotal += item.product.price;
+                    historial.total += item.product.price;
+                    return localStorage.setItem('history', JSON.stringify(historial));
+                } 
             }
-    
+            historial.total += item.product.price;
+            historial.items.push(item)
             localStorage.setItem('history', JSON.stringify(historial));
         }
-        console.log(JSON.parse(localStorage.getItem('history')))
+    }
+
+    const handleRemoveCart = (detail) => {
+        let historial = { 
+            items: [],
+            total: 0
+        };
+        const item = {
+            product: {
+                _id: detail[0]._id,
+                price: parseInt(detail[0].price),
+                name: detail[0].name,
+                description: detail[0].description,
+                image: detail[0].image,
+            },
+            quantity: 1,
+            subTotal: parseInt(detail[0].price)
+        }
+        if (user) {
+            dispatch(removeProductFromCart(item.product._id, parseInt(item.product.price)))
+        }
+        if(!localStorage.history && !user) {
+            console.log("No hay localStorage ni User. Nada que hacer")
+        } 
+        if (localStorage.history && !user) {
+            console.log("Hay Storage sin User.")
+            historial = JSON.parse(localStorage.getItem('history'));
+            for (var i=0; i<historial.items.length; i++) {
+                if (historial.items[i].product._id === item.product._id) {
+                    historial.items[i].quantity--;
+                    historial.items[i].subTotal -= item.product.price;
+                    historial.total -= item.product.price;
+                    if (historial.items[i].quantity === 0) {
+                        historial.items.splice(i, 1);
+                    }
+                    console.log("Producto eliminado");
+                    i=-1;
+                    return localStorage.setItem('history', JSON.stringify(historial));
+                }
+            }
+            console.log("No existe ese producto en el LocalStorage")
+        }
     }
     //---------------LOCAL STORAGE--------------------
     // useEffect(() => {
@@ -223,6 +302,16 @@ function ProductDetail(props) {
                                     variant="body1" color="primary" component="p"                                  
                                     >
                                     añadir al carrito
+                                        </Typography>
+                                    <img src={cartEmpty} className={classes.cart}></img>
+                                    </div>
+                                    <div className={classes.cardDiv}
+                                        onClick={() => handleRemoveCart(detail.product)}>
+                                <Typography
+                                    className={classes.cardTypo}
+                                    variant="body1" color="primary" component="p"                                  
+                                    >
+                                    Remover del carrito
                                         </Typography>
                                     <img src={cartEmpty} className={classes.cart}></img>
                                     </div>
