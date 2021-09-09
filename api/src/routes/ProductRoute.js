@@ -4,8 +4,9 @@ const Schema = require('mongoose')
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 
+
 router.post("/", async (req, res) => {
-  const {user,name,description,price, quantity, category, image} = req.body; 
+  const { user, name, description, price, quantity, category, image } = req.body; 
   console.log(req.body)
   if ( !name || !description || !price  || !category || !quantity || !image) {
       return res.status(400).json({
@@ -16,15 +17,13 @@ router.post("/", async (req, res) => {
   const newProduct = await new Product({user, name, description, price, category , quantity, image})
   const product = await newProduct.save();
   res.json(product);
-
- 
 });
 
 
 router.get("/", async (req, res) => {
   const allProducts = await Product.find({}).populate('category',{
-      name:1
-    })
+      name: 1
+  })
         res.status(200).send(allProducts);
       });
 
@@ -72,33 +71,4 @@ router.delete("/:id", async (req, res) => {
     }
   });
 
-
-/*
-"_id": "61316496a16c17b5b015bc6f",
-    "name": "lacteos",
-
-    "_id": "6131648ca16c17b5b015bc6c",
-    "name": "electronica",
-
-    "_id": "6130f92ff3d685f0abf597bf",
-    "name": "bebidas",
-
-    "_id": "6131649ca16c17b5b015bc72",
-    "name": "carnes",
-*/
-// router.get('/filter/categories', async (req, res) => {
-//   try {
-//       let categories = await Product.distinct('category')
-//       if (!categories) {
-//           return res.status(400).json({
-//               error: 'Categories not found'
-//           });
-//       }
-//       res.json(categories);
-
-//   } catch (error) {
-//       console.log(error)
-//       res.status(500).send('Server Error')
-//   }
-// });
 module.exports = router;

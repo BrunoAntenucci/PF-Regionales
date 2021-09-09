@@ -11,6 +11,14 @@ router.get("/", async(req, res, next) => {
     if(userSessionID) {
         const user = await User.findOne({
             _id: userSessionID
+        }).populate({
+            path: "cart",
+            populate: {
+                path: "items",
+                populate: {
+                    path: "product"
+                }
+            }
         })
         if (typeof user.cart === "undefined") { //Si no tiene carrito
             const newCart = new Cart({});
@@ -19,13 +27,7 @@ router.get("/", async(req, res, next) => {
             await user.save();
             //return res.status(200).send("Tu carrito esta vacio!")
         }
-        User.findOne({
-            _id: userSessionID
-        }, (err, userCart) => {
-            Cart.populate(userCart, { path: "cart" }, (err, userCart) => {
-                res.status(200).send(userCart.cart)
-            })
-        })
+        res.status(200).send(user.cart)
     } else {
         return res.send("NO hay usuario logeado")
     }
@@ -38,12 +40,24 @@ router.post("/addProduct", async(req, res, next) => {
     if(userSessionID) {
         const user = await User.findOne({
             _id: userSessionID
-        }).populate("cart")
-        
-        //if (typeof user.cart === "undefined") {}
-        const cart = await Cart.findOne({
-            _id: user.cart._id
         }).populate({
+            path: "cart",
+            populate: {
+                path: "items",
+                populate: {
+                    path: "product"
+                }
+            }
+        })
+        
+        if (typeof user.cart === "undefined") {
+            const newCart = new Cart({});
+            await newCart.save();
+            user.cart = newCart;
+            await user.save();
+        }
+    
+        const cart = await Cart.findById(user.cart._id.toString()).populate({
             path: "items",
             populate: {
                 path: "product"
@@ -80,9 +94,7 @@ router.delete("/removeProduct", async(req, res, next) => {
             _id: userSessionID
         }).populate("cart")
         
-        const cart = await Cart.findOne({
-            _id: user.cart._id
-        }).populate({
+        const cart = await Cart.findById(user.cart._id.toString()).populate({
             path: "items",
             populate: {
                 path: "product"
@@ -104,44 +116,98 @@ router.delete("/removeProduct", async(req, res, next) => {
     }
 })
 
-router.post("/orderStatus", async(req, res, next) => {
+router.post("/fromGuest", async (req, res, next) => {
+    const guestCart = req.body.guestCart;
     const userSessionID = req?.session?.passport?.user;
-    const orderStatus = req.body.orderStatus || "Sin especificar";
     if(userSessionID) {
         const user = await User.findOne({
             _id: userSessionID
-        }).populate("cart")
-        
-        const cart = await Cart.findOne({
-            _id: user.cart._id
         }).populate({
-            path: "items",
+            path: "cart",
             populate: {
-                path: "product"
+                path: "items",
+                populate: {
+                    path: "product"
+                }
             }
         })
 
-        if (cart.order === "Sin accion") {
-            cart.order = "Creada"
-            await cart.save()
-            return res.status(200).send("Orden Creada! :)")
-        } else if (cart.order === "Creada" && orderStatus === "Sin especificar") {
-            cart.order = "Procesando"
-            await cart.save()
-            return res.status(200).send("Orden en proceso!")
-        } else if (cart.order === "Procesando" && orderStatus === "Cancelada") {
-            cart.order = orderStatus
-            await cart.save()
-            return res.status(200).send("Orden Cancelada! :(")
-        } if (cart.order === "Procesando" && orderStatus === "Completa") {
-            cart.order = orderStatus
-            await cart.save()
-            return res.status(200).send("Orden Completada! :D")
+        if (typeof user.cart === "undefined") {
+            console.log("Nuevo carrito creado a partir del carrito del guest")
+            const newCart = new Cart({});
+            newCart.items = guestCart.items;
+            newCart.total = guestCart.total
+            await newCart.save();
+            user.cart = newCart;
+            await user.save();
+            return res.status(200).send("Nuevo carrito creado a partir del carrito del guest")
+        } else {
+            console.log("Fusion carrito Guest + Carrito user")
+            const cart = await Cart.findById(user.cart._id.toString()).populate({
+                path: "items",
+                populate: {
+                    path: "product"
+                }
+            })
+            for (var i=0; i<guestCart.items.length; i++) {
+                for (var j=0; j<cart.items.length; j++) {
+                    console.log(guestCart.items[i]?.product._id, " vs ", cart.items[j]?.product._id.toString());
+                    if (guestCart.items[i]?.product._id === cart.items[j]?.product._id.toString()) {
+                        cart.items[j].quantity += guestCart.items[i].quantity;
+                        cart.items[j].subTotal += guestCart.items[i].subTotal;
+                        await cart.save();
+                        await guestCart.items.splice(i, 1)
+                        i=-1;
+                    }
+                }
+            }
+            cart.items = [...cart.items, ...guestCart.items];
+            cart.total += guestCart.total;
+            await cart.save();
+            return res.status(200).send("Fusion carrito Guest + Carrito user")
         }
-
-    } else {
-        return res.send("NO hay usuario logeado")
     }
+    return res.send("No usuario login")
 })
+
+// router.post("/orderStatus", async(req, res, next) => {
+//     const userSessionID = req?.session?.passport?.user;
+//     const orderStatus = req.body.orderStatus || "Sin especificar";
+//     if(userSessionID) {
+//         const user = await User.findOne({
+//             _id: userSessionID
+//         }).populate("cart")
+        
+//         const cart = await Cart.findOne({
+//             _id: user.cart._id
+//         }).populate({
+//             path: "items",
+//             populate: {
+//                 path: "product"
+//             }
+//         })
+
+//         if (cart.order === "Sin accion") {
+//             cart.order = "Creada"
+//             await cart.save()
+//             return res.status(200).send("Orden Creada! :)")
+//         } else if (cart.order === "Creada" && orderStatus === "Sin especificar") {
+//             cart.order = "Procesando"
+//             await cart.save()
+//             return res.status(200).send("Orden en proceso!")
+//         } else if (cart.order === "Procesando" && orderStatus === "Cancelada") {
+//             cart.order = orderStatus
+//             await cart.save()
+//             return res.status(200).send("Orden Cancelada! :(")
+//         } if (cart.order === "Procesando" && orderStatus === "Completa") {
+//             cart.order = orderStatus
+//             await cart.save()
+//             return res.status(200).send("Orden Completada! :D")
+//         }
+
+//     } else {
+//         return res.send("NO hay usuario logeado")
+//     }
+// })
 
 module.exports = router;
