@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 import { getCategories, getFilterProducts } from '../actions';
 
-import { checkUser, } from '../actions';
+import { checkUser, getCartByUser } from '../actions';
 
 import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -125,7 +125,11 @@ function Navbar() {
   function handlerFilterCategory(e) {
     e.preventDefault()
     dispatch(getFilterProducts(e.target.value))
+  }
 
+  function handleClickCart(e) {
+    e.preventDefault();
+    dispatch(getCartByUser())
   }
 
 
@@ -225,7 +229,7 @@ function Navbar() {
       <User />
    
     <Button  size="small"  className={classes.buttons}>mis compras</Button>
-    <Button  size="small"  className={classes.buttons+" "+classes.myCart}>
+    <Button  size="small"  className={classes.buttons+" "+classes.myCart} onClick={handleClickCart}>
       mi carrito
     <img src={cartEmpty} className={classes.cart}></img>
     </Button>

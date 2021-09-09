@@ -12,7 +12,8 @@ const initialState = {
 
     user: false,
     guest: {},
-    wishlist: getWishListLocalStorage()
+    wishlist: getWishListLocalStorage(),
+    cart: {},
 
 }
 
@@ -97,6 +98,11 @@ function rootReducer(state = initialState, action) {
                 user: action.payload
             }
         
+        case "GET_CART_BY_USER":
+            return {
+                ...state,
+                cart: action.payload
+            }
         default: return state;
 
         }

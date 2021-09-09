@@ -165,14 +165,13 @@ export function checkUser() {
     }
 }
 
-
-
 export function getFilterProducts (payload) {
     return {
         type: 'FILTER_PRODUCTS',
         payload      
     } 
 }
+
 export function logOut() {
     return function(dispatch) {
         return axios({
@@ -187,6 +186,94 @@ export function logOut() {
                 payload: res.data
             })
           })
+    }
+}
 
+export function addProductToCart(id, value) {
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                idProduct: id,
+                valueProduct: value,
+            },
+            withCredentials: true,
+            url: "http://localhost:3001/cart/addProduct"
+          })
+          .then((res) => {
+            dispatch({
+                type: "ADD_PRODUCT_TO_CART",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function removeProductFromCart(id, value) {
+    return function(dispatch) {
+        return axios({
+            method: "delete",
+            data: {
+                idProduct: id,
+                valueProduct: value,
+            },
+            withCredentials: true,
+            url: "http://localhost:3001/cart/removeProduct"
+          })
+          .then((res) => {
+            console.log("REMOVE PRODUCT: ", res.data)
+            dispatch({
+                type: "REMOVE_PRODUCT_FROM_CART",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function getCartByUser() {
+    return function(dispatch) {
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "http://localhost:3001/cart"
+          })
+          .then((res) => {
+              console.log("GET CART: ", res.data)
+            dispatch({
+                type: "GET_CART_BY_USER",
+                payload: res.data
+            })
+          })
+    }
+}
+
+export function guestCartToUserCart(guestCart) {
+    console.log("[guestCartToUserCart] 1")
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                guestCart: guestCart
+            },
+            withCredentials: true,
+            url: "http://localhost:3001/cart/fromGuest"
+          })
+          .then((res) => {
+            console.log("[guestCartToUserCart] 2")
+              console.log("GUEST CART TO USER: ", res.data)
+            dispatch({
+                type: "GUEST_CART_TO_USER_CART",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
 }

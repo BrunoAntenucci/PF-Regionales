@@ -13,8 +13,8 @@ router.get("/", (req, res, next) => {
 })
 
 router.post("/", (req, res, next) => {
+    console.log(req)
     passport.authenticate("local", (err, user, info) => {
-        console.log("user: ", user)
         if(err) throw err;
         if(!user) res.send("No user exist");
         else {
@@ -24,7 +24,7 @@ router.post("/", (req, res, next) => {
                 console.log("Logueado: ", req.user)
             }) 
         }
-    }) (req, res, next);
+    }) (req, res, next)
 });
 
 
