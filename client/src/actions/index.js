@@ -56,6 +56,32 @@ export function postProducts(payload){
     
 }
 
+export function modifyProducts(id, payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.patch('http://localhost:3001/product/' + id, payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
+export function postStore(payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.post('http://localhost:3001/store', payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
 export function getProductDetail(id) {
     return async function(dispatch) {
         try {

@@ -243,9 +243,6 @@ function ProductDetail(props) {
   
     // localStorage.setItem('history', JSON.stringify(historial));
     // }, [detail.product])
-    
-    //------------------------------------------------
-
 
     return (
         <div className={classes.root}>
