@@ -98,8 +98,6 @@ function ProductDetail(props) {
         dispatch(getProductDetail(props.match.params.id));
     },[dispatch, props.match.params.id]);
     
-    //const detail = useSelector((state) => state.prodDetail);
-
 
     return (
         <div className={classes.root}>

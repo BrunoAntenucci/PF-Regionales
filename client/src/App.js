@@ -15,6 +15,7 @@ import Header from "./components/Header";
 import { useDispatch } from "react-redux";
 import { guestMati } from "./actions";
 import { userCheck } from "./actions";
+import ModifyProduct from "./components/ModifyProduct";
 
 
 const theme = createTheme({
@@ -74,7 +75,7 @@ function App() {
         <Route exact path="/signup" component={SignUpForm} />
         <Route exact path = "/products" component = {Products} />
         <Route exact path = "/storecreation" component = {StoreCreation} />
-
+        <Route exact path = "/modifyProduct/:id" component = {ModifyProduct} />
         <Route exact path = "/profile" component = {Profile} />
         <Route path="/detail/:id" component={ProductDetail} /> 
       </Switch>
