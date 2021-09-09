@@ -305,3 +305,28 @@ export function guestCartToUserCart(guestCart) {
           })
     }
 }
+
+export  function postOrder (data){
+    return async function  (dispatch){
+        console.log("ENTRA CON: ", data)
+        try{
+            var userShip =  await axios({
+            method:"post",
+            url:"localhost:3001/order/newOrder",
+            data:data,
+            headers: { "Content-Type": "application/json" },
+            
+        }
+            )
+            console.log("LLEGO CON ", userShip)
+        dispatch({
+            type:"POST_ORDER",
+            payload:userShip
+        })
+    }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
+// localhost:3001/shipInfo/user/
