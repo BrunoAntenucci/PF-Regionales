@@ -69,11 +69,22 @@ const User = () => {
       dispatch(logOut())
       window.location.reload(false);
     }
+    function handleClearStorage(e) {
+      e.preventDefault();
+      localStorage.clear();
+    }
+    function handleCheckStorage(e) {
+      e.preventDefault();
+      const history = JSON.parse(localStorage.getItem('history'));
+      console.log(history)
+    }
 
     //console.log("USER: ", user)
 
     return(
         <div>
+          <button onClick={handleCheckStorage}>Check STORAGE</button>
+          <button onClick={handleClearStorage}>Clear STORAGE</button>
             {/* <button onClick={handleCheckGuest}>USER CHECK</button> */}
             {user ? <>
                 <img src={iconUser}  className={classes.iconuser}/>

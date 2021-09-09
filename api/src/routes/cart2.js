@@ -40,12 +40,24 @@ router.post("/addProduct", async(req, res, next) => {
     if(userSessionID) {
         const user = await User.findOne({
             _id: userSessionID
-        }).populate("cart")
-        
-        //if (typeof user.cart === "undefined") {}
-        const cart = await Cart.findOne({
-            _id: user.cart._id
         }).populate({
+            path: "cart",
+            populate: {
+                path: "items",
+                populate: {
+                    path: "product"
+                }
+            }
+        })
+        
+        if (typeof user.cart === "undefined") {
+            const newCart = new Cart({});
+            await newCart.save();
+            user.cart = newCart;
+            await user.save();
+        }
+    
+        const cart = await Cart.findById(user.cart._id.toString()).populate({
             path: "items",
             populate: {
                 path: "product"
@@ -82,9 +94,7 @@ router.delete("/removeProduct", async(req, res, next) => {
             _id: userSessionID
         }).populate("cart")
         
-        const cart = await Cart.findOne({
-            _id: user.cart._id
-        }).populate({
+        const cart = await Cart.findById(user.cart._id.toString()).populate({
             path: "items",
             populate: {
                 path: "product"
@@ -104,6 +114,46 @@ router.delete("/removeProduct", async(req, res, next) => {
     } else {
         return res.send("NO hay usuario logeado")
     }
+})
+
+router.post("/fromGuest", async (req, res, next) => {
+    const guestCart = req.body.guestCart;
+    const userSessionID = req?.session?.passport?.user;
+    if(userSessionID) {
+        const user = await User.findOne({
+            _id: userSessionID
+        }).populate({
+            path: "cart",
+            populate: {
+                path: "items",
+                populate: {
+                    path: "product"
+                }
+            }
+        })
+
+        if (typeof user.cart === "undefined") {
+            const newCart = new Cart({});
+            newCart.items = guestCart.items;
+            newCart.total = guestCart.total
+            await newCart.save();
+            user.cart = newCart;
+            await user.save();
+            return res.status(200).send("Nuevo carrito creado a partir del carrito del guest")
+        } else {
+            const cart = await Cart.findById(user.cart._id.toString()).populate({
+                path: "items",
+                populate: {
+                    path: "product"
+                }
+            })
+            cart.items = [...cart.items, guestCart.items];
+            cart.total += guestCart.total;
+            await cart.save();
+            return res.status(200).send("Fusion carrito Guest + Carrito user")
+        }
+    }
+    return res.send("No usuario login")
 })
 
 // router.post("/orderStatus", async(req, res, next) => {

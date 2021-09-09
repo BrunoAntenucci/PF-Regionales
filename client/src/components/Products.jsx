@@ -87,7 +87,6 @@ function Products(props) {
 
     useEffect(() => {
         dispatch(getCategories());
-        
     }, [dispatch])
     
   

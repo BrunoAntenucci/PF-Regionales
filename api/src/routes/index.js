@@ -36,8 +36,7 @@ router.use("/order", order)
 router.use("/auth", auth)
 
 router.get("/", (req, res, next) => {
-    console.log(req)
-    res.send(req.user)
+    res.send(req.user);
 })
 router.get("/failure/signin", (req, res, next) => {
     res.send("MAL SIGN IN")

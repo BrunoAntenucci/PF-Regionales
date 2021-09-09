@@ -65,19 +65,19 @@ function Card({name,category, price, image, id}) {
       let historial = [];
 
         let detail ={name, price, image, _id :id}
-        console.log("data",detail)
-      if(!localStorage.getItem('history')) {
-          historial.push(detail);
-          localStorage.setItem('history', JSON.stringify(historial));
-      } else {
-          historial = JSON.parse(localStorage.getItem('history'));
+      //   console.log("data",detail)
+      // if(!localStorage.getItem('history')) {
+      //     historial.push(detail);
+      //     localStorage.setItem('history', JSON.stringify(historial));
+      // } else {
+      //     historial = JSON.parse(localStorage.getItem('history'));
 
-           if(!historial.some(p=> detail._id == p._id) ) {
-            historial.push(detail);
-           }
+      //      if(!historial.some(p=> detail._id == p._id) ) {
+      //       historial.push(detail);
+      //      }
   
-          localStorage.setItem('history', JSON.stringify(historial));
-      }
+      //     localStorage.setItem('history', JSON.stringify(historial));
+      // }
       
       //console.log(JSON.parse(localStorage.getItem('history')))
   }
