@@ -232,7 +232,7 @@ function Navbar() {
    
     <Button  size="small"  className={classes.buttons}>mis compras</Button>
     <Button  size="small"  className={classes.buttons+" "+classes.myCart} onClick={handleClickCart}>
-      mi carrito
+      <Link to="/cart">mi carrito</Link>
     <img src={cartEmpty} className={classes.cart}></img>
     </Button>
     </div>
