@@ -346,8 +346,8 @@ export default function ProductCreation(){
           onChange={handleCategories}
         >
              {
-                                categories.map((e) => 
-                               <MenuItem value={e._id}>{e.name}</MenuItem>
+                                categories.map((e, i) => 
+                               <MenuItem key={i} value={e._id}>{e.name}</MenuItem>
                                  )
              }
         </Select>

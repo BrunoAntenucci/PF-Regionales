@@ -201,7 +201,7 @@ function Navbar() {
           <option className={classes.formControl} value="" selected defaultValue>Todo</option>
           {
             categ?.map(
-              c => <MenuItem value={c.name} className={classes.tabs} key={c.id}>
+              (c, i) => <MenuItem value={c.name} className={classes.tabs} key={i}>
                 {c.name}
                 </MenuItem>
               )}

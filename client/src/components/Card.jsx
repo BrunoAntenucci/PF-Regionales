@@ -119,7 +119,7 @@ function Card({name,category, price, image, id}) {
          variant="body1" color="primary" component="p">
            añadir al carrito 
             </Typography>
-          <img src={cartEmpty} className={classes.cart}></img>
+          <img alt="img not found" src={cartEmpty} className={classes.cart}></img>
         </div>
         </CardActions>
       </CardMUI>
