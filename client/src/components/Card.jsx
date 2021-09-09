@@ -12,7 +12,8 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((e) =>({
   root: {
     minWidth: 300,
-    margin: "20px",
+    marginLeft: "30px",
+    margin: "30px 0",
     height: "fit-content",
     width: 300,
   },

@@ -100,18 +100,18 @@ function Products(props) {
             localStorage.setItem("historyProducts", JSON.stringify(historyArray))
         }else{
             historyArray = JSON.parse(localStorage.getItem("historyProducts"))
-
+            if(historyArray.some(e => e.id === id)) {
+                historyArray = historyArray.filter(e => e.id!==id)
+            }
             historyArray.push({name,price,category,image,id })
-            //var allProducts = localStorage.getItem("historyProducts").concat(historyArraySTringify)
+            
             localStorage.setItem("historyProducts", JSON.stringify(historyArray))
         }
        
-      // console.log(historyArrayParse)
-        //var Parseado = JSON.parse(localStorage.getItem("historyProducts"))
+      
         
         console.log( JSON.parse(localStorage.getItem("historyProducts")))
-            //<History history={historyArray}/>
-    }
+    }    
   
     const classes = useStyles();
    
