@@ -9,6 +9,7 @@ import Profile from './components/Profile';
 import './App.css';
 import Products from "./components/Products";
 import ProductDetail from "./components/ProductDetail";
+import Cart from "./components/Cart"
 import StoreCreation from './components/StoreCreation';
 import { createTheme , ThemeProvider} from '@material-ui/core';
 import Header from "./components/Header";
@@ -60,7 +61,7 @@ const theme = createTheme({
 
 function App() {
 
-  const [guest, setGuest] = useState(true)
+  // const [guest, setGuest] = useState(true)
 
   return (
     
@@ -68,10 +69,10 @@ function App() {
     <ThemeProvider theme={theme}>
     {/* <Header /> */}
       <Switch>
-        <Route exact path="/" >
+        {/* <Route exact path="/" >
           <Products guest={guest} setGuest={setGuest}/> 
           <Products/>
-        </Route>
+        </Route> */}
         <Route exact path = "/creation" component = {ProductCreation} />
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
@@ -81,6 +82,7 @@ function App() {
         <Route exact path = "/history" component = {History} />
         <Route exact path = "/profile" component = {Profile} />
         <Route path="/detail/:id" component={ProductDetail} /> 
+        <Route exact path = "/cart" component = {Cart} />
        
       </Switch>
       </ThemeProvider>
