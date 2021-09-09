@@ -9,6 +9,7 @@ import { Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Paginate from './Paginate';
 import Header from './Header';
+import History from './History';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -89,9 +90,31 @@ function Products(props) {
         dispatch(getCategories());
     }, [dispatch])
     
+    const HandleHistoryOnClick=(name,price,category,image,id)=>{
+        var historyArray= [];
+        
+        
+       // var historyArraySTringify = JSON.stringify(historyArray)
+        if(!localStorage.getItem("historyProducts")){
+            historyArray.push({name,price,category,image,id })
+            localStorage.setItem("historyProducts", JSON.stringify(historyArray))
+        }else{
+            historyArray = JSON.parse(localStorage.getItem("historyProducts"))
+            if(historyArray.some(e => e.id === id)) {
+                historyArray = historyArray.filter(e => e.id!==id)
+            }
+            historyArray.push({name,price,category,image,id })
+            
+            localStorage.setItem("historyProducts", JSON.stringify(historyArray))
+        }
+       
+      
+        
+        console.log( JSON.parse(localStorage.getItem("historyProducts")))
+    }    
   
     const classes = useStyles();
-    
+
     return (
         <div className={classes.root}>
             <Header guest={props.guest} setGuest={props.setGuest}/>
@@ -119,8 +142,19 @@ function Products(props) {
                         
                         <Fragment>              
                                     <Grid item xs={4}>     
-                                        <Link to={'/detail/' + p?._id}
-                                        style={{textDecoration:"none"}}>
+
+                                    <div 
+                                    onClick={() => {HandleHistoryOnClick(
+                                       
+                                        p?.name,
+                                        p?.price,
+                                        p?.category,
+                                        p?.image,
+                                        p?._id
+                                        )}}
+                                        >
+                                       
+
                                             <h3>{p?.id}</h3>
                                                 <Card                    
                                                     name= {p?.name}
@@ -130,8 +164,12 @@ function Products(props) {
                                                         return <p>{aux?.name}</p>
                                                     })}
                                                     image={p?.image }
+
+                                                    id={p?._id}
+                                                    
                                                     />
-                                        </Link>
+                                       </div>
+
                                     </Grid>
                                 
                             
@@ -146,9 +184,20 @@ function Products(props) {
                              
                                
                                     <Grid item xs={4}>     
-                                        <Link to={'/detail/' + p?._id}
-                                        style={{textDecoration:"none"}}>
-                                            <h3>{p.id}</h3>
+
+                                    <div 
+                                    onClick={e => {HandleHistoryOnClick(
+                                        e,
+                                        p?.name,
+                                        p?.price,
+                                        p?.category,
+                                        p?.image,
+                                        p?._id
+                                        )}}
+                                        >
+                                    
+                                            <h3>{p?.id}</h3>
+
                                                 <Card                    
                                                     name= {p?.name}
                                                     price={p?.price}
@@ -157,8 +206,19 @@ function Products(props) {
                                                         return <p>{aux?.name}</p>
                                                     })}
                                                     image={p?.image }
+
+                                                    id={p?._id}
+                                                    onClick={e => {HandleHistoryOnClick(
+                                                        e,
+                                                        p?.name,
+                                                        p?.price,
+                                                        p?.category,
+                                                        p?.image,
+                                                        p?._id
+                                                        )}}
                                                     />
-                                        </Link>
+                                        </div>
+
                                     </Grid>
                                 
                             
