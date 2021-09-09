@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import iconUser from '../img/icon-user.png'
+import axios from 'axios';
 //------IMPORT ACTIONS------//
 import { checkUser, logOut } from '../actions/index';
 
@@ -55,9 +56,9 @@ const User = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user)
 
-    useEffect(() => {
-      dispatch(checkUser())
-    }, [])
+    useEffect( () => {
+        dispatch(checkUser())
+    }, [dispatch])
 
 
     function handleCheckGuest(e) {
@@ -68,16 +69,27 @@ const User = () => {
       dispatch(logOut())
       window.location.reload(false);
     }
+    function handleClearStorage(e) {
+      e.preventDefault();
+      localStorage.clear();
+    }
+    function handleCheckStorage(e) {
+      e.preventDefault();
+      const history = JSON.parse(localStorage.getItem('history'));
+      console.log(history)
+    }
 
-    console.log("USER: ", user)
+    //console.log("USER: ", user)
 
     return(
         <div>
-            <button onClick={handleCheckGuest}>USER CHECK</button>
-            {(user) ? <>
+          <button onClick={handleCheckStorage}>Check STORAGE</button>
+          <button onClick={handleClearStorage}>Clear STORAGE</button>
+            {/* <button onClick={handleCheckGuest}>USER CHECK</button> */}
+            {user ? <>
                 <img src={iconUser}  className={classes.iconuser}/>
                 <Button  size="small"  className={classes.buttons}>
-                    Usuario
+                    {user.first_name}                   
                 </Button>
                 <Button  size="small"  className={classes.buttons}>
                     Favoritos

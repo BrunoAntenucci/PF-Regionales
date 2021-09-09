@@ -59,9 +59,31 @@ const useStyles = makeStyles((e) =>({
     color:e.palette.primary.dark,
   }
 }));
-function Card({name, category, price, image, id}) {
+function Card({name,category, price, image, id}) {
     const classes = useStyles();
+
+    //console.log(id)
+    const handleCartClick = (name, price, image, id) => {
+      let historial = [];
+
+        let detail ={name, price, image, _id :id}
+      //   console.log("data",detail)
+      // if(!localStorage.getItem('history')) {
+      //     historial.push(detail);
+      //     localStorage.setItem('history', JSON.stringify(historial));
+      // } else {
+      //     historial = JSON.parse(localStorage.getItem('history'));
+
+      //      if(!historial.some(p=> detail._id == p._id) ) {
+      //       historial.push(detail);
+      //      }
   
+      //     localStorage.setItem('history', JSON.stringify(historial));
+      // }
+      
+      //console.log(JSON.parse(localStorage.getItem('history')))
+  }
+
     return (
         <CardMUI 
          
@@ -89,7 +111,9 @@ function Card({name, category, price, image, id}) {
         </CardActionArea>
         </Link>
         <CardActions className={classes.cardActions}>
-          <div className={classes.cardDiv}>
+          <div className={classes.cardDiv}
+          onClick={() => handleCartClick(name, price, image, id)}>
+          
         <Typography
         className={classes.cardTypo}
          variant="body1" color="primary" component="p">

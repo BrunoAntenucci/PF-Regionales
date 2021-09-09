@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import market from '../img/market.png'
 import { Button, Typography } from '@material-ui/core';
 import cartEmpty from '../img/cart-empty.png'
+//--------IMPORT ACTIONS-----------//
+import { addProductToCart, removeProductFromCart } from '../actions/index';
 const useStyles = makeStyles((theme) => ({
     root: {
         boxShadow:" 10px 5px 5px #0002",
@@ -97,16 +99,17 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductDetail(props) {
 
+    const dispatch = useDispatch();
     const classes = useStyles();
     const history = useHistory();
     const detail = useSelector((state) => state.prodDetail);
+    const user = useSelector(state => state.user)
 
     function handleClick(e) {
         e.preventDefault();
         history.push('/products')
     }
 
-    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getCategories());
@@ -126,8 +129,73 @@ function ProductDetail(props) {
     useEffect(() => {
         dispatch(getProductDetail(props.match.params.id));
     },[dispatch, props.match.params.id]);
+
+    const handleCartClick = (detail) => {
+        let historial = { 
+            items: [],
+            total: 0
+        };
+        const item = {
+            _id: detail[0]._id,
+            price: parseInt(detail[0].price),
+            name: detail[0].name,
+            description: detail[0].description,
+            image: detail[0].image,
+            subTotal: parseInt(detail[0].price),
+            quantity: 1
+        }
+        if(!localStorage.history) {
+            historial.items.push(item)
+            historial.total += item.price;
+            return localStorage.setItem('history', JSON.stringify(historial));
+        } 
+        if (localStorage.history) {
+            historial = JSON.parse(localStorage.getItem('history'));
+            // if(!historial.some(p=> detail.map(pd => pd._id).includes(p._id)) ) {
+            //     historial.push(...detail);
+            // }
+            for (var i=0; i<historial.items.length; i++) {
+                if (historial.items[i]._id === item._id) {
+                    historial.items[i].quantity++;
+                    historial.items[i].subTotal += item.price;
+                    historial.total += item.price;
+                    return localStorage.setItem('history', JSON.stringify(historial));
+                } 
+            }
+            historial.total += item.price;
+            historial.items.push(item)
+            localStorage.setItem('history', JSON.stringify(historial));
+        }
+        if (user) {
+            dispatch(addProductToCart(detail[0]._id, parseInt(detail[0].price)))
+        }
+    }
+
+    const handleRemoveCart = (detail) => {
+        dispatch(removeProductFromCart(detail[0]._id, parseInt(detail[0].price)))
+    }
+    //---------------LOCAL STORAGE--------------------
+    // useEffect(() => {
+    //     const localStorageContent = localStorage.getItem('history');
+
+    // let historial;
+    // if(!localStorageContent) {
+    //     historial = [];
+    // } else {
+    //     historial = JSON.parse(localStorageContent);
+    // }
+    // console.log('history', localStorageContent);
+    // console.log('historial', historial);
+
+    // if(!historial.some(p=> detail.product.map(pd => pd._id).includes(p._id)) ) {
+    //     historial.push(...detail.product);
+    // }
     
-    //const detail = useSelector((state) => state.prodDetail);
+  
+    // localStorage.setItem('history', JSON.stringify(historial));
+    // }, [detail.product])
+    
+    //------------------------------------------------
 
 
     return (
@@ -178,11 +246,23 @@ function ProductDetail(props) {
 
                             </div>
                                     
-                                        <div className={classes.cardDiv}>
+                                        <div className={classes.cardDiv}
+                                        onClick={() => handleCartClick(detail.product)}>
                                 <Typography
                                     className={classes.cardTypo}
-                                    variant="body1" color="primary" component="p">
-                                    añadir al carrito 
+                                    variant="body1" color="primary" component="p"                                  
+                                    >
+                                    añadir al carrito
+                                        </Typography>
+                                    <img src={cartEmpty} className={classes.cart}></img>
+                                    </div>
+                                    <div className={classes.cardDiv}
+                                        onClick={() => handleRemoveCart(detail.product)}>
+                                <Typography
+                                    className={classes.cardTypo}
+                                    variant="body1" color="primary" component="p"                                  
+                                    >
+                                    Remover del carrito
                                         </Typography>
                                     <img src={cartEmpty} className={classes.cart}></img>
                                     </div>

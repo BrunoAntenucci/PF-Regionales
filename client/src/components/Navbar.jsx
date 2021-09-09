@@ -5,14 +5,22 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getCategories } from '../actions';
+
+import { getCategories, getFilterProducts } from '../actions';
+
+import { checkUser, getCartByUser } from '../actions';
+
 import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+
+
+
 import cartEmpty from '../img/cart-empty.png'
+
 import User from './User';
 import History from './History';
 import { Button, ButtonGroup } from '@material-ui/core';
@@ -85,15 +93,25 @@ const useStyles = makeStyles(theme => ({
     color:theme.palette.primary.dark,
   }
 }));
+
+
+
+
+
+
+
+
+
 function Navbar() {
+
 
 
   const dispatch = useDispatch();
   const categ = useSelector((state) => state.categories);
   const classes = useStyles();
-
+ 
+ 
   const [value, setValue] = React.useState(0);
-  const [log,setLog] = React.useState(false)
 
   useEffect(() => {
     dispatch(getCategories())
@@ -102,6 +120,21 @@ function Navbar() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   }
+
+
+  function handlerFilterCategory(e) {
+    e.preventDefault()
+    dispatch(getFilterProducts(e.target.value))
+  }
+
+  function handleClickCart(e) {
+    e.preventDefault();
+    dispatch(getCartByUser())
+  }
+
+
+
+
   // const handleOnClickLogSign = (e) => {
   //   e.preventDefault()
   //   if(!log){
@@ -141,6 +174,8 @@ function Navbar() {
   //   Cerrar Sesión 
   // </Button>
   //     </>)
+  //   }
+
 
     return (
       <div className={classes.root} color="primary"> 
@@ -161,14 +196,16 @@ function Navbar() {
         <Select size="small" 
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          onChange={handleChange}
+          onChange={e => handlerFilterCategory(e)}
         >
+          <option className={classes.formControl} value="" selected defaultValue>Todo</option>
           {
             categ?.map(
               c => <MenuItem value={c.name} className={classes.tabs} key={c.id}>
                 {c.name}
                 </MenuItem>
               )}
+              
           {/* <MenuItem value={"Todo"}>Todo</MenuItem>
           <MenuItem value={"Indumentaria"}>Indumentaria</MenuItem>
           <MenuItem value={"Tecnología"}>Tecnología</MenuItem>
@@ -191,15 +228,10 @@ function Navbar() {
     {/* comentado de momento, perdón mati */}
     {/* <NavBarMati guest={props.guest} setGuest={props.setGuest}/> */}
     <div className={classes.navegation}> 
-    <User />
-      {/* {!log&&
-      <NoUser/>
-      } */}
-      {/* {log&&
-      <User/>
-      } */}
+      <User />
+   
     <Button  size="small"  className={classes.buttons}>mis compras</Button>
-    <Button  size="small"  className={classes.buttons+" "+classes.myCart}>
+    <Button  size="small"  className={classes.buttons+" "+classes.myCart} onClick={handleClickCart}>
       mi carrito
     <img src={cartEmpty} className={classes.cart}></img>
     </Button>

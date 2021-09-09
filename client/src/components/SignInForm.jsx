@@ -19,7 +19,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 //------IMPORT ACTIONS------//
-import { signIn, signInGoogle } from "../actions/index";
+import { checkUser, signIn, signInGoogle, guestCartToUserCart} from "../actions/index";
 
 function Copyright() {
     return (
@@ -89,10 +89,17 @@ React.useEffect(()=>{
         //dispatch(signInGoogle())
     }
     console.log(input)
-    function handleSubmit(e) {
-        e.preventDefault();
-        dispatch(signIn(input))
-        history.push("/")
+    async function handleSubmit(e) {
+      e.preventDefault();
+      await dispatch(signIn(input))
+      if (localStorage.history) {
+        console.log("ENTRO DONDE TENIA QUE ENTRAR :)")
+        const guestCart = await JSON.parse(localStorage.getItem('history'));
+        await dispatch(guestCartToUserCart(guestCart))
+        await localStorage.clear();
+      }
+      dispatch(checkUser())
+      history.push("/")
     }
 
     return(
@@ -103,7 +110,6 @@ React.useEffect(()=>{
             
                 <input type="text" name="user" placeholder="Email" onChange={handleChangeEmail} required/>
                // <span>{errors?.email?.message}</span> 
-
                 <input type="password" placeholder="Password" onChange={handleChangePassword} required/>
               // <span>{errors?.password?.message}</span>
                 <Link to="/saveAccount">Do you forget?</Link>
@@ -205,4 +211,4 @@ React.useEffect(()=>{
 
 }
 
-export default SignInForm;
+export default SignInForm
