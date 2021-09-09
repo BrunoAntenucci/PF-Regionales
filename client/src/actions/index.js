@@ -192,6 +192,14 @@ export function addFav (body) {
         })
     } 
 };
+export function addFavStorage (id){
+    return async (dispatch) => {
+        return dispatch({
+            type:"ADD_FAV_STORE", 
+            payload: id
+        })
+    }
+}
 export function getFav (id){
     return async function (dispatch) {
         const response = await axios.get(`${URL.URL_FAVORITES}?userId=${id}`)
@@ -207,6 +215,14 @@ export function deleteFav (body) {
         return dispatch({
             type: "DELETE_FAV",
             payload: response.data
+        })
+    }
+};
+export function deleteFavStorage(id){
+    return async (dispatch) => {
+        return dispatch({
+            type: "DELETE_FAV_STORE",
+            payload: id
         })
     }
 }

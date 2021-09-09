@@ -56,7 +56,7 @@ const User = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user)
 
-    useEffect( () => {
+    useEffect(() => {
         dispatch(checkUser())
     }, [dispatch])
 
@@ -78,10 +78,13 @@ const User = () => {
             {user ? <>
                 <img src={iconUser}  className={classes.iconuser}/>
                 <Button  size="small"  className={classes.buttons}>
-                    {user.first_name}                   
+                  <Link to='/profile' style={{textDecoration:"none" , color:"white"}}>
+                    {user.first_name}   
+                    </Link>                
                 </Button>
                 <Button  size="small"  className={classes.buttons}>
-                    Favoritos
+                <Link style={{textDecoration:"none" , color:"white"}} to='/favourites' >
+                    Favoritos </Link>
                 </Button>
                 <Button  size="small"  className={classes.buttons} onClick={handleLogOut}>
                     Cerrar Sesión 

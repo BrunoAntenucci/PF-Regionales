@@ -70,7 +70,7 @@ function Navbar() {
     console.log("response", response)
     setProd(response.data)
   }, []);
-  console.log(prod)
+  //console.log(prod)
 
   const handleOnSelect = ({name}) => {
     // the item selected
@@ -82,7 +82,7 @@ function Navbar() {
     // let inputId = document.getElementById("dataInput");
     // inputId.value = ""; 
     }
-    console.log(name)
+    //console.log(name)
   }
 
   const handleOnSearch = (e) => {

@@ -2,13 +2,17 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getCategories, getProductDetail } from '../actions/index';
+import { getCategories, getProductDetail, addFav, addFavStorage, deleteFav, deleteFavStorage } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import market from '../img/market.png'
 import { Button, Typography } from '@material-ui/core';
 import cartEmpty from '../img/cart-empty.png'
+import Reviews from './Reviews';
+import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai';
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         boxShadow:" 10px 5px 5px #0002",
@@ -100,6 +104,10 @@ function ProductDetail(props) {
     const classes = useStyles();
     const history = useHistory();
     const detail = useSelector((state) => state.prodDetail);
+    const wishlist = useSelector(state => state.wishlist);
+    const fav = wishlist.find(({detail: {_id}}) => _id === detail._id);
+    const userId = window.localStorage.getItem('userId');
+    // const [updateReview, setUpdateReview] = useState(false);
 
     function handleClick(e) {
         e.preventDefault();
@@ -166,7 +174,14 @@ function ProductDetail(props) {
     // }, [detail.product])
     
     //------------------------------------------------
-
+    const handleAddFav = () => {
+        dispatch(addFav({userId, productId: props.match.params.id}));
+        dispatch(addFavStorage(props.match.params.id));
+    }
+    const handleRemoveFav = () =>{
+        dispatch(deleteFav({userId, productId: props.match.params.id}));
+        dispatch(deleteFavStorage(props.match.params.id));
+    }
 
     return (
         <div className={classes.root}>
@@ -186,9 +201,47 @@ function ProductDetail(props) {
                  variant="contained" color="primary">
                    <Link to = '/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
                     </Button>
-                   
-                         </div>     
-                         <div className={classes.contentRight}>     
+                        </div>  
+                        <div>
+                        {/* {!userId ? (
+											<Link
+												to='/login'
+												// onClick={() =>
+												// 	store.addNotification({
+												// 		title: 'You are not Login',
+												// 		message: 'You have to be logged in to add Favs.',
+												// 		type: 'danger',
+												// 		insert: 'top',
+												// 		container: 'top-center',
+												// 		animationIn: [
+												// 			'animate__animated',
+												// 			'animate__fadeIn',
+												// 		],
+												// 		animationOut: [
+												// 			'animate__animated',
+												// 			'animate__fadeOut',
+												// 		],
+												// 		dismiss: {
+												// 			duration: 3000,
+												// 			onScreen: true,
+												// 			pauseOnHover: true,
+												// 		},
+												// 	})
+												// }
+											>
+												<AiOutlineHeart className='fav' />
+											</Link>
+										) : fav ? ( */}
+											<AiFillHeart onClick={handleRemoveFav} className='fav' />
+										) : (
+											<AiOutlineHeart onClick={handleAddFav} className='fav' />
+										)}
+                            {/* {!userId ? () : fav ? 
+                            (<button onClick={}>Agregar a Favoritos</button>)
+                            : (<buton onClick={}>Eliminar de Favoritos</buton>)} */}
+                        </div> 
+                        
+                        <div className={classes.contentRight}>     
                              <div className={classes.info}>  
                             <Grid container spacing={2} direction="column"
                             justifyContent="flex-start"
@@ -226,10 +279,18 @@ function ProductDetail(props) {
                                         </Typography>
                                     <img src={cartEmpty} className={classes.cart}></img>
                                     </div>
-                                
+                                {/* {product._id && (
+                                    <Reviews
+                                        id={product._id}
+                                        setUpdateReview={setUpdateReview}
+                                        updateReview={updateReview}
+                                        allReviews={product.reviews}
+                                        userOrder={userOrder}
+                                    />
+                                )} */}
                             
                             </div>
- 
+                                        
 
                         </div>
                     )
