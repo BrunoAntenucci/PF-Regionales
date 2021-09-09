@@ -133,6 +133,7 @@ router.post("/fromGuest", async (req, res, next) => {
         })
 
         if (typeof user.cart === "undefined") {
+            console.log("Nuevo carrito creado a partir del carrito del guest")
             const newCart = new Cart({});
             newCart.items = guestCart.items;
             newCart.total = guestCart.total
@@ -141,13 +142,26 @@ router.post("/fromGuest", async (req, res, next) => {
             await user.save();
             return res.status(200).send("Nuevo carrito creado a partir del carrito del guest")
         } else {
+            console.log("Fusion carrito Guest + Carrito user")
             const cart = await Cart.findById(user.cart._id.toString()).populate({
                 path: "items",
                 populate: {
                     path: "product"
                 }
             })
-            cart.items = [...cart.items, guestCart.items];
+            for (var i=0; i<guestCart.items.length; i++) {
+                for (var j=0; j<cart.items.length; j++) {
+                    console.log(guestCart.items[i]?.product._id, " vs ", cart.items[j]?.product._id.toString());
+                    if (guestCart.items[i]?.product._id === cart.items[j]?.product._id.toString()) {
+                        cart.items[j].quantity += guestCart.items[i].quantity;
+                        cart.items[j].subTotal += guestCart.items[i].subTotal;
+                        await cart.save();
+                        await guestCart.items.splice(i, 1)
+                        i=-1;
+                    }
+                }
+            }
+            cart.items = [...cart.items, ...guestCart.items];
             cart.total += guestCart.total;
             await cart.save();
             return res.status(200).send("Fusion carrito Guest + Carrito user")

@@ -190,6 +190,7 @@ export function logOut() {
 }
 
 export function addProductToCart(id, value) {
+    console.log("ENTRA CON: ", id, value)
     return function(dispatch) {
         return axios({
             method: "post",
@@ -201,6 +202,7 @@ export function addProductToCart(id, value) {
             url: "http://localhost:3001/cart/addProduct"
           })
           .then((res) => {
+              console.log("ENTRO AL ACTION")
             dispatch({
                 type: "ADD_PRODUCT_TO_CART",
                 payload: res.data

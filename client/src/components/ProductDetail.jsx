@@ -130,49 +130,98 @@ function ProductDetail(props) {
         dispatch(getProductDetail(props.match.params.id));
     },[dispatch, props.match.params.id]);
 
-    const handleCartClick = (detail) => {
+    const handleCartClick = async (detail) => {
         let historial = { 
             items: [],
             total: 0
         };
         const item = {
-            _id: detail[0]._id,
-            price: parseInt(detail[0].price),
-            name: detail[0].name,
-            description: detail[0].description,
-            image: detail[0].image,
-            subTotal: parseInt(detail[0].price),
-            quantity: 1
+            product: {
+                _id: detail[0]._id,
+                price: parseInt(detail[0].price),
+                name: detail[0].name,
+                description: detail[0].description,
+                image: detail[0].image,
+            },
+            quantity: 1,
+            subTotal: parseInt(detail[0].price)
         }
-        if(!localStorage.history) {
+        // const item = {
+        //     _id: detail[0]._id,
+        //     price: parseInt(detail[0].price),
+        //     name: detail[0].name,
+        //     description: detail[0].description,
+        //     image: detail[0].image,
+        //     subTotal: parseInt(detail[0].price),
+        //     quantity: 1
+        // }
+        if (user) {
+            dispatch(addProductToCart(item.product._id, parseInt(item.product.price)))
+        }
+        if(!localStorage.history && !user) {
             historial.items.push(item)
-            historial.total += item.price;
+            historial.total += item.product.price;
             return localStorage.setItem('history', JSON.stringify(historial));
         } 
-        if (localStorage.history) {
+        if (localStorage.history && !user) {
             historial = JSON.parse(localStorage.getItem('history'));
             // if(!historial.some(p=> detail.map(pd => pd._id).includes(p._id)) ) {
             //     historial.push(...detail);
             // }
             for (var i=0; i<historial.items.length; i++) {
-                if (historial.items[i]._id === item._id) {
+                if (historial.items[i].product._id === item.product._id) {
                     historial.items[i].quantity++;
-                    historial.items[i].subTotal += item.price;
-                    historial.total += item.price;
+                    historial.items[i].subTotal += item.product.price;
+                    historial.total += item.product.price;
                     return localStorage.setItem('history', JSON.stringify(historial));
                 } 
             }
-            historial.total += item.price;
+            historial.total += item.product.price;
             historial.items.push(item)
             localStorage.setItem('history', JSON.stringify(historial));
-        }
-        if (user) {
-            dispatch(addProductToCart(detail[0]._id, parseInt(detail[0].price)))
         }
     }
 
     const handleRemoveCart = (detail) => {
-        dispatch(removeProductFromCart(detail[0]._id, parseInt(detail[0].price)))
+        let historial = { 
+            items: [],
+            total: 0
+        };
+        const item = {
+            product: {
+                _id: detail[0]._id,
+                price: parseInt(detail[0].price),
+                name: detail[0].name,
+                description: detail[0].description,
+                image: detail[0].image,
+            },
+            quantity: 1,
+            subTotal: parseInt(detail[0].price)
+        }
+        if (user) {
+            dispatch(removeProductFromCart(item.product._id, parseInt(item.product.price)))
+        }
+        if(!localStorage.history && !user) {
+            console.log("No hay localStorage ni User. Nada que hacer")
+        } 
+        if (localStorage.history && !user) {
+            console.log("Hay Storage sin User.")
+            historial = JSON.parse(localStorage.getItem('history'));
+            for (var i=0; i<historial.items.length; i++) {
+                if (historial.items[i].product._id === item.product._id) {
+                    historial.items[i].quantity--;
+                    historial.items[i].subTotal -= item.product.price;
+                    historial.total -= item.product.price;
+                    if (historial.items[i].quantity === 0) {
+                        historial.items.splice(i, 1);
+                    }
+                    console.log("Producto eliminado");
+                    i=-1;
+                    return localStorage.setItem('history', JSON.stringify(historial));
+                }
+            }
+            console.log("No existe ese producto en el LocalStorage")
+        }
     }
     //---------------LOCAL STORAGE--------------------
     // useEffect(() => {
