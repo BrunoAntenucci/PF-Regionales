@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     
     display:"flex",
     flexDirection:"row",
-    backgroundColor:"#0000001b",
+    //backgroundColor:"#0000001b",
      color:"#fff",
      padding:"0px 55px"
   },

@@ -51,11 +51,12 @@ const useStyles = makeStyles((e)=>({
     quantity:{
         textAlign:"center",
         display: "flex",
-        margin:"0 40px",
-        height:"min-content",
-        alignContent:"center",
+        margin:" 40px",
+        height:"max-content",
+        //  alignContent:"center",
         flexDirection:"column",
-        justifyContent:"space-evenly"
+        justifyContent:"center"
+
     },
     ButtonQua:{
         border:"2px solid "+e.palette.secondary.dark,
@@ -67,6 +68,10 @@ const useStyles = makeStyles((e)=>({
         direction:"column",
         flexWrap: "wrap",
         justifyContent:"space-evenly"
+    },
+    info:{
+        color:e.palette.secondary.dark,
+        fontSize:"1.3em"
     }
 
 }))
@@ -214,7 +219,7 @@ console.log("info user", infoUser)
                         <div className={classes.quantity}>
                        <Button variant="outlined" className={classes.ButtonQua} variant="h6"
                         onClick = {() => handleDeleteProductClick(item?.product?._id, item?.product?.price)}>-</Button>
-                       <p>{item.quantity}</p>
+                       <p className={classes.info} >{item.quantity}</p>
                        <Button variant="outlined" className={classes.ButtonQua} variant="h6"
                        onClick = {() => handleAddProductClick(item?.product?._id, item?.product?.price)}>+</Button>
                        {loading.boolean && loading.id == item?.product?._id
@@ -224,8 +229,10 @@ console.log("info user", infoUser)
                        </div>   
                         <div  className={classes.data}>
                          <div>
-                       <Typography variant="h6" component="p" >Subtotal </Typography>
-                       <Typography variant="h6" component="p" > ${item.subTotal}</Typography>
+                       <Typography variant="h6" component="p" className={classes.info} >
+                           Subtotal </Typography>
+                       <Typography variant="h6" component="p"  >
+                         ${item.subTotal}</Typography>
                             </div>
                             <div>
                        <Button variant="contained" color="secondary" >Eliminar producto</Button>
