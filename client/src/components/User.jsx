@@ -209,7 +209,7 @@ const User = () => {
                     <ListItemIcon>
                       <StorefrontIcon fontSize="small" />
                     </ListItemIcon>
-                    <Link to="/store">
+                    <Link to="/store" style={{textDecoration:"none", color:"inherit"}}>
                     <ListItemText primary="Mi tienda" />
                     </Link>
                   </StyledMenuItem>
@@ -217,7 +217,7 @@ const User = () => {
                     <ListItemIcon >
                       <ShoppingCartIcon fontSize="small" />
                     </ListItemIcon>
-                    <Link to="/cart">
+                    <Link to="/cart" style={{textDecoration:"none", color:"inherit"}}>
                     <ListItemText primary="Mi carrito" />
                     </Link>
                   </StyledMenuItem>
