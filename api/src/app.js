@@ -7,8 +7,10 @@ const bodyParser = require("body-parser");
 const morgan = require('morgan');
 const routes = require("./routes/index");
 const flash = require("connect-flash");
+const createRoles = require("./libs/initialSetup")
 //const cookieSession = require("cookie-session");
 const server = express();
+createRoles(server);
 server.name= "REGIONALES";
 //--------------------------------DATABASE------------------------------------------------------------//
 const connDB = require('./db.js');

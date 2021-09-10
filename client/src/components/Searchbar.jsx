@@ -117,7 +117,7 @@ function Navbar() {
             onSelect={handleOnSelect}
             // size={"small"}
             style={{ width: 300 }}
-            placeholder={"Search products..."}
+            placeholder={"Buscar..."}
             />               
           </div>
            

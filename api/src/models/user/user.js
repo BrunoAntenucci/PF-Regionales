@@ -20,8 +20,9 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    role: {
-        type: String
+    roles: {
+        type: Schema.ObjectId,
+        ref: "Role"
     },
     ship_info: [{ 
         type: Schema.ObjectId, 
