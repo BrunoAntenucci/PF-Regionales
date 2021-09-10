@@ -9,7 +9,7 @@ const initialState = {
     user: {},
     categ: [],
     allProducts: [],
-
+    mercData:[],
     user: false,
     guest: {},
     wishlist: getWishListLocalStorage(),
@@ -103,6 +103,12 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 cart: action.payload
             }
+            case "POST_ORDER":
+                return{
+                    ...state,
+                    mercData: action.payload
+                
+                }
         default: return state;
 
         }

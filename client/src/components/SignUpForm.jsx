@@ -113,7 +113,7 @@ const SignUpForm = () => {
         } else {
             dispatch(signUp(register))
             alert('The account is created successfully');
-            history.push('/');
+            history.push('/products');
             }
         } 
         console.log(register)
