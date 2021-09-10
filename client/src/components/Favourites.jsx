@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import FavCard from "./FavCard";
 import NavBar from './Navbar';
 import { makeStyles } from '@material-ui/core/styles';
 import {Table, TableContainer, TableHead} from '@material-ui/core';
+import {getFav} from '../actions/index';
 
 const useStyles = makeStyles(theme => ({}))
 
 const Favourites = () => {
   const wishlist = useSelector((state) => state.wishlist);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getFav())
   }, [dispatch])

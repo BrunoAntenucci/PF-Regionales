@@ -67,10 +67,10 @@ const useStyles = makeStyles((e) =>({
 function Card({name,category, price, image, id}) {
     const classes = useStyles();
 
-    // const [verde, setVerde] = useState(false);
-    // const wishlist = useSelector(state => state.wishlist);
-    // const fav = wishlist.find(({product: {_id}}) => _id === product._id);
-    // const product = useSelector(state => state.prodDetail)
+    const [verde, setVerde] = useState(false);
+    const wishlist = useSelector(state => state.wishlist);
+    const fav = wishlist.find(({product: {_id}}) => _id === product._id);
+    const product = useSelector(state => state.prodDetail)
  
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
