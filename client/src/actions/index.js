@@ -43,6 +43,19 @@ export function getCategories() {
     }
 }
 
+export function postCategory(payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.post('/category/create', payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
 export function postProducts(payload){
     return async function (dispatch){
         try{
