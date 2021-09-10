@@ -127,9 +127,9 @@ function Navbar() {
     dispatch(getFilterProducts(e.target.value))
   }
 
-  function handleClickCart(e) {
+  async function handleClickCart(e) {
     e.preventDefault();
-    dispatch(getCartByUser())
+    await dispatch(getCartByUser())
   }
 
 
