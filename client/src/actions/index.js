@@ -312,19 +312,19 @@ export  function postOrder (data){
         try{
             var userShip =  await axios({
             method:"post",
-            url:"localhost:3001/order/newOrder",
+            url:"http://localhost:3001/order/newOrder",
             data:data,
-            headers: { "Content-Type": "application/json" },
-            
+            withCredentials: true
         }
             )
-            console.log("LLEGO CON ", userShip)
+            console.log("LLEGO CON ", userShip.data)
         dispatch({
             type:"POST_ORDER",
-            payload:userShip
+            payload: userShip.data
         })
     }
         catch(err){
+            console.log("ERROR")
             console.log(err)
         }
     }
