@@ -3,7 +3,7 @@ import axios from 'axios';
 export function getProducts() {
     return async function (dispatch) {
         try {
-            const prod = await axios.get('http://localhost:3001/product/');
+            const prod = await axios.get('/product/');
             return dispatch ({
                 type: 'GET_PRODUCTS',
                 payload: prod.data
@@ -17,7 +17,7 @@ export function getProducts() {
 export function getProductsByName(payload) {
     return async function(dispatch) {
         try {
-            const prodsByName = await axios.get('http://localhost:3001/product/search/' + payload);
+            const prodsByName = await axios.get('/product/search/' + payload);
             console.log(prodsByName);
             return dispatch ({
                 type: 'GET_PRODUCTS_BY_NAME',
@@ -32,7 +32,7 @@ export function getProductsByName(payload) {
 export function getCategories() {
     return async function (dispatch) {
         try {
-            const categories = await axios.get('http://localhost:3001/category');
+            const categories = await axios.get('/category');
             return dispatch ({
                 type: 'GET_CATEGORIES',
                 payload: categories.data
@@ -46,7 +46,7 @@ export function getCategories() {
 export function postProducts(payload){
     return async function (dispatch){
         try{
-        const aux = await axios.post('http://localhost:3001/product', payload);
+        const aux = await axios.post('/product', payload);
         return aux
         } catch (error){
             console.log(error)
@@ -59,7 +59,7 @@ export function postProducts(payload){
 export function modifyProducts(id, payload){
     return async function (dispatch){
         try{
-        const aux = await axios.patch('http://localhost:3001/product/' + id, payload);
+        const aux = await axios.patch('/product/' + id, payload);
         return aux
         } catch (error){
             console.log(error)
@@ -72,7 +72,7 @@ export function modifyProducts(id, payload){
 export function postStore(payload){
     return async function (dispatch){
         try{
-        const aux = await axios.post('http://localhost:3001/store', payload);
+        const aux = await axios.post('/store', payload);
         return aux
         } catch (error){
             console.log(error)
@@ -85,7 +85,7 @@ export function postStore(payload){
 export function getProductDetail(id) {
     return async function(dispatch) {
         try {
-            const prodDet = await axios.get('http://localhost:3001/product/' + id);
+            const prodDet = await axios.get('/product/' + id);
             console.log(prodDet)
             return dispatch({
                 type: 'GET_PRODUCT_DETAIL',
@@ -113,7 +113,7 @@ export function signIn(userInfo) {
               password: userInfo.password
             },
             withCredentials: true,
-            url: "http://localhost:3001/signin"
+            url: "/signin"
           })
           .then((res) => {
             console.log("[ACTION]RES SINGIN: ", res.data)
@@ -130,7 +130,7 @@ export function signInGoogle() {
         return axios({
             method: "get",
             withCredentials: true,
-            url: "http://localhost:3001/google/auth"
+            url: "/google/auth"
           })
           .then((res) => {
             console.log("[ACTION]RES SINGIN: ", res.data)
@@ -156,7 +156,7 @@ export function signUp(userInfo) {
                 password: userInfo.password
             },
             withCredentials: true,
-            url: "http://localhost:3001/signup"
+            url: "/signup"
           })
           .then((res) => {
             console.log("[ACTION]RES SINGUP: ", res.data)
@@ -176,7 +176,7 @@ export function checkUser() {
         return axios({
             method: "get",
             withCredentials: true,
-            url: "http://localhost:3001/signin"
+            url: "/signin"
           })
           .then((res) => {
               console.log("[ACTION]RES CHECKUSER: ", res.data.first_name)
@@ -203,7 +203,7 @@ export function logOut() {
         return axios({
             method: "get",
             withCredentials: true,
-            url: "http://localhost:3001/logout"
+            url: "/logout"
           })
           .then((res) => {
               console.log("[ACTION]RES LOGOUT: ", res)
@@ -225,7 +225,7 @@ export function addProductToCart(id, value) {
                 valueProduct: value,
             },
             withCredentials: true,
-            url: "http://localhost:3001/cart/addProduct"
+            url: "/cart/addProduct"
           })
           .then((res) => {
               console.log("ENTRO AL ACTION")
@@ -249,7 +249,7 @@ export function removeProductFromCart(id, value) {
                 valueProduct: value,
             },
             withCredentials: true,
-            url: "http://localhost:3001/cart/removeProduct"
+            url: "/cart/removeProduct"
           })
           .then((res) => {
             console.log("REMOVE PRODUCT: ", res.data)
@@ -269,7 +269,7 @@ export function getCartByUser() {
         return axios({
             method: "get",
             withCredentials: true,
-            url: "http://localhost:3001/cart"
+            url: "/cart"
           })
           .then((res) => {
               console.log("GET CART: ", res.data)
@@ -290,7 +290,7 @@ export function guestCartToUserCart(guestCart) {
                 guestCart: guestCart
             },
             withCredentials: true,
-            url: "http://localhost:3001/cart/fromGuest"
+            url: "/cart/fromGuest"
           })
           .then((res) => {
             console.log("[guestCartToUserCart] 2")
@@ -305,3 +305,28 @@ export function guestCartToUserCart(guestCart) {
           })
     }
 }
+
+export  function postOrder (data){
+    return async function  (dispatch){
+        console.log("ENTRA CON: ", data)
+        try{
+            var userShip =  await axios({
+            method:"post",
+            url:"localhost:3001/order/newOrder",
+            data:data,
+            headers: { "Content-Type": "application/json" },
+            
+        }
+            )
+            console.log("LLEGO CON ", userShip)
+        dispatch({
+            type:"POST_ORDER",
+            payload:userShip
+        })
+    }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
+// localhost:3001/shipInfo/user/

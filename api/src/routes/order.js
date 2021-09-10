@@ -126,7 +126,7 @@ router.post("/newOrder", async(req, res, next) => {
         const user = await User.findById(userSessionID).populate("order");
         user.order = [...user.order, newOrder._id]
         await user.save();
-        return res.redirect(`/order/checkout/${newOrder._id.toString()}`)
+        return res.redirect(`http://localhost:3001/order/checkout/${newOrder._id.toString()}`)
     } else {
         return res.redirect(`/order/checkout/${newOrder._id.toString()}`)
     }

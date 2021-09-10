@@ -99,7 +99,7 @@ React.useEffect(()=>{
         await localStorage.clear();
       }
       dispatch(checkUser())
-      history.push("/")
+      history.push("/products")
     }
 
     return(

@@ -201,7 +201,7 @@ function Navbar() {
           <option className={classes.formControl} value="" selected defaultValue>Todo</option>
           {
             categ?.map(
-              c => <MenuItem value={c.name} className={classes.tabs} key={c.id}>
+              (c, i) => <MenuItem value={c.name} className={classes.tabs} key={i}>
                 {c.name}
                 </MenuItem>
               )}
@@ -232,7 +232,7 @@ function Navbar() {
    
     <Button  size="small"  className={classes.buttons}>mis compras</Button>
     <Button  size="small"  className={classes.buttons+" "+classes.myCart} onClick={handleClickCart}>
-      mi carrito
+      <Link to="/cart">mi carrito</Link>
     <img src={cartEmpty} className={classes.cart}></img>
     </Button>
     </div>
