@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import iconUser from '../img/icon-user.png'
+import { getCartByUser } from '../actions/index';
 import axios from 'axios';
+
 //-------Menu desplegable-----------//
 import { withStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
@@ -19,6 +21,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import StorefrontIcon from '@material-ui/icons/Storefront';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 //------IMPORT ACTIONS------//
 import { checkUser, logOut } from '../actions/index';
@@ -144,6 +147,12 @@ const User = () => {
       console.log(history)
     }
 
+    function handleClickCart(e) {
+      e.preventDefault();
+      dispatch(getCartByUser())
+    }
+  
+
     //console.log("USER: ", user)
 
     return(
@@ -196,7 +205,17 @@ const User = () => {
                     <ListItemIcon>
                       <StorefrontIcon fontSize="small" />
                     </ListItemIcon>
+                    <Link to="/store">
                     <ListItemText primary="Mi tienda" />
+                    </Link>
+                  </StyledMenuItem>
+                  <StyledMenuItem onClick={handleClickCart} >
+                    <ListItemIcon >
+                      <ShoppingCartIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Link to="/cart">
+                    <ListItemText primary="Mi carrito" />
+                    </Link>
                   </StyledMenuItem>
                   <StyledMenuItem onClick={handleLogOut}>
                     <ListItemIcon>

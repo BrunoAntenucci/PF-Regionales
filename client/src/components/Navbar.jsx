@@ -231,10 +231,12 @@ function Navbar() {
       <User />
    
     {/* <Button  size="small"  className={classes.buttons}>mis compras</Button> */}
-    <Button  size="small"  className={classes.buttons+" "+classes.myCart} onClick={handleClickCart}>
+
+    {/* Boton mi carrito */}
+    {/* <Button  size="small"  className={classes.buttons+" "+classes.myCart} onClick={handleClickCart}>
       <Link to="/cart">mi carrito</Link>
     <img src={cartEmpty} className={classes.cart}></img>
-    </Button>
+    </Button> */}
     </div>
 
         {/* </Paper> */}
