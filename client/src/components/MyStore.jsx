@@ -15,9 +15,13 @@ const MyStore = () => {
                  variant="contained" color="primary">
                    <Link to='/products' style={{textDecoration:"none", color:"white"}}>Volver</Link>
                     </Button>
-            <p>Crear tienda</p>
-            <p>Crear producto</p>
-            <p>Modificar producto</p>
+            <h3>Crear tienda</h3>
+            <StoreCreation/>
+            <h3>Crear producto</h3>
+            <ProductCreation />
+            <h3>Modificar producto</h3>
+            
+
         </div>
     )
 }
