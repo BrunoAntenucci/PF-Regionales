@@ -331,7 +331,7 @@ export  function postOrder (data){
 //----------WISHLIST----------
 export function addFav (body) {
     return async function (dispatch) {
-        const response = await axios.post("http://localhost:3001/favourites", body);
+        const response = await axios.post('/favourites', body);
         return dispatch({
             type: "ADD_FAV",
             payload: response.data
@@ -346,10 +346,11 @@ export function addFavStorage (id){
         })
     }
 }
-export function getFav (id){
+export function getFav (){
     return async function (dispatch) {
-        // const response = await axios.get(`http://localhost:3001/favourites?userId=${id}`)
-         const response = await axios.get(`http://localhost:3001/favourites`, id)
+        
+         const response = await axios.get('/favourites')
+         console.log(response.data, 'responsegetFav')
         return dispatch({
             type: "GET_FAV",
             payload: response.data
@@ -358,7 +359,7 @@ export function getFav (id){
 }
 export function deleteFav (body) {
     return async function (dispatch){
-        const response = await axios.delete(`http://localhost:3001/favourites`, body)
+        const response = await axios.delete('/favourites', body)
         return dispatch({
             type: "DELETE_FAV",
             payload: response.data

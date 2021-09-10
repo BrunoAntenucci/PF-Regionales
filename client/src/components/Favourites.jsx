@@ -12,9 +12,11 @@ const useStyles = makeStyles(theme => ({}))
 const Favourites = () => {
   const wishlist = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user)
 
-  useEffect(() => {
-    dispatch(getFav())
+  useEffect((user) => {
+    dispatch(getFav(user));
+    console.log(getFav, 'getFav')
   }, [dispatch])
   return (
   <div>
@@ -46,7 +48,7 @@ const Favourites = () => {
         )}</tbody>
         </Table>
       </div>
-      <Link to="/">
+      <Link to="/products">
         Volver
       </Link>
       </div>
