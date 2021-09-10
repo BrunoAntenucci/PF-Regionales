@@ -22,7 +22,7 @@ server.use(bodyParser.json());
 server.use(express.urlencoded({ extended: true}));
 server.use(express.json());
 server.use(cors({
-  origin: "*", //<-- FRONTEND
+  origin: "http://localhost:3000", //<-- FRONTEND
   credentials: true
 }));
 server.use(session({
