@@ -18,6 +18,7 @@ import { guestMati } from "./actions";
 import { userCheck } from "./actions";
 import ModifyProduct from "./components/ModifyProduct";
 import History from "./components/History";
+import MyStore from "./components/MyStore";
 
 
 const theme = createTheme({
@@ -83,6 +84,7 @@ function App() {
         <Route exact path = "/profile" component = {Profile} />
         <Route path="/detail/:id" component={ProductDetail} /> 
         <Route exact path = "/cart" component = {Cart} />
+        <Route exact path = "/store" component = {MyStore} />
        
       </Switch>
       </ThemeProvider>

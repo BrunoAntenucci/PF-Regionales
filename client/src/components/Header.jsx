@@ -92,11 +92,11 @@ function Header(props) {
                 
                 <Searchbar className={classes.searchbar} />   
                 
-                <Button
+                {/* <Button
                 className={classes.button}
                  variant="contained" color="primary">
                    <Link to = '/creation' style={{textDecoration:"none", color:"white"}}>  crear producto</Link>
-                    </Button>
+                    </Button> */}
                     
                 {/*este div sirve para lograr el centrado del search sin margin*/ }
                 </div>
