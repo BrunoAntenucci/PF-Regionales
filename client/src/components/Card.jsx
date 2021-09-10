@@ -9,10 +9,13 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import cartEmpty from '../img/cart-empty.png'
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProductToCart } from '../actions';
 const useStyles = makeStyles((e) =>({
   root: {
     minWidth: 300,
-    margin: "20px",
+    marginLeft: "30px",
+    margin: "30px 0",
     height: "fit-content",
     width: 300,
   },
@@ -60,27 +63,49 @@ const useStyles = makeStyles((e) =>({
 }));
 function Card({name,category, price, image, id}) {
     const classes = useStyles();
+    const user = useSelector(state => state.user)
+    const dispatch = useDispatch()
     //console.log(id)
     const handleCartClick = (name, price, image, id) => {
-      let historial = [];
-
-        let detail ={name, price, image, _id :id}
-      //   console.log("data",detail)
-      // if(!localStorage.getItem('history')) {
-      //     historial.push(detail);
-      //     localStorage.setItem('history', JSON.stringify(historial));
-      // } else {
-      //     historial = JSON.parse(localStorage.getItem('history'));
-
-      //      if(!historial.some(p=> detail._id == p._id) ) {
-      //       historial.push(detail);
-      //      }
-  
-      //     localStorage.setItem('history', JSON.stringify(historial));
-      // }
-      
-      //console.log(JSON.parse(localStorage.getItem('history')))
+      let historial = { 
+        items: [],
+        total: 0
+    };
+    const item = {
+        product: {
+            _id: id,
+            price:parseInt(price),
+            name,
+            image,
+        },
+         quantity: 1,
+        subTotal: parseInt(price)
+      }
+     //console.log( JSON.parse(localStorage.getItem("historyProducts")))
+      if (user) {
+        dispatch(addProductToCart(item.product._id, parseInt(item.product.price)))
+   
+      }if(!localStorage.history && !user) {
+      historial.items.push(item)
+      historial.total += item.product.price;
+      return localStorage.setItem('history', JSON.stringify(historial));
+      } 
+      if (localStorage.history && !user) {
+        historial = JSON.parse(localStorage.getItem('history'));
+        for (var i=0; i<historial.items.length; i++) {
+          if (historial.items[i].product._id === item.product._id) {
+              historial.items[i].quantity++;
+              historial.items[i].subTotal += item.product.price;
+              historial.total += item.product.price;
+              return localStorage.setItem('history', JSON.stringify(historial));
+          } 
+      }
+      historial.total += item.product.price;
+      historial.items.push(item)
+      localStorage.setItem('history', JSON.stringify(historial));
   }
+  }
+    
     return (
         <CardMUI 
          
@@ -116,12 +141,12 @@ function Card({name,category, price, image, id}) {
          variant="body1" color="primary" component="p">
            añadir al carrito 
             </Typography>
-          <img src={cartEmpty} className={classes.cart}></img>
+          <img alt="img not found" src={cartEmpty} className={classes.cart}></img>
         </div>
         </CardActions>
       </CardMUI>
         
     )
-}
+  }
 
 export default Card

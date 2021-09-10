@@ -243,9 +243,6 @@ function ProductDetail(props) {
   
     // localStorage.setItem('history', JSON.stringify(historial));
     // }, [detail.product])
-    
-    //------------------------------------------------
-
 
     return (
         <div className={classes.root}>
@@ -305,7 +302,7 @@ function ProductDetail(props) {
                                         </Typography>
                                     <img src={cartEmpty} className={classes.cart}></img>
                                     </div>
-                                    <div className={classes.cardDiv}
+                                    {/* <div className={classes.cardDiv}
                                         onClick={() => handleRemoveCart(detail.product)}>
                                 <Typography
                                     className={classes.cardTypo}
@@ -315,7 +312,7 @@ function ProductDetail(props) {
                                         </Typography>
                                     <img src={cartEmpty} className={classes.cart}></img>
                                     </div>
-                                
+                                 */}
                             
                             </div>
  

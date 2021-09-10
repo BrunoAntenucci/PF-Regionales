@@ -2,24 +2,21 @@ const { Router } = require('express');
 const router = Router();
 const Store = require('../models/store/store.js');
 
-router.post('/create', async (req, res) => {
-    const newStore = new Store({
-        name: req.body.name,
-        description: req.body.description,
-        city: req.body.city,
-        id_category: req.body.categories,
-        id_product: req.body.products,
-        address: req.body.address,
-        reputation: req.body.reputation
-    })
+router.post("/", async (req, res) => {
+    const {name, description, city, products, address, reputation} = req.body; 
+    console.log(req.body)
+    if (!name || !description || !city  || !products || !address || !reputation) {
+        return res.status(400).json({
+            error: 'Something is missing!',
+        });
+    } 
 
-    try{
-        await newStore.save();
-        res.status(200).send(newStore)
-    } catch(error){
-        res.status(500).send(error)
-    }
-})
+    const newStore = await new Store({name, description, city, products , address, reputation})
+    const store = await newStore.save();
+    res.json(store);
+
+   
+});
 
 router.get('/', async (req, res) => {
     try{

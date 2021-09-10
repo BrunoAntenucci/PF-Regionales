@@ -22,7 +22,7 @@ import Select from '@material-ui/core/Select';
 import cartEmpty from '../img/cart-empty.png'
 
 import User from './User';
-
+import History from './History';
 import { Button, ButtonGroup } from '@material-ui/core';
 import iconUser from '../img/icon-user.png'
 const useStyles = makeStyles(theme => ({
@@ -115,7 +115,7 @@ function Navbar() {
 
   useEffect(() => {
     dispatch(getCategories())
-}, [dispatch])
+  }, [dispatch])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -201,7 +201,7 @@ function Navbar() {
           <option className={classes.formControl} value="" selected defaultValue>Todo</option>
           {
             categ?.map(
-              c => <MenuItem value={c.name} className={classes.tabs} key={c.id}>
+              (c, i) => <MenuItem value={c.name} className={classes.tabs} key={i}>
                 {c.name}
                 </MenuItem>
               )}
@@ -212,7 +212,9 @@ function Navbar() {
           <MenuItem value={"Muebles"}>Muebles</MenuItem> */}
         </Select>
       </FormControl>
+      <Link to="/history" style={{textDecoration:"none", color:"inherit"}}>
         <Tab label="historial" size="small"  className={classes.tabs} color="secondary"/>
+        </Link>
         <Tab label="ofertas" size="small"  className={classes.tabs} color="secondary"/>
    
         {/* <Tab label="Item Three" /> */}
@@ -230,7 +232,7 @@ function Navbar() {
    
     <Button  size="small"  className={classes.buttons}>mis compras</Button>
     <Button  size="small"  className={classes.buttons+" "+classes.myCart} onClick={handleClickCart}>
-      mi carrito
+      <Link to="/cart">mi carrito</Link>
     <img src={cartEmpty} className={classes.cart}></img>
     </Button>
     </div>

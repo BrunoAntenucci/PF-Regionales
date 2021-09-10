@@ -56,6 +56,32 @@ export function postProducts(payload){
     
 }
 
+export function modifyProducts(id, payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.patch('http://localhost:3001/product/' + id, payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
+export function postStore(payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.post('http://localhost:3001/store', payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
 export function getProductDetail(id) {
     return async function(dispatch) {
         try {
@@ -279,3 +305,28 @@ export function guestCartToUserCart(guestCart) {
           })
     }
 }
+
+export  function postOrder (data){
+    return async function  (dispatch){
+        console.log("ENTRA CON: ", data)
+        try{
+            var userShip =  await axios({
+            method:"post",
+            url:"localhost:3001/order/newOrder",
+            data:data,
+            headers: { "Content-Type": "application/json" },
+            
+        }
+            )
+            console.log("LLEGO CON ", userShip)
+        dispatch({
+            type:"POST_ORDER",
+            payload:userShip
+        })
+    }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
+// localhost:3001/shipInfo/user/
