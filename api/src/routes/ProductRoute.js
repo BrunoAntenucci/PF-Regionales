@@ -2,10 +2,12 @@ const { Router } = require('express');
 const router = Router(); 
 const Schema = require('mongoose')
 const Product = require('../models/Product');
-const Category = require('../models/Category');
+const Category = require('../models/Category'); 
+const verifyToken  = require ("../middlewares/authJwt");
+const isAdmin = require ("../middlewares/authJwt");
 
 
-router.post("/", async (req, res) => {
+router.post("/", [verifyToken, isAdmin], async (req, res) => {
   const { user, name, description, price, quantity, category, image } = req.body; 
   console.log(req.body)
   if ( !name || !description || !price  || !category || !quantity || !image) {
@@ -46,10 +48,9 @@ router.get("/:id",  (req, res) => {
         }
     })
     
-
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", [verifyToken, isAdmin], async (req, res) => {
     try {
         const {id} = req.params;
         console.log(id)
@@ -61,7 +62,7 @@ router.patch("/:id", async (req, res) => {
 
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [verifyToken, isAdmin], async (req, res) => {
     try {
       const {id }= req.params;
       await Product.deleteOne({ _id: id });

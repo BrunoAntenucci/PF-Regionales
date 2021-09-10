@@ -40,7 +40,7 @@ const userSchema = new Schema({
         type: Schema.ObjectId,
         ref: "Order"
     }]
-}, { timestamps: true })
+}, { timestamps: true, versionKey: false })
 
 userSchema.methods.encryptPassword = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));

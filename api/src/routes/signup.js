@@ -2,8 +2,9 @@ const { Router } = require("express");
 const passport = require("passport")
 const User = require("../models/user/user");
 const bcrypt = require("bcryptjs");
-const Role = require("../models/role/role");
-
+const Role = require("../models/role/role"); 
+const jwt = require("jsonwebtoken");
+const config = require("../../src/config")
 
 const router = Router();
 
@@ -33,18 +34,26 @@ router.post("/", (req, res) => {
                     const role = await Role.findOne({ name: "user" });
                     newUser.roles = [role._id];
                   }
-                await newUser.save();
-                console.log(newUser)
-                res.send(newUser)
+                const saveUser = await newUser.save();
+                console.log(saveUser);
+                const token = jwt.sign({id: saveUser._id}, config.SECRET , {
+                    expiresIn: 172800 //48hs
+                })
+                res.json({token});
             }
         })
-    
-        
+            
     } catch (error) {
         console.log(error)
         
     }
 })
+/*
+userID = 613b7b8fbbb63e13b1142c78
+superuserID = 613b7b8fbbb63e13b1142c79
+adminID = 613b7b8fbbb63e13b1142c7a
+*/
+
 
 // router.post("/", passport.authenticate('local-signup', {
 //     successRedirect: "/",
