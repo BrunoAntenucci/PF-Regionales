@@ -1,4 +1,5 @@
 const server = require('./src/app.js');
+const axios = require('axios')
 require('dotenv').config();
 
 const PORT = process.env.PORT 
