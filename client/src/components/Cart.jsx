@@ -1,9 +1,11 @@
 import { Button, makeStyles, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { addProductToCart, getCartByUser, postOrder, removeProductFromCart } from '../actions';
 import Loading from './Loading'
+import { useMercadopago } from "react-sdk-mercadopago";
+import axios from 'axios';
 
 
 const useStyles = makeStyles((e)=>({
@@ -60,11 +62,15 @@ const useStyles = makeStyles((e)=>({
 
 }))
 const Cart = () => {
+    const mercadopago = useMercadopago.v2('TEST-585c1527-f870-4d86-8b32-bf639ae06253', {
+        locale: 'en-US'
+    });
     const dispatch = useDispatch();
     const myCart = useSelector((state) => state.cart );
     const allProd = useSelector((state) => state.products);
     const [loading,setLoading] = useState(false)
     const infoUser = useSelector((state) => state.user)
+    const mercData = useSelector((state) => state.mercData)
     const classes = useStyles()
     const [user,setUser]= useState({
         cartId:"",
@@ -74,35 +80,84 @@ const Cart = () => {
         address_name:"",
         address_number:""
     })
-    //console.log(myCart);
 
-    const handleAddProductClick = (id, value) => {
+    // React.useEffect(() => {
+    //     const script = document.createElement('script');
+    //     script.src = "https://sdk.mercadopago.com/js/v2";
+
+    //     script.async = true;
+    //     document.body.appendChild(script);
+
+    //     script.onload(() => {
+    //     const mp = new MercadoPago('TEST-585c1527-f870-4d86-8b32-bf639ae06253', {
+    //         locale: 'es-AR'
+    //     });
+    //     })
+    // }, [])
+
+    // React.useEffect(() => {
+    //     dispatch(getCartByUser())
+    //     handlerUserOrder()
+    //     setUser({
+    //         cartId:myCart._id
+    //     })
+    // },[])
+    
+    // React.useEffect(() => {
+        
+    //     // setLoading(false) 
+    //     setLoading(true) 
+    // },[myCart])
+
+
+    console.log("my cart: ", myCart);
+
+    const handleAddProductClick = async(id, value) => {
         console.log(id,value);
-        dispatch(addProductToCart(id, parseInt(value)));
-        dispatch(getCartByUser())
+        await dispatch(addProductToCart(id, parseInt(value)));
+        await dispatch(getCartByUser())
         //setLoading(true)
     }
-    const handleDeleteProductClick = (id, value) => {
+    const handleDeleteProductClick = async(id, value) => {
         console.log(id,value);
-        dispatch(removeProductFromCart(id, parseInt(value)));
-        dispatch(getCartByUser())
+        await dispatch(removeProductFromCart(id, parseInt(value)));
+        await dispatch(getCartByUser())
         //setLoading(true)
     }
     const handlerUserOrder =()=>{
         if(infoUser?.ship_info?.length>0){
-            setUser({    
-               country:infoUser.ship_info.country,
-                 city:infoUser.ship_info.city,
-                 postal_code:infoUser.ship_info.postal_code,
-                 address_name: infoUser.ship_info.address_number,
+            setUser({
+                country:infoUser.ship_info.country,
+                city:infoUser.ship_info.city,
+                postal_code:infoUser.ship_info.postal_code,
+                address_name: infoUser.ship_info.address_number,
                 address_number:infoUser.ship_info.address_name
             })    
         } 
     }
     const handlerOnSubmit = (e) => {
         e.preventDefault()
-        console.log(user)
-        dispatch(postOrder(user))
+        axios({
+            method: "POST",
+            data: user,
+            withCredentials: true,
+            url: "http://localhost:3001/order/newOrder"
+          })
+          .then((res) => {
+              console.log("VOLVIO CON: ", res.data)
+              if(mercadopago) {
+                  console.log("MERCADOPAGO SI")
+                  const checkout = mercadopago.checkout({
+                      preference: {
+                        id: res.data.body.id
+                      },
+                      autoOpen: true,
+                  })
+              }
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
     const handlerOnChange = (e) => {
         setUser((prevState) => {
@@ -114,25 +169,11 @@ const Cart = () => {
         // }else{
             return {
                 ...prevState,
+                cartId: myCart._id,
                 [e.target.name]: e.target.value
             }
         })
     }
-
-    React.useEffect(() => {
-        dispatch(getCartByUser())
-        handlerUserOrder()
-        setUser({
-            cartId:myCart._id
-        })
-    },[])
-    
-    React.useEffect(() => {
-        
-        // setLoading(false) 
-        setLoading(true) 
-    },[myCart])
-
 
 console.log(user)
 console.log("info user", infoUser)
@@ -193,16 +234,10 @@ console.log("info user", infoUser)
                      <label htmlFor="address_number">address number</label>
                      <input name="address_number" onChange={handlerOnChange}/>
                     </section>
-                    <button>Pagar</button>
+                    <button type="submit">Pagar</button>
                     </form>
                     
-            </div>   
-
-
-
-
-         
-            
+            </div>
             <Button
             style={{height:"min-content"}}
                 className={classes.buttonBack}
