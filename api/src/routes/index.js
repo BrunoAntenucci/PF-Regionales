@@ -38,8 +38,7 @@ router.use("/auth", auth)
 router.use("/favourites", favourites);
 
 router.get("/", (req, res, next) => {
-    console.log("index route: ", req.user)
-    res.send(req.user)
+    res.send(req.user);
 })
 router.get("/failure/signin", (req, res, next) => {
     res.send("MAL SIGN IN")

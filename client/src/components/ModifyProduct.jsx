@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { getCategories, postProducts } from '../actions';
+import { getCategories, getProductDetail, modifyProducts } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -45,7 +45,6 @@ background: "linear-gradient(120deg, #ffffff 0%, "+theme.palette.primary.light+"
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
-        bottom: "7px"
       },
       selectEmpty: {
         marginTop: theme.spacing(2),
@@ -66,7 +65,6 @@ background: "linear-gradient(120deg, #ffffff 0%, "+theme.palette.primary.light+"
        display:'flex', 
        flexDirection:'row',
         width:"fit-content",
-        alignItems:"center",
         background:theme.palette.primary.main,
         borderRadius:"10px",
         padding:"10px",
@@ -91,11 +89,7 @@ background: "linear-gradient(120deg, #ffffff 0%, "+theme.palette.primary.light+"
           display:"flex",
           flexDirection:"row",
           justifyContent:"space-between"
-      },
-      cateroriesSelect:{
-        
-      },
-      
+      }
       }));
 
 
@@ -122,26 +116,54 @@ function validate(input){
     return errors
 }
 
-export default function ProductCreation(){
+export default function ModifyProduct(props){
     const dispatch = useDispatch();
     const classes = useStyles();
     //const history = useHistory();
     const [ errors, setErrors ] = useState({});
 
-    const [ input, setInput ] = useState({
-        name: '',
-        description: '',
-        price: '',
-        category: [],
-        quantity: 0,
-        image: '',
-    });
-
     useEffect(() => {
         dispatch(getCategories());
-    }, [dispatch])
+        dispatch(getProductDetail(props.match.params.id));
+
+    }, [])
 
     const categories = useSelector((state) => state.categories)
+
+    //useEffect(() => {
+    //  dispatch(getProductDetail(props.match.params.id));
+    //},[dispatch, props.match.params.id]);
+
+    const detail = useSelector((state) => state.prodDetail);
+
+    console.log(detail?.product, 'det')
+
+    const prod = detail?.product?.find(e => e)
+
+    console.log(prod, 'prod')
+
+    const [ input, setInput ] = useState({
+      _id: prod?._id,
+      name: prod?.name,
+      description: prod?.description,
+      price: prod?.price,
+      category: prod?.category,
+      quantity: prod?.quantity,
+      image: prod?.image,
+    });
+
+    function handleChange(e){
+      setInput({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+        setErrors(validate({
+            ...input,
+            [e.target.name]: e.target.value,
+        }))
+      console.log(input)
+
+    }    
 
     function handleCategories(e){
       if (input.category.includes(e.target.value)) {
@@ -160,6 +182,7 @@ export default function ProductCreation(){
     }
     } 
 
+
     function handleChange(e){
         setInput({
             ...input,
@@ -173,12 +196,17 @@ export default function ProductCreation(){
 
     }
 
+
     function handleClose(e){
         setInput({
             ...input,
             category: input.category.filter(cat => cat !== e)
         })
     }
+
+
+
+
 
     function handleSubmit(e){
         console.log(e)
@@ -187,17 +215,11 @@ export default function ProductCreation(){
             alert('Form incomplete');
         }else{
             e.preventDefault();   
-            dispatch(postProducts(input));
-            alert('Product created');     
-            setInput({
-                name: '',
-                description: '',
-                price: '',
-                category: [],
-                quantity: 0,
-                image: '',
-            })
-        }
+            dispatch(modifyProducts(input._id, input));
+            alert('Product modified');     
+
+            }
+        
     }
     console.log(input)
     return(
@@ -301,7 +323,7 @@ export default function ProductCreation(){
             <div className={classes.root}>
             <div className={classes.card}>
         <Typography variant="h6" gutterBottom >
-        Crear Un Nuevo Producto
+        Modificar un Producto
         </Typography>
         <form onSubmit={(e) => handleSubmit(e)}>
         <Grid container spacing={3}>
@@ -339,15 +361,14 @@ export default function ProductCreation(){
           <FormControl className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">categorías</InputLabel>
         <Select
-        className={classes.cateroriesSelect}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           
           onChange={handleCategories}
         >
              {
-                                categories.map((e, i) => 
-                               <MenuItem key={i} value={e._id}>{e.name}</MenuItem>
+                                categories.map((e) => 
+                               <MenuItem value={e._id}>{e.name}</MenuItem>
                                  )
              }
         </Select>
@@ -407,16 +428,16 @@ export default function ProductCreation(){
                  <Button
                 className={classes.button}
                  variant="contained" color="primary">
-                   <Link to = '/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
+                   <Link to = '/products' style={{textDecoration:"none", color:"white"}}>Volver</Link>
                     </Button>
                     <Button  variant="contained" className={classes.button} 
-                  color="primary" type='submit'>Crear Producto</Button>
+                  color="primary" type='submit'>Modificar Producto</Button>
            </div>
         </form>
         
                   
         </div>
-                         <ul className={classes.ul}>{input.category.map(e => {
+                         <ul className={classes.ul}>{input?.category?.map(e => {
                             const aux = categories.find(i => i._id === e)
                             return <div 
                             className={classes.categoryDiv}

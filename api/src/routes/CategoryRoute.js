@@ -4,26 +4,26 @@ const Category = require('../models/Category')
 const Product = require('../models/Product')
 
 router.post("/create", async (req, res) => {
-    const {name,product} = req.body;
-    let category = await Category.findOne({name}) 
+    const {name} = req.body;
+    let category = await Category.find() 
     if(category) return res.status(404).json({error:'Its already exist. Please try again!'})
-    const newCategory = new Category({name,product});
+    const newCategory = new Category({name});
     category = await newCategory.save();
     res.json(category);       
 });
 
 router.get('/', async (req, res) => {
-    let data = await Category.find({}).populate('product',{
-        name: 1,
-        description: 1
-    })
+    let data = await Category.find()
+    // .populate('product',{
+    //     name:1
+    // })
     res.json(data)
     
 });
 
-router.get('/:name', async (req, res) => {
-    const name  = req.params.name
-    const data = await Category.findOne({ name:name })
+router.get('/search/:name', async (req, res) => {
+    const {name}  = req.params
+    const data = await Category.find({name:{ $regex: name, $options:'i' }})
     res.json(data)
     
 })
@@ -34,7 +34,7 @@ router.delete('/delete', async (req, res) => {
     res.json({ msg: 'Category eliminated'})
 })
 
-router.get("/:id",  (req, res) => { 
+router.get("/filter/:id",  (req, res) => { 
     const {id} = req.params; 
 
       Category.find({ _id: id }, (err, category) => {
@@ -57,5 +57,6 @@ router.put("/:id", async (req, res) => {
     }
 
 });
+
 
 module.exports = router;

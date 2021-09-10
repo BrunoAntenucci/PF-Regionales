@@ -1,13 +1,3 @@
-//MIS COMPRAS
-export function getCartLocalStorage() {
-    const data = window.localStorage.getItem("cart");
-    return data ? JSON.parse(data) : []; //parse para pasarlo a objeto
-}
-  
-export function setCartLocalStorage(product) {
-    window.localStorage.setItem("cart", JSON.stringify(product));
-}
-
 //FAVORITOS
 //traigo los favoritos  
 export function getWishListLocalStorage() {
@@ -18,3 +8,24 @@ export function getWishListLocalStorage() {
 export function setWishListLocalStorage(wishlist) {
     window.localStorage.setItem("wishlist", JSON.stringify(wishlist));
 }
+
+// const handleCartClick = (name, price, image, id) => {
+//     let historial = [];
+
+//       let detail ={name, price, image, _id :id}
+//       console.log("data",detail)
+//     if(!localStorage.getItem('history')) {
+//         historial.push(detail);
+//         localStorage.setItem('history', JSON.stringify(historial));
+//     } else {
+//         historial = JSON.parse(localStorage.getItem('history'));
+
+//          if(!historial.some(p=> detail._id == p._id) ) {
+//           historial.push(detail);
+//          }
+
+//         localStorage.setItem('history', JSON.stringify(historial));
+//     }
+    
+//     //console.log(JSON.parse(localStorage.getItem('history')))
+// }

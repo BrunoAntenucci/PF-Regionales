@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 //------IMPORT ACTIONS------//
-import { checkUser, signIn } from "../actions/index";
+import { checkUser, signIn, signInGoogle, guestCartToUserCart} from "../actions/index";
 
 function Copyright() {
     return (
@@ -79,16 +79,22 @@ React.useEffect(()=>{
         setInput({...input, password:e.target.value})
     }
    
-    // function handleSubmitGoogle(e) {
-    //     e.preventDefault();
-    //     //dispatch(signInGoogle())
-    // }
-    console.log(input)
-    function handleSubmit(e) {
+    const handleSubmitGoogle = async (e) => {
         e.preventDefault();
-        dispatch(signIn(input))
-        dispatch(checkUser())
-        history.push("/")
+        //dispatch(signInGoogle())
+    }
+    console.log(input)
+    async function handleSubmit(e) {
+      e.preventDefault();
+      await dispatch(signIn(input))
+      if (localStorage.history) {
+        console.log("ENTRO DONDE TENIA QUE ENTRAR :)")
+        const guestCart = await JSON.parse(localStorage.getItem('history'));
+        await dispatch(guestCartToUserCart(guestCart))
+        await localStorage.clear();
+      }
+      dispatch(checkUser())
+      history.push("/products")
     }
 
     return(
@@ -161,7 +167,6 @@ React.useEffect(()=>{
               variant="contained"
               color="primary"
               className={classes.submit}
-              href="http://localhost:3001/google/auth"
             >
               Sign In with Google
             </Button>

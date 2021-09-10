@@ -185,7 +185,7 @@ export function logOut() {
 //----------WISHLIST----------
 export function addFav (body) {
     return async function (dispatch) {
-        const response = await axios.post(URL.URL_FAVORITES, body);
+        const response = await axios.post("http://localhost:3001/favourites", body);
         return dispatch({
             type: "ADD_FAV",
             payload: response.data
@@ -202,7 +202,7 @@ export function addFavStorage (id){
 }
 export function getFav (id){
     return async function (dispatch) {
-        const response = await axios.get(`${URL.URL_FAVORITES}?userId=${id}`)
+        const response = await axios.get(`http://localhost:3001/favourites?userId=${id}`)
         return dispatch({
             type: "GET_FAV",
             payload: response.data

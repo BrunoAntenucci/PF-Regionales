@@ -188,6 +188,7 @@ function ProductDetail(props) {
         dispatch(deleteFav({userId, productId: props.match.params.id}));
         dispatch(deleteFavStorage(props.match.params.id));
     }
+    
 
     return (
         <div className={classes.root}>

@@ -64,7 +64,7 @@ function rootReducer(state = initialState, action) {
             const findProd = state.products.find(
                 ({product: {_id}}) => _id === action.payload
             );
-            const addFav = findProd && state.wishlist.concar(findProd);
+            const addFav = findProd && state.wishlist.concat(findProd);
             findProd && setWishListLocalStorage(addFav)
             return {
                 ...state, 
