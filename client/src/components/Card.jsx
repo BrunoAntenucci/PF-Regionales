@@ -83,7 +83,7 @@ function Card({name,category, price, image, id}) {
     const handleRemoveFav = () => {
       dispatch(deleteFav({user, product: id}));
       dispatch(deleteFavStorage(id))
-      setVerde(true)
+      setVerde(false)
     }
     const handleCartClick = (name, price, image, id) => {
       let historial = { 

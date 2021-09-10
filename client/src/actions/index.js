@@ -4,7 +4,7 @@ import { URL } from '../utils/constants';
 export function getProducts() {
     return async function (dispatch) {
         try {
-            const prod = await axios.get('http://localhost:3001/product/');
+            const prod = await axios.get('/product/');
             return dispatch ({
                 type: 'GET_PRODUCTS',
                 payload: prod.data
@@ -18,7 +18,7 @@ export function getProducts() {
 export function getProductsByName(payload) {
     return async function(dispatch) {
         try {
-            const prodsByName = await axios.get('http://localhost:3001/product/search/' + payload);
+            const prodsByName = await axios.get('/product/search/' + payload);
             console.log(prodsByName);
             return dispatch ({
                 type: 'GET_PRODUCTS_BY_NAME',
@@ -33,7 +33,7 @@ export function getProductsByName(payload) {
 export function getCategories() {
     return async function (dispatch) {
         try {
-            const categories = await axios.get('http://localhost:3001/category');
+            const categories = await axios.get('/category');
             return dispatch ({
                 type: 'GET_CATEGORIES',
                 payload: categories.data
@@ -47,7 +47,33 @@ export function getCategories() {
 export function postProducts(payload){
     return async function (dispatch){
         try{
-        const aux = await axios.post('http://localhost:3001/product', payload);
+        const aux = await axios.post('/product', payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
+export function modifyProducts(id, payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.patch('/product/' + id, payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
+export function postStore(payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.post('/store', payload);
         return aux
         } catch (error){
             console.log(error)
@@ -60,7 +86,7 @@ export function postProducts(payload){
 export function getProductDetail(id) {
     return async function(dispatch) {
         try {
-            const prodDet = await axios.get('http://localhost:3001/product/' + id);
+            const prodDet = await axios.get('/product/' + id);
             console.log(prodDet)
             return dispatch({
                 type: 'GET_PRODUCT_DETAIL',
@@ -88,7 +114,7 @@ export function signIn(userInfo) {
               password: userInfo.password
             },
             withCredentials: true,
-            url: "http://localhost:3001/signin"
+            url: "/signin"
           })
           .then((res) => {
             console.log("[ACTION]RES SINGIN: ", res.data)
@@ -105,7 +131,7 @@ export function signInGoogle() {
         return axios({
             method: "get",
             withCredentials: true,
-            url: "http://localhost:3001/google/auth"
+            url: "/google/auth"
           })
           .then((res) => {
             console.log("[ACTION]RES SINGIN: ", res.data)
@@ -131,7 +157,7 @@ export function signUp(userInfo) {
                 password: userInfo.password
             },
             withCredentials: true,
-            url: "http://localhost:3001/signup"
+            url: "/signup"
           })
           .then((res) => {
             console.log("[ACTION]RES SINGUP: ", res.data)
@@ -151,7 +177,7 @@ export function checkUser() {
         return axios({
             method: "get",
             withCredentials: true,
-            url: "http://localhost:3001/signin"
+            url: "/signin"
           })
           .then((res) => {
               console.log("[ACTION]RES CHECKUSER: ", res.data.first_name)
@@ -171,7 +197,7 @@ export function logOut() {
         return axios({
             method: "get",
             withCredentials: true,
-            url: "http://localhost:3001/logout"
+            url: "/logout"
           })
           .then((res) => {
               console.log("[ACTION]RES LOGOUT: ", res)
@@ -179,6 +205,97 @@ export function logOut() {
                 type: "LOG_OUT",
                 payload: res.data
             })
+          })
+    }
+}
+//--------CART--------
+export function addProductToCart(id, value) {
+    console.log("ENTRA CON: ", id, value)
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                idProduct: id,
+                valueProduct: value,
+            },
+            withCredentials: true,
+            url: "/cart/addProduct"
+          })
+          .then((res) => {
+              console.log("ENTRO AL ACTION")
+            dispatch({
+                type: "ADD_PRODUCT_TO_CART",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function removeProductFromCart(id, value) {
+    return function(dispatch) {
+        return axios({
+            method: "delete",
+            data: {
+                idProduct: id,
+                valueProduct: value,
+            },
+            withCredentials: true,
+            url: "/cart/removeProduct"
+          })
+          .then((res) => {
+            console.log("REMOVE PRODUCT: ", res.data)
+            dispatch({
+                type: "REMOVE_PRODUCT_FROM_CART",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function getCartByUser() {
+    return function(dispatch) {
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "/cart"
+          })
+          .then((res) => {
+              console.log("GET CART: ", res.data)
+            dispatch({
+                type: "GET_CART_BY_USER",
+                payload: res.data
+            })
+          })
+    }
+}
+
+export function guestCartToUserCart(guestCart) {
+    console.log("[guestCartToUserCart] 1")
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                guestCart: guestCart
+            },
+            withCredentials: true,
+            url: "/cart/fromGuest"
+          })
+          .then((res) => {
+            console.log("[guestCartToUserCart] 2")
+              console.log("GUEST CART TO USER: ", res.data)
+            dispatch({
+                type: "GUEST_CART_TO_USER_CART",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
           })
     }
 }
@@ -207,7 +324,7 @@ export function getFav (id){
             type: "GET_FAV",
             payload: response.data
         })
-    }
+    }    
 }
 export function deleteFav (body) {
     return async function (dispatch){

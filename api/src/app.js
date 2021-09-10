@@ -20,7 +20,7 @@ server.use(bodyParser.json());
 server.use(express.urlencoded({ extended: true}));
 server.use(express.json());
 server.use(cors({
-  origin: "http://localhost:3000", //<-- FRONTEND
+  origin: "*", //<-- FRONTEND
   credentials: true
 }));
 server.use(session({

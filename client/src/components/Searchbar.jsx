@@ -66,7 +66,7 @@ function Navbar() {
 
   const [prod, setProd] = useState("")
   useEffect(async() => {
-    const response = await axios.get("http://localhost:3001/product")
+    const response = await axios.get("/product")
     console.log("response", response)
     setProd(response.data)
   }, []);
