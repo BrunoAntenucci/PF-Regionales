@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import FavCard from "./FavCard";
@@ -10,6 +10,9 @@ const useStyles = makeStyles(theme => ({}))
 
 const Favourites = () => {
   const wishlist = useSelector((state) => state.wishlist);
+  useEffect(() => {
+    dispatch(getFav())
+  }, [dispatch])
   return (
   <div>
     <NavBar />

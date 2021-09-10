@@ -122,10 +122,10 @@ function Navbar() {
   }
 
 
-  function handlerFilterCategory(e) {
-    e.preventDefault()
-    dispatch(getFilterProducts(e.target.value))
-  }
+  // function handlerFilterCategory(e) {
+  //   e.preventDefault()
+  //   dispatch(getFilterProducts(e.target.value))
+  // }
 
   function handleClickCart(e) {
     e.preventDefault();

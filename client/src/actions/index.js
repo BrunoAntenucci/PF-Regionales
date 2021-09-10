@@ -320,6 +320,7 @@ export function addFavStorage (id){
 export function getFav (id){
     return async function (dispatch) {
         const response = await axios.get(`http://localhost:3001/favourites?userId=${id}`)
+        // const response = await axios.get(`http://localhost:3001/favourites`)
         return dispatch({
             type: "GET_FAV",
             payload: response.data
