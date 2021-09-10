@@ -54,10 +54,19 @@ const useStyles = makeStyles((e)=>({
         margin:"0 40px",
         height:"min-content",
         alignContent:"center",
-        flexDirection:"column"
+        flexDirection:"column",
+        justifyContent:"space-evenly"
     },
     ButtonQua:{
-        borderColor:e.palette.secondary.dark
+        border:"2px solid "+e.palette.secondary.dark,
+       color:e.palette.secondary.dark
+    },data:{
+        display:"flex",
+        flexDirection:"column",
+        width:"max-content",
+        direction:"column",
+        flexWrap: "wrap",
+        justifyContent:"space-evenly"
     }
 
 }))
@@ -68,7 +77,10 @@ const Cart = () => {
     const dispatch = useDispatch();
     const myCart = useSelector((state) => state.cart );
     const allProd = useSelector((state) => state.products);
-    const [loading,setLoading] = useState(false)
+    const [loading,setLoading] = useState({
+        boolean:false,
+        id:""
+    })
     const infoUser = useSelector((state) => state.user)
     const mercData = useSelector((state) => state.mercData)
     const classes = useStyles()
@@ -103,26 +115,35 @@ const Cart = () => {
     //     })
     // },[])
     
-    // React.useEffect(() => {
+    React.useEffect(() => {
         
-    //     // setLoading(false) 
-    //     setLoading(true) 
-    // },[myCart])
+        // setLoading(false) 
+        setLoading({
+            boolean:false,
+            id:""
+        }) 
+    },[myCart])
 
 
     console.log("my cart: ", myCart);
 
     const handleAddProductClick = async(id, value) => {
+        setLoading({
+            boolean:true,
+            id
+        })
         console.log(id,value);
-        await dispatch(addProductToCart(id, parseInt(value)));
         await dispatch(getCartByUser())
-        //setLoading(true)
+        await dispatch(addProductToCart(id, parseInt(value)));
     }
     const handleDeleteProductClick = async(id, value) => {
+        setLoading({
+            boolean:true,
+            id
+        })
         console.log(id,value);
         await dispatch(removeProductFromCart(id, parseInt(value)));
         await dispatch(getCartByUser())
-        //setLoading(true)
     }
     const handlerUserOrder =()=>{
         if(infoUser?.ship_info?.length>0){
@@ -191,15 +212,24 @@ console.log("info user", infoUser)
                        <img src={item.product?.image} className={classes.image}/>
                         </div>
                         <div className={classes.quantity}>
-                       <Button variant="outlined" className={classes.ButtonQua}
+                       <Button variant="outlined" className={classes.ButtonQua} variant="h6"
                         onClick = {() => handleDeleteProductClick(item?.product?._id, item?.product?.price)}>-</Button>
                        <p>{item.quantity}</p>
-                       <Button variant="outlined" className={classes.ButtonQua}
+                       <Button variant="outlined" className={classes.ButtonQua} variant="h6"
                        onClick = {() => handleAddProductClick(item?.product?._id, item?.product?.price)}>+</Button>
+                       {loading.boolean && loading.id == item?.product?._id
+                       &&
+                       <Loading/>
+                       }
                        </div>   
                         <div  className={classes.data}>
-                       <p>Subtotal: {item.subTotal}</p>
+                         <div>
+                       <Typography variant="h6" component="p" >Subtotal </Typography>
+                       <Typography variant="h6" component="p" > ${item.subTotal}</Typography>
+                            </div>
+                            <div>
                        <Button variant="contained" color="secondary" >Eliminar producto</Button>
+                            </div>
                            
                         </div>
                        </div>
