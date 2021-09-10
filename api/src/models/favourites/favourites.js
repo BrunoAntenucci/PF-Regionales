@@ -1,21 +1,22 @@
-const {Schema, model} = require('mongoose');
-// const mongoose = require('mongoose');
-// const Schema = mongoose.Schema;
+// const {Schema, model} = require('mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const FavouritesSchema = Schema({
+const favouritesSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
-		ref: 'user',
+		ref: 'User',
 	},
 	products: [
 		{
 			_id: false,
 			product: {
 				type: Schema.ObjectId,
-				ref: 'products',
+				ref: 'Product',
 			},
 		},
 	],
 }, { timestamps: true, versionKey: false});
 
-module.exports = model('favourites', FavouritesSchema);
+const Favourites = mongoose.model("Favourites", favouritesSchema);
+module.exports = Favourites;

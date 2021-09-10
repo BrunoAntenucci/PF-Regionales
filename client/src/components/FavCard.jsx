@@ -1,13 +1,14 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { deleteFav } from "../actions";
 
 const FavCard = ({name, price, image, _id, description}) => {
-    const userId = window.localStorage.getItem('userId');
+    // const userId = window.localStorage.getItem('userId');
+    const user = useSelector(state => state.user)
     const dispatch = useDispatch();
     const deleteOfList = () => {
-        dispatch(deleteFav({userId, productId: _id}))
+        dispatch(deleteFav({user, productId: _id}))
     }
     
     return(

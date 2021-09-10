@@ -15,6 +15,8 @@ import Header from "./components/Header";
 import { useDispatch } from "react-redux";
 import { guestMati } from "./actions";
 import { userCheck } from "./actions";
+import ReactNotification from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css'
 
 
 const theme = createTheme({
@@ -64,6 +66,7 @@ function App() {
     
     <BrowserRouter>
     <ThemeProvider theme={theme}>
+    <ReactNotification />
     {/* <Header /> */}
       <Switch>
         <Route exact path="/" >

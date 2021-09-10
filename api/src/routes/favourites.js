@@ -1,21 +1,24 @@
-const {User} = require('../models/user/user')
-const {Favourites} = require('../models/favourites/favourites');
-const router = require('./signup');
+const User = require('../models/user/user');
+const Favourites = require('../models/favourites/favourites');
+const {Router} = require('express');
 
-router.get("/", async (req, res) =>{
-	const {userId} = req.query;
+const router = Router();
+
+router.get("/", async (req, res, next) =>{
+	// const {userId} = req.query;
+	const userSessionID = req?.session?.passport?.user
 	try {
-		let user = await User.exists({_id: userId});
+		let user = await User.exists({_id: userSessionID});
 		if (user) {
-			let favsExist = await Favourites.exists({user: userId});
+			let favsExist = await Favourites.exists({user: userSessionID});
 			if (!favsExist) {
 				let newfavs = await new Favourites({
-					user: userId,
+					user: userSessionID,
 					products: [],
 				});
 				await newfavs.save();
 			}
-			let favs = await Favourites.findOne({user: userId})
+			let favs = await Favourites.findOne({user: userSessionID})
 				.populate('products.product')
 				.exec();
 			res.send({response: favs.products, type: 'Ok', message: 'Success'});
@@ -31,29 +34,31 @@ router.get("/", async (req, res) =>{
 // async function getUserFavourites
 
 router.post("/", async (req, res) =>{
-	const {userId, productId} = req.body;
+	// const {userId, productId} = req.body;
+	const userSessionID = req?.session?.passport?.user
+    const idProduct = req.body.idProduct;
 	try {
-		let user = await User.exists({_id: userId});
-		let favs = await Favourites.exists({user: userId});
+		let user = await User.exists({_id: userSessionID});
+		let favs = await Favourites.exists({user: userSessionID});
 		if (user) {
 			if (favs) {
-				favs = await Favourites.findOne({user: userId});
-				let add = favs.products.find((e) => e.product == productId)
+				favs = await Favourites.findOne({user: userSessionID});
+				let add = favs.products.find((e) => e.product == idProduct)
 					? false
 					: true;
 
 				if (add) {
-					favs.products = favs.products.concat([{product: productId}]);
+					favs.products = favs.products.concat([{product: idProduct}]);
 					await favs.save();
 				}
 			} else {
 				let newfavs = await new Favourites({
-					user: userId,
-					products: [{product: productId}],
+					user: userSessionID,
+					products: [{product: idProduct}],
 				});
 				await newfavs.save();
 			}
-			let toSend = await Favourites.findOne({user: userId})
+			let toSend = await Favourites.findOne({user: userSessionID})
 				.populate('products.product')
 				.exec();
 			res.send({response: toSend.products, type: 'Ok', message: 'Success'});
@@ -69,22 +74,24 @@ router.post("/", async (req, res) =>{
 // async function addFavourite
 
 router.delete("/", async (req, res) => {
-	const {userId, productId} = req.body;
+	// const {userId, productId} = req.body;
+	const userSessionID = req?.session?.passport?.user
+    const idProduct = req.body.idProduct;
 	try {
-		let user = await User.exists({_id: userId});
+		let user = await User.exists({_id: userSessionID});
 		if (user) {
 			let update = await Favourites.findOneAndUpdate(
-				{user: userId},
+				{user: userSessionID},
 				{
 					$pull: {
-						products: {product: {_id: productId}},
+						products: {product: {_id: idProduct}},
 					},
 				}
 			).exec();
-			update = await Favourites.findOne({user: userId}).populate(
+			update = await Favourites.findOne({user: userSessionID}).populate(
 				'products.product'
 			);
-			res.send({response: update.products, type: 'Ok', message: 'Success'});
+			res.json({response: update.products, type: 'Ok', message: 'Success'});
 		} else {
 			res.status(400).send({type: 'Bad Request', message: 'user not found'});
 		}

@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import {  useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import iconUser from '../img/icon-user.png'
-import axios from 'axios';
+
 //------IMPORT ACTIONS------//
 import { checkUser, logOut } from '../actions/index';
 
@@ -61,10 +61,10 @@ const User = () => {
     }, [dispatch])
 
 
-    function handleCheckGuest(e) {
-      e.preventDefault();
-      dispatch(checkUser())
-    }
+    // function handleCheckGuest(e) {
+    //   e.preventDefault();
+    //   dispatch(checkUser())
+    // }
     function handleLogOut(e) {
       dispatch(logOut())
       window.location.reload(false);

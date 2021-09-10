@@ -9,6 +9,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import cartEmpty from '../img/cart-empty.png'
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFav, addFavStorage, deleteFav, deleteFavStorage } from '../actions';
+import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai';
+import { useState } from 'react';
+
 const useStyles = makeStyles((e) =>({
   root: {
     minWidth: 300,
@@ -60,7 +65,23 @@ const useStyles = makeStyles((e) =>({
 }));
 function Card({name,category, price, image, id}) {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const [verde, setVerde] = useState(false);
+    const wishlist = useSelector(state => state.wishlist);
+    const fav = wishlist.find(({product: {_id}}) => _id === product._id);
+    const product = useSelector(state => state.prodDetail)
+    const user = useSelector(state => state.user)
     //console.log(id)
+    const handleAddFav = () => {
+      dispatch(addFav({user, product: id}));
+      dispatch(addFavStorage(id))
+      setVerde(true)
+    }
+    const handleRemoveFav = () => {
+      dispatch(deleteFav({user, product: id}));
+      dispatch(deleteFavStorage(id))
+      setVerde(true)
+    }
     const handleCartClick = (name, price, image, id) => {
       let historial = [];
 
@@ -118,6 +139,13 @@ function Card({name,category, price, image, id}) {
             </Typography>
           <img src={cartEmpty} className={classes.cart}></img>
         </div>
+        <div>
+         {fav ? (
+											<AiFillHeart onClick={handleRemoveFav} className='fav' />
+										) : (
+											<AiOutlineHeart onClick={handleAddFav} className='fav' />
+										)}
+         </div>
         </CardActions>
       </CardMUI>
         

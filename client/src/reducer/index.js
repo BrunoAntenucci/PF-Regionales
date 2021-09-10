@@ -5,7 +5,7 @@ const initialState = {
     categories: [],
     prodDetail: [],
     page: 1,
-    user: false,
+    user: {},
     guest: {},
     wishlist: getWishListLocalStorage()
 }
