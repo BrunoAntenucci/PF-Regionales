@@ -1,7 +1,4 @@
 const {Schema,model} = require('mongoose');
-// const mongoosePaginate = require('mongoose-paginate-v2')
-// const mongoPopulate = require('mongoose-autopopulate')
-
 
 const ProductSchema = Schema({
     user: {
@@ -39,7 +36,6 @@ const ProductSchema = Schema({
     timestamps: true, versionKey: false
 })
 
-// ProductSchema.plugin(mongoosePaginate)
-// ProductSchema.plugin(mongoPopulate);
+
 
 module.exports = model("Product", ProductSchema);
