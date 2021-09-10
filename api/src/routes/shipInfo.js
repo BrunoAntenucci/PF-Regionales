@@ -10,6 +10,12 @@ router.get("/", (req, res, next) => {
     });
 });
 
+router.get("/user/:userId", async (req, res, next) => {
+    const { userId } = req.params;
+    const shipInfoUser = await User.findById(userId).populate("ship_info")
+    res.status(200).send(shipInfoUser.ship_info)
+})
+
 router.post("/", (req, res, next) => {
     const {
         country,
