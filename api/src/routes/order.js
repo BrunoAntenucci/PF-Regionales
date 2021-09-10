@@ -103,21 +103,31 @@ router.post("/newOrder", async(req, res, next) => {
         address_number
     } = req.body;
 
+    console.log("REQ BODY: ", req.body)
+
     const shipInfo = await ShipInfo.findById(shipInfoId);
     const newOrder = new Order({})
     newOrder.cart = cartId
+    await newOrder.save();
     
+    console.log("SHIP_INFO: ", shipInfo)
+
     if(shipInfo) {
+        console.log("Ya tiene shipInfo, agregandola a la order:")
         newOrder.ship_info = shipInfoId
+        await newOrder.save();
     } else {
+        console.log("No tenia shipInfo, creandola")
         const newShipInfo = new ShipInfo({})
         newShipInfo.country = country;
         newShipInfo.city = city;
         newShipInfo.postal_code = postal_code;
         newShipInfo.address_name = address_name;
         newShipInfo.address_number = address_number;
-        newOrder.shipInfo = newShipInfo._id;
+        newOrder.ship_info = newShipInfo._id;
         await newShipInfo.save();
+        await newOrder.save();
+        console.log("ShipInfo creada: ", newShipInfo._id)
     }
     
     await newOrder.save();
@@ -126,7 +136,7 @@ router.post("/newOrder", async(req, res, next) => {
         const user = await User.findById(userSessionID).populate("order");
         user.order = [...user.order, newOrder._id]
         await user.save();
-        return res.redirect(`/order/checkout/${newOrder._id.toString()}`)
+        return res.redirect(`http://localhost:3001/order/checkout/${newOrder._id.toString()}`)
     } else {
         return res.redirect(`/order/checkout/${newOrder._id.toString()}`)
     }
@@ -148,11 +158,20 @@ router.get("/checkout/:orderId", async(req, res, next) => {
         }
     }).populate("ship_info")
 
+    console.log("ORDER:", order)
+
     var shipInfo = {
         zip_code: order.ship_info.postal_code.toString(),
         street_name: order.ship_info.address_name,
         street_number: order.ship_info.address_number
-    } 
+    }
+    var receiver_address = {
+        zip_code: order.ship_info.postal_code.toString(),
+        street_name: order.ship_info.address_name,
+        city_name: order.ship_info.city,
+        state_name: order.ship_info.country,
+        street_number: order.ship_info.address_number,
+    }
 
     var payer = {}
     if (userSessionID) {
@@ -182,20 +201,33 @@ router.get("/checkout/:orderId", async(req, res, next) => {
         items: itemsArray,
         payer: payer,
         back_urls: {
-            success: `http://localhost:3001/order/mp/success/${orderID}`,
+            success: `http://localhost:3000/products`,
             failure: "http://localhost:3001/order/mp/failure",
             pending: "http://localhost:3001/order/mp/pending"
         },
+        shipments: {
+            receiver_address: receiver_address
+        },
+        external_reference: order._id.toString(),
         auto_return: "approved",
         statement_descriptor: "PF_REGIONALES"
     }
 
     mercadopago.preferences.create(preference)
-        .then((response) => {
+        .then(async(response) => {
             global.id = response.body.id;
-            res.send(response)
+            const order = await Order.findById(orderID)
+            if (response.body.auto_return === "approved") {
+                order.status = "Procesando"
+                await order.save()
+            }
+            res.json(response)
+            //res.status(200).redirect(response.body.init_point)
+            //res.status(200).redirect("http://localhost:3000/products")
         })
         .catch((err) => {
+            console.log("ERROR CON preferences")
+            console.log(err)
             next(err)
         })
 })
