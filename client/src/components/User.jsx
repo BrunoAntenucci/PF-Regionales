@@ -33,22 +33,25 @@ import { checkUser, logOut } from '../actions/index';
 const useStyles = makeStyles(theme => ({
     root: {
   
-      width:"90%",
+     
       color:"#8C4A3C",
      backgroundColor:theme.palette.primary.dark,
-      padding:"10px",
+     // padding:"10px",
       margin: "0px auto 0px",
       borderRadius:"5px",
       display:"flex",
       justifyContent:"space-between",
       flexDirection:"row",
+      alignContent:"center"
       
     },
    
     buttons:{
       
       color:"#fff",
-      padding:"0 8px"
+      padding:"0 8px",
+     // height:"max-content",
+      
     },paper:{
       width: "max-content"
     },tabs:{
@@ -130,7 +133,7 @@ const User = () => {
 
     useEffect( () => {
         dispatch(checkUser())
-    }, [dispatch])
+    }, [])
 
 
     function handleCheckGuest(e) {
@@ -160,7 +163,7 @@ const User = () => {
     //console.log("USER: ", user)
 
     return(
-        <div>
+        <div className={classes.root}>
           {/* <button onClick={handleCheckStorage}>Check STORAGE</button>
           <button onClick={handleClearStorage}>Clear STORAGE</button> */}
             {/* <button onClick={handleCheckGuest}>USER CHECK</button> */}
@@ -209,7 +212,7 @@ const User = () => {
                     <ListItemIcon>
                       <StorefrontIcon fontSize="small" />
                     </ListItemIcon>
-                    <Link to="/store">
+                    <Link to="/store" style={{textDecoration:"none",  color:"inherit"}}>
                     <ListItemText primary="Mi tienda" />
                     </Link>
                   </StyledMenuItem>
@@ -217,7 +220,7 @@ const User = () => {
                     <ListItemIcon >
                       <ShoppingCartIcon fontSize="small" />
                     </ListItemIcon>
-                    <Link to="/cart">
+                    <Link to="/cart" style={{textDecoration:"none", color:"inherit"}}>
                     <ListItemText primary="Mi carrito" />
                     </Link>
                   </StyledMenuItem>

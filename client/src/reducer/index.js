@@ -14,6 +14,7 @@ const initialState = {
     guest: {},
     wishlist: getWishListLocalStorage(),
     cart: {},
+    stores: []
 
 }
 
@@ -28,7 +29,7 @@ function rootReducer(state = initialState, action) {
                 // page: 1
                 
 
-                page: 1
+                // page: 1
 
               }
         case 'GET_PRODUCTS_BY_NAME':
@@ -54,6 +55,11 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 page: action.payload
+            }
+            case 'GET_STORES':
+            return {
+                ...state,
+                stores: action.payload
             }
         case "SIGN_IN": 
             return {

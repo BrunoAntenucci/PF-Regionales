@@ -95,6 +95,21 @@ export function postStore(payload){
     
 }
 
+export function getStore(){
+    return async function (dispatch) {
+        try {
+            const stores = await axios.get('/store');
+            return dispatch ({
+                type: 'GET_STORES',
+                payload: stores.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+}
+
 export function getProductDetail(id) {
     return async function(dispatch) {
         try {

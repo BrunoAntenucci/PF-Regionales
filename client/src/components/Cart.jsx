@@ -7,6 +7,10 @@ import Loading from './Loading'
 import { useMercadopago } from "react-sdk-mercadopago";
 import axios from 'axios';
 
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((e)=>({
     root:{
@@ -51,13 +55,27 @@ const useStyles = makeStyles((e)=>({
     quantity:{
         textAlign:"center",
         display: "flex",
-        margin:"0 40px",
-        height:"min-content",
-        alignContent:"center",
-        flexDirection:"column"
+        margin:" 40px",
+        height:"max-content",
+        //  alignContent:"center",
+        flexDirection:"column",
+        justifyContent:"center"
+
     },
     ButtonQua:{
-        borderColor:e.palette.secondary.dark
+        border:"2px solid "+e.palette.secondary.dark,
+       color:e.palette.secondary.dark
+    },data:{
+        display:"flex",
+        flexDirection:"column",
+        width:"max-content",
+        direction:"column",
+        flexWrap: "wrap",
+        justifyContent:"space-evenly"
+    },
+    info:{
+        color:e.palette.secondary.dark,
+        fontSize:"1.3em"
     }
 
 }))
@@ -68,7 +86,10 @@ const Cart = () => {
     const dispatch = useDispatch();
     const myCart = useSelector((state) => state.cart );
     const allProd = useSelector((state) => state.products);
-    const [loading,setLoading] = useState(false)
+    const [loading,setLoading] = useState({
+        boolean:false,
+        id:""
+    })
     const infoUser = useSelector((state) => state.user)
     const mercData = useSelector((state) => state.mercData)
     const classes = useStyles()
@@ -103,26 +124,35 @@ const Cart = () => {
     //     })
     // },[])
     
-    // React.useEffect(() => {
+    React.useEffect(() => {
         
-    //     // setLoading(false) 
-    //     setLoading(true) 
-    // },[myCart])
+        // setLoading(false) 
+        setLoading({
+            boolean:false,
+            id:""
+        }) 
+    },[myCart])
 
 
     console.log("my cart: ", myCart);
 
     const handleAddProductClick = async(id, value) => {
+        setLoading({
+            boolean:true,
+            id
+        })
         console.log(id,value);
-        await dispatch(addProductToCart(id, parseInt(value)));
         await dispatch(getCartByUser())
-        //setLoading(true)
+        await dispatch(addProductToCart(id, parseInt(value)));
     }
     const handleDeleteProductClick = async(id, value) => {
+        setLoading({
+            boolean:true,
+            id
+        })
         console.log(id,value);
         await dispatch(removeProductFromCart(id, parseInt(value)));
         await dispatch(getCartByUser())
-        //setLoading(true)
     }
     const handlerUserOrder =()=>{
         if(infoUser?.ship_info?.length>0){
@@ -160,13 +190,9 @@ const Cart = () => {
           })
     }
     const handlerOnChange = (e) => {
+      console.log(e.target.value)
         setUser((prevState) => {
-            // if(evento.target.name == "nombre"){
-            //     return {
-            //         ...prevState,
-            //         nombre: capitalizarPrimeraLetra(evento.target.value)
-            // }
-        // }else{
+           
             return {
                 ...prevState,
                 cartId: myCart._id,
@@ -179,10 +205,11 @@ console.log(user)
 console.log("info user", infoUser)
     return (
         <div className={classes.root}>
+       
            {/* {loading&&<Loading/>}  */}
            <div className={classes.carts} >
             <Typography  variant="h3" component="h4" color="secondary">Mi carrito</Typography>
-           {
+           {myCart.items?
                myCart.items?.map(item => {
                    return (
                        <div className={classes.cart}>
@@ -191,63 +218,134 @@ console.log("info user", infoUser)
                        <img src={item.product?.image} className={classes.image}/>
                         </div>
                         <div className={classes.quantity}>
-                       <Button variant="outlined" className={classes.ButtonQua}
+                       <Button variant="outlined" className={classes.ButtonQua} variant="h6"
                         onClick = {() => handleDeleteProductClick(item?.product?._id, item?.product?.price)}>-</Button>
-                       <p>{item.quantity}</p>
-                       <Button variant="outlined" className={classes.ButtonQua}
+                       <p className={classes.info} >{item.quantity}</p>
+                       <Button variant="outlined" className={classes.ButtonQua} variant="h6"
                        onClick = {() => handleAddProductClick(item?.product?._id, item?.product?.price)}>+</Button>
+                       {loading.boolean && loading.id == item?.product?._id
+                       &&
+                       <Loading/>
+                       }
                        </div>   
                         <div  className={classes.data}>
-                       <p>Subtotal: {item.subTotal}</p>
+                         <div>
+                       <Typography variant="h6" component="p" className={classes.info} >
+                           Subtotal </Typography>
+                       <Typography variant="h6" component="p"  >
+                         ${item.subTotal}</Typography>
+                            </div>
+                            <div>
                        <Button variant="contained" color="secondary" >Eliminar producto</Button>
+                            </div>
                            
                         </div>
                        </div>
                    )
                })
+               :
+               <h3>no hay nada en el carrito, o no hay usuario registrado</h3>
             }
-            </div>
-            <p>Total: {myCart.total}</p>
+</div>
+            
+        {myCart.items?
+      <>
+     <div>
+      <h4>info de envío</h4>     
+              <form onSubmit={handlerOnSubmit}>
+     <Typography variant="h6" gutterBottom>
+       Shipping address
+     </Typography>
+     <Grid container spacing={3}>
+       <Grid item xs={12} >
+         <TextField
+           required
+           id="country"
+           name="country"
+           label="país"
+           fullWidth
+           onChange={handlerOnChange}
+         />
+       </Grid>
+       <Grid item xs={12} >
+         <TextField
+           required
+           id="city"
+           name="city"
+           label="ciudad"
+           fullWidth
+           onChange={handlerOnChange}
+         />
+       </Grid>
+       <Grid item xs={12} sm={4}>
+         <TextField
+           required
+           id="postal_code"
+           name="postal_code"
+           label="código postal"
+           fullWidth
+           onChange={handlerOnChange}
+         />
+       </Grid>
+       <Grid item xs={12} sm={4}>
+         <TextField
+           id="address_name"
+           name="address_name"
+           label=" dirección"
+           fullWidth
+           onChange={handlerOnChange}
+         />
+       </Grid>
+       <Grid item xs={12} sm={4}>
+         <TextField
+           required
+           id="address_number"
+           name="address_number"
+           label="número de dirección"
+           onChange={handlerOnChange}
+         />
+       </Grid>
+      
+       <Grid item xs={12}>
+         <FormControlLabel
+           control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
+           label="dejo esto por las dudas, para un futuro por ahí sirve"
+         />
+       </Grid>
+     </Grid>
+     <Button type="submit" color="secondary">Pagar</Button>
+     </form>
 
-             <div>
-                <h4>info de envío</h4>     
-                <form onSubmit={handlerOnSubmit}>
-                 <section>
-                     {/* <label htmlFor="cartId"></label>
-                     <input name="cartId"/>
-                     
-                     <label htmlFor="shipInfoId"></label>
-                     <input name="shipInfoId"/> */}
+     
+     <Button
+         style={{height:"min-content"}}
+             className={classes.buttonBack}
+              variant="contained" color="primary">
+                <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
+                 </Button>
 
-                     <label htmlFor="country">country</label>
-                     <input name="country" onChange={handlerOnChange}/>
 
-                     <label htmlFor="city">city</label>
-                     <input name="city" onChange={handlerOnChange}/>
+                 
+                </div>
 
-                     <label htmlFor="postal_code">postal code</label>
-                     <input name="postal_code" onChange={handlerOnChange}/>
+                 </>  
+                :<Button
+                style={{height:"min-content"}}
+                    className={classes.buttonBack}
+                     variant="contained" color="primary">
+                       <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
+                        </Button>
 
-                     <label htmlFor="address_name">address name</label>
-                     <input name="address_name" onChange={handlerOnChange}/>
-
-                     <label htmlFor="address_number">address number</label>
-                     <input name="address_number" onChange={handlerOnChange}/>
-                    </section>
-                    <button type="submit">Pagar</button>
-                    </form>
-                    
-            </div>
-            <Button
-            style={{height:"min-content"}}
-                className={classes.buttonBack}
-                 variant="contained" color="primary">
-                   <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
-                    </Button>
+        }   
+          
                
            
+     
+     
+     
         </div>
-    )
-}
+
+)}
 
 export default Cart
+

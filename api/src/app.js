@@ -7,8 +7,10 @@ const bodyParser = require("body-parser");
 const morgan = require('morgan');
 const routes = require("./routes/index");
 const flash = require("connect-flash");
+const createRoles = require("./libs/initialSetup")
 //const cookieSession = require("cookie-session");
 const server = express();
+createRoles(server);
 server.name= "REGIONALES";
 //--------------------------------DATABASE------------------------------------------------------------//
 const connDB = require('./db.js');
@@ -20,7 +22,7 @@ server.use(bodyParser.json());
 server.use(express.urlencoded({ extended: true}));
 server.use(express.json());
 server.use(cors({
-  origin: "https://pf-regionales.vercel.app", //<-- FRONTEND
+  origin: "https://pf-regionales.vercel.app", // DEPLOY: https://pf-regionales.vercel.app // DEV: http://localhost:3000
   credentials: true
 }));
 server.use(session({
