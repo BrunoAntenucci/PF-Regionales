@@ -186,7 +186,7 @@ export function checkUser() {
             url: "/signin"
           })
           .then((res) => {
-              console.log("[ACTION]RES CHECKUSER: ", res.data)
+              console.log("[ACTION]RES CHECKUSER: ", res.data.first_name)
             dispatch({
                 type: "CHECK_USER",
                 payload: res.data
@@ -311,19 +311,19 @@ export  function postOrder (data){
         try{
             var userShip =  await axios({
             method:"post",
-            url:"localhost:3001/order/newOrder",
+            url:"http://localhost:3001/order/newOrder",
             data:data,
-            headers: { "Content-Type": "application/json" },
-            
+            withCredentials: true
         }
             )
-            console.log("LLEGO CON ", userShip)
+            console.log("LLEGO CON ", userShip.data)
         dispatch({
             type:"POST_ORDER",
-            payload:userShip
+            payload: userShip.data
         })
     }
         catch(err){
+            console.log("ERROR")
             console.log(err)
         }
     }
@@ -331,7 +331,7 @@ export  function postOrder (data){
 //----------WISHLIST----------
 export function addFav (body) {
     return async function (dispatch) {
-        const response = await axios.post('/favourites', body);
+        const response = await axios.post('http://localhost:3001/favourites', body);
         return dispatch({
             type: "ADD_FAV",
             payload: response.data
@@ -346,20 +346,27 @@ export function addFavStorage (id){
         })
     }
 }
-export function getFav (){
-    return async function (dispatch) {
-        
-         const response = await axios.get('/favourites')
-         console.log(response.data, 'responsegetFav')
-        return dispatch({
-            type: "GET_FAV",
-            payload: response.data
-        })
-    }    
+
+// }
+export function getFav() {
+    return function(dispatch) {
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "/favourites"
+          })
+          .then((res) => {
+              console.log("GET_FAV: ", res.data)
+            dispatch({
+                type: "GET_FAV",
+                payload: res.data
+            })
+          })
+    }
 }
 export function deleteFav (body) {
     return async function (dispatch){
-        const response = await axios.delete('/favourites', body)
+        const response = await axios.delete('http://localhost:3001/favourites', body)
         return dispatch({
             type: "DELETE_FAV",
             payload: response.data

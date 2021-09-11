@@ -8,16 +8,19 @@ import {Table, TableContainer, TableHead} from '@material-ui/core';
 import {getFav} from '../actions/index';
 
 const useStyles = makeStyles(theme => ({}))
-
+///FALTATÍA AGREGARLE UN LOADING MIENTRAS CARGA
 const Favourites = () => {
+  const classes = useStyles()
   const wishlist = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user)
 
-  useEffect((user) => {
-    dispatch(getFav(user));
-    console.log(getFav, 'getFav')
+  useEffect(  () => {
+    dispatch(getFav());
   }, [dispatch])
+
+  console.log('wish', wishlist)
+  console.log('user', user)
   return (
   <div>
     <NavBar />
@@ -29,23 +32,13 @@ const Favourites = () => {
           <th>Precio</th>
           <th>Foto</th></tr></thead>
         <tbody>
-        {wishlist.length ? (
-          wishlist.map(({product: {name, price, image, _id}, i}) => (
-            <tr>
-            <FavCard
-                key={i}
-                image={image}
-                name={name}
-                price={price}
-                _id={_id}
-                /></tr>
-          ))
-        )
-         : (
-          <div>
+          {/* <FavCard /> */}
+          {wishlist.length? (<div><tr>
+            <FavCard/></tr></div>) : (<div>
             <p>No tienes favoritos aún</p>
-          </div>
-        )}</tbody>
+          </div>) 
+          }
+        </tbody>
         </Table>
       </div>
       <Link to="/products">

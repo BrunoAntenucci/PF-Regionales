@@ -1,11 +1,32 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  useEffect } from 'react';
+import {  useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import iconUser from '../img/icon-user.png'
+
+import { getCartByUser } from '../actions/index';
+import axios from 'axios';
+
+//-------Menu desplegable-----------//
+import { withStyles } from '@material-ui/core/styles';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
+import StorefrontIcon from '@material-ui/icons/Storefront';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+
+
 //import axios from 'axios';
+
 //------IMPORT ACTIONS------//
 import { checkUser, logOut } from '../actions/index';
 
@@ -47,11 +68,62 @@ const useStyles = makeStyles(theme => ({
       margin:"auto",
       borderRadius:"50%",
       color:"white",
-      border:"2px solid black"
+      border:"2px solid black",
+      marginRight: "6px"
     }
   }));
 
+  //-----------Menu desplegable----------//
+  const StyledMenu = withStyles({
+    paper: {
+      border: '1px solid #d3d4d5',
+    },
+  })((props) => (
+    <Menu
+      elevation={0}
+      getContentAnchorEl={null}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
+      {...props}
+    />
+  ));
+  
+  const StyledMenuItem = withStyles((theme) => ({
+    root: {
+      '&:focus': {
+        backgroundColor: theme.palette.primary.main,
+        '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+          color: theme.palette.common.white,
+        },
+      },
+    },
+  }))(MenuItem);
+  //---------------------------------------------//
+  
+    
+  
+
 const User = () => {
+    //---------------Menu desplegable----------
+    const [anchorEl, setAnchorEl] = useState(null);
+  
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+    //-------------------------------
+
+
+
     const classes = useStyles();
     const dispatch = useDispatch();
     const user = useSelector(state => state.user)
@@ -79,15 +151,21 @@ const User = () => {
       console.log(history)
     }
 
+    function handleClickCart(e) {
+      e.preventDefault();
+      dispatch(getCartByUser())
+    }
+  
+
     //console.log("USER: ", user)
 
     return(
         <div>
-          <button onClick={handleCheckStorage}>Check STORAGE</button>
-          <button onClick={handleClearStorage}>Clear STORAGE</button>
+          {/* <button onClick={handleCheckStorage}>Check STORAGE</button>
+          <button onClick={handleClearStorage}>Clear STORAGE</button> */}
             {/* <button onClick={handleCheckGuest}>USER CHECK</button> */}
             {user ? <>
-                <img src={iconUser}  className={classes.iconuser}/>
+                {/* <img src={iconUser}  className={classes.iconuser}/>
                 <Button  size="small"  className={classes.buttons}>
                   <Link to='/profile' style={{textDecoration:"none" , color:"white"}}>
                     {user.first_name}   
@@ -99,7 +177,60 @@ const User = () => {
                 </Button>
                 <Button  size="small"  className={classes.buttons} onClick={handleLogOut}>
                     Cerrar Sesión 
+                </Button> */}
+                {/* Menu desplegable */}
+                <Button
+                  aria-controls="customized-menu"
+                  aria-haspopup="true"
+                  variant="contained"
+                  color="primary"
+                  onClick={handleClick}
+                >
+                  <img src={iconUser}  className={classes.iconuser}/>
+                  {user.first_name}
                 </Button>
+                <StyledMenu
+                  id="customized-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <StyledMenuItem>
+                    <ListItemIcon>
+                      <FavoriteIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Favoritos" />
+                  </StyledMenuItem>
+                  <StyledMenuItem>
+                    <ListItemIcon>
+                      <LocalMallIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Mis compras" />
+                  </StyledMenuItem>
+                  <StyledMenuItem>
+                    <ListItemIcon>
+                      <StorefrontIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Link to="/store">
+                    <ListItemText primary="Mi tienda" />
+                    </Link>
+                  </StyledMenuItem>
+                  <StyledMenuItem onClick={handleClickCart} >
+                    <ListItemIcon >
+                      <ShoppingCartIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Link to="/cart">
+                    <ListItemText primary="Mi carrito" />
+                    </Link>
+                  </StyledMenuItem>
+                  <StyledMenuItem onClick={handleLogOut}>
+                    <ListItemIcon>
+                      <ExitToAppIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Cerrar Sesión" />
+                  </StyledMenuItem>
+                </StyledMenu>
                     </> : 
              <>
                 <Button  size="small" className={classes.buttons}>

@@ -10,8 +10,7 @@ import market from '../img/market.png'
 import { Button, Typography } from '@material-ui/core';
 import cartEmpty from '../img/cart-empty.png'
 import Reviews from './Reviews';
-import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai';
-import {store} from 'react-notifications-component';
+import FakeFav from './FakeFav';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -105,17 +104,7 @@ function ProductDetail(props) {
     const classes = useStyles();
     const history = useHistory();
     const detail = useSelector((state) => state.prodDetail);
-    const wishlist = useSelector(state => state.wishlist);
-    const fav = wishlist.find(({detail: {_id}}) => _id === detail._id);
-    const user= useSelector(state => state.user);
-    const userId = localStorage.getItem('userId');
-
-    // const [updateReview, setUpdateReview] = useState(false);
-
-    // function handleClick(e) {
-    //     e.preventDefault();
-    //     history.push('/products')
-    // }
+    
 
     const dispatch = useDispatch();
 
@@ -177,21 +166,10 @@ function ProductDetail(props) {
     // }, [detail.product])
     
     //------------------------------------------------
-    useEffect(() => {
-        dispatch(checkUser())
-    }, [dispatch])
-    const handleAddFav = () => {
-        dispatch(addFav({userId, productId: props.match.params.id}));
-        dispatch(addFavStorage(props.match.params.id));
-    }
-    const handleRemoveFav = () =>{
-        dispatch(deleteFav({userId, productId: props.match.params.id}));
-        dispatch(deleteFavStorage(props.match.params.id));
-    }
-    
 
     return (
         <div className={classes.root}>
+            {/* <FakeFav id={id} /> */}
             {
                 detail.product?.map((p,i) => {
                     return (
@@ -209,42 +187,6 @@ function ProductDetail(props) {
                    <Link to = '/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
                     </Button>
                         </div>  
-                        <div>
-                        {/* {!userId ? <>
-											<Link
-												to='/signin'
-												onClick={() =>
-													store.addNotification({
-														title: 'You are not Login',
-														message: 'You have to be logged in to add Favs.',
-														type: 'danger',
-														insert: 'top',
-														container: 'top-center',
-														animationIn: [
-															'animate__animated',
-															'animate__fadeIn',
-														],
-														animationOut: [
-															'animate__animated',
-															'animate__fadeOut',
-														],
-														dismiss: {
-															duration: 3000,
-															onScreen: true,
-															pauseOnHover: true,
-														},
-													})
-												}
-											>
-												<AiOutlineHeart className='fav' />
-											</Link>
-										</> :  fav ? <>
-											<AiFillHeart onClick={handleRemoveFav} className='fav' />
-										</> : <>
-											<AiOutlineHeart onClick={handleAddFav} className='fav' />
-										</>}
-                       */}
-                        </div> 
                         
                         <div className={classes.contentRight}>     
                              <div className={classes.info}>  

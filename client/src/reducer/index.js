@@ -6,8 +6,15 @@ const initialState = {
     prodDetail: [],
     page: 1,
     user: {},
+    categ: [],
+    allProducts: [],
+    mercData:{},
+    // user: false,
     guest: {},
-    wishlist: getWishListLocalStorage()
+    // wishlist: getWishListLocalStorage(), 
+    wishlist: [],
+    // wishlist: {},
+    cart: {}
 }
 
 function rootReducer(state = initialState, action) {
@@ -60,6 +67,11 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 user: action.payload
             }
+        case "GET_FAV":
+            return {
+                ...state,
+                wishlist: action.payload
+            }        
         case "ADD_FAV":
             const findProd = state.products.find(
                 ({product: {_id}}) => _id === action.payload
@@ -77,7 +89,23 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state, 
                 wishlist: deleteFav
-            }    
+            }
+        case "GET_CART_BY_USER":
+            return {
+                ...state,
+                cart: action.payload
+            } 
+        case "POST_ORDER":
+            const obj = {
+                preference_id: action.payload.body.id,
+                client_id: action.payload.body.client_id,
+                collector_id: action.payload.body.collector_id,
+                init_point: action.payload.body.init_point
+            }
+            return {
+                 ...state,
+                    mercData: obj
+            }
         default: return state;
         }
 }

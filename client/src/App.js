@@ -19,10 +19,10 @@ import { guestMati } from "./actions";
 import { userCheck } from "./actions";
 import ModifyProduct from "./components/ModifyProduct";
 import History from "./components/History";
+import MyStore from "./components/MyStore";
+
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
-
-
 const theme = createTheme({
     palette: {
       primary: {
@@ -88,6 +88,7 @@ function App() {
         <Route exact path = "/profile" component = {Profile} />
         <Route path="/detail/:id" component={ProductDetail} /> 
         <Route exact path = "/cart" component = {Cart} />
+        <Route exact path = "/store" component = {MyStore} />
        
       </Switch>
       </ThemeProvider>

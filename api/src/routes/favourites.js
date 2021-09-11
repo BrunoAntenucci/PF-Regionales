@@ -21,7 +21,8 @@ router.get("/", async (req, res, next) =>{
 			let favs = await Favourites.findOne({user: userSessionID})
 				.populate('products.product')
 				.exec();
-			res.json({response: favs.products, type: 'Ok', message: 'Success'});
+			// res.json({response: favs.products, type: 'Ok', message: 'Success'});
+			res.status(200).send(favs.products)
 		} else {
 			res.status(400).send({type: 'Bad Request', message: 'user not found'});
 		}
@@ -52,11 +53,15 @@ router.post("/", async (req, res) =>{
 					await favs.save();
 				}
 			} else {
-				let newfavs = await new Favourites({
-					user: userSessionID,
-					products: [{product: idProduct}],
-				});
-				await newfavs.save();
+				let newFavs = await new Favourites({})
+				newFavs.user = userSessionID;
+				newFavs.products = [...newFavs.products, {product: idProduct}]
+				await newFavs.save();
+				// let newfavs = await new Favourites({
+				// 	user: userSessionID,
+				// 	products: [{product: idProduct}],
+				// });
+				// await newfavs.save();
 			}
 			let toSend = await Favourites.findOne({user: userSessionID})
 				.populate('products.product')
