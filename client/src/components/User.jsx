@@ -130,7 +130,7 @@ const User = () => {
 
     useEffect( () => {
         dispatch(checkUser())
-    }, [dispatch])
+    }, [])
 
 
     function handleCheckGuest(e) {
