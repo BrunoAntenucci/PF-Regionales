@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import Paginate from './Paginate';
 import Header from './Header';
 import History from './History';
+import Loading from './Loading'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -225,7 +227,7 @@ function Products(props) {
                         </Fragment>
                     )
                 })
-                : <h1>CARGANDO</h1>
+                : <Loading/>
             }
             </Grid>
             

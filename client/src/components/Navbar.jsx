@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     
     display:"flex",
     flexDirection:"row",
-    backgroundColor:"#0000001b",
+    //backgroundColor:"#0000001b",
      color:"#fff",
      padding:"0px 55px"
   },
@@ -215,7 +215,9 @@ function Navbar() {
       <Link to="/history" style={{textDecoration:"none", color:"inherit"}}>
         <Tab label="historial" size="small"  className={classes.tabs} color="secondary"/>
         </Link>
-        <Tab label="ofertas" size="small"  className={classes.tabs} color="secondary"/>
+        <Link to="/stores" style={{textDecoration:"none", color:"inherit"}}>
+        <Tab label="tiendas" size="small"  className={classes.tabs} color="secondary"/>
+        </Link>
    
         {/* <Tab label="Item Three" /> */}
         
