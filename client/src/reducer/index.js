@@ -29,7 +29,7 @@ function rootReducer(state = initialState, action) {
                 // page: 1
                 
 
-                page: 1
+                // page: 1
 
               }
         case 'GET_PRODUCTS_BY_NAME':
