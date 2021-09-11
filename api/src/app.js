@@ -20,7 +20,7 @@ server.use(bodyParser.json());
 server.use(express.urlencoded({ extended: true}));
 server.use(express.json());
 server.use(cors({
-  origin: "https://pf-regionales.vercel.app", //<-- FRONTEND
+  origin: "http://localhost:3000", //<-- FRONTEND
   credentials: true
 }));
 server.use(session({
