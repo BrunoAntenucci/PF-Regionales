@@ -53,9 +53,9 @@ return(<>
                 id={p?.id}
                 
                 />
-   )
+            )
            
-        })})
+        })}
         </>
         : <h4>no hay historial en tu vida</h4>
     }
