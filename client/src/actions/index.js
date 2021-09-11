@@ -364,15 +364,38 @@ export function getFav() {
           })
     }
 }
-export function deleteFav (body) {
-    return async function (dispatch){
-        const response = await axios.delete('http://localhost:3001/favourites', body)
-        return dispatch({
-            type: "DELETE_FAV",
-            payload: response.data
-        })
+export function deleteFav(id) {
+    return function(dispatch) {
+        return axios({
+            method: "delete",
+            data: {
+                idProduct: id
+            },
+            withCredentials: true,
+            url: "/favourites"
+          })
+          .then((res) => {
+            console.log("REMOVE PRODUCT: ", res.data)
+            dispatch({
+                type: "DELETE_FAV",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
-};
+}
+// export function deleteFav (id) {
+//     return async function (dispatch){
+//         const response = await axios.delete('http://localhost:3001/favourites', id)
+//         console.log('[action]deletefav]', response.data)
+//         return dispatch({
+//             type: "DELETE_FAV",
+//             payload: response.data
+//         })
+//     }
+// };
 export function deleteFavStorage(id){
     return async (dispatch) => {
         return dispatch({

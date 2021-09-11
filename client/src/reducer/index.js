@@ -85,7 +85,7 @@ function rootReducer(state = initialState, action) {
         case "DELETE_FAV":
             const deleteFav = state.products.filter(
                 (e) => e.product._id !== action.payload);
-                setWishListLocalStorage(deleteFav)
+                // setWishListLocalStorage(deleteFav)
             return {
                 ...state, 
                 wishlist: deleteFav

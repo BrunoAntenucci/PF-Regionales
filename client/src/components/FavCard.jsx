@@ -8,10 +8,11 @@ const FavCard = ({name, description, image, _id, price}) => {
     const wishlist = useSelector(state => state.wishlist)
     const user = useSelector(state => state.user)
     const dispatch = useDispatch();
-    const deleteOfList = () => {
-        dispatch(deleteFav({user, productId: _id}))
+
+    const deleteOfList = async (id) => {
+        await dispatch(deleteFav(id))
     }
-    
+    //console.log(wishlist.product._id, 'idProd')
     console.log('wishFav', wishlist)
 
     return(
@@ -24,7 +25,8 @@ const FavCard = ({name, description, image, _id, price}) => {
                     <div>{p.product.name}</div>
                     <div>{p.product.description}</div>
                     <div>{p.product.price}</div>
-                    <button onClick={deleteOfList}>Eliminar</button>
+                    <div>{p.product._id}</div>
+                    <button onClick={() => deleteOfList(p.product._id)}>Eliminar</button>
                     </div>
                 )
             })}
