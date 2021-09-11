@@ -40,8 +40,9 @@ return(<>
        últimos {historyProducts.length} productos 
                 </Typography>
        
-        {historyProducts.map((p )=>{
-            return(<Card                    
+        {historyProducts.map((p,i )=>{
+            return(<Card  
+                key={i}                  
                 name= {p?.name}
                 price={p?.price}
                 category={p?.category.map(e => {
