@@ -20,6 +20,7 @@ import ModifyProduct from "./components/ModifyProduct";
 import History from "./components/History";
 import MyStore from "./components/MyStore";
 import Stores from "./components/Stores";
+import MyOrders from "./components/MyOrders";
 
 
 const theme = createTheme({
@@ -87,6 +88,7 @@ function App() {
         <Route exact path = "/cart" component = {Cart} />
         <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/stores" component = {Stores} />
+        <Route exact path = "/orders" component = {MyOrders} />
        
       </Switch>
       </ThemeProvider>

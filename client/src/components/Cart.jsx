@@ -251,7 +251,7 @@ console.log("info user", infoUser)
         {myCart.items?
       <>
      <div>
-      <h4>info de envío</h4>     
+      
               <form onSubmit={handlerOnSubmit}>
      <Typography variant="h6" gutterBottom>
        Shipping address

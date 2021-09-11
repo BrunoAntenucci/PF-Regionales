@@ -207,7 +207,9 @@ const User = () => {
                     <ListItemIcon>
                       <LocalMallIcon fontSize="small" />
                     </ListItemIcon>
+                    <Link to="/orders" style={{textDecoration:"none",  color:"inherit"}}>
                     <ListItemText primary="Mis compras" />
+                    </Link>
                   </StyledMenuItem>
                   <StyledMenuItem>
                     <ListItemIcon>

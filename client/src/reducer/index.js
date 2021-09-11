@@ -14,7 +14,8 @@ const initialState = {
     guest: {},
     wishlist: getWishListLocalStorage(),
     cart: {},
-    stores: []
+    stores: [],
+    orderDetail: []
 
 }
 
@@ -60,6 +61,12 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 stores: action.payload
+            }
+
+            case 'GET_ORDER_DETAIL':
+            return {
+                ...state,
+                orderDetail: action.payload
             }
         case "SIGN_IN": 
             return {
