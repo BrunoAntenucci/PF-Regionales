@@ -3,8 +3,12 @@ const passport = require("passport")
 const User = require("../models/user/user");
 const bcrypt = require("bcryptjs");
 const Role = require("../models/role/role"); 
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const config = require("../../src/config")
+// const authJwt =  require("../middlewares/authJwt") 
+const verifyToken  = require ("../middlewares/authJwt");
+const isAdmin = require ("../middlewares/authJwt");
+
 
 const router = Router();
 
@@ -12,7 +16,7 @@ router.get("/", (req, res, next) => {
     res.send("GET DE SINGUP")
 })
 
-router.post("/", (req, res) => {
+router.post("/",[verifyToken,isAdmin], (req, res) => {
     try {
         const {roles}=req.body
         console.log(req.body)
