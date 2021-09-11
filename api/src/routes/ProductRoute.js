@@ -1,6 +1,5 @@
 const { Router } = require('express');
-const router = Router(); 
-const Schema = require('mongoose')
+const router = Router();
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 

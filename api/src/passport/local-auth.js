@@ -45,7 +45,7 @@ module.exports = function(passport) {
                 if(err) throw err;
                 if(!user) return done(null, false);
                 bcrypt.compare(password, user.password, (err, result) => {
-                    if(err) throw err;
+                    if(err) console.log("Contraseña incorrecta");
                     if(result) {
                         return done(null, user)
                     } else {
