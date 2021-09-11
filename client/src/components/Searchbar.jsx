@@ -20,11 +20,12 @@ const useStyles = makeStyles((theme) => ({
   
 
   root: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    height:"40px",
-    width: 500,
+    // padding: '2px 4px',
+    // display: 'flex',
+    // alignItems: 'center',
+    // height:"40px",
+    width: "500px",
+    zIndex:"100"
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -100,9 +101,9 @@ function Navbar() {
 
     const classes = useStyles();
     return (
-        <Paper component="form" className={classes.root}>
+        <div component="form" className={classes.root}>
          
-          <div style={{ width: 500 }}>
+          <div className={classes.root}>
             <ReactSearchAutocomplete
              id="dataInput"
              className={classes.input}
@@ -122,7 +123,7 @@ function Navbar() {
           </div>
            
            
-      </Paper>
+      </div>
       
     )
 }
