@@ -190,13 +190,9 @@ const Cart = () => {
           })
     }
     const handlerOnChange = (e) => {
+      console.log(e.target.value)
         setUser((prevState) => {
-            // if(evento.target.name == "nombre"){
-            //     return {
-            //         ...prevState,
-            //         nombre: capitalizarPrimeraLetra(evento.target.value)
-            // }
-        // }else{
+           
             return {
                 ...prevState,
                 cartId: myCart._id,
@@ -268,7 +264,7 @@ console.log("info user", infoUser)
            name="country"
            label="país"
            fullWidth
-           
+           onChange={handlerOnChange}
          />
        </Grid>
        <Grid item xs={12} >
@@ -278,7 +274,7 @@ console.log("info user", infoUser)
            name="city"
            label="ciudad"
            fullWidth
-           
+           onChange={handlerOnChange}
          />
        </Grid>
        <Grid item xs={12} sm={4}>
@@ -288,6 +284,7 @@ console.log("info user", infoUser)
            name="postal_code"
            label="código postal"
            fullWidth
+           onChange={handlerOnChange}
          />
        </Grid>
        <Grid item xs={12} sm={4}>
@@ -296,6 +293,7 @@ console.log("info user", infoUser)
            name="address_name"
            label=" dirección"
            fullWidth
+           onChange={handlerOnChange}
          />
        </Grid>
        <Grid item xs={12} sm={4}>
@@ -304,7 +302,7 @@ console.log("info user", infoUser)
            id="address_number"
            name="address_number"
            label="número de dirección"
-          
+           onChange={handlerOnChange}
          />
        </Grid>
       
