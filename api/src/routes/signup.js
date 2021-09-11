@@ -3,12 +3,9 @@ const passport = require("passport")
 const User = require("../models/user/user");
 const bcrypt = require("bcryptjs");
 const Role = require("../models/role/role"); 
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const config = require("../../src/config")
-// const authJwt =  require("../middlewares/authJwt") 
-const verifyToken  = require ("../middlewares/authJwt");
-const isAdmin = require ("../middlewares/authJwt");
-
+const checkRoles = require("../middlewares/roleVerifcado");
 
 const router = Router();
 
@@ -16,7 +13,8 @@ router.get("/", (req, res, next) => {
     res.send("GET DE SINGUP")
 })
 
-router.post("/",[verifyToken,isAdmin], (req, res) => {
+
+router.post("/",[checkRoles], (req, res) => {
     try {
         const {roles}=req.body
         console.log(req.body)
@@ -53,9 +51,9 @@ router.post("/",[verifyToken,isAdmin], (req, res) => {
     }
 })
 /*
-userID = 613b7b8fbbb63e13b1142c78
-superuserID = 613b7b8fbbb63e13b1142c79
-adminID = 613b7b8fbbb63e13b1142c7a
+userID = 613c0bc192d800ac5ce7a6bd
+adminID = 613c0bc192d800ac5ce7a6be
+superAdminID = 613c0bc192d800ac5ce7a6bf
 */
 
 

@@ -2,9 +2,9 @@ const { Router } = require('express');
 const router = Router();
 const Store = require('../models/store/store.js');
 const verifyToken  = require ("../middlewares/authJwt");
-const isSuperUser = require ("../middlewares/authJwt");
+const isAdmin = require ("../middlewares/authJwt");
 
-router.post("/",[verifyToken, isSuperUser], async (req, res) => {
+router.post("/",[verifyToken, isAdmin], async (req, res) => {
     const {name, description, city, products, address, reputation} = req.body; 
     console.log(req.body)
     if (!name || !description || !city  || !products || !address || !reputation) {
@@ -48,7 +48,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.patch('/:id',[verifyToken, isSuperUser], async (req, res) => {
+router.patch('/:id',[verifyToken, isAdmin], async (req, res) => {
     try{
         const store = await Store.findByIdAndUpdate(req.params.id, req.body, { new: true })
         if(!store){
@@ -60,7 +60,7 @@ router.patch('/:id',[verifyToken, isSuperUser], async (req, res) => {
     }
 }) 
 
-router.delete('/:id',[verifyToken, isSuperUser], async (req, res) => {
+router.delete('/:id',[verifyToken, isAdmin], async (req, res) => {
     try{
         const store = await Store.findByIdAndDelete(req.params.id)
         if(!store){

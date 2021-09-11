@@ -4,10 +4,10 @@ const Schema = require('mongoose')
 const Product = require('../models/Product');
 const Category = require('../models/Category'); 
 const verifyToken  = require ("../middlewares/authJwt");
-const isAdmin = require ("../middlewares/authJwt");
+const isSuperAdmin = require ("../middlewares/authJwt");
 
 
-router.post("/", [verifyToken, isAdmin], async (req, res) => {
+router.post("/", [verifyToken, isSuperAdmin], async (req, res) => {
   const { user, name, description, price, quantity, category, image } = req.body; 
   console.log(req.body)
   if ( !name || !description || !price  || !category || !quantity || !image) {
@@ -50,7 +50,7 @@ router.get("/:id",  (req, res) => {
     
 });
 
-router.patch("/:id", [verifyToken, isAdmin], async (req, res) => {
+router.patch("/:id", [verifyToken, isSuperAdmin], async (req, res) => {
     try {
         const {id} = req.params;
         console.log(id)
@@ -62,7 +62,7 @@ router.patch("/:id", [verifyToken, isAdmin], async (req, res) => {
 
 });
 
-router.delete("/:id", [verifyToken, isAdmin], async (req, res) => {
+router.delete("/:id", [verifyToken, isSuperAdmin], async (req, res) => {
     try {
       const {id }= req.params;
       await Product.deleteOne({ _id: id });

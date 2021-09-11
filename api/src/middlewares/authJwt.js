@@ -24,19 +24,19 @@ const verifyToken = async (req, res, next) => {
   };
 
 
-  const isSuperUser = async (req, res, next) => {
+  const isSuperAdmin = async (req, res, next) => {
     try {
       const user = await User.findById(req.userId);
       const roles = await Role.find({ _id: { $in: user.roles } });
   
       for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === "superuser") {
+        if (roles[i].name === "superAdmin") {
           next();
           return;
         }
       }
   
-      return res.status(403).json({ message: "Require superuser Role!" });
+      return res.status(403).json({ message: "Require superAdmin Role!" });
     } catch (error) {
       console.log(error)
       return res.status(500).send({ message: error });
@@ -63,4 +63,4 @@ const verifyToken = async (req, res, next) => {
     }
   };
 
-  module.exports =  verifyToken, isSuperUser, isAdmin;
+  module.exports =  verifyToken, isSuperAdmin, isAdmin;
