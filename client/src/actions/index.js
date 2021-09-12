@@ -410,3 +410,46 @@ export function deleteFavStorage(id){
         })
     }
 }
+//------REVIEWS------
+export async function getReviews(){
+    const response = await axios.get('http://localhost:3001/reviews');
+    return { type: GET_VISIBLES_FEEDBACKS, payload: response.data };
+}
+export function allowRev(flag) {
+    return {type: ALL_REV, payload: flag}
+  }
+//   export const createProductReview = (productId, review) => async (
+//     dispatch,
+//     getState
+//   ) => {
+//     try {
+//       dispatch({
+//         type: PRODUCT_CREATE_REVIEW_REQUEST,
+//       })
+  
+//       const {
+//         userLogin: { userInfo },
+//       } = getState()
+  
+//       const config = {
+//         headers: {
+//           'Content-Type': 'application/json',
+//           Authorization: `Bearer ${userInfo.token}`,
+//         },
+//       }
+  
+//       await axios.post(`/api/products/${productId}/reviews`, review, config)
+  
+//       dispatch({
+//         type: PRODUCT_CREATE_REVIEW_SUCCESS,
+//       })
+//     } catch (error) {
+//       dispatch({
+//         type: PRODUCT_CREATE_REVIEW_FAIL,
+//         payload:
+//           error.response && error.response.data.message
+//             ? error.response.data.message
+//             : error.message,
+//       })
+//     }
+//   }

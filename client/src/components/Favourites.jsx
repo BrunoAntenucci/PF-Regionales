@@ -41,7 +41,7 @@ const Favourites = () => {
         </tbody>
         </Table>
       </div>
-      <Link to="/products">
+      <Link to={`/products/id/${_id}`}>
         Volver
       </Link>
       </div>

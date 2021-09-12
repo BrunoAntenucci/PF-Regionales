@@ -16,6 +16,7 @@ const order = require("./order")
 const passport = require("passport");
 const auth = require("./auth")
 const favourites = require ("./favourites");
+// const reviews = require("./reviews");
 
 
 const router = Router();
@@ -36,6 +37,7 @@ router.use("/cartOld", cartOld);
 router.use("/order", order)
 router.use("/auth", auth)
 router.use("/favourites", favourites);
+// router.use("/reviews", reviews);
 
 router.get("/", (req, res, next) => {
     res.send(req.user);
