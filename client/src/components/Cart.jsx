@@ -315,7 +315,8 @@ console.log("info user", infoUser)
      </Grid>
      <Button type="submit" color="secondary">Pagar</Button>
      </form>
-
+                 
+                </div>
      
      <Button
          style={{height:"min-content"}}
@@ -323,10 +324,6 @@ console.log("info user", infoUser)
               variant="contained" color="primary">
                 <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
                  </Button>
-
-
-                 
-                </div>
 
                  </>  
                 :<Button
