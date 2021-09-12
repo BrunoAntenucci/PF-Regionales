@@ -25,7 +25,7 @@ function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
         {'volver a  '}
-        <LinkMUI  color="primary" href="http://localhost:3000">
+        <LinkMUI  color="primary" href="http://localhost:3000/products">
             {/* luego hay que cambiarla cuando se deployee */}
           página principal
         </LinkMUI>{' '}

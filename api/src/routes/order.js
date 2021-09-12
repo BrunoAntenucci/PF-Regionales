@@ -45,12 +45,13 @@ router.delete("/remove/:orderId", (req, res, next) => {
 
 router.get("/currentUser", async (req, res, next) => {
     const userSessionID = req?.session?.passport?.user;
+    console.log(req.session);
     if (userSessionID) {
         const user = await User.findById(userSessionID)
         .populate({
             path: "order",
             populate: {
-                path: ["cart", "ship_info"],
+                path: "cart",
                 populate: {
                     path: "items",
                     populate: {
@@ -59,7 +60,7 @@ router.get("/currentUser", async (req, res, next) => {
                 }
             }
         })
-        return res.status(200).send(user);
+        return res.status(200).send(user.order);
     }
     return res.status(200).send("No se encontro ese usuario");
 })

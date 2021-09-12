@@ -68,6 +68,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
 function Products(props) {
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products);
+    console.log(allProducts, "dqwdqwdqwdqwdqwdqw")
     const categories = useSelector((state) => state.categories)
     // const pageN = useSelector((state) => state.page);
     const [pageN, setPageN] = useState(1);
@@ -76,7 +77,7 @@ function Products(props) {
     const [prodPerPage , setProdPerPage] = useState(9)
     const indexOfLastProd = pageN * prodPerPage; 
     const indexOfFirstProd = indexOfLastProd - prodPerPage;  
-    const currentProd = allProducts && allProducts.slice(indexOfFirstProd, indexOfLastProd); 
+    const currentProd = Array.isArray(allProducts) && allProducts.slice(indexOfFirstProd, indexOfLastProd); 
 
     const paginate = (pageNumber) => {
         setPageN(pageNumber);
