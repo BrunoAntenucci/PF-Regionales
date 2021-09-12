@@ -43,6 +43,19 @@ export function getCategories() {
     }
 }
 
+export function postCategory(payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.post('/category/create', payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
 export function postProducts(payload){
     return async function (dispatch){
         try{
@@ -287,6 +300,30 @@ export function removeProductFromCart(id, value) {
             console.log("REMOVE PRODUCT: ", res.data)
             dispatch({
                 type: "REMOVE_PRODUCT_FROM_CART",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function removeItemFromCart(id, value) {
+    return function(dispatch) {
+        return axios({
+            method: "delete",
+            data: {
+                idProduct: id,
+                valueProduct: value,
+            },
+            withCredentials: true,
+            url: "/cart/removeItem"
+          })
+          .then((res) => {
+            console.log("REMOVE ITEM: ", res.data)
+            dispatch({
+                type: "REMOVE_ITEM_FROM_CART",
                 payload: res.data
             })
           })

@@ -116,6 +116,36 @@ router.delete("/removeProduct", async(req, res, next) => {
     }
 })
 
+router.delete("/removeItem", async(req, res, next) => {
+    const userSessionID = req?.session?.passport?.user
+    const idProduct = req.body.idProduct;
+    const valueProduct = req.body.valueProduct;
+    if(userSessionID) {
+        const user = await User.findOne({
+            _id: userSessionID
+        }).populate("cart")
+        
+        const cart = await Cart.findById(user.cart._id.toString()).populate({
+            path: "items",
+            populate: {
+                path: "product"
+            }
+        })
+
+        for (var i=0; i<cart.items.length; i++) {
+            if (cart.items[i].product._id.toString() === idProduct) {
+                cart.total -= cart.items[i].subTotal;
+                cart.items = cart.items.filter(e => e.product._id.toString() !== idProduct);
+                await cart.save();
+                return res.status(200).send("Producto removido del Carrito");
+            }
+        }
+        return res.status(200).send("No hay Productos en tu Carrito.")
+    } else {
+        return res.send("NO hay usuario logeado")
+    }
+})
+
 router.post("/fromGuest", async (req, res, next) => {
     const guestCart = req.body.guestCart;
     const userSessionID = req?.session?.passport?.user;
