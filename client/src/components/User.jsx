@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import iconUser from '../img/icon-user.png'
+import iconUser from '../img/icon-user.png';
+import Cart from './Cart';
 
 import { getCartByUser } from '../actions/index';
 import axios from 'axios';
@@ -206,7 +207,9 @@ const User = () => {
                     <ListItemIcon>
                       <LocalMallIcon fontSize="small" />
                     </ListItemIcon>
+                    <Link to="/orders" style={{textDecoration:"none",  color:"inherit"}}>
                     <ListItemText primary="Mis compras" />
+                    </Link>
                   </StyledMenuItem>
                   <StyledMenuItem>
                     <ListItemIcon>

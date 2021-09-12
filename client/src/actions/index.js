@@ -110,6 +110,23 @@ export function getStore(){
     
 }
 
+export function getOrderDetail() {
+    return function(dispatch) {
+      return axios({
+              method: "GET",
+              withCredentials: true,
+              url: "/order/currentUser"
+            })
+            .then((res) => {
+              console.log("[ACTION]RES GetOrder: ", res.data)
+              dispatch({
+                  type: "GET_ORDER_DETAIL",
+                  payload: res.data
+              })
+            })
+    }
+  }
+
 export function getProductDetail(id) {
     return async function(dispatch) {
         try {

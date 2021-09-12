@@ -251,7 +251,7 @@ console.log("info user", infoUser)
         {myCart.items?
       <>
      <div>
-      <h4>info de envío</h4>     
+      
               <form onSubmit={handlerOnSubmit}>
      <Typography variant="h6" gutterBottom>
        Shipping address
@@ -315,7 +315,8 @@ console.log("info user", infoUser)
      </Grid>
      <Button type="submit" color="secondary">Pagar</Button>
      </form>
-
+                 
+                </div>
      
      <Button
          style={{height:"min-content"}}
@@ -323,10 +324,6 @@ console.log("info user", infoUser)
               variant="contained" color="primary">
                 <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
                  </Button>
-
-
-                 
-                </div>
 
                  </>  
                 :<Button

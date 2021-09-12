@@ -65,7 +65,7 @@ function Navbar() {
 
   // --------------------AUTOCOMPLETE---------------------------------
 
-  const [prod, setProd] = useState("")
+  const [prod, setProd] = useState([])
   useEffect(async() => {
     const response = await axios.get("/product")
     console.log("response", response)
@@ -93,8 +93,8 @@ function Navbar() {
       // setName('');
       // let inputId = document.getElementById("dataInput");
       // inputId.value = ""; 
-      }
-      console.log(e, "hola")
+      } 
+      console.log(e, "holay45y45yh")
   
   }
 
@@ -108,7 +108,7 @@ function Navbar() {
              id="dataInput"
              className={classes.input}
              showIcon={true}
-             maxResults={"5"}
+             maxResults={5}
             items={prod}
             fuseOptions={{ keys: ["name", "description"] }}
             resultStringKeyName="name"
