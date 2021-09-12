@@ -309,6 +309,30 @@ export function removeProductFromCart(id, value) {
     }
 }
 
+export function removeItemFromCart(id, value) {
+    return function(dispatch) {
+        return axios({
+            method: "delete",
+            data: {
+                idProduct: id,
+                valueProduct: value,
+            },
+            withCredentials: true,
+            url: "/cart/removeItem"
+          })
+          .then((res) => {
+            console.log("REMOVE ITEM: ", res.data)
+            dispatch({
+                type: "REMOVE_ITEM_FROM_CART",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
 export function getCartByUser() {
     return function(dispatch) {
         return axios({
