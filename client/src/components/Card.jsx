@@ -11,7 +11,7 @@ import cartEmpty from '../img/cart-empty.png'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductToCart } from '../actions';
-import FakeFav from './FakeFav'; 
+import Fav from './Fav'; 
 
 const useStyles = makeStyles((e) =>({
   root: {
@@ -114,8 +114,7 @@ function Card({name,category, price, image, id}) {
       
         <CardMUI 
          className={classes.root}>
-      
-          {/* <FakeFav id={id} /> */}
+          <Fav  />
 
           <Link to={'/detail/' + id}
            style={{textDecoration:"none"}}>

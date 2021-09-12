@@ -10,7 +10,7 @@ import market from '../img/market.png'
 import { Button, Typography } from '@material-ui/core';
 import cartEmpty from '../img/cart-empty.png'
 import Reviews from './Reviews';
-import FakeFav from './FakeFav';
+import Fav from './Fav';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -169,7 +169,7 @@ function ProductDetail(props) {
 
     return (
         <div className={classes.root}>
-            {/* <FakeFav id={id} /> */}
+            <Fav  />
             {
                 detail.product?.map((p,i) => {
                     return (

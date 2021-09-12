@@ -12,7 +12,7 @@ const FavCard = ({name, description, image, _id, price}) => {
     const deleteOfList = async (id) => {
         await dispatch(deleteFav(id))
     }
-    //console.log(wishlist.product._id, 'idProd')
+    
     console.log('wishFav', wishlist)
 
     return(
@@ -32,31 +32,12 @@ const FavCard = ({name, description, image, _id, price}) => {
             })}
         </div>
         <div>
-            <Link to={`/detail/:id${_id}`}>
+            <Link to={`/detail/${_id}`}>
             <button>Ver detalle</button>
             </Link> 
         </div>
         </div>
     )
-   
- 
 }
 
 export default FavCard;
-
-   // return(
-    //     <div>
-    //         <Link to={`/detail/:id${_id}`}>
-    //             <img src={image[0]} alt='Favourites'/>
-    //         </Link>
-    //         <div>{name}</div>
-    //         <div>{price}</div>
-    //         <div>{description}</div>
-    //         <div>
-    //         <Link to={`/detail/:id${_id}`}>
-    //             <button>Ver detalle</button>
-    //         </Link>      
-    //             <button onClick={deleteOfList}>Eliminar</button>  
-    //         </div>
-    //     </div>
-    // )

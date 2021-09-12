@@ -12,8 +12,8 @@ const initialState = {
     // user: false,
     guest: {},
     // wishlist: getWishListLocalStorage(), 
-    wishlist: [],
-    // wishlist: {},
+    // wishlist: [],
+    wishlist: {},
     cart: {}
 }
 
@@ -71,17 +71,23 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 wishlist: action.payload
-            }        
-        case "ADD_FAV":
-            const findProd = state.products.find(
-                ({product: {_id}}) => _id === action.payload
-            );
-            const addFav = findProd && state.wishlist.concat(findProd);
-            findProd && setWishListLocalStorage(addFav)
-            return {
-                ...state, 
-                wishlist: addFav
             }
+        // case "ADD_FAV":
+        //     const addProd = state.wishlist.find((e)=>
+        //          e.product._id === action.payload)
+        //     return{
+        //         ...state, 
+        //         wishlist: state.wishlist.concat(addProd)
+        //     }          
+        // case "ADD_FAV":
+        //     const findProd = state.products.find(
+        //         (e) => e.product._id === action.payload);
+        //     const addFav = findProd && state.wishlist.concat(findProd);
+        //     // findProd && setWishListLocalStorage(addFav)
+        //     return {
+        //         ...state, 
+        //         wishlist: addFav
+        //     }
         case "DELETE_FAV":
             const deleteFav = state.products.filter(
                 (e) => e.product._id !== action.payload);

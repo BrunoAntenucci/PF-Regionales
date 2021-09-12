@@ -34,7 +34,7 @@ const Favourites = () => {
         <tbody>
           {/* <FavCard /> */}
           {wishlist.length? (<div><tr>
-            <FavCard/></tr></div>) : (<div>
+            <FavCard /></tr></div>) : (<div>
             <p>No tienes favoritos aún</p>
           </div>) 
           }

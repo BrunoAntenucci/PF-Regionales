@@ -329,15 +329,30 @@ export  function postOrder (data){
     }
 }
 //----------WISHLIST----------
-export function addFav (body) {
-    return async function (dispatch) {
-        const response = await axios.post('http://localhost:3001/favourites', body);
-        return dispatch({
-            type: "ADD_FAV",
-            payload: response.data
-        })
-    } 
-};
+export function addFav(id) {
+    console.log("ENTRA CON: ", id)
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                idProduct: id
+            },
+            withCredentials: true,
+            url: "/favourites"
+          })
+          .then((res) => {
+              console.log("ENTRO AL ACTION", res.data)
+            dispatch({
+                type: "ADD_FAV",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
 export function addFavStorage (id){
     return async (dispatch) => {
         return dispatch({
@@ -347,7 +362,7 @@ export function addFavStorage (id){
     }
 }
 
-// }
+
 export function getFav() {
     return function(dispatch) {
         return axios({
@@ -386,16 +401,7 @@ export function deleteFav(id) {
           })
     }
 }
-// export function deleteFav (id) {
-//     return async function (dispatch){
-//         const response = await axios.delete('http://localhost:3001/favourites', id)
-//         console.log('[action]deletefav]', response.data)
-//         return dispatch({
-//             type: "DELETE_FAV",
-//             payload: response.data
-//         })
-//     }
-// };
+
 export function deleteFavStorage(id){
     return async (dispatch) => {
         return dispatch({
