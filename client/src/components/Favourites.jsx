@@ -14,6 +14,7 @@ const Favourites = () => {
   const wishlist = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user)
+  const product = useSelector(state => state.prodDetail)
 
   useEffect(  () => {
     dispatch(getFav());
@@ -41,7 +42,7 @@ const Favourites = () => {
         </tbody>
         </Table>
       </div>
-      <Link to={`/products/id/${_id}`}>
+      <Link to={`/products/id/${product.id}`}>
         Volver
       </Link>
       </div>

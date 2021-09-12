@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core';
 import ProductCreation from './StoreCreation';
 import ModifyProduct from './ModifyProduct';
 import StoreCreation from './StoreCreation';
+import Reviews from './Reviews';
 
 const MyStore = () => {
     return (
@@ -20,7 +21,9 @@ const MyStore = () => {
             <h3>Crear producto</h3>
             <ProductCreation />
             <h3>Modificar producto</h3>
-            
+            <div>
+                <Reviews />
+            </div>
 
         </div>
     )

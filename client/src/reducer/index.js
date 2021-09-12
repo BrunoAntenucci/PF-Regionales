@@ -1,4 +1,3 @@
-import { getWishListLocalStorage, setWishListLocalStorage } from '../utils/localStorage';
 
 const initialState = {
     products : [],
@@ -13,7 +12,14 @@ const initialState = {
     guest: {},
     wishlist: {},
     cart: {},
-    reviews: false
+    review: {
+        sucess: false,
+        loading: true
+    },    
+    myStore: {
+        reviews: [],
+        loading: true,
+    }
 }
 
 function rootReducer(state = initialState, action) {
@@ -111,12 +117,22 @@ function rootReducer(state = initialState, action) {
                  ...state,
                     mercData: obj
             }
-        case "ALL_REV": {
-            return {
-                ...state,
-                reviews: action.payload,
+        case "CREATE_REVIEW":
+            return{
+                ...state, 
+                review: {
+                    sucess: true,
+                    loading: false
+                }
             }
-        }
+        case "GET_STORE":
+            return{
+                ...state, 
+                myStore: {
+                    reviews: action.payload,
+                    loading: false,
+                }
+            }
         default: return state;
         }
 }

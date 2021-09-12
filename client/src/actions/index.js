@@ -411,13 +411,49 @@ export function deleteFavStorage(id){
     }
 }
 //------REVIEWS------
-export async function getReviews(){
-    const response = await axios.get('http://localhost:3001/reviews');
-    return { type: GET_VISIBLES_FEEDBACKS, payload: response.data };
+export const createReview = (storeId, review) => {
+    console.log("entra con: ", storeId, review)
+    return function (dispatch){
+        return axios({
+            method: "post",
+            data: {
+                // storeId: id,
+                first_name: review.first_name,
+                user: review.user,
+                reputation: review.reputation,
+                comment: review.comment
+            },
+            withCredentials: true, 
+            url: `/store/${storeId}/reviews`
+        })
+        .then((res)=> {
+            console.log("[ACTION]RES reviews: ", res.data)
+            dispatch({
+                type: "CREATE_REVIEW",
+                payload: res.data
+            })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
 }
-export function allowRev(flag) {
-    return {type: ALL_REV, payload: flag}
-  }
+export function getStore(id){
+    return function (dispatch){
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: `/store/${id}`
+        })
+        .then((res)=> {
+            console.log("get store", res.data)
+            dispatch({
+                type: "GET_STORE",
+                payload: res.data
+            })
+        })
+    }
+}
 //   export const createProductReview = (productId, review) => async (
 //     dispatch,
 //     getState
