@@ -281,7 +281,7 @@ function ProductDetail(props) {
                                    modificar producto
                                    </Link>
                                         </Typography>
-                                        {/*le puse la llave mía porque no me mostraba la del icon*/}
+                                        {/*le puse la llave mía porque no me mostraba la de material UI*/}
                                     <img src={iconChange?iconChange:BuildOutlinedIcon}
                                      className={classes.cart}></img>
                                     </div>
