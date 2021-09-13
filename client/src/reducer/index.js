@@ -10,7 +10,7 @@ const initialState = {
     mercData:{},
     // user: false,
     guest: {},
-    wishlist: {},
+    wishlist: [],
     cart: {},
     review: {
         sucess: false,
@@ -78,29 +78,29 @@ function rootReducer(state = initialState, action) {
                 wishlist: action.payload
             }
         // case "ADD_FAV":
-        //     const addProd = state.wishlist.find((e)=>
-        //          e.product._id === action.payload)
+        //     const addProd = state.products.filter((e)=>
+        //          e.product.id === action.payload)
         //     return{
         //         ...state, 
-        //         wishlist: state.wishlist.concat(addProd)
+        //         wishlist: ([...state.wishlist, addProd])
         //     }          
         // case "ADD_FAV":
         //     const findProd = state.products.find(
         //         (e) => e.product._id === action.payload);
         //     const addFav = findProd && state.wishlist.concat(findProd);
-        //     // findProd && setWishListLocalStorage(addFav)
         //     return {
         //         ...state, 
         //         wishlist: addFav
         //     }
-        case "DELETE_FAV":
-            const deleteFav = state.products.filter(
-                (e) => e.product._id !== action.payload);
-                // setWishListLocalStorage(deleteFav)
-            return {
-                ...state, 
-                wishlist: deleteFav
-            }
+      
+        // case "DELETE_FAV":
+        //     const deleteFav = state.products.filter(
+        //         (e) => e.product._id !== action.payload);
+        //         // setWishListLocalStorage(deleteFav)
+        //     return {
+        //         ...state, 
+        //         wishlist: deleteFav
+        //     }
         case "GET_CART_BY_USER":
             return {
                 ...state,
@@ -138,17 +138,3 @@ function rootReducer(state = initialState, action) {
 }
 
 export default rootReducer;
-// export const productReviewCreateReducer = (state = {}, action) => {
-//     switch (action.type) {
-//       case PRODUCT_CREATE_REVIEW_REQUEST:
-//         return { loading: true }
-//       case PRODUCT_CREATE_REVIEW_SUCCESS:
-//         return { loading: false, success: true }
-//       case PRODUCT_CREATE_REVIEW_FAIL:
-//         return { loading: false, error: action.payload }
-//       case PRODUCT_CREATE_REVIEW_RESET:
-//         return {}
-//       default:
-//         return state
-//     }
-//   }

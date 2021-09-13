@@ -330,7 +330,7 @@ export  function postOrder (data){
 }
 //----------WISHLIST----------
 export function addFav(id) {
-    console.log("ENTRA CON: ", id)
+    // console.log("ENTRA CON: ", id)
     return function(dispatch) {
         return axios({
             method: "post",
@@ -341,7 +341,7 @@ export function addFav(id) {
             url: "/favourites"
           })
           .then((res) => {
-              console.log("ENTRO AL ACTION", res.data)
+              console.log("ENTRO AL ACTION", res.data._id)
             dispatch({
                 type: "ADD_FAV",
                 payload: res.data
@@ -353,14 +353,14 @@ export function addFav(id) {
     }
 }
 
-export function addFavStorage (id){
-    return async (dispatch) => {
-        return dispatch({
-            type:"ADD_FAV_STORE", 
-            payload: id
-        })
-    }
-}
+// export function addFavStorage (id){
+//     return async (dispatch) => {
+//         return dispatch({
+//             type:"ADD_FAV_STORE", 
+//             payload: id
+//         })
+//     }
+// }
 
 
 export function getFav() {
@@ -402,14 +402,14 @@ export function deleteFav(id) {
     }
 }
 
-export function deleteFavStorage(id){
-    return async (dispatch) => {
-        return dispatch({
-            type: "DELETE_FAV_STORE",
-            payload: id
-        })
-    }
-}
+// export function deleteFavStorage(id){
+//     return async (dispatch) => {
+//         return dispatch({
+//             type: "DELETE_FAV_STORE",
+//             payload: id
+//         })
+//     }
+// }
 //------REVIEWS------
 export const createReview = (storeId, review) => {
     console.log("entra con: ", storeId, review)
@@ -438,7 +438,7 @@ export const createReview = (storeId, review) => {
         })
     }
 }
-export function getStore(id){
+export function getStoreReview(id){
     return function (dispatch){
         return axios({
             method: "get",
@@ -454,38 +454,3 @@ export function getStore(id){
         })
     }
 }
-//   export const createProductReview = (productId, review) => async (
-//     dispatch,
-//     getState
-//   ) => {
-//     try {
-//       dispatch({
-//         type: PRODUCT_CREATE_REVIEW_REQUEST,
-//       })
-  
-//       const {
-//         userLogin: { userInfo },
-//       } = getState()
-  
-//       const config = {
-//         headers: {
-//           'Content-Type': 'application/json',
-//           Authorization: `Bearer ${userInfo.token}`,
-//         },
-//       }
-  
-//       await axios.post(`/api/products/${productId}/reviews`, review, config)
-  
-//       dispatch({
-//         type: PRODUCT_CREATE_REVIEW_SUCCESS,
-//       })
-//     } catch (error) {
-//       dispatch({
-//         type: PRODUCT_CREATE_REVIEW_FAIL,
-//         payload:
-//           error.response && error.response.data.message
-//             ? error.response.data.message
-//             : error.message,
-//       })
-//     }
-//   }
