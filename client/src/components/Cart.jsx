@@ -2,7 +2,7 @@ import { Button, makeStyles, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { addProductToCart, getCartByUser, postOrder, removeProductFromCart } from '../actions';
+import { addProductToCart, getCartByUser, postOrder, removeProductFromCart, removeItemFromCart } from '../actions';
 import Loading from './Loading'
 import { useMercadopago } from "react-sdk-mercadopago";
 import axios from 'axios';
@@ -154,6 +154,17 @@ const Cart = () => {
         await dispatch(removeProductFromCart(id, parseInt(value)));
         await dispatch(getCartByUser())
     }
+    const handleRemoveItemClick = async(id, value) => {
+        setLoading({
+          boolean:true,
+          id
+        })
+        console.log(id,value);
+        await dispatch(removeItemFromCart(id, parseInt(value)));
+        await dispatch(getCartByUser())
+        myCart.items = myCart.items.filter(e => e.product._id !== id)
+    }
+
     const handlerUserOrder =()=>{
         if(infoUser?.ship_info?.length>0){
             setUser({
@@ -236,7 +247,8 @@ console.log("info user", infoUser)
                          ${item.subTotal}</Typography>
                             </div>
                             <div>
-                       <Button variant="contained" color="secondary" >Eliminar producto</Button>
+                       <Button variant="contained" color="secondary" 
+                       onClick = {() => handleRemoveItemClick(item?.product?._id, item?.product?.price)} >Eliminar producto</Button>
                             </div>
                            
                         </div>
