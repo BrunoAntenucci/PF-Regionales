@@ -39,6 +39,10 @@ const userSchema = new Schema({
     order: [{
         type: Schema.ObjectId,
         ref: "Order"
+    }],
+    petitions: [{
+        type: Schema.ObjectId,
+        ref: "Petition"
     }]
 }, { timestamps: true, versionKey: false })
 

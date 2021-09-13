@@ -18,11 +18,11 @@ router.get("/", (req, res, next) => {
 router.post("/", (req, res, next) => {
     // console.log(req)
     passport.authenticate("local", (err, user, info) => {
-        if(err) throw err;
-        if(!user) res.send("No user exist");
+        if(err) return console.log(`Error signin: ${err}`);
+        if(!user) return res.send("No user exist");
         else {
             req.logIn(user, (err) => {
-                if(err) throw err;
+                if(err) return console.log(`Error signin: ${err}`);
                 // res.send("Logeado")
                 console.log("Logueado: ", req.user)
             }) 
@@ -30,7 +30,7 @@ router.post("/", (req, res, next) => {
         const token = jwt.sign({id: user._id}, config.SECRET,{
         expiresIn: 86400 //24hs
         })
-        res.json({token})
+        return res.json({token})
       
     })(req, res, next)
 

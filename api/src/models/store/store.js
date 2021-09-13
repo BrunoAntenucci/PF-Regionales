@@ -45,15 +45,19 @@ const storeSchema = new Schema({
     },
     reputation: {
         type: Number,
-        required: true,
+        required: false, //Estaba en true
         default: 0
     }, 
     reviews: [reviewSchema],
     numReviews: {
         type: Number,
-        required: true,
+        required: false, //Estaba en true
         default: 0,
-      },
+    },
+    owner: {
+        type: Schema.ObjectId,
+        ref: "User"
+    }
 }, { timestamps: true} )
 
 const Store = mongoose.model("Store", storeSchema)
