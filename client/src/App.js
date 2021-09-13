@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import './App.css';
-import Home from './components/Home';
+//import Home from './components/Home';
 import ProductCreation from "./components/ProductCreation";
 import SignInForm from './components/SignInForm';
 import SignUpForm from './components/SignUpForm'
@@ -13,13 +13,16 @@ import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart"
 import StoreCreation from './components/StoreCreation';
 import { createTheme , ThemeProvider} from '@material-ui/core';
-import Header from "./components/Header";
-import { useDispatch } from "react-redux";
-import { guestMati } from "./actions";
-import { userCheck } from "./actions";
+// import Header from "./components/Header";
+// import { useDispatch } from "react-redux";
+// import { guestMati } from "./actions";
+// import { userCheck } from "./actions";
 import ModifyProduct from "./components/ModifyProduct";
+import CategoryCreation from "./components/CategoryCreation";
 import History from "./components/History";
 import MyStore from "./components/MyStore";
+import Stores from "./components/Stores";
+import MyOrders from "./components/MyOrders";
 
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
@@ -82,6 +85,7 @@ function App() {
         <Route exact path="/signup" component={SignUpForm} />
         <Route exact path = "/products" component = {Products} />
         <Route exact path = "/storecreation" component = {StoreCreation} />
+        <Route exact path = "/categorycreation" component = {CategoryCreation} />
         <Route exact path = "/modifyProduct/:id" component = {ModifyProduct} />
         <Route exact path = "/history" component = {History} />
         <Route exact path="/favourites" component={Favourites} />
@@ -89,6 +93,8 @@ function App() {
         <Route path="/detail/:id" component={ProductDetail} /> 
         <Route exact path = "/cart" component = {Cart} />
         <Route exact path = "/store" component = {MyStore} />
+        <Route exact path = "/stores" component = {Stores} />
+        <Route exact path = "/orders" component = {MyOrders} />
        
       </Switch>
       </ThemeProvider>

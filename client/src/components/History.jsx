@@ -40,8 +40,9 @@ return(<>
        últimos {historyProducts.length} productos 
                 </Typography>
        
-        {historyProducts.map((p )=>{
-            return(<Card                    
+        {historyProducts.map((p,i )=>{
+            return(<Card  
+                key={i}                  
                 name= {p?.name}
                 price={p?.price}
                 category={p?.category.map(e => {
@@ -52,9 +53,9 @@ return(<>
                 id={p?.id}
                 
                 />
-   )
+            )
            
-        })})
+        })}
         </>
         : <h4>no hay historial en tu vida</h4>
     }

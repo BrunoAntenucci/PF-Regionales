@@ -20,11 +20,12 @@ const useStyles = makeStyles((theme) => ({
   
 
   root: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    height:"40px",
-    width: 500,
+    // padding: '2px 4px',
+    // display: 'flex',
+    // alignItems: 'center',
+    // height:"40px",
+    width: "500px",
+    zIndex:"100"
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -64,7 +65,7 @@ function Navbar() {
 
   // --------------------AUTOCOMPLETE---------------------------------
 
-  const [prod, setProd] = useState("")
+  const [prod, setProd] = useState([])
   useEffect(async() => {
     const response = await axios.get("/product")
     console.log("response", response)
@@ -92,22 +93,22 @@ function Navbar() {
       // setName('');
       // let inputId = document.getElementById("dataInput");
       // inputId.value = ""; 
-      }
-      console.log(e, "hola")
+      } 
+      console.log(e, "holay45y45yh")
   
   }
 
 
     const classes = useStyles();
     return (
-        <Paper component="form" className={classes.root}>
+        <div component="form" className={classes.root}>
          
-          <div style={{ width: 500 }}>
+          <div className={classes.root}>
             <ReactSearchAutocomplete
              id="dataInput"
              className={classes.input}
              showIcon={true}
-             maxResults={"5"}
+             maxResults={5}
             items={prod}
             fuseOptions={{ keys: ["name", "description"] }}
             resultStringKeyName="name"
@@ -117,12 +118,12 @@ function Navbar() {
             onSelect={handleOnSelect}
             // size={"small"}
             style={{ width: 300 }}
-            placeholder={"Search products..."}
+            placeholder={"Buscar..."}
             />               
           </div>
            
            
-      </Paper>
+      </div>
       
     )
 }

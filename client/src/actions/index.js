@@ -44,6 +44,19 @@ export function getCategories() {
     }
 }
 
+export function postCategory(payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.post('/category/create', payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
 export function postProducts(payload){
     return async function (dispatch){
         try{
@@ -82,6 +95,38 @@ export function postStore(payload){
     }
     
 }
+
+export function getStore(){
+    return async function (dispatch) {
+        try {
+            const stores = await axios.get('/store');
+            return dispatch ({
+                type: 'GET_STORES',
+                payload: stores.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+}
+
+export function getOrderDetail() {
+    return function(dispatch) {
+      return axios({
+              method: "GET",
+              withCredentials: true,
+              url: "/order/currentUser"
+            })
+            .then((res) => {
+              console.log("[ACTION]RES GetOrder: ", res.data)
+              dispatch({
+                  type: "GET_ORDER_DETAIL",
+                  payload: res.data
+              })
+            })
+    }
+  }
 
 export function getProductDetail(id) {
     return async function(dispatch) {
@@ -264,6 +309,30 @@ export function removeProductFromCart(id, value) {
     }
 }
 
+export function removeItemFromCart(id, value) {
+    return function(dispatch) {
+        return axios({
+            method: "delete",
+            data: {
+                idProduct: id,
+                valueProduct: value,
+            },
+            withCredentials: true,
+            url: "/cart/removeItem"
+          })
+          .then((res) => {
+            console.log("REMOVE ITEM: ", res.data)
+            dispatch({
+                type: "REMOVE_ITEM_FROM_CART",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
 export function getCartByUser() {
     return function(dispatch) {
         return axios({
@@ -353,16 +422,6 @@ export function addFav(id) {
     }
 }
 
-// export function addFavStorage (id){
-//     return async (dispatch) => {
-//         return dispatch({
-//             type:"ADD_FAV_STORE", 
-//             payload: id
-//         })
-//     }
-// }
-
-
 export function getFav() {
     return function(dispatch) {
         return axios({
@@ -402,14 +461,7 @@ export function deleteFav(id) {
     }
 }
 
-// export function deleteFavStorage(id){
-//     return async (dispatch) => {
-//         return dispatch({
-//             type: "DELETE_FAV_STORE",
-//             payload: id
-//         })
-//     }
-// }
+
 //------REVIEWS------
 export const createReview = (storeId, review) => {
     console.log("entra con: ", storeId, review)
@@ -417,7 +469,7 @@ export const createReview = (storeId, review) => {
         return axios({
             method: "post",
             data: {
-                // storeId: id,
+                // storeId: review.id,
                 first_name: review.first_name,
                 user: review.user,
                 reputation: review.reputation,
@@ -438,19 +490,20 @@ export const createReview = (storeId, review) => {
         })
     }
 }
-export function getStoreReview(id){
-    return function (dispatch){
-        return axios({
-            method: "get",
-            withCredentials: true,
-            url: `/store/${id}`
-        })
-        .then((res)=> {
-            console.log("get store", res.data)
-            dispatch({
-                type: "GET_STORE",
-                payload: res.data
-            })
-        })
-    }
-}
+// export function getStoreReview(id){
+//     return function (dispatch){
+//         return axios({
+//             method: "get",
+//             withCredentials: true,
+//             // url: `/store/${id}`
+//             url: "/store"
+//         })
+//         .then((res)=> {
+//             //console.log("get store", res.data)
+//             dispatch({
+//                 type: "GET_STORE",
+//                 payload: res.data
+//             })
+//         })
+//     }
+// }

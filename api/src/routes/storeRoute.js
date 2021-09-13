@@ -1,10 +1,11 @@
 const { Router } = require('express');
 const router = Router();
 const Store = require('../models/store/store.js');
+const verifyToken  = require ("../middlewares/authJwt");
+const isAdmin = require ("../middlewares/authJwt");
 const User = require("../models/user/user");
 
-
-router.post("/", async (req, res) => {
+router.post("/",[verifyToken, isAdmin], async (req, res) => {
     const {name, description, city, products, address, reputation} = req.body; 
     console.log(req.body)
     if (!name || !description || !city  || !products || !address || !reputation) {
@@ -48,7 +49,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id',[verifyToken, isAdmin], async (req, res) => {
     try{
         const store = await Store.findByIdAndUpdate(req.params.id, req.body, { new: true })
         if(!store){
@@ -60,7 +61,7 @@ router.patch('/:id', async (req, res) => {
     }
 }) 
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',[verifyToken, isAdmin], async (req, res) => {
     try{
         const store = await Store.findByIdAndDelete(req.params.id)
         if(!store){
@@ -71,7 +72,7 @@ router.delete('/:id', async (req, res) => {
         res.status(500).send(error)
     }
 }) 
-router.post('/:id/reviews', async (req, res) => {
+router.post('/:id', async (req, res) => {
     const userSessionID = req?.session?.passport?.user
     const { reputation, comment } = req.body;
     const store = await Store.findById(req.params.id)

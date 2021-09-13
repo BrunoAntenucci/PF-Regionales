@@ -9,10 +9,14 @@ import Grid from '@material-ui/core/Grid';
 import market from '../img/market.png'
 import { Button, Typography } from '@material-ui/core';
 import cartEmpty from '../img/cart-empty.png'
+import iconChange from '../img/change-icon.png'
+import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
 import Reviews from './Reviews';
 import Fav from './Fav';
 
 
+//--------IMPORT ACTIONS-----------//
+import { addProductToCart, removeProductFromCart } from '../actions/index';
 const useStyles = makeStyles((theme) => ({
     root: {
         boxShadow:" 10px 5px 5px #0002",
@@ -144,6 +148,7 @@ function ProductDetail(props) {
         }
         console.log(JSON.parse(localStorage.getItem('history')))
     }
+    console.log(detail.product)
     //---------------LOCAL STORAGE--------------------
     // useEffect(() => {
     //     const localStorageContent = localStorage.getItem('history');
@@ -186,9 +191,24 @@ function ProductDetail(props) {
                  variant="contained" color="primary">
                    <Link to = '/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
                     </Button>
-                        </div>  
-                        
-                        <div className={classes.contentRight}>     
+                   
+                         </div>     
+                         <div className={classes.contentRight}>     
+                         <div className={classes.cardDiv}
+                                        >
+                                <Typography
+                                    className={classes.cardTypo}
+                                    variant="body1" color="primary" component="p"                                  
+                                    >
+                                        <Link to={"/modifyProduct/"+p._id}
+                                        style={{textDecoration:"none",color:"inherit"}}>
+                                   modificar producto
+                                   </Link>
+                                        </Typography>
+                                        {/*le puse la llave mía porque no me mostraba la de material UI*/}
+                                    <img src={iconChange?iconChange:BuildOutlinedIcon}
+                                     className={classes.cart}></img>
+                                    </div>
                              <div className={classes.info}>  
                             <Grid container spacing={2} direction="column"
                             justifyContent="flex-start"

@@ -9,16 +9,19 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const nodemailerSendgrid = require('nodemailer-sendgrid');
 const Cart = require("../models/cart/cart");
+const verifyToken  = require ("../middlewares/authJwt");
+const isSuperAdmin = require ("../middlewares/authJwt");
+
 
 const router = Router();
 
-router.get("/", (req, res, next) => {
+router.get("/",[verifyToken, isSuperAdmin], (req, res, next) => {
     User.find({}, (err, users) => {
         res.status(200).send(users)
     })
 });
 
-router.get("/all", (req, res, next) => {
+router.get("/all",[verifyToken, isSuperAdmin], (req, res, next) => {
     User.find({}, (err, users) => {
         PaymentInfo.populate(users, { path: "payment_info" }, (err, users) => {
             ShipInfo.populate(users, { path: "ship_info" }, (err, users) => {
@@ -30,13 +33,14 @@ router.get("/all", (req, res, next) => {
     })
 })
 
+
 router.get("/guest", (req, res, next) => {
     Guest.find({}, (err, guests) => {
         res.status(200).send(guests)
     })
 })
 
-router.delete("/:email", (req, res, next) => {
+router.delete("/:email",[verifyToken, isSuperAdmin], (req, res, next) => {
     const { email } = req.params;
     User.findOneAndDelete(
         {email: email}
