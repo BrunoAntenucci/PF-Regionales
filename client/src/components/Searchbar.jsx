@@ -93,8 +93,8 @@ function Navbar() {
       // setName('');
       // let inputId = document.getElementById("dataInput");
       // inputId.value = ""; 
-      }
-      console.log(e, "hola")
+      } 
+      console.log(e, "holay45y45yh")
   
   }
 

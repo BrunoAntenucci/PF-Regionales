@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getProducts, postStore } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 

@@ -128,13 +128,15 @@ export default function ModifyProduct(props){
 
     }, [])
 
+    const detail = useSelector((state) => state.prodDetail);
+
     const categories = useSelector((state) => state.categories)
 
     //useEffect(() => {
     //  dispatch(getProductDetail(props.match.params.id));
     //},[dispatch, props.match.params.id]);
 
-    const detail = useSelector((state) => state.prodDetail);
+    //const detail = useSelector((state) => state.prodDetail);
 
     console.log(detail?.product, 'det')
 
