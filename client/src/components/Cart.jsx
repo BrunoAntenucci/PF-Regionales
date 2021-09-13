@@ -148,8 +148,8 @@ const Cart = () => {
             id
         })
         console.log(id,value);
-        await dispatch(getCartByUser())
         await dispatch(addProductToCart(id, parseInt(value)));
+        await dispatch(getCartByUser())
     }
     const handleDeleteProductClick = async(id, value) => {
         setLoading({
