@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { URL } from '../utils/constants';
 
 export function getProducts() {
     return async function (dispatch) {
@@ -141,6 +142,12 @@ export function getProductDetail(id) {
         }
     }
 }
+export function getFilterProducts (payload) {
+    return {
+        type: 'FILTER_PRODUCTS',
+        payload      
+    } 
+}
 
 export function page(payload) {
     return {
@@ -148,7 +155,7 @@ export function page(payload) {
         payload
     }
 }
-
+//---------LOGING USER ----------------------
 export function signIn(userInfo) {
     return function(dispatch) {
         return axios({
@@ -236,13 +243,6 @@ export function checkUser() {
     }
 }
 
-export function getFilterProducts (payload) {
-    return {
-        type: 'FILTER_PRODUCTS',
-        payload      
-    } 
-}
-
 export function logOut() {
     return function(dispatch) {
         return axios({
@@ -259,7 +259,7 @@ export function logOut() {
           })
     }
 }
-
+//--------CART--------
 export function addProductToCart(id, value) {
     console.log("ENTRA CON: ", id, value)
     return function(dispatch) {
@@ -374,7 +374,6 @@ export function guestCartToUserCart(guestCart) {
           })
     }
 }
-
 export  function postOrder (data){
     return async function  (dispatch){
         console.log("ENTRA CON: ", data)
@@ -398,4 +397,113 @@ export  function postOrder (data){
         }
     }
 }
-// localhost:3001/shipInfo/user/
+//----------WISHLIST----------
+export function addFav(id) {
+    // console.log("ENTRA CON: ", id)
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                idProduct: id
+            },
+            withCredentials: true,
+            url: "/favourites"
+          })
+          .then((res) => {
+              console.log("ENTRO AL ACTION", res.data._id)
+            dispatch({
+                type: "ADD_FAV",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function getFav() {
+    return function(dispatch) {
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "/favourites"
+          })
+          .then((res) => {
+              console.log("GET_FAV: ", res.data)
+            dispatch({
+                type: "GET_FAV",
+                payload: res.data
+            })
+          })
+    }
+}
+export function deleteFav(id) {
+    return function(dispatch) {
+        return axios({
+            method: "delete",
+            data: {
+                idProduct: id
+            },
+            withCredentials: true,
+            url: "/favourites"
+          })
+          .then((res) => {
+            console.log("REMOVE PRODUCT: ", res.data)
+            dispatch({
+                type: "DELETE_FAV",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+
+//------REVIEWS------
+export const createReview = (storeId, review) => {
+    console.log("entra con: ", storeId, review)
+    return function (dispatch){
+        return axios({
+            method: "post",
+            data: {
+                // storeId: review.id,
+                first_name: review.first_name,
+                user: review.user,
+                reputation: review.reputation,
+                comment: review.comment
+            },
+            withCredentials: true, 
+            url: `/store/${storeId}/reviews`
+        })
+        .then((res)=> {
+            console.log("[ACTION]RES reviews: ", res.data)
+            dispatch({
+                type: "CREATE_REVIEW",
+                payload: res.data
+            })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+}
+// export function getStoreReview(id){
+//     return function (dispatch){
+//         return axios({
+//             method: "get",
+//             withCredentials: true,
+//             // url: `/store/${id}`
+//             url: "/store"
+//         })
+//         .then((res)=> {
+//             //console.log("get store", res.data)
+//             dispatch({
+//                 type: "GET_STORE",
+//                 payload: res.data
+//             })
+//         })
+//     }
+// }

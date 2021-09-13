@@ -6,6 +6,7 @@ import { getStore } from '../actions';
 import { Button, Typography } from '@material-ui/core';
 import stores from '../img/stores.svg'
 import { makeStyles } from '@material-ui/styles';
+// import Reviews from './Reviews';
 
 
 const useStyles = makeStyles((e)=>({
@@ -110,6 +111,9 @@ const Stores = () => {
                         </div>
                         
                         </div>
+                        <div>
+                {/* <Reviews/> */}
+            </div>
                         </>
                     )
                 })
@@ -117,6 +121,8 @@ const Stores = () => {
             </div>
           
                  </div>
+                 <h3>Modificar producto</h3>
+            
                  </>
         
     )

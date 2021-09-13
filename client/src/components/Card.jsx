@@ -11,6 +11,8 @@ import cartEmpty from '../img/cart-empty.png'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductToCart } from '../actions';
+import Fav from './Fav'; 
+
 const useStyles = makeStyles((e) =>({
   root: {
     minWidth: 300,
@@ -63,9 +65,11 @@ const useStyles = makeStyles((e) =>({
 }));
 function Card({name,category, price, image, id}) {
     const classes = useStyles();
+    
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
     //console.log(id)
+
     const handleCartClick = (name, price, image, id) => {
       let historial = { 
         items: [],
@@ -107,11 +111,14 @@ function Card({name,category, price, image, id}) {
   }
     
     return (
+      
         <CardMUI 
-         
-          className={classes.root}>
-            <Link to={'/detail/' + id}
+         className={classes.root}>
+          <Fav  />
+
+          <Link to={'/detail/' + id}
            style={{textDecoration:"none"}}>
+            
         <CardActionArea>
           <CardMedia
             className={classes.media}
@@ -143,6 +150,7 @@ function Card({name,category, price, image, id}) {
             </Typography>
           <img alt="img not found" src={cartEmpty} className={classes.cart}></img>
         </div>
+        
         </CardActions>
       </CardMUI>
         
