@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getCategories, getProductDetail } from '../actions/index';
+import { getCategories, getProductDetail, addFav, addFavStorage, deleteFav, deleteFavStorage, checkUser } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -11,6 +11,8 @@ import { Button, Typography } from '@material-ui/core';
 import cartEmpty from '../img/cart-empty.png'
 import iconChange from '../img/change-icon.png'
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
+import Reviews from './Reviews';
+import Fav from './Fav';
 
 
 //--------IMPORT ACTIONS-----------//
@@ -103,17 +105,13 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductDetail(props) {
 
-    const dispatch = useDispatch();
     const classes = useStyles();
     const history = useHistory();
     const detail = useSelector((state) => state.prodDetail);
-    const user = useSelector(state => state.user)
+    console.log(detail, "detallewqsdqwd")
+    
 
-    function handleClick(e) {
-        e.preventDefault();
-        history.push('/products')
-    }
-
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getCategories());
@@ -134,98 +132,22 @@ function ProductDetail(props) {
         dispatch(getProductDetail(props.match.params.id));
     },[dispatch, props.match.params.id]);
 
-    const handleCartClick = async (detail) => {
-        let historial = { 
-            items: [],
-            total: 0
-        };
-        const item = {
-            product: {
-                _id: detail[0]._id,
-                price: parseInt(detail[0].price),
-                name: detail[0].name,
-                description: detail[0].description,
-                image: detail[0].image,
-            },
-            quantity: 1,
-            subTotal: parseInt(detail[0].price)
-        }
-        // const item = {
-        //     _id: detail[0]._id,
-        //     price: parseInt(detail[0].price),
-        //     name: detail[0].name,
-        //     description: detail[0].description,
-        //     image: detail[0].image,
-        //     subTotal: parseInt(detail[0].price),
-        //     quantity: 1
-        // }
-        if (user) {
-            dispatch(addProductToCart(item.product._id, parseInt(item.product.price)))
-        }
-        if(!localStorage.history && !user) {
-            historial.items.push(item)
-            historial.total += item.product.price;
-            return localStorage.setItem('history', JSON.stringify(historial));
-        } 
-        if (localStorage.history && !user) {
+    const handleCartClick = (detail) => {
+        let historial = [];
+
+        if(!localStorage.getItem('history')) {
+            historial.push(detail[0]);
+            localStorage.setItem('history', JSON.stringify(historial));
+        } else {
             historial = JSON.parse(localStorage.getItem('history'));
-            // if(!historial.some(p=> detail.map(pd => pd._id).includes(p._id)) ) {
-            //     historial.push(...detail);
-            // }
-            for (var i=0; i<historial.items.length; i++) {
-                if (historial.items[i].product._id === item.product._id) {
-                    historial.items[i].quantity++;
-                    historial.items[i].subTotal += item.product.price;
-                    historial.total += item.product.price;
-                    return localStorage.setItem('history', JSON.stringify(historial));
-                } 
+
+            if(!historial.some(p=> detail.map(pd => pd._id).includes(p._id)) ) {
+                historial.push(...detail);
             }
-            historial.total += item.product.price;
-            historial.items.push(item)
+    
             localStorage.setItem('history', JSON.stringify(historial));
         }
-    }
-
-    const handleRemoveCart = (detail) => {
-        let historial = { 
-            items: [],
-            total: 0
-        };
-        const item = {
-            product: {
-                _id: detail[0]._id,
-                price: parseInt(detail[0].price),
-                name: detail[0].name,
-                description: detail[0].description,
-                image: detail[0].image,
-            },
-            quantity: 1,
-            subTotal: parseInt(detail[0].price)
-        }
-        if (user) {
-            dispatch(removeProductFromCart(item.product._id, parseInt(item.product.price)))
-        }
-        if(!localStorage.history && !user) {
-            console.log("No hay localStorage ni User. Nada que hacer")
-        } 
-        if (localStorage.history && !user) {
-            console.log("Hay Storage sin User.")
-            historial = JSON.parse(localStorage.getItem('history'));
-            for (var i=0; i<historial.items.length; i++) {
-                if (historial.items[i].product._id === item.product._id) {
-                    historial.items[i].quantity--;
-                    historial.items[i].subTotal -= item.product.price;
-                    historial.total -= item.product.price;
-                    if (historial.items[i].quantity === 0) {
-                        historial.items.splice(i, 1);
-                    }
-                    console.log("Producto eliminado");
-                    i=-1;
-                    return localStorage.setItem('history', JSON.stringify(historial));
-                }
-            }
-            console.log("No existe ese producto en el LocalStorage")
-        }
+        console.log(JSON.parse(localStorage.getItem('history')))
     }
     console.log(detail.product)
     //---------------LOCAL STORAGE--------------------
@@ -248,9 +170,12 @@ function ProductDetail(props) {
   
     // localStorage.setItem('history', JSON.stringify(historial));
     // }, [detail.product])
+    
+    //------------------------------------------------
 
     return (
         <div className={classes.root}>
+            <Fav  />
             {
                 detail.product?.map((p,i) => {
                     return (
@@ -293,6 +218,10 @@ function ProductDetail(props) {
                                     <h3 className={classes.paper +" "+classes.cname }>{p.name}</h3>
                                     <h3 className={classes.paper  +" "+classes.cprice} >${p.price}</h3>
                                     
+                                        <h3  className={classes.paper  +" "+classes.cquantity} >Stock: {p.quantity===0?<h3 style={{color:"red"}}>No hay stock</h3>:p.quantity}</h3>
+                                    
+                                    
+                                    
                                 </Grid>
                             </Grid>
                             </div>
@@ -312,7 +241,7 @@ function ProductDetail(props) {
 
                             </div>
                                     
-                                        <div className={classes.cardDiv}
+                            {p.quantity===0?null:<div className={classes.cardDiv}
                                         onClick={() => handleCartClick(detail.product)}>
                                 <Typography
                                     className={classes.cardTypo}
@@ -321,21 +250,19 @@ function ProductDetail(props) {
                                     añadir al carrito
                                         </Typography>
                                     <img src={cartEmpty} className={classes.cart}></img>
-                                    </div>
-                                    {/* <div className={classes.cardDiv}
-                                        onClick={() => handleRemoveCart(detail.product)}>
-                                <Typography
-                                    className={classes.cardTypo}
-                                    variant="body1" color="primary" component="p"                                  
-                                    >
-                                    Remover del carrito
-                                        </Typography>
-                                    <img src={cartEmpty} className={classes.cart}></img>
-                                    </div>
-                                 */}
+                                    </div>}
+                                {/* {product._id && (
+                                    <Reviews
+                                        id={product._id}
+                                        setUpdateReview={setUpdateReview}
+                                        updateReview={updateReview}
+                                        allReviews={product.reviews}
+                                        userOrder={userOrder}
+                                    />
+                                )} */}
                             
                             </div>
- 
+                                        
 
                         </div>
                     )

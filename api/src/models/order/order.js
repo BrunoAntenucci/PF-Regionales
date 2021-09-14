@@ -15,6 +15,10 @@ const orderSchema = new Schema({
         type: Schema.ObjectId, 
         ref: "ShipInfo"
     },
+    owner: {
+        type: Schema.ObjectId,
+        ref: "User"
+    }
 }, {
     timestamps: true
 })

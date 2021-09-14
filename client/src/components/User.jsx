@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import {  useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
@@ -24,6 +24,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
 
 //import axios from 'axios';
@@ -132,15 +133,15 @@ const User = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user)
 
-    useEffect( () => {
+    useEffect(() => {
         dispatch(checkUser())
     }, [])
 
 
-    function handleCheckGuest(e) {
-      e.preventDefault();
-      dispatch(checkUser())
-    }
+    // function handleCheckGuest(e) {
+    //   e.preventDefault();
+    //   dispatch(checkUser())
+    // }
     function handleLogOut(e) {
       dispatch(logOut())
       window.location.reload(false);
@@ -171,10 +172,13 @@ const User = () => {
             {user ? <>
                 {/* <img src={iconUser}  className={classes.iconuser}/>
                 <Button  size="small"  className={classes.buttons}>
-                    {user.first_name}                   
+                  <Link to='/profile' style={{textDecoration:"none" , color:"white"}}>
+                    {user.first_name}   
+                    </Link>                
                 </Button>
                 <Button  size="small"  className={classes.buttons}>
-                    Favoritos
+                <Link style={{textDecoration:"none" , color:"white"}} to='/favourites' >
+                    Favoritos </Link>
                 </Button>
                 <Button  size="small"  className={classes.buttons} onClick={handleLogOut}>
                     Cerrar Sesión 
@@ -201,7 +205,9 @@ const User = () => {
                     <ListItemIcon>
                       <FavoriteIcon fontSize="small" />
                     </ListItemIcon>
+                    <Link to="/favourites" style={{textDecoration:"none",  color:"inherit"}}>
                     <ListItemText primary="Favoritos" />
+                    </Link>
                   </StyledMenuItem>
                   <StyledMenuItem>
                     <ListItemIcon>
@@ -225,6 +231,14 @@ const User = () => {
                     </ListItemIcon>
                     <Link to="/cart" style={{textDecoration:"none", color:"inherit"}}>
                     <ListItemText primary="Mi carrito" />
+                    </Link>
+                  </StyledMenuItem>
+                  <StyledMenuItem>
+                    <ListItemIcon>
+                      <AssignmentIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Link to="/admin" style={{textDecoration:"none",  color:"inherit"}}>
+                    <ListItemText primary="Admin panel" />
                     </Link>
                   </StyledMenuItem>
                   <StyledMenuItem onClick={handleLogOut}>

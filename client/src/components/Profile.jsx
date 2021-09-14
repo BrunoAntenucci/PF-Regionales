@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { checkUser } from '../actions';
 import { Link } from 'react-router-dom';
 import MyStore from './MyStore';
+import NavBar from './Navbar';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -26,6 +27,7 @@ export default function Profile () {
 
     return (
         <div>
+            <NavBar />
             <h2>Mis datos</h2>
             {user? (
                 <>
