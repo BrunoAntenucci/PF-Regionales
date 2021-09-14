@@ -84,7 +84,7 @@ export default function ProductCreation(){
     function handleClose(e){
         setInput({
             ...input,
-            category: input.category.filter(cat => cat !== e)
+            products: input.products.filter(pro => pro !== e)
         })
     }
 
