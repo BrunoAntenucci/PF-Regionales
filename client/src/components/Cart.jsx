@@ -76,6 +76,12 @@ const useStyles = makeStyles((e)=>({
     info:{
         color:e.palette.secondary.dark,
         fontSize:"1.3em"
+    },
+    total:{
+      background:"#8881 ",
+      textAlign:"center",
+      margin:"10px",
+      padding:"5px"
     }
 
 }))
@@ -142,8 +148,8 @@ const Cart = () => {
             id
         })
         console.log(id,value);
-        await dispatch(getCartByUser())
         await dispatch(addProductToCart(id, parseInt(value)));
+        await dispatch(getCartByUser())
     }
     const handleDeleteProductClick = async(id, value) => {
         setLoading({
@@ -211,9 +217,9 @@ const Cart = () => {
             }
         })
     }
-
-console.log(user)
-console.log("info user", infoUser)
+console.log(myCart)
+// console.log(user)
+// console.log("info user", infoUser)
     return (
         <div className={classes.root}>
        
@@ -263,7 +269,7 @@ console.log("info user", infoUser)
         {myCart.items?
       <>
      <div>
-      
+    
               <form onSubmit={handlerOnSubmit}>
      <Typography variant="h6" gutterBottom>
        Shipping address
@@ -313,18 +319,20 @@ console.log("info user", infoUser)
            required
            id="address_number"
            name="address_number"
-           label="número de dirección"
+           label="Nº de dirección"
            onChange={handlerOnChange}
          />
        </Grid>
-      
+{/*       
        <Grid item xs={12}>
          <FormControlLabel
            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
            label="dejo esto por las dudas, para un futuro por ahí sirve"
          />
-       </Grid>
+       </Grid> */}
      </Grid>
+     <Typography variant="h5" color="primary" className={classes.total} gutterBottom>
+      total: { myCart.total}</Typography>
      <Button type="submit" color="secondary">Pagar</Button>
      </form>
                  
@@ -344,7 +352,7 @@ console.log("info user", infoUser)
                      variant="contained" color="primary">
                        <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
                         </Button>
-
+  
         }   
           
                
