@@ -42,10 +42,10 @@ module.exports = function(passport) {
             passwordField: "password"
         }, (email, password, done) => {
             User.findOne({email: email}, (err, user) => {
-                if(err) throw err;
+                if(err) return console.log(`Error signin: ${err}`);
                 if(!user) return done(null, false);
                 bcrypt.compare(password, user.password, (err, result) => {
-                    if(err) console.log("Contraseña incorrecta");
+                    if(err) return console.log(`Error signin: ${err}`);
                     if(result) {
                         return done(null, user)
                     } else {

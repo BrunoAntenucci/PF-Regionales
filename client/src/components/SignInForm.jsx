@@ -1,16 +1,11 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-// import GoogleLogin from 'react-google-login';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import LinkMUI from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -75,7 +70,7 @@ React.useEffect(()=>{
         email : '',
         password:''
     })
-    const [errors, setErrors] = useState({});
+    // const [errors, setErrors] = useState({});
 
     const handleChangeEmail = (e) => {
         setInput({...input, email:e.target.value})

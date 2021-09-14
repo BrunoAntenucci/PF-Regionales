@@ -6,6 +6,7 @@ import ProductCreation from "./components/ProductCreation";
 import SignInForm from './components/SignInForm';
 import SignUpForm from './components/SignUpForm'
 import Profile from './components/Profile';
+import Favourites from "./components/Favourites";
 import './App.css';
 import Products from "./components/Products";
 import ProductDetail from "./components/ProductDetail";
@@ -23,7 +24,8 @@ import MyStore from "./components/MyStore";
 import Stores from "./components/Stores";
 import MyOrders from "./components/MyOrders";
 
-
+import ReactNotification from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css'
 const theme = createTheme({
     palette: {
       primary: {
@@ -71,6 +73,7 @@ function App() {
     
     <BrowserRouter>
     <ThemeProvider theme={theme}>
+    <ReactNotification />
     {/* <Header /> */}
       <Switch>
         {/* <Route exact path="/" >
@@ -85,6 +88,7 @@ function App() {
         <Route exact path = "/categorycreation" component = {CategoryCreation} />
         <Route exact path = "/modifyProduct/:id" component = {ModifyProduct} />
         <Route exact path = "/history" component = {History} />
+        <Route exact path="/favourites" component={Favourites} />
         <Route exact path = "/profile" component = {Profile} />
         <Route path="/detail/:id" component={ProductDetail} /> 
         <Route exact path = "/cart" component = {Cart} />

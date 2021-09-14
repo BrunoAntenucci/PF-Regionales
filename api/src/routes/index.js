@@ -13,10 +13,10 @@ const paginadoProductRouter = require("./PaginadoProducts")
 const cartOld = require("./cart");
 const cart = require("./cart2");
 const order = require("./order")
-const passport = require("passport");
-
 const auth = require("./auth")
-
+const favourites = require("./favourites");
+//const reviews = require("./reviews");
+const petition = require("./petition");
 
 const router = Router();
 
@@ -35,6 +35,9 @@ router.use("/google", googleAuthenticate)
 router.use("/cartOld", cartOld);
 router.use("/order", order)
 router.use("/auth", auth)
+router.use("/favourites", favourites);
+// router.use("/reviews", reviews);
+router.use("/petition", petition)
 
 router.get("/", (req, res, next) => {
     res.send(req.user);

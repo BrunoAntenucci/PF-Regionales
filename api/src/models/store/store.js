@@ -1,6 +1,22 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const reviewSchema = mongoose.Schema(
+    {
+      first_name: { type: String, required: true },
+      reputation: { type: Number, required: true },
+      comment: { type: String, required: true },
+      user: {
+       type: Schema.Types.ObjectId,
+       required: true,
+       ref: 'User',
+        },
+     },
+    {
+      timestamps: true,
+    }
+)
+
 const storeSchema = new Schema({
     name: {
         type: String,
@@ -29,10 +45,22 @@ const storeSchema = new Schema({
     },
     reputation: {
         type: Number,
-        required: true
+        required: false, //Estaba en true
+        default: 0
+    }, 
+    reviews: [reviewSchema],
+    numReviews: {
+        type: Number,
+        required: false, //Estaba en true
+        default: 0,
+    },
+    owner: {
+        type: Schema.ObjectId,
+        ref: "User"
     }
 }, { timestamps: true} )
 
 const Store = mongoose.model("Store", storeSchema)
+
 
 module.exports = Store;

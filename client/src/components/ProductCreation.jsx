@@ -45,7 +45,8 @@ background: "linear-gradient(120deg, #ffffff 0%, "+theme.palette.primary.light+"
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
-        bottom: "7px"
+        bottom: "7px",
+        right: "7px"
       },
       selectEmpty: {
         marginTop: theme.spacing(2),
