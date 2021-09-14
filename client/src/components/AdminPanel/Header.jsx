@@ -36,7 +36,7 @@ function Header(props) {
               </IconButton>
             </Grid>
             <Grid item xs />
-            <Grid item>
+            {/* <Grid item>
               <Link
                 href="/"
                 variant="body2"
@@ -52,7 +52,7 @@ function Header(props) {
               >
                 Go to docs
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
               <Tooltip title="Alerts • No alerts">
                 <IconButton color="inherit">
@@ -79,10 +79,10 @@ function Header(props) {
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                Authentication
+                Admin Panel
               </Typography>
             </Grid>
-            <Grid item>
+            {/* <Grid item>
               <Button
                 sx={{ borderColor: lightColor }}
                 variant="outlined"
@@ -98,18 +98,18 @@ function Header(props) {
                   <HelpIcon />
                 </IconButton>
               </Tooltip>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Toolbar>
       </AppBar>
-      <AppBar component="div" position="static" elevation={0} sx={{ zIndex: 0 }}>
+      {/* <AppBar component="div" position="static" elevation={0} sx={{ zIndex: 0 }}>
         <Tabs value={0} textColor="inherit">
           <Tab label="Users" />
           <Tab label="Sign-in method" />
           <Tab label="Templates" />
           <Tab label="Usage" />
         </Tabs>
-      </AppBar>
+      </AppBar> */}
     </React.Fragment>
   );
 }

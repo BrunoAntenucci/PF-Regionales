@@ -23,26 +23,26 @@ const categories = [
     id: 'Build',
     children: [
       {
-        id: 'Authentication',
+        id: 'Users',
         icon: <PeopleIcon />,
         active: true,
       },
-      { id: 'Database', icon: <DnsRoundedIcon /> },
-      { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
-      { id: 'Hosting', icon: <PublicIcon /> },
-      { id: 'Functions', icon: <SettingsEthernetIcon /> },
-      {
-        id: 'Machine learning',
-        icon: <SettingsInputComponentIcon />,
-      },
+      { id: 'Orders', icon: <DnsRoundedIcon /> },
+      // { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
+      // { id: 'Hosting', icon: <PublicIcon /> },
+      // { id: 'Functions', icon: <SettingsEthernetIcon /> },
+      // {
+      //   id: 'Machine learning',
+      //   icon: <SettingsInputComponentIcon />,
+      // },
     ],
   },
   {
     id: 'Quality',
     children: [
       { id: 'Analytics', icon: <SettingsIcon /> },
-      { id: 'Performance', icon: <TimerIcon /> },
-      { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
+      // { id: 'Performance', icon: <TimerIcon /> },
+      // { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
     ],
   },
 ];
@@ -69,7 +69,7 @@ export default function Navigator(props) {
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-          Paperbase
+          E-market
         </ListItem>
         <ListItem sx={{ ...item, ...itemCategory }}>
           <ListItemIcon>
