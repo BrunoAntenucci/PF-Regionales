@@ -22,9 +22,12 @@ function validate(input){
     if(!input.address){
         errors.address = 'Se requiere una direccion';
     }
-    if(!input.reputation){
-        errors.reputation = 'Se requiere una reputacion';
+    if(!input.img){
+        errors.img = 'Se requiere una imagen';
     }
+    // if(!input.reputation){
+    //     errors.reputation = 'Se requiere una reputacion';
+    // }
     return errors
 }
 
@@ -39,7 +42,8 @@ export default function ProductCreation(){
         city: '',
         products: [],
         address: '',
-        reputation: 0,
+        img: ''
+        //reputation: 0,
     });
 
 
@@ -90,7 +94,7 @@ export default function ProductCreation(){
 
     function handleSubmit(e){
         console.log(e)
-        if(errors.name || errors.description || errors.city || errors.reputation) {
+        if(errors.name || errors.description || errors.city) {
             e.preventDefault();
             alert('Form incomplete');
         }else{
@@ -103,7 +107,8 @@ export default function ProductCreation(){
                 city: '',
                 products: [],
                 address: '',
-                reputation: 0,
+                img:''
+                //reputation: 0,
             })
         }
     }
@@ -177,15 +182,15 @@ export default function ProductCreation(){
                     </div>
                     
                     <div>
-                        <label>Reputacion</label>
+                        <label>Imagen</label>
                         <input
-                        type='number'
-                        value={input.reputation}
-                        name='reputation'
+                        type='text'
+                        value={input.img}
+                        name='img'
                         onChange={handleChange}
                         />
                         {errors.reputation && (
-                            <p>{errors.reputation}</p>
+                            <p>{errors.img}</p>
                         )}
 
                     </div>

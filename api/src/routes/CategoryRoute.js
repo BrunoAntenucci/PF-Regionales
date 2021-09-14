@@ -4,9 +4,11 @@ const Category = require('../models/Category')
 const Product = require('../models/Product')
 
 router.post("/create", async (req, res) => {
-    const {name} = req.body;
-    let category = await Category.find() 
-    if(category) return res.status(404).json({error:'Its already exist. Please try again!'})
+    const { name } = req.body;
+    let category = await Category.find({name: name }) 
+    console.log(name)
+    console.log(category)
+    if(category[0]) return res.status(404).json({error:'Its already exist. Please try again!'})
     const newCategory = new Category({name});
     category = await newCategory.save();
     res.json(category);       
