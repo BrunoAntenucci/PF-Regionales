@@ -3,8 +3,8 @@ const User = require("../models/user/user");
 const Petition = require("../models/petition/Petition");
 const Product = require("../models/Product");
 const Store = require("../models/store/store");
+const Category = require("../models/Category")
 const router = Router();
-
 
 router.get("/all", async (req, res, next) => {
     const petitions = await Petition.find({})
@@ -42,7 +42,7 @@ router.post("/petitionAccepted", async (req, res, next) => {
     petition.status = "Aceptada"
     await petition.save();
     //---Crear nuevo producto o tienda segun corresponda---//
-    if (petition.dataProduct.name) {
+    if (petition.about === "PRODUCT") {
         console.log(`DATAPRODUCT ${petition.dataProduct}`)
         const newProduct = await new Product({})
         newProduct.user = petition.user;
@@ -59,7 +59,7 @@ router.post("/petitionAccepted", async (req, res, next) => {
                 next(err)
             })
     }
-    if (petition.dataStore.name) {
+    if (petition.about === "STORE") {
         console.log(`DATASTORE ${petition.dataStore}`)
         const newStore = await new Store({})
         newStore.name = petition.dataStore.name;
@@ -75,7 +75,19 @@ router.post("/petitionAccepted", async (req, res, next) => {
                 next(err)
             })
     }
-    return res.status(200).send(`Peticion con id=${petitionId} aceptada!`)
+    if (petition.about === "CATEGORY") {
+        console.log(`DATACATEGORY ${petition.dataCategory}`)
+        const newCategory = new Category({})
+        newCategory.name = petition.dataCategory.name
+        await newCategory.save()
+            .then((result) => {
+                console.log("Nueva categoria creada!")
+            })
+            .catch((err) => {
+                next(err)
+            })
+    }
+    return res.status(200).send(`Peticion de ${petition.about} con id=${petitionId} aceptada!`)
 })
 
 router.post("/petitionDenied", async (req, res, next) => {
@@ -153,6 +165,27 @@ router.post("/newPetition/store", async (req, res, next) => {
         await user.save();
         console.log(`La nueva peticion de Tienda (${newPetition._id}) fue añadida a las peticiones del usuario ${user.email}`)
         return res.status(200).send("Peticion para crear Tienda enviada!")
+    } else {
+        return res.send("Debes loguearte primero para enviar una peticion.")
+    }
+})
+
+router.post("/newPetition/category", async (req, res, next) => {
+    const userSessionID = req?.session?.passport?.user
+    const { dataCategory } = req.body;
+    console.log("CATEGORYNAME", categoryName)
+    if (userSessionID) {
+        const user = await User.findById(userSessionID);
+        const newPetition = new Petition({});
+        newPetition.about = "STORE";
+        newPetition.dataCategory = dataCategory;
+        newPetition.user = userSessionID;
+        user.petitions.push(newPetition._id)
+        await newPetition.save();
+        console.log("Se creó la nueva peticion de Categoria");
+        await user.save();
+        console.log(`La nueva peticion de Categoria (${newPetition._id}) fue añadida a las peticiones del usuario ${user.email}`)
+        return res.status(200).send("Peticion para crear Categoria enviada!")
     } else {
         return res.send("Debes loguearte primero para enviar una peticion.")
     }
