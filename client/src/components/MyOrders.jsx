@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderDetail } from '../actions';
 import { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core';
+import { Typography } from '@material-ui/core/styles/createTypography';
 
+const useStyles = makeStyles(()=>({
+    
+}))
 const MyOrders = () => {
     const user = useSelector(state => state.user);
     const orderDetail = useSelector(state => state.orderDetail);
