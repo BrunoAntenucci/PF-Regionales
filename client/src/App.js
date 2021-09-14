@@ -7,6 +7,7 @@ import SignInForm from './components/SignInForm';
 import SignUpForm from './components/SignUpForm'
 import Profile from './components/Profile';
 import Favourites from "./components/Favourites";
+import Paperbase from "./components/AdminPanel/Paperbase";
 import './App.css';
 import Products from "./components/Products";
 import ProductDetail from "./components/ProductDetail";
@@ -95,6 +96,7 @@ function App() {
         <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
+        <Route exact path = "/admin" component = {Paperbase} />
        
       </Switch>
       </ThemeProvider>
