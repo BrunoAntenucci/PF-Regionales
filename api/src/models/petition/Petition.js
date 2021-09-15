@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const petitionSchema = new Schema({
     about: {
         type: String,
-        enum: ["PRODUCT", "STORE"],
+        enum: ["PRODUCT", "STORE", "CATEGORY"],
         required: true
     },
     dataProduct: {
@@ -46,6 +46,11 @@ const petitionSchema = new Schema({
             type: String
         }
     },
+    dataCategory: {
+        name: {
+            type: String
+        }
+    },
     user: {
         type: Schema.ObjectId,
         ref: "User"
@@ -56,4 +61,5 @@ const petitionSchema = new Schema({
         default: "Creada"
     }
 })
+
 module.exports = mongoose.model("Petition", petitionSchema);

@@ -77,7 +77,10 @@ function Products(props) {
     const [prodPerPage , setProdPerPage] = useState(9)
     const indexOfLastProd = pageN * prodPerPage; 
     const indexOfFirstProd = indexOfLastProd - prodPerPage;  
-    const currentProd = Array.isArray(allProducts) && allProducts.slice(indexOfFirstProd, indexOfLastProd); 
+
+    const currentProd = allProducts && allProducts?.slice(indexOfFirstProd, indexOfLastProd); 
+    //const currentProd = Array.isArray(allProducts) && allProducts.slice(indexOfFirstProd, indexOfLastProd); 
+
 
     const paginate = (pageNumber) => {
         setPageN(pageNumber);
@@ -162,6 +165,7 @@ function Products(props) {
                                                 <Card                    
                                                     name= {p?.name}
                                                     price={p?.price}
+                                                    quantity={p?.quantity}
                                                     category={p?.category?.map((e, k) => {
                                                         const aux = categories.find(i => i._id === e)
                                                         return <p key={k}>{aux?.name}</p>
@@ -180,6 +184,7 @@ function Products(props) {
                     )
                 })
                 : allProducts?.length > 0 ? allProducts.map((p, i) => {
+                    
                     return (
                         
                         <Fragment key={i}>
@@ -204,6 +209,7 @@ function Products(props) {
                                                 <Card                    
                                                     name= {p?.name}
                                                     price={p?.price}
+                                                    quantity={p?.quantity}
                                                     category={p?.category.map((e, k) => {
                                                         const aux = categories.find(i => i._id === e)
                                                         return <p key={k}>{aux?.name}</p>
