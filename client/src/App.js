@@ -23,9 +23,13 @@ import History from "./components/History";
 import MyStore from "./components/MyStore";
 import Stores from "./components/Stores";
 import MyOrders from "./components/MyOrders";
+import Reviews from "./components/Reviews";
+import FakeStore from "./components/FakeStore";
 
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
+
+
 const theme = createTheme({
     palette: {
       primary: {
@@ -95,6 +99,9 @@ function App() {
         <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
+        <Route exact = "/reviews" component = {Reviews} /> 
+        <Route exact path = "/fakeStore" component = {FakeStore} />
+        
        
       </Switch>
       </ThemeProvider>

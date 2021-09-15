@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const reviewSchema = mongoose.Schema(
     {
       first_name: { type: String, required: true },
-      reputation: { type: Number, required: true },
+      rating: { type: Number, required: true },
       comment: { type: String, required: true },
       user: {
        type: Schema.Types.ObjectId,
@@ -45,8 +45,7 @@ const storeSchema = new Schema({
     },
     reputation: {
         type: Number,
-        required: true,
-        default: 0
+        required: true
     }, 
     reviews: [reviewSchema],
     numReviews: {

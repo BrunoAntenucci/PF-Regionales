@@ -91,20 +91,15 @@ function rootReducer(state = initialState, action) {
             }
                  
         case "ADD_FAV":
-            const findProd = state.products.find(
-                (e) => e.product._id === action.payload);
-            const addFav = findProd && state.wishlist.concat(findProd);
             return {
                 ...state, 
-                wishlist: addFav
+                wishlist: state.wishlist.concat(action.payload)
             }
       
         case "DELETE_FAV":
-            const deleteFav = state.products.filter(
-                (e) => e.product._id !== action.payload);
             return {
                 ...state, 
-                wishlist: deleteFav
+                wishlist: state.wishlist.filter((w) => w.id !== action.payload)
             }
 
         case "GET_CART_BY_USER":
@@ -126,7 +121,8 @@ function rootReducer(state = initialState, action) {
         case "CREATE_REVIEW":
             return{
                 ...state,
-                reviews: action.payload
+                // reviews: action.payload
+                reviews: [...state.reviews, action.payload[0]]
             }
                
         default: return state;

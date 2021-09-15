@@ -68,7 +68,7 @@ function Card({name,category, price, image, id}) {
     
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
-    //console.log(id)
+    console.log(id)
 
     const handleCartClick = (name, price, image, id) => {
       let historial = { 
@@ -114,7 +114,7 @@ function Card({name,category, price, image, id}) {
       
         <CardMUI 
          className={classes.root}>
-          <Fav  />
+          <Fav id={id} />
 
           <Link to={'/detail/' + id}
            style={{textDecoration:"none"}}>

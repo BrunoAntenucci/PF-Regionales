@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getCategories, getProductDetail, addFav, addFavStorage, deleteFav, deleteFavStorage, checkUser } from '../actions/index';
+import { getCategories, getProductDetail } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -108,7 +108,7 @@ function ProductDetail(props) {
     const classes = useStyles();
     const history = useHistory();
     const detail = useSelector((state) => state.prodDetail);
-    
+    console.log(props.match.params.id, 'id')
 
     const dispatch = useDispatch();
 
@@ -148,7 +148,7 @@ function ProductDetail(props) {
         }
         console.log(JSON.parse(localStorage.getItem('history')))
     }
-    console.log(detail.product)
+    
     //---------------LOCAL STORAGE--------------------
     // useEffect(() => {
     //     const localStorageContent = localStorage.getItem('history');
@@ -174,7 +174,8 @@ function ProductDetail(props) {
 
     return (
         <div className={classes.root}>
-            <Fav  />
+            {}
+            <Fav id={props.match.params.id} />
             {
                 detail.product?.map((p,i) => {
                     return (

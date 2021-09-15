@@ -9,19 +9,22 @@ import {getFav} from '../actions/index';
 
 const useStyles = makeStyles(theme => ({}))
 ///FALTATÍA AGREGARLE UN LOADING MIENTRAS CARGA
-const Favourites = () => {
+const Favourites = ({id}) => {
   const classes = useStyles()
   const wishlist = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user)
-  const product = useSelector(state => state.prodDetail)
+  // const products = useSelector(state => state.products)
+  const idProd = wishlist.map(el=>{
+    return el.product._id
+  })
+  
+  console.log(idProd, 'id')
 
-  useEffect(  () => {
+  useEffect(() => {
     dispatch(getFav());
   }, [dispatch])
 
-  console.log('wish', wishlist)
-  console.log('user', user)
   return (
   <div>
     <NavBar />
@@ -33,9 +36,9 @@ const Favourites = () => {
           <th>Precio</th>
           <th>Foto</th></tr></thead>
         <tbody>
-          {/* <FavCard /> */}
+          
           {wishlist.length? (<div><tr>
-            <FavCard /></tr></div>) : (<div>
+            <FavCard id={idProd}/></tr></div>) : (<div>
             <p>No tienes favoritos aún</p>
           </div>) 
           }

@@ -8,6 +8,11 @@ import { useEffect } from 'react';
 const MyOrders = () => {
     const user = useSelector(state => state.user);
     const orderDetail = useSelector(state => state.orderDetail);
+    const stores = useSelector(state => state.stores)
+    const storesId = stores.map((el)=> {
+        return el._id
+    })
+    console.log(storesId, 'storeId')
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -37,12 +42,19 @@ const MyOrders = () => {
                             </>
                        )} )}
                        </p>
+                       <p>Tienda {stores.map(store => {
+                           return (
+                               <p>{store._id}</p>
+                           )
+                       })} </p>
+                       <Link to={`/store/${storesId}/review`}>Dejar review</Link>
                        <hr></hr>
                         </>
                     )
                 }
                )
             }
+            
         </div>
                )
 }
