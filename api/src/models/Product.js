@@ -1,4 +1,4 @@
-const {Schema,model} = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const ProductSchema = Schema({
     user: {
@@ -35,7 +35,5 @@ const ProductSchema = Schema({
 }, {
     timestamps: true, versionKey: false
 })
-
-
 
 module.exports = model("Product", ProductSchema);

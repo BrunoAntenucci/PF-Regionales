@@ -108,7 +108,8 @@ function ProductDetail(props) {
     const classes = useStyles();
     const history = useHistory();
     const detail = useSelector((state) => state.prodDetail);
-    console.log(props.match.params.id, 'id')
+    console.log(detail, "detallewqsdqwd")
+    
 
     const dispatch = useDispatch();
 
@@ -218,6 +219,10 @@ function ProductDetail(props) {
                                     <h3 className={classes.paper +" "+classes.cname }>{p.name}</h3>
                                     <h3 className={classes.paper  +" "+classes.cprice} >${p.price}</h3>
                                     
+                                        <h3  className={classes.paper  +" "+classes.cquantity} >Stock: {p.quantity===0?<h3 style={{color:"red"}}>No hay stock</h3>:p.quantity}</h3>
+                                    
+                                    
+                                    
                                 </Grid>
                             </Grid>
                             </div>
@@ -237,7 +242,7 @@ function ProductDetail(props) {
 
                             </div>
                                     
-                                        <div className={classes.cardDiv}
+                            {p.quantity===0?null:<div className={classes.cardDiv}
                                         onClick={() => handleCartClick(detail.product)}>
                                 <Typography
                                     className={classes.cardTypo}
@@ -246,7 +251,7 @@ function ProductDetail(props) {
                                     añadir al carrito
                                         </Typography>
                                     <img src={cartEmpty} className={classes.cart}></img>
-                                    </div>
+                                    </div>}
                                 {/* {product._id && (
                                     <Reviews
                                         id={product._id}

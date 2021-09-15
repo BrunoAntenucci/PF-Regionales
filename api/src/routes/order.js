@@ -1,18 +1,20 @@
 const { Router } = require("express");
 const User = require("../models/user/user");
-const Cart = require("../models/cart/cart");
+const Product = require("../models/Product")
 const Order = require("../models/order/order");
 const ShipInfo = require("../models/user/ship_info");
+const Cart = require("../models/cart/cart");
 const mercadopago = require("mercadopago");
+const nodemailer = require("nodemailer");
 
 mercadopago.configure({
     access_token: "TEST-1891296065742759-090616-d7c769a2419eb510659222a3b9f06105-357533318"
 })
 
 const router = Router();
-
+//---------------VER TODAS LAS ORDENES---------------//
 router.get("/", (req, res, next) => {
-    Order.find({}).populate("cart")
+    Order.find({}).populate("items").populate("ship_info").populate("owner")
         .then((allOrders) => {
             res.status(200).send(allOrders)
         })
@@ -20,10 +22,10 @@ router.get("/", (req, res, next) => {
             next(err)
         })
 })
-
+//---------------ENCONTRAR UNA ORDER POR ID---------------//
 router.get("/find/:orderId", (req, res, next) => {
     const orderId = req.params.orderId;
-    Order.findById(orderId).populate("cart")
+    Order.findById(orderId).populate("items").populate("ship_info").populate("owner")
         .then((order) => {
             res.status(200).send(order)
         })
@@ -31,7 +33,7 @@ router.get("/find/:orderId", (req, res, next) => {
             next(err)
         })
 })
-
+//---------------ELIMINAR UNA ORDER POR ID---------------//
 router.delete("/remove/:orderId", (req, res, next) => {
     const orderId = req.params.orderId;
     Order.findByIdAndDelete(orderId)
@@ -42,49 +44,124 @@ router.delete("/remove/:orderId", (req, res, next) => {
             next(err)
         })
 })
-
+//------------ORDER POR SEGUN USUARIO LOGUEADO------------//
 router.get("/currentUser", async (req, res, next) => {
     const userSessionID = req?.session?.passport?.user;
-    console.log(req.session);
     if (userSessionID) {
         const user = await User.findById(userSessionID)
         .populate({
             path: "order",
             populate: {
-                path: "cart",
+                path: "items",
                 populate: {
-                    path: "items",
-                    populate: {
-                        path: "product"
-                    }
+                    path: "product"
                 }
             }
-        })
+        }).populate("ship_info")
         return res.status(200).send(user.order);
     }
     return res.status(200).send("No se encontro ese usuario");
 })
 
-
-
+//---------------FILTRAR ORDERS POR ESTADO---------------//
+router.get("/orderByStatus", async (req, res, next) => {
+    //--Es por usuario o todas?
+    const userSessionID = req?.session?.passport?.user;
+    const { orderStatus } = req.body;
+    console.log(`Filtrar ordenes por estado= ${orderStatus}`)
+    if (userSessionID) {
+        console.log("Filtrar ordenes del usuario en sesion.")
+        const user = await User.findById(userSessionID).populate("order")
+        const ordersByStatus = user.order.filter(order => order.status === orderStatus)
+        return res.status(200).send(ordersByStatus)
+    } else {
+        console.log("Filtrar dentro de todas las ordenes")
+        const orders = await Order.find({})
+        const ordersByStatus = orders.filter(order => order.status === orderStatus)
+        return res.status(200).send(ordersByStatus)
+    }
+})
+//------------------ORDENES PREVIAS---------------------//
+router.get("/prevOrders", async(req, res, next) => {
+    const userSessionID = req?.session?.passport?.user;
+    if (userSessionID) {
+        const user = await User.findById(userSessionID).populate("order")
+        const prevOrders = user.order.filter(order => order.status === "Cancelada" || order.status === "Completa")
+        return res.status(200).send(prevOrders)
+    } else {
+        return res.send("Deberia ser un usuario logueado.")
+    }
+})
 //------------------ORDER STATUS RUTES------------------//
+//------------------ACEPTAR UNA ORDER------------------//
 router.post("/complete/:orderId", async (req, res, next) => {
     const orderId = req.params.orderId;
-    const order = await Order.findById(orderId);
+    const order = await Order.findById(orderId).populate("owner");
     if (order) {
         order.status = "Completa";
         await order.save();
+        //---------MAIL DE CONFIRMACION---------//
+        var smtpTransport = nodemailer.createTransport({
+            host: "smtp.sendgrid.net",
+            port: 465,
+            auth: {
+                user: "apikey",
+                pass: "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"
+            }
+        });
+        var mailOptions = {
+            from: "alumnohenry09@gmail.com",
+            to: order.owner.email,
+            subject: "PF-Regionales Order Confirmed",
+            text: 'You are receiving this because your order has been shipped!\n\n' +
+            'The vendor should contact you with the shipments details.\n\n' +
+            'Thank you for your trust in PF-Regionales!\n'
+        };
+        smtpTransport.sendMail(mailOptions, (err) => {
+            done(err, 'done');
+        });
         return res.status(200).send("Orden completa! :)")
     } else {
         return res.send("No se encontro esa orden")
     }
 })
+//---------------CANCELAR UNA ORDER---------------//
 router.post("/cancel/:orderId", async(req, res, next) => {
     const orderId = req.params.orderId;
-    const order = await Order.findById(orderId);
+    const order = await Order.findById(orderId).populate("items").populate("owner");
     if (order) {
         order.status = "Cancelada";
         await order.save();
+        //---------DEVOLVER STOCK DEL PRODUCTO---------//
+        const orderItems = order.items;
+        for (var i=0; i<orderItems.length; i++) {
+            const product = await Product.findById(orderItems[i].product._id)
+            product.quantity = product.quantity + orderItems[i].quantity;
+            product.quantity = product.quantity >= 0 ? product.quantity : 0;
+            console.log(`Stock de ${product.name} actualizado (se le sumó la cantidad que habia sido restada)`)
+            await product.save()
+        }
+        //---------MAIL DE CONFIRMACION---------//
+        var smtpTransport = nodemailer.createTransport({
+            host: "smtp.sendgrid.net",
+            port: 465,
+            auth: {
+                user: "apikey",
+                pass: "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"
+            }
+        });
+        var mailOptions = {
+            from: "alumnohenry09@gmail.com",
+            to: order.owner.email,
+            subject: "PF-Regionales Order Confirmed",
+            text: 'You are receiving this because your order has been canceled :(\n\n' +
+            'If you think this is an error, please contact to the vendor.\n\n' +
+            'You also can contact with us at: pf-regionales@gmail.com\n\n' +
+            'Thank you for your trust in PF-Regionales!\n'
+        };
+        smtpTransport.sendMail(mailOptions, (err) => {
+            done(err, 'done');
+        });
         return res.status(200).send("Orden cancelada! :(")
     } else {
         return res.send("No se encontro esa orden")
@@ -92,6 +169,7 @@ router.post("/cancel/:orderId", async(req, res, next) => {
 })
 
 //------------------MERCADO PAGO RUTES------------------//
+//------------------NUEVA ORDER-------------------------//
 router.post("/newOrder", async(req, res, next) => {
     const userSessionID = req?.session?.passport?.user;
     const { 
@@ -106,10 +184,26 @@ router.post("/newOrder", async(req, res, next) => {
 
     console.log("REQ BODY: ", req.body)
 
+    const cart = await Cart.findById(cartId).populate("items")
+    console.log("CART: ", cart)
+
     const shipInfo = await ShipInfo.findById(shipInfoId);
     const newOrder = new Order({})
-    newOrder.cart = cartId
+    newOrder.items = cart.items
+    newOrder.total = cart.total
     await newOrder.save();
+    
+    //---------LIMPIAR CARRITO DEL USER------//
+    cart.items = [];
+    cart.total = 0;
+    await cart.save()
+        .then((result) => {
+            console.log("Carrito Limpiado")
+        })
+        .catch((err) => {
+            console.log("ERROR AL LIMPIAR EL CARRITO")
+            console.log(err)
+        })
     
     console.log("SHIP_INFO: ", shipInfo)
 
@@ -130,16 +224,16 @@ router.post("/newOrder", async(req, res, next) => {
         await newOrder.save();
         console.log("ShipInfo creada: ", newShipInfo._id)
     }
-    
-    await newOrder.save();
 
     if (userSessionID) {
         const user = await User.findById(userSessionID).populate("order");
         user.order = [...user.order, newOrder._id]
+        newOrder.owner = user._id
         await user.save();
+        await newOrder.save();
         return res.redirect(`http://localhost:3001/order/checkout/${newOrder._id.toString()}`)
     } else {
-        return res.redirect(`/order/checkout/${newOrder._id.toString()}`)
+        return res.redirect(`Debes estar logueado para poder realizar una nueva orden.`)
     }
 })
 
@@ -147,8 +241,6 @@ router.get("/checkout/:orderId", async(req, res, next) => {
     const userSessionID = req?.session?.passport?.user;
     const orderID = req.params.orderId;
     const order = await Order.findById(orderID).populate({
-        path: "cart",
-        populate: {
             path: "items",
             populate: {
                 path: "product",
@@ -156,7 +248,6 @@ router.get("/checkout/:orderId", async(req, res, next) => {
                     path: "category"
                 }
             }
-        }
     }).populate("ship_info")
 
     console.log("ORDER:", order)
@@ -185,7 +276,7 @@ router.get("/checkout/:orderId", async(req, res, next) => {
         }
     }
 
-    const itemsArray = order.cart.items.map((item) => {
+    const itemsArray = order.items.map((item) => {
         const obj = {
             id: item.product._id.toString(),
             title: item.product.name,
@@ -203,8 +294,8 @@ router.get("/checkout/:orderId", async(req, res, next) => {
         payer: payer,
         back_urls: {
             success: `http://localhost:3000/products`,
-            failure: "http://localhost:3001/order/mp/failure",
-            pending: "http://localhost:3001/order/mp/pending"
+            failure: "http://localhost:3000/order/failure",
+            pending: "http://localhost:3000/order/pending"
         },
         shipments: {
             receiver_address: receiver_address
@@ -217,14 +308,44 @@ router.get("/checkout/:orderId", async(req, res, next) => {
     mercadopago.preferences.create(preference)
         .then(async(response) => {
             global.id = response.body.id;
-            const order = await Order.findById(orderID)
+            const order = await Order.findById(orderID).populate("items")
+            console.log("ORDER:", order)
             if (response.body.auto_return === "approved") {
                 order.status = "Procesando"
                 await order.save()
+                //---------RESTAR STOCK DEL PRODUCTO---------//
+                const orderItems = order.items;
+                console.log("orderItems: ", orderItems)
+                for (var i=0; i<orderItems.length; i++) {
+                    const product = await Product.findById(orderItems[i].product._id)
+                    product.quantity = product.quantity - orderItems[i].quantity;
+                    product.quantity = product.quantity >= 0 ? product.quantity : 0;
+                    console.log(`Stock de ${product.name} actualizado (se le resto la cantidad comprada)`)
+                    await product.save()
+                }
+                //---------MAIL DE CONFIRMACION---------//
+                var smtpTransport = nodemailer.createTransport({
+                    host: "smtp.sendgrid.net",
+                    port: 465,
+                    auth: {
+                        user: "apikey",
+                        pass: "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"
+                    }
+                });
+                var mailOptions = {
+                    from: "alumnohenry09@gmail.com",
+                    to: response.body.payer.email,
+                    subject: "PF-Regionales Order Confirmed",
+                    text: 'You are receiving this because your payment was accepted and the order is now processing.\n\n' +
+                    'The vendor now will prepare your order for shipment.\n\n' +
+                    'You will be notified when the order is shipped.\n\n' +
+                    'Thank you for your trust in PF-Regionales!\n'
+                };
+                smtpTransport.sendMail(mailOptions, (err) => {
+                    done(err, 'done');
+                });
             }
             res.json(response)
-            //res.status(200).redirect(response.body.init_point)
-            //res.status(200).redirect("http://localhost:3000/products")
         })
         .catch((err) => {
             console.log("ERROR CON preferences")
@@ -232,25 +353,7 @@ router.get("/checkout/:orderId", async(req, res, next) => {
             next(err)
         })
 })
-
-router.get("/mp/success/:orderId", async(req, res, next) => {
-    const {orderId} = req.params
-    const {
-        collection_id,
-        collection_status,
-        payment_id,
-        status,
-        payment_type,
-        preference_id
-    } = req.query
-    const order = await Order.findByIdAndUpdate(orderId)
-    if (status === "approved") {
-        order.status = "Procesando"
-        await order.save()
-    }
-    res.status(200).send("Pago completado! Orden en proceso.");
-})
-
+//---------POR AHORA NO SE USAN---------//
 router.get("/mp/failure", (req, res, next) => {
     res.send("El pago con mercadopago falló.")
 })

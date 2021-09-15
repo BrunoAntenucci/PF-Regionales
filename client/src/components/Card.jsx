@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import cartEmpty from '../img/cart-empty.png'
+import cartStock from '../img/outStock-cart.png'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductToCart } from '../actions';
@@ -45,7 +46,38 @@ const useStyles = makeStyles((e) =>({
     cursor:"pointer",
     border:"1px solid "+e.palette.primary.main
   },
+  cardTypoN:{
+    height:"max-content",
+    padding:"3px 5px",
+    color:e.palette.secondary.red,
+    cursor:"default"
+    
+    
+  },
+  cardDivN:{
+    display: "flex",
+    justifyContent: "center",
+    alignItems:"center",
+    flexDirection:"row",
+    padding:"3px 10px",
+    borderRadius:"10px",
+    background:e.palette.primary.light,
+   
+    border:"1px solid "+e.palette.primary.main
+  },
   cart:{
+    padding:"7px",
+    margin:"0 5px",
+    width:"16px",
+   
+    height:"16px",
+    justifySelf: "end",
+    background:e.palette.primary.main,
+     borderRadius:"50%",
+     border:"3px solid white"
+    
+  },
+  cartN:{
     padding:"7px",
     margin:"0 5px",
     width:"16px",
@@ -63,7 +95,8 @@ const useStyles = makeStyles((e) =>({
     color:e.palette.primary.dark,
   }
 }));
-function Card({name,category, price, image, id}) {
+function Card({name,category, price, image, quantity, id}) {
+
     const classes = useStyles();
     
     const user = useSelector(state => state.user)
@@ -120,19 +153,27 @@ function Card({name,category, price, image, id}) {
            style={{textDecoration:"none"}}>
             
         <CardActionArea>
-          <CardMedia
+          {quantity===0?<CardMedia style={{opacity: 0.3}}
             className={classes.media}
             image={image}
             name={name}
             title={name}
-          />
+            />:
+            <CardMedia 
+            className={classes.media}
+            image={image}
+            name={name}
+            title={name}
+            />
+          }
           <CardContent>
             {/* <Typography gutterBottom variant="h5" component="h2">
             {title}
             </Typography> */}
             <Typography variant="h4" color="textSecondary" component="p">
-           $ {price}
+           $ {price} 
             </Typography>
+            
             <Typography variant="body1" color="textSecondary" component="p">
             {category}
             </Typography>
@@ -140,6 +181,18 @@ function Card({name,category, price, image, id}) {
         </CardActionArea>
         </Link>
         <CardActions className={classes.cardActions}>
+
+
+          {quantity===0 ? <div className={classes.cardDivN}>
+            
+          <Typography
+        className={classes.cardTypoN}
+         variant="body1" color="secondary" component="p">
+          SIN STOCK 
+            </Typography>
+            <img alt="img not found" src={cartStock} className={classes.cartN}></img>
+          </div> :               
+
           <div className={classes.cardDiv}
           onClick={() => handleCartClick(name, price, image, id)}>
           
@@ -149,7 +202,7 @@ function Card({name,category, price, image, id}) {
            añadir al carrito 
             </Typography>
           <img alt="img not found" src={cartEmpty} className={classes.cart}></img>
-        </div>
+        </div>}
         
         </CardActions>
       </CardMUI>

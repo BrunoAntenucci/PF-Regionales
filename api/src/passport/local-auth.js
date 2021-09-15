@@ -42,10 +42,10 @@ module.exports = function(passport) {
             passwordField: "password"
         }, (email, password, done) => {
             User.findOne({email: email}, (err, user) => {
-                if(err) throw err;
+                if(err) return console.log(`Error signin: ${err}`);
                 if(!user) return done(null, false);
                 bcrypt.compare(password, user.password, (err, result) => {
-                    if(err) console.log("Contraseña incorrecta");
+                    if(err) return console.log(`Error signin: ${err}`);
                     if(result) {
                         return done(null, user)
                     } else {
@@ -58,10 +58,14 @@ module.exports = function(passport) {
         passport.serializeUser((user, cb) => {
             cb(null, user.id)
         });
-        passport.deserializeUser((id, cb) => {
-            User.findOne({_id: id}, (err, user) => {
-                cb(err, user);
-            })
+
+        passport.deserializeUser(async (id, cb) => {
+            // User.findOne({_id: id}, (err, user) => {
+            //     cb(err, user);
+            // })
+            const user= await User.findById(id).populate("roles")
+   
+            return cb(null, user)
     });
 };
         
