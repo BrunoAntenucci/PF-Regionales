@@ -20,6 +20,7 @@ import { createTheme , ThemeProvider} from '@material-ui/core';
 // import { userCheck } from "./actions";
 import ModifyProduct from "./components/ModifyProduct";
 import CategoryCreation from "./components/CategoryCreation";
+import ModifyCategory from "./components/ModifyCategory";
 import History from "./components/History";
 import MyStore from "./components/MyStore";
 import Stores from "./components/Stores";
@@ -88,6 +89,7 @@ function App() {
         <Route exact path = "/storecreation" component = {StoreCreation} />
         <Route exact path = "/categorycreation" component = {CategoryCreation} />
         <Route exact path = "/modifyProduct/:id" component = {ModifyProduct} />
+        <Route exact path= "/modifycategory/:id" component = {ModifyCategory} />
         <Route exact path = "/history" component = {History} />
         <Route exact path="/favourites" component={Favourites} />
         <Route exact path = "/profile" component = {Profile} />

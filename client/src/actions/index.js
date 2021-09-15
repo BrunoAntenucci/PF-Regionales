@@ -44,6 +44,20 @@ export function getCategories() {
     }
 }
 
+export function getCategoryToModify(id) {
+    return async function (dispatch) {
+        try {
+            const categories = await axios.get('/category/filter/' + id);
+            return dispatch ({
+                type: 'GET_CATEGORY_TO_MODIFY',
+                payload: categories.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 export function postCategory(payload){
     return async function (dispatch){
         try{
@@ -56,6 +70,21 @@ export function postCategory(payload){
     }
     
 }
+
+export function modifyCategory(id, payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.patch(`/category/${id}`, payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
+
 
 export function postProducts(payload){
     return async function (dispatch){

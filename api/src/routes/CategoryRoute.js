@@ -2,6 +2,8 @@ const { Router } = require('express');
 const router = Router();
 const Category = require('../models/Category')
 const Product = require('../models/Product')
+const verifyToken  = require ("../middlewares/authJwt");
+const isSuperAdmin = require ("../middlewares/authJwt");
 
 router.post("/create", async (req, res) => {
     const { name } = req.body;
@@ -49,7 +51,7 @@ router.get("/filter/:id",  (req, res) => {
 
 });
 
-router.put("/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
     try {
         const {id} = req.params;
         await Category.findByIdAndUpdate({ _id: id },{ ...req.body });
