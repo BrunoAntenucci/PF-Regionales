@@ -522,3 +522,26 @@ export function getAllUsers() {
         }
     }
 }
+
+export function deleteUser(id) {
+    return function(dispatch) {
+        return axios({
+            method: "delete",
+            data: {
+                userId: id
+            },
+            withCredentials: true,
+            url: "/user/delete"
+          })
+          .then((res) => {
+            console.log("DELETE USER: ", res.data)
+            dispatch({
+                type: "DELETE_USER",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}

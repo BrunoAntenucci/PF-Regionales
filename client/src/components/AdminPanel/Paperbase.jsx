@@ -8,6 +8,8 @@ import Link from '@mui/material/Link';
 import Navigator from './Navigator';
 import Content from './Content';
 import Header from './Header';
+import Users from '../Users';
+import MyOrders from '../MyOrders';
 
 function Copyright() {
   return (
@@ -200,6 +202,9 @@ export default function Paperbase() {
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             {/* <Content /> */}
+            <Users />
+            {/* <MyOrders /> */}
+
           </Box>
           <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
             <Copyright />
