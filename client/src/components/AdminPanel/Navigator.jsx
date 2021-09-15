@@ -17,35 +17,10 @@ import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputCompone
 import TimerIcon from '@mui/icons-material/Timer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
+import { getAllUsers } from '../../actions';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-const categories = [
-  {
-    id: 'Build',
-    children: [
-      {
-        id: 'Users',
-        icon: <PeopleIcon />,
-        active: true,
-      },
-      { id: 'Orders', icon: <DnsRoundedIcon /> },
-      // { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
-      // { id: 'Hosting', icon: <PublicIcon /> },
-      // { id: 'Functions', icon: <SettingsEthernetIcon /> },
-      // {
-      //   id: 'Machine learning',
-      //   icon: <SettingsInputComponentIcon />,
-      // },
-    ],
-  },
-  {
-    id: 'Quality',
-    children: [
-      { id: 'Analytics', icon: <SettingsIcon /> },
-      // { id: 'Performance', icon: <TimerIcon /> },
-      // { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
-    ],
-  },
-];
 
 const item = {
   py: '2px',
@@ -64,12 +39,18 @@ const itemCategory = {
 
 export default function Navigator(props) {
   const { ...other } = props;
+  const dispatch = useDispatch();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(getAllUsers());
+  }
 
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-          E-market
+          <Link to='/products' style={{textDecoration:"none",  color:"inherit"}}>E-market</Link>
         </ListItem>
         <ListItem sx={{ ...item, ...itemCategory }}>
           <ListItemIcon>
@@ -77,23 +58,39 @@ export default function Navigator(props) {
           </ListItemIcon>
           <ListItemText>Project Overview</ListItemText>
         </ListItem>
-        {categories.map(({ id, children }) => (
-          <Box key={id} sx={{ bgcolor: '#101F33' }}>
+        
+          <Box sx={{ bgcolor: '#101F33' }}>
             <ListItem sx={{ py: 2, px: 3 }}>
-              <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
+              <ListItemText sx={{ color: '#fff' }}>Actions</ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
-              <ListItem disablePadding key={childId}>
-                <ListItemButton selected={active} sx={item}>
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText>{childId}</ListItemText>
+            <ListItem disablePadding>
+              <ListItemButton selected="active" sx={item}  onClick={handleClick}>
+                <ListItemIcon><PeopleIcon /></ListItemIcon>
+                <ListItemText>Users</ListItemText>
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item} >
+                  <ListItemIcon><DnsRoundedIcon /></ListItemIcon>
+                  <ListItemText>Petitions</ListItemText>
                 </ListItemButton>
               </ListItem>
-            ))}
-
             <Divider sx={{ mt: 2 }} />
           </Box>
-        ))}
+
+          <Box sx={{ bgcolor: '#101F33' }}>
+            <ListItem sx={{ py: 2, px: 3 }}>
+              <ListItemText sx={{ color: '#fff' }}>Quality</ListItemText>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton selected="active" sx={item}>
+                <ListItemIcon><SettingsIcon /></ListItemIcon>
+                <ListItemText>Analytics</ListItemText>
+              </ListItemButton>
+            </ListItem>
+            <Divider sx={{ mt: 2 }} />
+          </Box>
+        
       </List>
     </Drawer>
   );

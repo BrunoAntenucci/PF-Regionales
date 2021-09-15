@@ -18,7 +18,7 @@ router.get("/",(req, res, next) => {
     })
 });
 
-router.get("/all",[verifyToken, isSuperAdmin], (req, res, next) => {
+router.get("/all", (req, res, next) => {
     User.find({}, (err, users) => {
         PaymentInfo.populate(users, { path: "payment_info" }, (err, users) => {
             ShipInfo.populate(users, { path: "ship_info" }, (err, users) => {
