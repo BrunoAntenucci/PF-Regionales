@@ -108,6 +108,9 @@ function ProductDetail(props) {
     const classes = useStyles();
     const history = useHistory();
     const detail = useSelector((state) => state.prodDetail);
+
+    console.log(props.match.params.id, 'id')
+
     console.log(detail, "detallewqsdqwd")
     
 

@@ -102,8 +102,14 @@ function App() {
         <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
+
+        <Route exact = "/reviews" component = {Reviews} /> 
+      
+        
+
         <Route exact path = "/admin" component = {Paperbase} />
-        <Route exact path= "/reviews" component = {Reviews} /> 
+
+       
       </Switch>
       </ThemeProvider>
     </BrowserRouter>

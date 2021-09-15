@@ -45,8 +45,10 @@ const storeSchema = new Schema({
     },
     reputation: {
         type: Number,
+
         required: false, //Estaba en true
         default: 0
+
     }, 
     img: {
         type: String,
