@@ -69,26 +69,26 @@ export default function ModifyCategory(props){
     }
 
     console.log(input)
-    return(
-        <div>
-            <h1>Modifica una Categoria</h1>
-                <form onSubmit={(e) => handleSubmit(e)}>
-                    <div>
-                        <label>Nombre</label>
-                        <input 
-                         type='text'
-                         value={input.name}
-                         name='name'
-                         onChange={handleChange}
-                        />
-                        {errors.name && (
-                            <p>{errors.name}</p>
-                        )} 
-                    </div>
-                    <button type='submit'>Modificar categoria</button>
-                </form>
-                <Link to='/products'>
-                    <button>Volver</button>
-                </Link>
-        </div>)
+    // return(
+    //     <div>
+    //         <h1>Modifica una Categoria</h1>
+    //             <form onSubmit={(e) => handleSubmit(e)}>
+    //                 <div>
+    //                     <label>Nombre</label>
+    //                     <input 
+    //                      type='text'
+    //                      value={input.name}
+    //                      name='name'
+    //                      onChange={handleChange}
+    //                     />
+    //                     {errors.name && (
+    //                         <p>{errors.name}</p>
+    //                     )} 
+    //                 </div>
+    //                 <button type='submit'>Modificar categoria</button>
+    //             </form>
+    //             <Link to='/products'>
+    //                 <button>Volver</button>
+    //             </Link>
+    //     </div>)
 }

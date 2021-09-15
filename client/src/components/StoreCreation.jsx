@@ -113,102 +113,102 @@ export default function ProductCreation(){
         }
     }
     console.log(input)
-    return(
-        <div>
-            <h1>Crear Una Nueva Tienda</h1>
-                <form onSubmit={(e) => handleSubmit(e)}>
-                    <div>
-                        <label>Nombre</label>
-                        <input 
-                         type='text'
-                         value={input.name}
-                         name='name'
-                         onChange={handleChange}
-                        />
-                        {errors.name && (
-                            <p>{errors.name}</p>
-                        )} 
-                    </div>
-                    <div>
-                        <label>Descripcion</label>
-                        <input
-                        type='text'
-                        value={input.description}
-                        name='description'
-                        onChange={handleChange}
-                        />
-                        {errors.description && (
-                            <p>{errors.description}</p>
-                        )} 
-                    </div>
-                    <div>
-                        <label>Ciudad</label>
-                        <input
-                        type='text'
-                        value={input.city}
-                        name='city'
-                        onChange={handleChange}
-                        />
-                        {errors.city && (
-                            <p>{errors.city}</p>
-                        )}
-                    </div>
+    // return(
+    //     <div>
+    //         <h1>Crear Una Nueva Tienda</h1>
+    //             <form onSubmit={(e) => handleSubmit(e)}>
+    //                 <div>
+    //                     <label>Nombre</label>
+    //                     <input 
+    //                      type='text'
+    //                      value={input.name}
+    //                      name='name'
+    //                      onChange={handleChange}
+    //                     />
+    //                     {errors.name && (
+    //                         <p>{errors.name}</p>
+    //                     )} 
+    //                 </div>
+    //                 <div>
+    //                     <label>Descripcion</label>
+    //                     <input
+    //                     type='text'
+    //                     value={input.description}
+    //                     name='description'
+    //                     onChange={handleChange}
+    //                     />
+    //                     {errors.description && (
+    //                         <p>{errors.description}</p>
+    //                     )} 
+    //                 </div>
+    //                 <div>
+    //                     <label>Ciudad</label>
+    //                     <input
+    //                     type='text'
+    //                     value={input.city}
+    //                     name='city'
+    //                     onChange={handleChange}
+    //                     />
+    //                     {errors.city && (
+    //                         <p>{errors.city}</p>
+    //                     )}
+    //                 </div>
 
-                    <div>
-                        <select onChange={handleProducts} required>
-                            {
-                                products.map((e) => 
-                                <option value={e._id}>{e.name}</option>
-                                )
-                            }
-                        </select>
-                        {errors.product && (
-                            <p>{errors.product}</p>
-                        )}
+    //                 <div>
+    //                     <select onChange={handleProducts} required>
+    //                         {
+    //                             products.map((e) => 
+    //                             <option value={e._id}>{e.name}</option>
+    //                             )
+    //                         }
+    //                     </select>
+    //                     {errors.product && (
+    //                         <p>{errors.product}</p>
+    //                     )}
 
-                    </div>
+    //                 </div>
 
-                    <div>
-                        <label>Direccion</label>
-                        <input
-                        type='text'
-                        value={input.address}
-                        name='address'
-                        onChange={handleChange}
-                        />
-                        {errors.address && (
-                            <p>{errors.address}</p>
-                        )}
-                    </div>
+    //                 <div>
+    //                     <label>Direccion</label>
+    //                     <input
+    //                     type='text'
+    //                     value={input.address}
+    //                     name='address'
+    //                     onChange={handleChange}
+    //                     />
+    //                     {errors.address && (
+    //                         <p>{errors.address}</p>
+    //                     )}
+    //                 </div>
                     
-                    <div>
-                        <label>Imagen</label>
-                        <input
-                        type='text'
-                        value={input.img}
-                        name='img'
-                        onChange={handleChange}
-                        />
-                        {errors.reputation && (
-                            <p>{errors.img}</p>
-                        )}
+    //                 <div>
+    //                     <label>Imagen</label>
+    //                     <input
+    //                     type='text'
+    //                     value={input.img}
+    //                     name='img'
+    //                     onChange={handleChange}
+    //                     />
+    //                     {errors.reputation && (
+    //                         <p>{errors.img}</p>
+    //                     )}
 
-                    </div>
+    //                 </div>
 
-                    <button type='submit'>Crear Tienda</button>
-                </form>
-                        <ul >{input.products.map(e => {
-                            const aux = products.find(i => i._id === e)
-                            return <div style={{display:'flex', flexDirection:'row'}}>
-                                        <p>{aux.name}</p>
-                                        <button onClick={() => handleClose(e)}>x</button>
-                                   </div>
-                        })}</ul>
+    //                 <button type='submit'>Crear Tienda</button>
+    //             </form>
+    //                     <ul >{input.products.map(e => {
+    //                         const aux = products.find(i => i._id === e)
+    //                         return <div style={{display:'flex', flexDirection:'row'}}>
+    //                                     <p>{aux.name}</p>
+    //                                     <button onClick={() => handleClose(e)}>x</button>
+    //                                </div>
+    //                     })}</ul>
                        
-                <Link to='/'>
-                    <button>Volver</button>
-                </Link>
-        </div>)
+    //             <Link to='/'>
+    //                 <button>Volver</button>
+    //             </Link>
+    //     </div>)
     }
 
 
