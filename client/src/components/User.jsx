@@ -24,6 +24,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
 
 //import axios from 'axios';
@@ -161,7 +162,7 @@ const User = () => {
     }
   
 
-    //console.log("USER: ", user)
+    console.log("USER: ", user)
 
     return(
         <div className={classes.root}>
@@ -230,6 +231,14 @@ const User = () => {
                     </ListItemIcon>
                     <Link to="/cart" style={{textDecoration:"none", color:"inherit"}}>
                     <ListItemText primary="Mi carrito" />
+                    </Link>
+                  </StyledMenuItem>
+                  <StyledMenuItem>
+                    <ListItemIcon>
+                      <AssignmentIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Link to="/admin" style={{textDecoration:"none",  color:"inherit"}}>
+                    <ListItemText primary="Admin panel" />
                     </Link>
                   </StyledMenuItem>
                   <StyledMenuItem onClick={handleLogOut}>

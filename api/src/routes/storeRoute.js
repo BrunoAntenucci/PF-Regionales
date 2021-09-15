@@ -5,7 +5,7 @@ const verifyToken  = require ("../middlewares/authJwt");
 const isAdmin = require ("../middlewares/authJwt");
 const User = require("../models/user/user");
 
-router.post("/",[verifyToken, isAdmin], async (req, res) => {
+router.post("/", [verifyToken, isAdmin], async (req, res) => {
     const {name, description, city, products, address, reputation} = req.body; 
     console.log(req.body)
     if (!name || !description || !city  || !products || !address || !reputation) {
@@ -13,12 +13,9 @@ router.post("/",[verifyToken, isAdmin], async (req, res) => {
             error: 'Something is missing!',
         });
     } 
-
     const newStore = await new Store({name, description, city, products , address, reputation})
     const store = await newStore.save();
     res.json(store);
-
-   
 });
 
 router.get('/', async (req, res) => {
