@@ -383,7 +383,7 @@ export default function ProductCreation(){
           )}
          
           </Grid>
-          <Grid item xs={12}  sm={3}>
+          <Grid item xs={12}  sm={6}>
             <TextField
               
               
@@ -399,19 +399,19 @@ export default function ProductCreation(){
                      )}
           </Grid>
         
-          <Grid item xs={12}  sm={3}>
+          <Grid item xs={12}  sm={12}>
             <TextField
               
-              type='number'
-              label="reputación"
-              value={input.reputation}
-               name='reputation'
+              type='text'
+              label="imagen URL"
+              value={input.img}
+              name='img'
              onChange={handleChange}
               fullWidth
              
             />
-             {errors.reputation && (
-                            <p className={classes.error}>{errors.reputation}</p>
+             {errors.img && (
+                            <p className={classes.error}>{errors.img}</p>
                      )}
           </Grid>
           
