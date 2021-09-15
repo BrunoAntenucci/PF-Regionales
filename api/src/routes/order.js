@@ -1,8 +1,9 @@
 const { Router } = require("express");
 const User = require("../models/user/user");
-const Cart = require("../models/cart/cart");
+const Product = require("../models/Product")
 const Order = require("../models/order/order");
 const ShipInfo = require("../models/user/ship_info");
+const Cart = require("../models/cart/cart");
 const mercadopago = require("mercadopago");
 const nodemailer = require("nodemailer");
 
@@ -13,7 +14,7 @@ mercadopago.configure({
 const router = Router();
 //---------------VER TODAS LAS ORDENES---------------//
 router.get("/", (req, res, next) => {
-    Order.find({}).populate("cart").populate("ship_info").populate("owner")
+    Order.find({}).populate("items").populate("ship_info").populate("owner")
         .then((allOrders) => {
             res.status(200).send(allOrders)
         })
@@ -24,7 +25,7 @@ router.get("/", (req, res, next) => {
 //---------------ENCONTRAR UNA ORDER POR ID---------------//
 router.get("/find/:orderId", (req, res, next) => {
     const orderId = req.params.orderId;
-    Order.findById(orderId).populate("cart").populate("ship_info").populate("owner")
+    Order.findById(orderId).populate("items").populate("ship_info").populate("owner")
         .then((order) => {
             res.status(200).send(order)
         })
@@ -51,12 +52,9 @@ router.get("/currentUser", async (req, res, next) => {
         .populate({
             path: "order",
             populate: {
-                path: "cart",
+                path: "items",
                 populate: {
-                    path: "items",
-                    populate: {
-                        path: "product"
-                    }
+                    path: "product"
                 }
             }
         }).populate("ship_info")
@@ -130,10 +128,19 @@ router.post("/complete/:orderId", async (req, res, next) => {
 //---------------CANCELAR UNA ORDER---------------//
 router.post("/cancel/:orderId", async(req, res, next) => {
     const orderId = req.params.orderId;
-    const order = await Order.findById(orderId).populate("owner");
+    const order = await Order.findById(orderId).populate("items").populate("owner");
     if (order) {
         order.status = "Cancelada";
         await order.save();
+        //---------DEVOLVER STOCK DEL PRODUCTO---------//
+        const orderItems = order.items;
+        for (var i=0; i<orderItems.length; i++) {
+            const product = await Product.findById(orderItems[i].product._id)
+            product.quantity = product.quantity + orderItems[i].quantity;
+            product.quantity = product.quantity >= 0 ? product.quantity : 0;
+            console.log(`Stock de ${product.name} actualizado (se le sumó la cantidad que habia sido restada)`)
+            await product.save()
+        }
         //---------MAIL DE CONFIRMACION---------//
         var smtpTransport = nodemailer.createTransport({
             host: "smtp.sendgrid.net",
@@ -177,10 +184,26 @@ router.post("/newOrder", async(req, res, next) => {
 
     console.log("REQ BODY: ", req.body)
 
+    const cart = await Cart.findById(cartId).populate("items")
+    console.log("CART: ", cart)
+
     const shipInfo = await ShipInfo.findById(shipInfoId);
     const newOrder = new Order({})
-    newOrder.cart = cartId
+    newOrder.items = cart.items
+    newOrder.total = cart.total
     await newOrder.save();
+    
+    //---------LIMPIAR CARRITO DEL USER------//
+    cart.items = [];
+    cart.total = 0;
+    await cart.save()
+        .then((result) => {
+            console.log("Carrito Limpiado")
+        })
+        .catch((err) => {
+            console.log("ERROR AL LIMPIAR EL CARRITO")
+            console.log(err)
+        })
     
     console.log("SHIP_INFO: ", shipInfo)
 
@@ -218,8 +241,6 @@ router.get("/checkout/:orderId", async(req, res, next) => {
     const userSessionID = req?.session?.passport?.user;
     const orderID = req.params.orderId;
     const order = await Order.findById(orderID).populate({
-        path: "cart",
-        populate: {
             path: "items",
             populate: {
                 path: "product",
@@ -227,7 +248,6 @@ router.get("/checkout/:orderId", async(req, res, next) => {
                     path: "category"
                 }
             }
-        }
     }).populate("ship_info")
 
     console.log("ORDER:", order)
@@ -256,7 +276,7 @@ router.get("/checkout/:orderId", async(req, res, next) => {
         }
     }
 
-    const itemsArray = order.cart.items.map((item) => {
+    const itemsArray = order.items.map((item) => {
         const obj = {
             id: item.product._id.toString(),
             title: item.product.name,
@@ -288,10 +308,21 @@ router.get("/checkout/:orderId", async(req, res, next) => {
     mercadopago.preferences.create(preference)
         .then(async(response) => {
             global.id = response.body.id;
-            const order = await Order.findById(orderID)
+            const order = await Order.findById(orderID).populate("items")
+            console.log("ORDER:", order)
             if (response.body.auto_return === "approved") {
                 order.status = "Procesando"
                 await order.save()
+                //---------RESTAR STOCK DEL PRODUCTO---------//
+                const orderItems = order.items;
+                console.log("orderItems: ", orderItems)
+                for (var i=0; i<orderItems.length; i++) {
+                    const product = await Product.findById(orderItems[i].product._id)
+                    product.quantity = product.quantity - orderItems[i].quantity;
+                    product.quantity = product.quantity >= 0 ? product.quantity : 0;
+                    console.log(`Stock de ${product.name} actualizado (se le resto la cantidad comprada)`)
+                    await product.save()
+                }
                 //---------MAIL DE CONFIRMACION---------//
                 var smtpTransport = nodemailer.createTransport({
                     host: "smtp.sendgrid.net",

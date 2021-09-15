@@ -3,6 +3,7 @@ const initialState = {
     products : [],
     categories: [],
     prodDetail: [],
+    catDetail: [],
     page: 1,
     user: {},
     categ: [],
@@ -51,6 +52,12 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 prodDetail: action.payload
             }
+        case  'GET_CATEGORY_TO_MODIFY':
+            return {
+                ...state,
+                catDetail: action.payload
+            }
+
         case 'PAGE': 
             return {
                 ...state,

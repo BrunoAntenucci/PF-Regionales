@@ -162,7 +162,7 @@ const User = () => {
     }
   
 
-    //console.log("USER: ", user)
+    console.log("USER: ", user)
 
     return(
         <div className={classes.root}>

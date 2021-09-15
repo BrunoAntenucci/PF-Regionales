@@ -48,6 +48,10 @@ const storeSchema = new Schema({
         required: false, //Estaba en true
         default: 0
     }, 
+    img: {
+        type: String,
+        required: true
+    },
     reviews: [reviewSchema],
     numReviews: {
         type: Number,

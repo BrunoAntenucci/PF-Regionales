@@ -44,10 +44,24 @@ export function getCategories() {
     }
 }
 
+export function getCategoryToModify(id) {
+    return async function (dispatch) {
+        try {
+            const categories = await axios.get('/category/filter/' + id);
+            return dispatch ({
+                type: 'GET_CATEGORY_TO_MODIFY',
+                payload: categories.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 export function postCategory(payload){
     return async function (dispatch){
         try{
-        const aux = await axios.post('/category/create', payload);
+        const aux = await axios.post('petition/newPetition/category', payload);
         return aux
         } catch (error){
             console.log(error)
@@ -57,10 +71,25 @@ export function postCategory(payload){
     
 }
 
+export function modifyCategory(id, payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.patch(`/category/${id}`, payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
+
+
 export function postProducts(payload){
     return async function (dispatch){
         try{
-        const aux = await axios.post('/product', payload);
+        const aux = await axios.post('petition/newPetition/product', payload);
         return aux
         } catch (error){
             console.log(error)
@@ -86,7 +115,9 @@ export function modifyProducts(id, payload){
 export function postStore(payload){
     return async function (dispatch){
         try{
-        const aux = await axios.post('/store', payload);
+        const aux = await axios.post('petition/newPetition/store', payload);
+        console.log(aux)
+        console.log(payload)
         return aux
         } catch (error){
             console.log(error)
