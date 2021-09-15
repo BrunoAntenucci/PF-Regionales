@@ -12,7 +12,7 @@ const isSuperAdmin = require ("../middlewares/authJwt");
 
 const router = Router();
 
-router.get("/",[verifyToken, isSuperAdmin], (req, res, next) => {
+router.get("/",(req, res, next) => {
     User.find({}, (err, users) => {
         res.status(200).send(users)
     })
@@ -30,20 +30,17 @@ router.get("/all",[verifyToken, isSuperAdmin], (req, res, next) => {
     })
 })
 
-
 router.get("/guest", (req, res, next) => {
     Guest.find({}, (err, guests) => {
         res.status(200).send(guests)
     })
 })
 
-router.delete("/:email",[verifyToken, isSuperAdmin], (req, res, next) => {
-    const { email } = req.params;
-    User.findOneAndDelete(
-        {email: email}
-    )
+router.delete("/delete", (req, res, next) => {
+    const { userId } = req.body;
+    User.findByIdAndRemove(userId)
     .then((result) => {
-        res.status(200).send(`User with email: ${result.email} removed.`)
+        res.status(200).send(`User with id= ${result._id} removed.`)
     })
 })
 
