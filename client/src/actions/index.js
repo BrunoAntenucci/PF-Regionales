@@ -507,3 +507,18 @@ export const createReview = (storeId, review) => {
 //         })
 //     }
 // }
+
+//-----------------------------
+export function getAllUsers() {
+    return async function (dispatch) {
+        try {
+            const allUsers = await axios.get('/user/');
+            return dispatch ({
+                type: 'GET_ALL_USERS',
+                payload: allUsers.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}

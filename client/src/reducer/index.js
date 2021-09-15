@@ -14,7 +14,8 @@ const initialState = {
     cart: {},
     stores: [],
     orderDetail: [],
-    reviews: []
+    reviews: [],
+    users: []
 }
 
 function rootReducer(state = initialState, action) {
@@ -127,6 +128,11 @@ function rootReducer(state = initialState, action) {
             return{
                 ...state,
                 reviews: action.payload
+            }
+            case 'GET_ALL_USERS':
+            return {
+                ...state,
+                users: action.payload
             }
                
         default: return state;
