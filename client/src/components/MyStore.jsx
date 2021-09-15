@@ -15,7 +15,7 @@ const MyStore = () => {
                  variant="contained" color="primary">
                    <Link to='/products' style={{textDecoration:"none", color:"white"}}>Volver</Link>
                     </Button>
-                    <h1>Mi tienda</h1>
+                    
            
             <StoreCreation/>
             
