@@ -23,8 +23,6 @@ server.use(express.urlencoded({ extended: true}));
 server.use(express.json());
 server.use(cors({
   origin: "http://localhost:3000", // DEPLOY: https://pf-regionales.vercel.app // DEV: http://localhost:3000
-
- 
   credentials: true
 }));
 server.use(session({
