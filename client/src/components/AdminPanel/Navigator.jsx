@@ -17,7 +17,11 @@ import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputCompone
 import TimerIcon from '@mui/icons-material/Timer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
-import { getAllUsers } from '../../actions';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
+import { getAllUsers, getAllPetitions } from '../../actions';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -46,6 +50,21 @@ export default function Navigator(props) {
     dispatch(getAllUsers());
   }
 
+  const handlePetitionsClick = (e) => {
+    e.preventDefault();
+    dispatch(getAllPetitions());
+  }
+
+  // const [anchorEl, setAnchorEl] = React.useState(null);
+  // const open = Boolean(anchorEl);
+  // const handleSecondClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
+
+
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
@@ -70,14 +89,41 @@ export default function Navigator(props) {
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-                <ListItemButton selected="active" sx={item} >
+                <ListItemButton selected="active" sx={item} onClick={handlePetitionsClick}>
                   <ListItemIcon><DnsRoundedIcon /></ListItemIcon>
                   <ListItemText>Petitions</ListItemText>
                 </ListItemButton>
               </ListItem>
-            <Divider sx={{ mt: 2 }} />
-          </Box>
+            
+            {/* <ListItem disablePadding>
+            <ListItemButton
+            selected="active" sx={item}
+        id="basic-button"
+        aria-controls="basic-menu"
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleSecondClick}
+      >
+        <ListItemIcon><DnsRoundedIcon /></ListItemIcon>
+        <ListItemText>Petitions</ListItemText>
+      </ListItemButton>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}>All</MenuItem>
+        <MenuItem onClick={handleClose}>Accepted</MenuItem>
+        <MenuItem onClick={handleClose}>Denied</MenuItem>
+      </Menu>
+      </ListItem> */}
 
+          </Box>
+          <Divider sx={{ mt: 2 }} /> 
           <Box sx={{ bgcolor: '#101F33' }}>
             <ListItem sx={{ py: 2, px: 3 }}>
               <ListItemText sx={{ color: '#fff' }}>Quality</ListItemText>

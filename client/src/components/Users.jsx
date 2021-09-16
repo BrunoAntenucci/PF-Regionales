@@ -14,8 +14,8 @@ import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 
 const columns = [
-    { id: 'first_name', label: 'First Name', minWidth: 170, align: 'center' },
-    { id: 'last_name', label: 'Last Name', minWidth: 170, align: 'center' },
+    { id: 'first_name', label: 'Nombre', minWidth: 170, align: 'center' },
+    { id: 'last_name', label: 'Apellido', minWidth: 170, align: 'center' },
     {
       id: 'id',
       label: 'User Id',
@@ -30,7 +30,7 @@ const columns = [
     },
     {
       id: 'button',
-      label: 'Eliminar',
+      label: '',
       minWidth: 100,
       align: 'center',
     },

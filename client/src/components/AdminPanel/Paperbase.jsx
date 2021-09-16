@@ -10,6 +10,7 @@ import Content from './Content';
 import Header from './Header';
 import Users from '../Users';
 import MyOrders from '../MyOrders';
+import Petitions from '../Petitions';
 
 function Copyright() {
   return (
@@ -203,6 +204,7 @@ export default function Paperbase() {
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
             {/* <Content /> */}
             <Users />
+            <Petitions />
             {/* <MyOrders /> */}
 
           </Box>
