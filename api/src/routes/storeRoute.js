@@ -46,32 +46,43 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.patch('/:id',[verifyToken, isAdmin], async (req, res) => {
+router.patch('/:id', async (req, res) => {
+    const userSessionID = req?.session?.passport?.user
     try{
-        const store = await Store.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        if(!store){
-            res.status(404)
+        const storeCheck = await Store.findById(req.params.id)
+        if (storeCheck.owner.toString() === userSessionID) {
+            console.log(`El usuario con id= ${userSessionID} es el dueño de la Store.`)
+            const store = await Store.findByIdAndUpdate(req.params.id, req.body, { new: true })
+            return res.status(200).send(`Store ${store.name} actualizada con exito!`)
+        } else {
+            console.log(`El usuario con id= ${userSessionID} NO es el dueño de la Store.`)
+            return res.send(`La store ${store.name} no es suya y no podra editarla.`)
         }
-        res.status(200).send(store)
-    }catch(error){
-        res.status(500).send(error)
+    } catch(error) {
+        return res.status(500).send(error)
     }
 }) 
 
 router.delete('/:id',[verifyToken, isAdmin], async (req, res) => {
-    try{
-        const store = await Store.findByIdAndDelete(req.params.id)
-        if(!store){
-            res.status(404)
+    const userSessionID = req?.session?.passport?.user
+    try {
+        const storeCheck = await Store.findById(req.params.id)
+        const user = await User.findById(userSessionID)
+        if (user.role === "SuperAdmin" || storeCheck.owner.toString() === userSessionID) {
+            console.log(`El usuario ${user.name} es SuperAdmin o es el dueño de la Store.`)
+            const store = await Store.findByIdAndDelete(req.params.id)
+            return res.status(200).send(`Store ${store.name} eliminada con exito!`)
+        } else {
+            console.log(`El usuario con id= ${userSessionID} NO es el dueño de la Store ni SuperAdmin.`)
+            return res.send(`La store ${store.name} no es suya y no podra eliminarla.`)
         }
-        res.status(200).send(store)
-    }catch(error){
-        res.status(500).send(error)
+    } catch(error) {
+        return res.status(500).send(error)
     }
 }) 
 router.post('/:id', async (req, res) => {
     const userSessionID = req?.session?.passport?.user
-    const { reputation, comment } = req.body;
+    const { rating, comment } = req.body;
     const store = await Store.findById(req.params.id)
     const user = await User.exists({_id: userSessionID});
 
@@ -86,15 +97,15 @@ router.post('/:id', async (req, res) => {
             }
             const review = {
                 first_name: req.user.first_name, 
-                reputation: Number(reputation),
+                rating: Number(rating),
                 comment,
                 user: req.user._id
             }
             store.reviews.push(review)
             store.numReviews = store.reviews.length
     
-            store.reputation = 
-            store.reviews.reduce((acc, item) => item.reputation + acc, 0) /
+            store.rating = 
+            store.reviews.reduce((acc, item) => item.rating + acc, 0) /
             store.reviews.length
     
             await store.save()

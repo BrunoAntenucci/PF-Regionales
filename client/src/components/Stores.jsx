@@ -6,7 +6,8 @@ import { getStore } from '../actions';
 import { Button, Typography } from '@material-ui/core';
 import stores from '../img/stores.svg'
 import { makeStyles } from '@material-ui/styles';
-// import Reviews from './Reviews';
+import Rating from '../utils/rating';
+import {FaStar} from 'react-icons/fa';
 
 
 const useStyles = makeStyles((e)=>({
@@ -72,6 +73,7 @@ const useStyles = makeStyles((e)=>({
 const Stores = () => {
     const dispatch = useDispatch();
     const allStores = useSelector(state => state.stores);
+    console.log(allStores, 'stores')
     const classes = useStyles()
 
     useEffect(() => {
@@ -108,12 +110,24 @@ const Stores = () => {
                             style={{marginTop:"10px", color:"yellow"}}
                         >{store.city}</p>
                         </section>
+                        </div> 
                         </div>
-                        
+                        <h4>* Reviews *</h4>
+                        {store?.numReviews  === 0 ? (<p>No hay reviews aún</p>) : 
+                        (<div><p>{store.numReviews} reviews </p></div>)}
+                        {store.reviews.map(review => {
+                            return(
+                                <div>
+                                    <Rating value={review.rating}/>
+                                    <p> {review.first_name}</p>
+                                    <p>{review.rating}</p><FaStar />
+                                    <p>{review.comment}</p>
+                                    <p>{review.createdAt.substring(0, 10)}</p>
+                                </div>
+                            )
+                        })}
+                        <div>    
                         </div>
-                        <div>
-                {/* <Reviews/> */}
-            </div>
                         </>
                     )
                 })
