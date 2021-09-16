@@ -4,6 +4,7 @@ const Product = require('../models/Product');
 const Category = require('../models/Category'); 
 const verifyToken  = require ("../middlewares/authJwt");
 const isSuperAdmin = require ("../middlewares/authJwt");
+const User = require('../models/user/user');
 
 
 router.post("/", [verifyToken, isSuperAdmin], async (req, res) => {
@@ -49,23 +50,39 @@ router.get("/:id",  (req, res) => {
     
 });
 
-router.patch("/:id", [verifyToken, isSuperAdmin], async (req, res) => {
+router.patch("/:id", async (req, res) => {
+  const userSessionID = req?.session?.passport?.user
+  const {id} = req.params;
     try {
-        const {id} = req.params;
-        console.log(id)
-        await Product.findByIdAndUpdate({ _id: id },{ ...req.body });
-        res.status(200).send("Product updated!");
+        const productCheck = await Product.findById(id);
+        if (productCheck.user.toString() === userSessionID) {
+          console.log(`El usuario logeado (id= ${userSessionID}) es el dueño del producto.`)
+          await Product.findByIdAndUpdate({ _id: id },{ ...req.body });
+          return res.status(200).send(`Producto ${productCheck.name} fue actualizado con exito!`)
+        } else {
+          console.log(`El usuario logeado (id= ${userSessionID}) NO es el dueño del producto.`)
+          return res.send("No puede editar un producto si no es el dueño.")
+        }
     } catch (err) {
         console.log("Error: " + err);
     }
 
 });
 
-router.delete("/:id", [verifyToken, isSuperAdmin], async (req, res) => {
+router.delete("/:id",  async (req, res) => {
+  const userSessionID = req?.session?.passport?.user
+  const { id }= req.params;
     try {
-      const {id }= req.params;
-      await Product.deleteOne({ _id: id });
-      res.send("Product deleted!");
+      const user = await User.findById(userSessionID);
+      const productCheck = await Product.findById(id)
+      if (user.role === "SuperAdmin" || productCheck.user.toString() === userSessionID) {
+        console.log(`El usuario id= ${userSessionID} es SuperAdmin o el dueño del producto.`)
+        await Product.deleteOne({ _id: id });
+        return res.status(200).send(`El producto ${productCheck.name} fue eliminado con exito.`)
+      } else {
+        console.log(`El usuario id= ${userSessionID} NO es SuperAdmin o el dueño del producto.`)
+        return res.send("No puede eliminar un producto si no es su dueño o SuperAdmin")
+      }
     } catch (err) {
       console.log("Error", err);
     }

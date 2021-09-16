@@ -4,6 +4,7 @@ const initialState = {
     categories: [],
     prodDetail: [],
     catDetail: [],
+    storeDetail: [],
     page: 1,
     user: {},
     categ: [],
@@ -16,9 +17,9 @@ const initialState = {
     stores: [],
     orderDetail: [],
     store:{},
-    reviews: []
-    
-    
+    reviews: [],
+    users: []
+
 }
 
 function rootReducer(state = initialState, action) {
@@ -65,12 +66,16 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 page: action.payload
             }
-            case 'GET_STORES':
+        case 'GET_STORES':
             return {
                 ...state,
                 stores: action.payload
             }
-
+        case 'GET_STORE_BY_ID':
+            return {
+                ...state,
+                storeDetail: action.payload
+            }
             case 'GET_ORDER_DETAIL':
             return {
                 ...state,
@@ -132,15 +137,20 @@ function rootReducer(state = initialState, action) {
             
             return{
                 ...state,
-                //reviews: [...state.reviews, action.payload[0],]
                  reviews: action.payload
-                // reviews: state.reviews.concat(action.payload)
             }
+
         case "GET_STORE":
             return{
                 ...state, 
                 store: action.payload
             }    
+
+        case 'GET_ALL_USERS':
+            return {
+                ...state,
+                users: action.payload
+            }
                
         default: return state;
         }

@@ -24,6 +24,12 @@ const userSchema = new Schema({
         type: Schema.ObjectId,
         ref: "Role"
     },
+    role: {
+        type: String,
+        enum: ["User", "Admin", "SuperAdmin"],
+        default: "User"
+    },
+    // status: {         type: String,         enum : ['NEW','STATUS'],         default: 'NEW'     },
     ship_info: [{ 
         type: Schema.ObjectId, 
         ref: "ShipInfo"
@@ -43,6 +49,14 @@ const userSchema = new Schema({
     petitions: [{
         type: Schema.ObjectId,
         ref: "Petition"
+    }],
+    storesOwn: [{
+        type: Schema.ObjectId,
+        ref: "Store"
+    }],
+    productsOwn: [{
+        type: Schema.ObjectId,
+        ref: "Product"
     }]
 }, { timestamps: true, versionKey: false })
 

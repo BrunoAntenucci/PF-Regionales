@@ -3,7 +3,7 @@ const { Schema , model } = require("mongoose")
 
 const RoleSchema = new Schema({
     name: {
-        type: String,       
+        type: String,     
     },
     
 }, { timestamps: true, versionKey: false});

@@ -142,6 +142,22 @@ export function getStore(){
     
 }
 
+export function getStoreById(id){
+    return async function (dispatch) {
+        try {
+            const stores = await axios.get(`/store/${id}`);
+            return dispatch ({
+                type: 'GET_STORE_BY_ID',
+                payload: stores.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+}
+
+
 export function getOrderDetail() {
     return function(dispatch) {
       return axios({
@@ -521,6 +537,7 @@ export const createReview = (id, review) => {
         })
     }
 }
+
 export function getStoreReview(id){
     console.log(id, 'idStore')
     return function (dispatch){
@@ -539,3 +556,41 @@ export function getStoreReview(id){
         })
     }
 }
+
+export function getAllUsers() {
+    return async function (dispatch) {
+        try {
+            const allUsers = await axios.get('/user/');
+            return dispatch ({
+                type: 'GET_ALL_USERS',
+                payload: allUsers.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export function deleteUser(id) {
+    return function(dispatch) {
+        return axios({
+            method: "delete",
+            data: {
+                userId: id
+            },
+            withCredentials: true,
+            url: "/user/delete"
+          })
+          .then((res) => {
+            console.log("DELETE USER: ", res.data)
+            dispatch({
+                type: "DELETE_USER",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
