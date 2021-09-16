@@ -11,11 +11,13 @@ root:{
    width:"100vw",
    background:theme.palette.primary.light,
    padding:"0 30px 0 0",
-   borderTop:"30px solid "+theme.palette.primary.main,
-   borderBottom:"30px solid "+theme.palette.primary.main,
-   display:"flex",
+//    borderTop:"30px solid "+theme.palette.primary.main,
+//    borderBottom:"30px solid "+theme.palette.primary.main,
+    display:"flex",
    flexDirection:"row",
-   overflow:"scroll"
+//    overflow:"scroll",
+   justifyContent:"center",
+   
 },
 typografy:{
     padding:"0 20px"
@@ -41,7 +43,7 @@ return(<>
     <div className={classes.root}>
        <Typography className={classes.typografy}
            variant="h4" component="h4" color="primary">
-       últimos {historyProducts.length} productos 
+       {/* últimos {historyProducts.length} productos  */}
                 </Typography>
        
         {historyProducts.map((p,i )=>{
