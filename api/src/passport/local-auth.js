@@ -64,7 +64,7 @@ module.exports = function(passport) {
             //     cb(err, user);
             // })
             const user= await User.findById(id).populate("roles")
-   
+
             return cb(null, user)
     });
 };

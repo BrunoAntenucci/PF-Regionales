@@ -53,7 +53,7 @@ function Header(props) {
                 Go to docs
               </Link>
             </Grid> */}
-            <Grid item>
+            {/* <Grid item>
               <Tooltip title="Alerts • No alerts">
                 <IconButton color="inherit">
                   <NotificationsIcon />
@@ -64,7 +64,7 @@ function Header(props) {
               <IconButton color="inherit" sx={{ p: 0.5 }}>
                 <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
               </IconButton>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Toolbar>
       </AppBar>

@@ -46,27 +46,38 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.patch('/:id',[verifyToken, isAdmin], async (req, res) => {
+router.patch('/:id', async (req, res) => {
+    const userSessionID = req?.session?.passport?.user
     try{
-        const store = await Store.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        if(!store){
-            res.status(404)
+        const storeCheck = await Store.findById(req.params.id)
+        if (storeCheck.owner.toString() === userSessionID) {
+            console.log(`El usuario con id= ${userSessionID} es el dueño de la Store.`)
+            const store = await Store.findByIdAndUpdate(req.params.id, req.body, { new: true })
+            return res.status(200).send(`Store ${store.name} actualizada con exito!`)
+        } else {
+            console.log(`El usuario con id= ${userSessionID} NO es el dueño de la Store.`)
+            return res.send(`La store ${store.name} no es suya y no podra editarla.`)
         }
-        res.status(200).send(store)
-    }catch(error){
-        res.status(500).send(error)
+    } catch(error) {
+        return res.status(500).send(error)
     }
 }) 
 
 router.delete('/:id',[verifyToken, isAdmin], async (req, res) => {
-    try{
-        const store = await Store.findByIdAndDelete(req.params.id)
-        if(!store){
-            res.status(404)
+    const userSessionID = req?.session?.passport?.user
+    try {
+        const storeCheck = await Store.findById(req.params.id)
+        const user = await User.findById(userSessionID)
+        if (user.role === "SuperAdmin" || storeCheck.owner.toString() === userSessionID) {
+            console.log(`El usuario ${user.name} es SuperAdmin o es el dueño de la Store.`)
+            const store = await Store.findByIdAndDelete(req.params.id)
+            return res.status(200).send(`Store ${store.name} eliminada con exito!`)
+        } else {
+            console.log(`El usuario con id= ${userSessionID} NO es el dueño de la Store ni SuperAdmin.`)
+            return res.send(`La store ${store.name} no es suya y no podra eliminarla.`)
         }
-        res.status(200).send(store)
-    }catch(error){
-        res.status(500).send(error)
+    } catch(error) {
+        return res.status(500).send(error)
     }
 }) 
 router.post('/:id/reviews', async (req, res) => {

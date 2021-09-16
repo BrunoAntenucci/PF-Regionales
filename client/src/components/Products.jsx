@@ -96,20 +96,20 @@ function Products(props) {
         dispatch(getCategories());
     }, [dispatch])
     
-    const HandleHistoryOnClick=(name,price,category,image,id)=>{
+    const HandleHistoryOnClick=(name,price,category,image,id,quantity)=>{
         var historyArray= [];
         
         
        // var historyArraySTringify = JSON.stringify(historyArray)
         if(!localStorage.getItem("historyProducts")){
-            historyArray.push({name,price,category,image,id })
+            historyArray.push({name,price,category,image,id,quantity })
             localStorage.setItem("historyProducts", JSON.stringify(historyArray))
         }else{
             historyArray = JSON.parse(localStorage.getItem("historyProducts"))
             if(historyArray.some(e => e.id === id)) {
                 historyArray = historyArray.filter(e => e.id!==id)
             }
-            historyArray.push({name,price,category,image,id })
+            historyArray.push({name,price,category,image,id, quantity })
             
             localStorage.setItem("historyProducts", JSON.stringify(historyArray))
         }
@@ -156,7 +156,8 @@ function Products(props) {
                                         p?.price,
                                         p?.category,
                                         p?.image,
-                                        p?._id
+                                        p?._id,
+                                        p?.quantity
                                         )}}
                                         >
                                        

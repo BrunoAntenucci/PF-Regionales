@@ -3,15 +3,19 @@ import React from "react"
 import Header from "./Header"
 import Card from './Card'
 import { useSelector } from "react-redux"
+import NoHistory from '../img/no-history.svg'
 const useStyles = makeStyles((theme) => ({
 root:{
-    margin:"180px auto",
+    margin:"250px 0",
    // padding: "0 10px 0 30px",
-   width:"fit-content",
+   width:"100vw",
    background:theme.palette.primary.light,
    padding:"0 30px 0 0",
-   borderRight:"30px solid "+theme.palette.primary.main,
-   borderLeft:"30px solid "+theme.palette.primary.main,
+   borderTop:"30px solid "+theme.palette.primary.main,
+   borderBottom:"30px solid "+theme.palette.primary.main,
+   display:"flex",
+   flexDirection:"row",
+   overflow:"scroll"
 },
 typografy:{
     padding:"0 20px"
@@ -32,9 +36,9 @@ function History(){
 return(<>
 
     <Header />
-    <div className={classes.root}>
+        
         {historyProducts?
-       <>
+    <div className={classes.root}>
        <Typography className={classes.typografy}
            variant="h4" component="h4" color="primary">
        últimos {historyProducts.length} productos 
@@ -45,9 +49,10 @@ return(<>
                 key={i}                  
                 name= {p?.name}
                 price={p?.price}
-                category={p?.category.map(e => {
+                quantity={p?.quantity}
+                category={p?.category.map((e, k) => {
                     const aux = categories.find(i => i._id === e)
-                    return <p>{aux?.name}</p>
+                    return <p key={k}>{aux?.name}</p>
                 })}
                 image={p?.image }
                 id={p?.id}
@@ -56,12 +61,16 @@ return(<>
             )
            
         })}
-        </>
-        : <h4>no hay historial en tu vida</h4>
+        
+        </div>
+        :
+       <div style={{textAlign:"center"}}>
+        <img src={NoHistory} style={{width:"50%",textAlign:"center"}}/>
+        </div>
     }
   
     
-    </div>
+   
     </>
 )
 
