@@ -142,6 +142,22 @@ export function getStore(){
     
 }
 
+export function getStoreById(id){
+    return async function (dispatch) {
+        try {
+            const stores = await axios.get(`/store/${id}`);
+            return dispatch ({
+                type: 'GET_STORE_BY_ID',
+                payload: stores.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+}
+
+
 export function getOrderDetail() {
     return function(dispatch) {
       return axios({
