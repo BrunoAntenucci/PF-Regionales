@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import './App.css';
-//import Home from './components/Home';
+import Home from './components/Home';
 import ProductCreation from "./components/ProductCreation";
 import SignInForm from './components/SignInForm';
 import SignUpForm from './components/SignUpForm'
@@ -14,7 +14,7 @@ import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart"
 import StoreCreation from './components/StoreCreation';
 import { createTheme , ThemeProvider} from '@material-ui/core';
-// import Header from "./components/Header";
+import Header from "./components/Header";
 // import { useDispatch } from "react-redux";
 // import { guestMati } from "./actions";
 // import { userCheck } from "./actions";
@@ -80,12 +80,13 @@ function App() {
     <BrowserRouter>
     <ThemeProvider theme={theme}>
     <ReactNotification />
-    {/* <Header /> */}
+    <Header />
       <Switch>
         {/* <Route exact path="/" >
           <Products guest={guest} setGuest={setGuest}/> 
           <Products/>
         </Route> */}
+        <Route exact path = "/" component = {Home} />
         <Route exact path = "/creation" component = {ProductCreation} />
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
@@ -103,7 +104,7 @@ function App() {
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
 
-        <Route exact = "/reviews" component = {Reviews} /> 
+        {/* <Route exact = "/store/:id/reviews" component = {Reviews} />  */}
       
         
 
