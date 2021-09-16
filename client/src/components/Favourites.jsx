@@ -23,7 +23,8 @@ const Favourites = ({id}) => {
 
   useEffect(() => {
     dispatch(getFav());
-  }, [dispatch])
+    return dispatch(getFav())
+  }, [])
 
   return (
   <div>

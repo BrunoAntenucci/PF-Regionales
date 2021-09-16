@@ -15,7 +15,7 @@ const FavCard = ({name, image, price, _id}) => {
     }
     useEffect(()=>{
         dispatch(getFav())
-    }, [dispatch])
+    }, [])
     console.log('wishFav', wishlist)
 
     return(

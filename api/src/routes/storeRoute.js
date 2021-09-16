@@ -69,7 +69,7 @@ router.delete('/:id',[verifyToken, isAdmin], async (req, res) => {
         res.status(500).send(error)
     }
 }) 
-router.post('/:id', async (req, res) => {
+router.post('/:id/reviews', async (req, res) => {
     const userSessionID = req?.session?.passport?.user
     const { rating, comment } = req.body;
     const store = await Store.findById(req.params.id)

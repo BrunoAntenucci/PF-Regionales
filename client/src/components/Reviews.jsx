@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-// import Rating from '../utils/rating';
-import { createReview } from '../actions/index';
+import { createReview, getStoreReview, checkUser } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
@@ -30,38 +29,49 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Reviews({id}){
+export default function Reviews(props){
+    
     const dispatch = useDispatch();
-    const userInfo = useSelector(state => state.user)
+    
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
-    const [value, setValue] = useState(2);
     const [hover, setHover] = useState(-1);
     const classes = useStyles();
-    const store = useSelector(state => state.stores)
-    const storeId =  store.map(s=>{
-        return s._id
-    })
-    const history = useHistory()
-    console.log(storeId, 'idsto')
 
-    const submitHandler = async (e)=>{
-                // e.prevent.default()
-                await dispatch(createReview(id, {
-                    rating, comment
-                }))
-                alert('Review creada con éxito');
+    const userInfo = useSelector(state => state.user)
+    console.log(userInfo, 'user')
+
+    const store = useSelector(state => state.store)
+  
+    const { id } = props.match.params
+    const history = useHistory()
+    
+    useEffect(()=> {
+        dispatch(getStoreReview(id))
+    }, [dispatch, id])
+
+    useEffect(()=> {
+        dispatch(checkUser())
+    }, [dispatch])
+
+    
+    const review = {first_name: userInfo.first_name, user: userInfo._id, rating, comment}
+    console.log(review, 'review')
+
+    const submitHandler =  async (e)=>{
+                e.prevent.default()
+                await dispatch(createReview(id, review))
                 console.log(createReview, 'review')
-                setRating(0);
-                setComment('')
-                // history.push('/product')
+                alert(`${userInfo.first_name} Gracias por tu review!`);
+    
+                history.push('/product')
             }
 
 
     return (
         <div> 
             <Link to='/products'>Volver</Link>
-            <h2>Deja tu review sobre la Tienda {}</h2>
+            <h2>Deja tu review sobre la Tienda {store.name}</h2>
             {userInfo? (
             <form onSubmit={submitHandler}>
                 <div>
@@ -78,20 +88,9 @@ export default function Reviews({id}){
                     setHover(e.target.value);
                     }}
                 />
-                {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+                {rating !== null && <Box ml={2}>{labels[hover !== -1 ? hover : rating]}</Box>}
                 </div>
-                {/* <div>
-                <label htmlFor="rating">Puntuación</label>
-                       <select id="rating" value={rating}
-                        onChange={(e) => setRating(e.target.value)}>
-                           <option value="">Elige</option>
-                           <option value="1">1- Muy Mala</option>
-                           <option value="2">2- Mala</option>
-                           <option value="3">3- Buena</option>
-                           <option value="4">4- Muy buena</option>
-                           <option value="5">5- Excelente</option>
-                       </select>
-                </div> */}
+
                 <div>
                        <label htmlFor="comment">Comment</label>
                        <textarea
@@ -115,85 +114,3 @@ export default function Reviews({id}){
 }
 
 
-// export default function Reviews({id}){
-//     const [reputation, setReputation] = useState(0);
-//     const [comment, setComment] = useState('');
-//     const dispatch = useDispatch();
-
-//     const myStore = useSelector(state => state.myStore);
-//     const { loading, reviews} = myStore
-
-//     const user = useSelector(state => state.user);
-//     // console.log(user, 'user')
-//     const review = useSelector(state => state.review)
-//     const { succes: successRew } = review;
-//     console.log(review, 'review')
-
-//     useEffect(()=> {
-//         if(successRew){
-//             alert('Review creada con éxito');
-//             setReputation(0)
-//             setComment('')
-//             // return dispatch(getStore)
-//         }
-//         // dispatch(getStoreReview(id))
-//         // console.log(getStoreReview, 'getstore')
-//     }, [dispatch, successRew])
-
-//     const submitHandler = (e)=>{
-//         e.prevent.default()
-//         dispatch(createReview(id, {
-//             reputation, comment
-//         }))
-//         console.log(createReview, 'review')
-//     }
-
-//     return(
-//         <div>
-//             <h2>Reviews</h2>
-//             {myStore.reviews.length === 0 ? (<h4>No hay reviews aún</h4>) : null}
-//             {myStore.reviews.map((review) => (
-//                 <div>
-//                     <h3>{review.name}</h3>
-//                     <Reputation value={review.reputation}/>
-//                     <p>{review.createdAt.substring(0, 10)}</p>
-//                     <p>{review.comment}</p>
-//                 </div>
-//                 )         
-//             )}
-//         {user? (
-//             <form onSubmit={submitHandler}>
-//                 <div>
-//                     <h3>Escribele tu review a la tienda</h3>
-//                 </div>
-//                 <div>
-//                 <label htmlFor="reputation">Reputación</label>
-//                        <select id="rating" value={reputation}
-//                         onChange={(e) => setReputation(e.target.value)}>
-//                            <option value="">Elige</option>
-//                            <option value="1">1- Muy Mala</option>
-//                            <option value="2">2- Mala</option>
-//                            <option value="3">3- Buena</option>
-//                            <option value="4">4- Muy buena</option>
-//                            <option value="5">5- Excelente</option>
-//                        </select>
-//                 </div>
-//                 <div>
-//                        <label htmlFor="comment">Comment</label>
-//                        <textarea
-//                          id="comment"
-//                          value={comment}
-//                          onChange={(e) => setComment(e.target.value)}
-//                        ></textarea>
-//                 </div>
-//                 <div>
-//                        <label />
-//                        <button className="primary" type="submit">
-//                          Enviar
-//                        </button>
-//                      </div>
-//             </form>
-//         ): null}
-//         </div>
-//     )
-// }

@@ -15,7 +15,10 @@ const initialState = {
     cart: {},
     stores: [],
     orderDetail: [],
+    store:{},
     reviews: []
+    
+    
 }
 
 function rootReducer(state = initialState, action) {
@@ -126,11 +129,18 @@ function rootReducer(state = initialState, action) {
                     mercData: obj
             }
         case "CREATE_REVIEW":
+            
             return{
                 ...state,
-                // reviews: action.payload
-                reviews: [...state.reviews, action.payload[0]]
+                //reviews: [...state.reviews, action.payload[0],]
+                 reviews: action.payload
+                // reviews: state.reviews.concat(action.payload)
             }
+        case "GET_STORE":
+            return{
+                ...state, 
+                store: action.payload
+            }    
                
         default: return state;
         }
