@@ -105,7 +105,11 @@ function App() {
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
 
+
+          {/* <Route exact path = "/reviews" component = {Reviews} /> */}
+
         <Route exact path= "/store/:id/reviews" component = {Reviews} /> 
+
 
       
         
