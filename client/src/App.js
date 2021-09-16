@@ -26,7 +26,7 @@ import MyStore from "./components/MyStore";
 import Stores from "./components/Stores";
 import MyOrders from "./components/MyOrders";
 import Reviews from "./components/Reviews";
-import FakeStore from "./components/FakeStore";
+
 
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
@@ -102,8 +102,7 @@ function App() {
         <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
-
-        <Route exact = "/reviews" component = {Reviews} /> 
+        <Route exact path= "/store/:id/reviews" component = {Reviews} /> 
       
         
 

@@ -522,20 +522,21 @@ export const createReview = (storeId, review) => {
         })
     }
 }
-// export function getStoreReview(id){
-//     return function (dispatch){
-//         return axios({
-//             method: "get",
-//             withCredentials: true,
-//             // url: `/store/${id}`
-//             url: "/store"
-//         })
-//         .then((res)=> {
-//             //console.log("get store", res.data)
-//             dispatch({
-//                 type: "GET_STORE",
-//                 payload: res.data
-//             })
-//         })
-//     }
-// }
+export function getStoreReview(id){
+    console.log(id, 'idStore')
+    return function (dispatch){
+        return axios({
+            method: "get",
+            withCredentials: true,
+            // url: `/store/${id}`
+            url: `/${id}/store`
+        })
+        .then((res)=> {
+            //console.log("get store", res.data)
+            dispatch({
+                type: "GET_STORE",
+                payload: res.data
+            })
+        })
+    }
+}
