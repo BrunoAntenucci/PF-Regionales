@@ -577,3 +577,17 @@ export function deleteUser(id) {
           })
     }
 }
+
+export function getAllPetitions() {
+    return async function (dispatch) {
+        try {
+            const allPetitions = await axios.get('/petition/all');
+            return dispatch ({
+                type: 'GET_ALL_PETITIONS',
+                payload: allPetitions.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
