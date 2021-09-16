@@ -13,6 +13,7 @@ import Products from "./components/Products";
 import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart"
 import StoreCreation from './components/StoreCreation';
+import StoreDetail from './components/StoreDetail'
 import { createTheme , ThemeProvider} from '@material-ui/core';
 // import Header from "./components/Header";
 // import { useDispatch } from "react-redux";
@@ -26,7 +27,7 @@ import MyStore from "./components/MyStore";
 import Stores from "./components/Stores";
 import MyOrders from "./components/MyOrders";
 import Reviews from "./components/Reviews";
-import FakeStore from "./components/FakeStore";
+
 
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
@@ -98,12 +99,18 @@ function App() {
         <Route exact path="/favourites" component={Favourites} />
         <Route exact path = "/profile" component = {Profile} />
         <Route path="/detail/:id" component={ProductDetail} /> 
+        <Route path='/storedetail/:id' component={StoreDetail} />
         <Route exact path = "/cart" component = {Cart} />
         <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
 
-        <Route exact path = "/reviews" component = {Reviews} /> 
+
+          {/* <Route exact path = "/reviews" component = {Reviews} /> */}
+
+        <Route exact path= "/store/:id/reviews" component = {Reviews} /> 
+
+
       
         
 

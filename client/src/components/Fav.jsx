@@ -13,10 +13,10 @@ export default function Fav ({id}) {
     console.log(wishlist, 'wish')
 
     const handleFavClick =   (e) => {
-        e.preventDefault();
+        //e.preventDefault();
         if(!user) return alert('Debes loguearte primero')
         if(user) {
-            dispatch(getFav())
+            //dispatch(getFav())
             dispatch(addFav(id))
             setFav(true)
         }

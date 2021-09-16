@@ -148,7 +148,11 @@ const MyOrders = () => {
                                                 <p style={{fontWeight:"600"}}
                                                 >Fecha y hora de la compra:</p>
                                                 <p> {order.createdAt}</p>
-                                        
+                                            {order.status=="Completa"?
+                                            <Link to={`/${storesId}/reviews`}>
+                                            <p>Tienda</p>
+                                            </Link>
+                                            :null}
                                           
                                          
                                         </div>

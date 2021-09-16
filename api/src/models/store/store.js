@@ -52,7 +52,7 @@ const storeSchema = new Schema({
     }, 
     img: {
         type: String,
-        required: true
+        required: false
     },
     reviews: [reviewSchema],
     numReviews: {
