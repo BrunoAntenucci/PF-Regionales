@@ -31,7 +31,6 @@ const ProductSchema = Schema({
         type : String,
         required: true
     }
-        
 }, {
     timestamps: true, versionKey: false
 })

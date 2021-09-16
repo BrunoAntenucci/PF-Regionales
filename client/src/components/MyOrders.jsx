@@ -61,6 +61,11 @@ const useStyles = makeStyles((e) => ({
 const MyOrders = () => {
     const user = useSelector(state => state.user);
     const orderDetail = useSelector(state => state.orderDetail);
+    const stores = useSelector(state => state.stores)
+    const storesId = stores.map((el)=> {
+        return el._id
+    })
+    console.log(storesId, 'storeId')
     const dispatch = useDispatch();
     const classes = useStyles()
     useEffect(() => {

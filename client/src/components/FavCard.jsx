@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { deleteFav } from "../actions";
 
-const FavCard = ({name, description, image, _id, price}) => {
-    // const userId = window.localStorage.getItem('userId');
+const FavCard = ({id}) => {
+   
     const wishlist = useSelector(state => state.wishlist)
-    const user = useSelector(state => state.user)
     const dispatch = useDispatch();
-
-    const deleteOfList = async (id) => {
-        await dispatch(deleteFav(id))
+    
+    const deleteOfList =  (e) => {
+        dispatch(deleteFav(id))
+        //  console.log(idProd, 'id')
     }
     
     console.log('wishFav', wishlist)
@@ -26,16 +26,18 @@ const FavCard = ({name, description, image, _id, price}) => {
                     <div>{p.product?.description}</div>
                     <div>{p.product?.price}</div>
                     <div>{p.product?._id}</div>
-                    <button onClick={() => deleteOfList(p.product?._id)}>Eliminar</button>
+                    <button onClick={()=>deleteOfList(p.product?._id)}>Eliminar</button>
+                    <div>
+                    
+            <Link to={`/detail/${p.product?._id}`}>
+            <button>Ver detalle</button>
+            </Link> 
+        </div>
                     </div>
                 )
             })}
         </div>
-        <div>
-            <Link to={`/detail/${_id}`}>
-            <button>Ver detalle</button>
-            </Link> 
-        </div>
+       
         </div>
     )
 }
