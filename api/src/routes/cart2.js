@@ -103,9 +103,9 @@ router.delete("/removeProduct", async(req, res, next) => {
 
         for (var i=0; i<cart.items.length; i++) {
             if (cart.items[i].product._id.toString() === idProduct) {
-                if(cart.items[i].quantity > 0) cart.items[i].quantity--;
-                if(cart.items[i].subTotal >= valueProduct) cart.items[i].subTotal -= valueProduct;
-                if(cart.total >= valueProduct) cart.total -= valueProduct;
+                if(cart.items[i].quantity > 1) cart.items[i].quantity--;
+                if(cart.items[i].subTotal > valueProduct) cart.items[i].subTotal -= valueProduct;
+                if(cart.total > valueProduct) cart.total -= valueProduct;
                 await cart.save();
                 return res.status(200).send("Producto del Carrito Actualizado (-)");
             }
@@ -134,7 +134,7 @@ router.delete("/removeItem", async(req, res, next) => {
 
         for (var i=0; i<cart.items.length; i++) {
             if (cart.items[i].product._id.toString() === idProduct) {
-                cart.total -= cart.items[i].subTotal;
+                if(cart.total >= cart.items[i].subTotal) cart.total -= cart.items[i].subTotal;
                 cart.items = cart.items.filter(e => e.product._id.toString() !== idProduct);
                 await cart.save();
                 return res.status(200).send("Producto removido del Carrito");

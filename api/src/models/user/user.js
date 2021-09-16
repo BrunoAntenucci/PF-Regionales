@@ -24,6 +24,7 @@ const userSchema = new Schema({
         type: Schema.ObjectId,
         ref: "Role"
     },
+    // status: {         type: String,         enum : ['NEW','STATUS'],         default: 'NEW'     },
     ship_info: [{ 
         type: Schema.ObjectId, 
         ref: "ShipInfo"
