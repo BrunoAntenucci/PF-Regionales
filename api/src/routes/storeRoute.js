@@ -71,7 +71,7 @@ router.delete('/:id',[verifyToken, isAdmin], async (req, res) => {
 }) 
 router.post('/:id', async (req, res) => {
     const userSessionID = req?.session?.passport?.user
-    const { reputation, comment } = req.body;
+    const { rating, comment } = req.body;
     const store = await Store.findById(req.params.id)
     const user = await User.exists({_id: userSessionID});
 
@@ -86,15 +86,15 @@ router.post('/:id', async (req, res) => {
             }
             const review = {
                 first_name: req.user.first_name, 
-                reputation: Number(reputation),
+                rating: Number(rating),
                 comment,
                 user: req.user._id
             }
             store.reviews.push(review)
             store.numReviews = store.reviews.length
     
-            store.reputation = 
-            store.reviews.reduce((acc, item) => item.reputation + acc, 0) /
+            store.rating = 
+            store.reviews.reduce((acc, item) => item.rating + acc, 0) /
             store.reviews.length
     
             await store.save()

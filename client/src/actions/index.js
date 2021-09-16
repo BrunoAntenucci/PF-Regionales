@@ -430,7 +430,7 @@ export  function postOrder (data){
 }
 //----------WISHLIST----------
 export function addFav(id) {
-    // console.log("ENTRA CON: ", id)
+     console.log("ENTRA CON: ", id)
     return function(dispatch) {
         return axios({
             method: "post",
@@ -441,7 +441,7 @@ export function addFav(id) {
             url: "/favourites"
           })
           .then((res) => {
-              console.log("ENTRO AL ACTION", res.data._id)
+              console.log("ENTRO AL ACTION", res.data)
             dispatch({
                 type: "ADD_FAV",
                 payload: res.data
@@ -470,6 +470,7 @@ export function getFav() {
     }
 }
 export function deleteFav(id) {
+    console.log(id, 'deleteFavID')
     return function(dispatch) {
         return axios({
             method: "delete",
@@ -487,7 +488,7 @@ export function deleteFav(id) {
             })
           })
           .catch((err) => {
-              console.log(err)
+              console.log(err.data)
           })
     }
 }
@@ -503,11 +504,11 @@ export const createReview = (storeId, review) => {
                 // storeId: review.id,
                 first_name: review.first_name,
                 user: review.user,
-                reputation: review.reputation,
+                rating: review.rating,
                 comment: review.comment
             },
             withCredentials: true, 
-            url: `/store/${storeId}/reviews`
+            url: `/store/${storeId}`
         })
         .then((res)=> {
             console.log("[ACTION]RES reviews: ", res.data)

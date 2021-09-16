@@ -1,12 +1,70 @@
-// import React from 'react';
-// import { useState, useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { Link } from 'react-router-dom';
-// import Reputation from '../utils/reputation';
-// import { createReview, getStoreReview } from '../actions/index';
-// import {FaStar} from 'react-icons/fa';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Rating from '../utils/rating';
+import { createReview, getStoreReview } from '../actions/index';
+import {FaStar} from 'react-icons/fa';
+
+export default function Reviews(){
+    const dispatch = useDispatch();
+    const stores = useSelector(state => state.stores);
+    const userInfo = useSelector(state => state.user)
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState('');
+
+    const submitHandler = async (id)=>{
+                // e.prevent.default()
+                await dispatch(createReview(id, {
+                    rating, comment
+                }))
+                alert('Review creada con éxito');
+                console.log(createReview, 'review')
+                setRating(0);
+                setComment('')
+            }
 
 
+    return (
+        <div> 
+            <h2>Deja tu review sobre la Tienda</h2>
+            {userInfo? (
+            <form onSubmit={submitHandler}>
+                <div>
+                    <h3>Escribele tu review a la tienda</h3>
+                </div>
+                <div>
+                <label htmlFor="rating">Puntuación</label>
+                       <select id="rating" value={rating}
+                        onChange={(e) => setRating(e.target.value)}>
+                           <option value="">Elige</option>
+                           <option value="1">1- Muy Mala</option>
+                           <option value="2">2- Mala</option>
+                           <option value="3">3- Buena</option>
+                           <option value="4">4- Muy buena</option>
+                           <option value="5">5- Excelente</option>
+                       </select>
+                </div>
+                <div>
+                       <label htmlFor="comment">Comment</label>
+                       <textarea
+                         id="comment"
+                         value={comment}
+                         onChange={(e) => setComment(e.target.value)}
+                       ></textarea>
+                </div>
+                <div>
+                       <label />
+                       <button className="primary" type="submit">
+                         Enviar
+                       </button>
+                     </div>
+            </form>
+         ): null}
+            
+        </div>
+    )
+}
 // export default function Reviews({id}){
 //     const [reputation, setReputation] = useState(0);
 //     const [comment, setComment] = useState('');

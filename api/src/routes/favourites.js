@@ -66,7 +66,7 @@ router.post("/", async (req, res) =>{
 			let toSend = await Favourites.findOne({user: userSessionID})
 				.populate('products.product')
 				.exec();
-			// res.json({response: toSend.products, type: 'Ok', message: 'Success'});
+			//res.json({response: toSend.products, type: 'Ok', message: 'Success'});
 			res.status(200).send(toSend.products)
 		} else {
 			res.status(400).send({type: 'Bad Request', message: 'user not found'});
