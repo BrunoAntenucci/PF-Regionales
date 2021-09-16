@@ -110,10 +110,8 @@ function ProductDetail(props) {
     const detail = useSelector((state) => state.prodDetail);
 
     console.log(props.match.params.id, 'id')
-
     console.log(detail, "detallewqsdqwd")
     
-
     const dispatch = useDispatch();
 
     useEffect(() => {

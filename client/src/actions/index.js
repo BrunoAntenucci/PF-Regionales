@@ -511,20 +511,19 @@ export function deleteFav(id) {
 
 
 //------REVIEWS------
-export const createReview = (storeId, review) => {
-    console.log("entra con: ", storeId, review)
+export const createReview = (id, review) => {
+    console.log("entra con: ", id,  review)
     return function (dispatch){
         return axios({
             method: "post",
             data: {
-                // storeId: review.id,
                 first_name: review.first_name,
-                user: review.user,
-                rating: review.rating,
+                user: review._id,
+                rating: review.rating,  
                 comment: review.comment
             },
             withCredentials: true, 
-            url: `/store/${storeId}`
+            url: `/store/${id}/reviews`
         })
         .then((res)=> {
             console.log("[ACTION]RES reviews: ", res.data)
@@ -538,25 +537,26 @@ export const createReview = (storeId, review) => {
         })
     }
 }
-// export function getStoreReview(id){
-//     return function (dispatch){
-//         return axios({
-//             method: "get",
-//             withCredentials: true,
-//             // url: `/store/${id}`
-//             url: "/store"
-//         })
-//         .then((res)=> {
-//             //console.log("get store", res.data)
-//             dispatch({
-//                 type: "GET_STORE",
-//                 payload: res.data
-//             })
-//         })
-//     }
-// }
 
-//-----------------------------
+export function getStoreReview(id){
+    console.log(id, 'idStore')
+    return function (dispatch){
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: `/store/${id}`
+            // url: `/${id}/store`
+        })
+        .then((res)=> {
+            console.log("get store", res.data)
+            dispatch({
+                type: "GET_STORE",
+                payload: res.data
+            })
+        })
+    }
+}
+
 export function getAllUsers() {
     return async function (dispatch) {
         try {
@@ -593,3 +593,4 @@ export function deleteUser(id) {
           })
     }
 }
+

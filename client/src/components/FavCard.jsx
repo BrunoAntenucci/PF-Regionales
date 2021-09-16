@@ -1,18 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
-import { deleteFav } from "../actions";
+import { deleteFav, getFav } from "../actions";
 
-const FavCard = ({id}) => {
+const FavCard = ({name, image, price, _id}) => {
    
     const wishlist = useSelector(state => state.wishlist)
     const dispatch = useDispatch();
     
     const deleteOfList =  (e) => {
-        dispatch(deleteFav(id))
+        dispatch(deleteFav(_id))
+        console.log(deleteFav, 'te despacho')
         //  console.log(idProd, 'id')
     }
-    
+    useEffect(()=>{
+        dispatch(getFav())
+    }, [])
     console.log('wishFav', wishlist)
 
     return(
@@ -21,12 +24,10 @@ const FavCard = ({id}) => {
             {wishlist?.map(p =>{
                 return(
                     <div>
-                    <img src ={p.product?.image} />
-                    <div>{p.product?.name}</div>
-                    <div>{p.product?.description}</div>
-                    <div>{p.product?.price}</div>
-                    <div>{p.product?._id}</div>
-                    <button onClick={()=>deleteOfList(p.product?._id)}>Eliminar</button>
+                        <img src={image} />
+                        <div>{name}</div>
+                        <div>{price}</div>
+                    <button onClick={deleteOfList}>Eliminar</button>
                     <div>
                     
             <Link to={`/detail/${p.product?._id}`}>
