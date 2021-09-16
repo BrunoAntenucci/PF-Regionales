@@ -61,7 +61,7 @@ const Users = () => {
             id: user._id, 
             firstName: user.first_name, 
             lastName: user.last_name, 
-            role: user.roles?.name});
+            role: user?.role});
     });
     console.log(arr);
 
@@ -75,7 +75,7 @@ const Users = () => {
             arr[i].firstName, 
             arr[i].lastName, 
             arr[i].id, 
-            arr[i].roles?.name, 
+            arr[i].role, 
             <Button variant="outlined" color="error" onClick={() => handleDelete(arr[i].id)}>Eliminar</Button>
         ));
     }
