@@ -103,7 +103,7 @@ function App() {
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
 
-        <Route exact = "/reviews" component = {Reviews} /> 
+        <Route exact path = "/reviews" component = {Reviews} /> 
       
         
 

@@ -9,6 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
+import CreateIcon from '@mui/icons-material/Create';
 import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
 import PermMediaOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActual';
 import PublicIcon from '@mui/icons-material/Public';
@@ -43,9 +44,20 @@ export default function Navigator(props) {
 
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch(getAllUsers());
+    if(e.target.innerText == "Users"){
+      props.setComp("Users")
+      dispatch(getAllUsers());
+      console.log(e)
+
+    }else if(e.target.innerText == "Create"){
+      props.setComp("Create")
+      console.log(e.target.innerText)
+      
+    }
+    console.log(props.comp, "props comp")
   }
 
+console.log(props, "props")
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
@@ -73,6 +85,12 @@ export default function Navigator(props) {
                 <ListItemButton selected="active" sx={item} >
                   <ListItemIcon><DnsRoundedIcon /></ListItemIcon>
                   <ListItemText>Petitions</ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item}  onClick={handleClick} >
+                  <ListItemIcon><CreateIcon /></ListItemIcon>
+                  <ListItemText>Create</ListItemText>
                 </ListItemButton>
               </ListItem>
             <Divider sx={{ mt: 2 }} />
