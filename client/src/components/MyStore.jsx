@@ -69,7 +69,7 @@ const MyStore = () => {
                  variant="contained" color="primary">
                   Volver
                     </Button>
-           <StoreCreation/>
+                    <ProductCreation />
            </>:
            store == "crear tienda"?
            <>
@@ -82,7 +82,8 @@ const MyStore = () => {
                  variant="contained" color="primary">
                   Volver
                     </Button>
-           <ProductCreation />
+                    <StoreCreation/>
+          
            </>:
            <>
            <div className={classes.divElection}

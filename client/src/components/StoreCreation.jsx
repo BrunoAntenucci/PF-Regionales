@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         margin:"30px auto",
         width:"800px",
         padding: "40px",
-        borderRadius: "20px",
+        borderRadius: "8px",
         boxShadow:"3px 3px 3px #0003",
 background: "linear-gradient(120deg, #ffffff 0%, "+theme.palette.secondary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+theme.palette.secondary.light+" 76%, "+theme.palette.secondary.light+ " 78%, rgba(255,253,253,1) 78%)",
 
@@ -418,11 +418,7 @@ export default function ProductCreation(){
         </Grid>
         <div className={classes.buttonsDiv}>
         
-                 <Button
-                className={classes.button}
-                 variant="contained" color="secondary">
-                   <Link to = '/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
-                    </Button>
+             
                     <Button  variant="contained" className={classes.button} 
                   color="secondary" type='submit'>Crear Producto</Button>
            </div>
