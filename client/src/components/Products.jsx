@@ -5,7 +5,7 @@ import { getProducts, page, getCategories } from '../actions/index';
 import Card from './Card';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { Typography,Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Paginate from './Paginate';
 import Header from './Header';
@@ -127,6 +127,12 @@ function Products(props) {
                {/* <aside className={classes.aside}>
                     <div></div>
                 </aside> */}
+                <Button
+         style={{height:"min-content" , marginTop:"10px"}}
+         
+              variant="contained" color="primary">
+                <Link to='/' style={{textDecoration:"none", color:"white"}}>volver</Link>
+                 </Button>
                 <section className={classes.section}>
             <div className={classes.font}>
                 <Typography 
