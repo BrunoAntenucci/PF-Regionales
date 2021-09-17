@@ -58,15 +58,27 @@ export function getCategoryToModify(id) {
     }
 }
 
-export function postCategory(payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.post('petition/newPetition/category', payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+export function postCategory(dataCategory){
+    
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                dataCategory: dataCategory
+            },
+            withCredentials: true,
+            url: "/petition/newPetition/category"
+          })
+          .then((res) => {
+            console.log("CREATE PRODUCT: ", res.data)
+            dispatch({
+                type: "POST_PRODUCT",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
     
 }
@@ -86,15 +98,27 @@ export function modifyCategory(id, payload){
 
 
 
-export function postProducts(payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.post('petition/newPetition/product', payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+export function postProducts(dataProduct){
+    
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                dataProduct: dataProduct
+            },
+            withCredentials: true,
+            url: "/petition/newPetition/product"
+          })
+          .then((res) => {
+            console.log("CREATE PRODUCT: ", res.data)
+            dispatch({
+                type: "POST_PRODUCT",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
     
 }
@@ -112,20 +136,29 @@ export function modifyProducts(id, payload){
     
 }
 
-export function postStore(payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.post('petition/newPetition/store', payload);
-        console.log(aux)
-        console.log(payload)
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+export function postStore(dataStore){
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                dataStore: dataStore
+            },
+            withCredentials: true,
+            url: "/petition/newPetition/store"
+          })
+          .then((res) => {
+            console.log("CREATE STORE: ", res.data)
+            dispatch({
+                type: "POST_STORE",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
-    
-}
+    }
+
 
 export function getStore(){
     return async function (dispatch) {
