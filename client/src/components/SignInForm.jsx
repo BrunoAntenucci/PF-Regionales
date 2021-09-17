@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -55,21 +56,36 @@ const SignInForm = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const classes = useStyles();
+    var userState = useSelector(  (state) =>  state.user)
 
-    
-React.useEffect(()=>{
-
-    document.title ="Log In"
-    
-    return(()=>{
-        document.title ="E-Market" 
-    })
-    },[])
-    
+    const [errorUser, setErrorUser] = React.useState(false)
     const [input, setInput] = useState({
         email : '',
         password:''
     })
+React.useEffect(()=>{
+
+    document.title ="Log In"
+    console.log("use effect render user", userState)
+    setErrorUser(false)
+    if( userState.email ){
+      setErrorUser(false)
+      history.push("/products")
+    }
+    return(()=>{
+        document.title ="E-Market" 
+    })
+    },[])
+    React.useEffect(()=>{
+
+      console.log("use effect useState user", userState)
+      if( userState.email ){
+        setErrorUser(false)
+        history.push("/products")
+      }
+     
+      },[userState])
+    
     // const [errors, setErrors] = useState({});
 
     const handleChangeEmail = (e) => {
@@ -94,7 +110,10 @@ React.useEffect(()=>{
         await localStorage.clear();
       }
       dispatch(checkUser())
-      history.push("/products")
+      if(!userState || userState == {} || userState == "No user exist"){
+        setErrorUser(true)
+      }
+      console.log("user",userState)
     }
 
     return(
@@ -195,7 +214,13 @@ React.useEffect(()=>{
               </Grid>
             </Grid>
           </form>
-        </div>
+        </div>{
+          errorUser?
+          <>
+        <h1> el mail no existe</h1>
+        </>
+        :""
+        }
         <Box mt={8}>
           <Copyright />
         </Box>
