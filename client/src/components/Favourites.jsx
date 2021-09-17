@@ -15,15 +15,16 @@ const Favourites = ({id}) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user)
   // const products = useSelector(state => state.products)
-  const idProd = wishlist.map(el=>{
-    return el.product._id
-  })
+  // const idProd = wishlist.map(el=>{
+  //   return el.product._id
+  // })
   
-  console.log(idProd, 'id')
+  // console.log(idProd, 'id')
 
   useEffect(() => {
     dispatch(getFav());
-  }, [dispatch])
+    return dispatch(getFav())
+  }, [])
 
   return (
   <div>
@@ -31,19 +32,17 @@ const Favourites = ({id}) => {
    <div>
       <h1>Favoritos</h1>
       <div>
-        <Table>
-          <thead><tr><th>Nombre</th>
-          <th>Precio</th>
-          <th>Foto</th></tr></thead>
-        <tbody>
-          
-          {wishlist.length? (<div><tr>
-            <FavCard id={idProd}/></tr></div>) : (<div>
-            <p>No tienes favoritos aún</p>
-          </div>) 
-          }
-        </tbody>
-        </Table>
+        {wishlist.length ?
+        wishlist.map(({product: {image, name, price, _id, description}, i})=>
+        <FavCard 
+        key={i}
+        image={image}
+        name={name}
+        price={price}
+        _id={_id}
+        description={description}/>)
+      :<p>No tienes favoritos aún</p>}
+       
       </div>
       <Link to={`/products`}>
         Volver
