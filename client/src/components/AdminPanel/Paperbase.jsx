@@ -11,6 +11,7 @@ import Users from '../Users';
 import MyOrders from '../MyOrders';
 import Petitions from '../Petitions';
 import MyStore from '../MyStore'
+import PanelProduct from '../PanelProduct';
 
 function Copyright() {
   return (
@@ -210,6 +211,7 @@ export default function Paperbase() {
             : component === "Create"? <MyStore/>
             : component === "Petitions"? <Petitions />
             : component === "Mis compras"? <MyOrders />
+            : component === "Products"? <PanelProduct />
             : ""}
 
 
