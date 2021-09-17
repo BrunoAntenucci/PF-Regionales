@@ -4,7 +4,7 @@ import { URL } from '../utils/constants';
 export function getProducts() {
     return async function (dispatch) {
         try {
-            const prod = await axios.get('/');
+            const prod = await axios.get('/product/');
             return dispatch ({
                 type: 'GET_PRODUCTS',
                 payload: prod.data

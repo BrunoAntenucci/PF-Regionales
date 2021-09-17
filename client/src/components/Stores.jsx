@@ -88,7 +88,7 @@ const Stores = () => {
     return (
         <>
             <Button
-         style={{height:"min-content"}}
+         style={{height:"min-content", marginTop:"20px"}}
          
               variant="contained" color="primary">
                 <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
