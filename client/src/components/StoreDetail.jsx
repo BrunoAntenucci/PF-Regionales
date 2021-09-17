@@ -45,6 +45,23 @@ export default function StoreDetail(props){
             </div>
 
             <div>
+                <h2>Reviews</h2>
+                    {detail.reviews ? detail.reviews.map(review => {
+                            return(
+                                <div>
+                                    <p> {review.first_name}</p>
+                                    <p>={review.rating} </p>
+                                    <p>{review.comment}</p>
+                                    <p>{review.createdAt.substring(0, 10)}</p>
+                                </div>
+                            )
+                    }) : null}
+            </div>
+            <div>
+                <Link to={`/store/${detail.id}/reviews`}>Deja tu review</Link>
+            </div>
+            <br/>
+            <div>
                 <Link to={`/modifystore/${detail.id}`}>Editar tienda</Link>
             </div>
         </div>
