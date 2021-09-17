@@ -73,9 +73,6 @@ const theme = createTheme({
 
 
 function App() {
-
-  // const [guest, setGuest] = useState(true)
-
   return (
     
     <BrowserRouter>
