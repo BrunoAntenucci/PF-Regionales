@@ -49,6 +49,63 @@ function Copyright() {
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    error:{
+      textAlign:"center",
+      color:theme.palette.error.main,
+      background:theme.palette.error.light,
+      padding:"10px",
+      position:"relative",
+      borderRadius:"10px",
+      border:"3px solid "+theme.palette.error.main,
+   
+      animationName: "$myEffect",
+      animationDuration: ".25s",
+    },
+
+    
+    "@keyframes myEffect": {
+      "0%": {
+       
+        transform: "translate(10%, 10%)",
+        
+      },
+      "10%": {
+      
+        transform: "translate(-10%, -10%)",
+      },
+      "20%": {
+       transform: "translate(10%, 10%)",
+      },
+      "30%": {
+      
+        transform: "translate(-10%, -10%)",
+      },
+      "40%": {
+        transform: "translate(10%, 10%)",
+      },
+      "50%": {
+      
+        transform: "translate(-10%, -10%)",
+      },
+      "60%": {
+       transform: "translate(10%, 10%)",
+      },
+      "70%": {
+      
+        transform: "translate(-10%, -10%)",
+      }, "80%": {
+      transform: "translate(10%, 10%)",
+      },
+      "90%": {
+      
+        transform: "translate(-10%, -10%)",
+      },
+      "100%": {
+      transform: "translate(10%, 10%)",
+      },
+    },
+   
+    
   }));
 
 
@@ -82,6 +139,9 @@ React.useEffect(()=>{
       if( userState.email ){
         setErrorUser(false)
         history.push("/products")
+      }else  if((!userState || userState == {} 
+        || userState == "No user exist") && input.email.length > 5){
+        setErrorUser(true)
       }
      
       },[userState])
@@ -101,6 +161,7 @@ React.useEffect(()=>{
     }
     console.log(input)
     async function handleSubmit(e) {
+      setErrorUser(false)
       e.preventDefault();
       await dispatch(signIn(input))
       if (localStorage.history) {
@@ -110,9 +171,9 @@ React.useEffect(()=>{
         await localStorage.clear();
       }
       dispatch(checkUser())
-      if(!userState || userState == {} || userState == "No user exist"){
-        setErrorUser(true)
-      }
+      // if(!userState || userState == {} || userState == "No user exist"){
+      //   setErrorUser(true)
+      // }
       console.log("user",userState)
     }
 
@@ -217,7 +278,7 @@ React.useEffect(()=>{
         </div>{
           errorUser?
           <>
-        <h1> el mail no existe</h1>
+        <h2 className={classes.error}> el mail no está registrado</h2>
         </>
         :""
         }
