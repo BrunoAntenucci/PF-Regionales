@@ -609,3 +609,49 @@ export function getAllPetitions() {
     }
 }
 
+export function acceptPetition(id) {
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                petitionId: id
+            },
+            withCredentials: true,
+            url: "/petition/petitionAccepted"
+          })
+          .then((res) => {
+            console.log("ACCEPT PETITION: ", res.data)
+            dispatch({
+                type: "ACCEPT_PETITION",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function denyPetition(id) {
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                petitionId: id
+            },
+            withCredentials: true,
+            url: "/petition/petitionDenied"
+          })
+          .then((res) => {
+            console.log("DENY PETITION: ", res.data)
+            dispatch({
+                type: "DENY_PETITION",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
