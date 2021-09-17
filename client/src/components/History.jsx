@@ -1,12 +1,13 @@
-import { makeStyles, Typography } from "@material-ui/core"
+import { makeStyles, Typography,Button } from "@material-ui/core"
 import React from "react"
 import Header from "./Header"
 import Card from './Card'
 import { useSelector } from "react-redux"
-import NoHistory from '../img/no-history.svg'
+import NoHistory from '../img/no-history.svg';
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
 root:{
-    margin:"250px 0",
+    margin:"80px 0",
    // padding: "0 10px 0 30px",
    width:"100vw",
    background:theme.palette.primary.light,
@@ -38,6 +39,12 @@ function History(){
 return(<>
 
     <Header />
+    <Button
+         style={{height:"min-content" , marginTop:"20px"}}
+         
+              variant="contained" color="primary">
+                <Link to='/' style={{textDecoration:"none", color:"white"}}>volver</Link>
+                 </Button>
         
         {historyProducts?
     <div className={classes.root}>
