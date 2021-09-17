@@ -594,3 +594,64 @@ export function deleteUser(id) {
     }
 }
 
+
+export function getAllPetitions() {
+    return async function (dispatch) {
+        try {
+            const allPetitions = await axios.get('/petition/all');
+            return dispatch ({
+                type: 'GET_ALL_PETITIONS',
+                payload: allPetitions.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export function acceptPetition(id) {
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                petitionId: id
+            },
+            withCredentials: true,
+            url: "/petition/petitionAccepted"
+          })
+          .then((res) => {
+            console.log("ACCEPT PETITION: ", res.data)
+            dispatch({
+                type: "ACCEPT_PETITION",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function denyPetition(id) {
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                petitionId: id
+            },
+            withCredentials: true,
+            url: "/petition/petitionDenied"
+          })
+          .then((res) => {
+            console.log("DENY PETITION: ", res.data)
+            dispatch({
+                type: "DENY_PETITION",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+

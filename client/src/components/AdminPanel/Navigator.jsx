@@ -11,17 +11,11 @@ import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import CreateIcon from '@mui/icons-material/Create';
 import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
-import PermMediaOutlinedIcon from '@mui/icons-material/PhotoSizeSelectActual';
-import PublicIcon from '@mui/icons-material/Public';
-import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
-import SettingsInputComponentIcon from '@mui/icons-material/SettingsInputComponent';
-import TimerIcon from '@mui/icons-material/Timer';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
 import SettingsIcon from '@mui/icons-material/Settings';
-import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
-import { getAllUsers } from '../../actions';
+import { getAllUsers, getAllPetitions } from '../../actions';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 
 const item = {
   py: '2px',
@@ -44,20 +38,31 @@ export default function Navigator(props) {
 
   const handleClick = (e) => {
     e.preventDefault();
-    if(e.target.innerText == "Users"){
+    if(e.target.innerText === "Users"){
       props.setComp("Users")
       dispatch(getAllUsers());
       console.log(e)
 
-    }else if(e.target.innerText == "Create"){
+    }else if(e.target.innerText === "Create"){
       props.setComp("Create")
+      console.log(e.target.innerText)
+      
+    } else if(e.target.innerText === "Petitions"){
+      props.setComp("Petitions")
+      dispatch(getAllPetitions());
+      console.log(e.target.innerText)
+      
+    } else if(e.target.innerText === "Mis compras"){
+      props.setComp("MyOrders")
       console.log(e.target.innerText)
       
     }
     console.log(props.comp, "props comp")
   }
 
+
 console.log(props, "props")
+
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
@@ -82,9 +87,15 @@ console.log(props, "props")
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-                <ListItemButton selected="active" sx={item} >
+                <ListItemButton selected="active" sx={item} onClick={handleClick}>
                   <ListItemIcon><DnsRoundedIcon /></ListItemIcon>
                   <ListItemText>Petitions</ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item} onClick={handleClick}>
+                  <ListItemIcon><LocalMallIcon /></ListItemIcon>
+                  <ListItemText>Mis compras</ListItemText>
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
@@ -95,7 +106,7 @@ console.log(props, "props")
               </ListItem>
             <Divider sx={{ mt: 2 }} />
           </Box>
-
+          <Divider sx={{ mt: 2 }} /> 
           <Box sx={{ bgcolor: '#101F33' }}>
             <ListItem sx={{ py: 2, px: 3 }}>
               <ListItemText sx={{ color: '#fff' }}>Quality</ListItemText>
@@ -108,7 +119,6 @@ console.log(props, "props")
             </ListItem>
             <Divider sx={{ mt: 2 }} />
           </Box>
-        
       </List>
     </Drawer>
   );

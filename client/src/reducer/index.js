@@ -18,7 +18,8 @@ const initialState = {
     orderDetail: [],
     store:{},
     reviews: [],
-    users: []
+    users: [],
+    petitions: []
 
 }
 
@@ -169,6 +170,11 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 users: action.payload
+            }
+            case 'GET_ALL_PETITIONS':
+            return {
+                ...state,
+                petitions: action.payload
             }
                
         default: return state;
