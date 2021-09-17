@@ -125,7 +125,7 @@ const MyOrders = () => {
                                         <hr />
                                         <div className={classes.divItems}>
                                             <p className={classes.total} >total</p>
-                                            <p className={classes.total} >{order.cart.total}</p>
+                                            <p className={classes.total} >{order.cart?.total}</p>
                                         </div>
                                         <hr />
                                         <div className={classes.divExtra}>
