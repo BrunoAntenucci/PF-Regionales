@@ -125,7 +125,7 @@ const MyOrders = () => {
                                         <hr />
                                         <div className={classes.divItems}>
                                             <p className={classes.total} >total</p>
-                                            <p className={classes.total} >{order.cart.total}</p>
+                                            <p className={classes.total} >{order.cart?.total}</p>
                                         </div>
                                         <hr />
                                         <div className={classes.divExtra}>
@@ -148,7 +148,11 @@ const MyOrders = () => {
                                                 <p style={{fontWeight:"600"}}
                                                 >Fecha y hora de la compra:</p>
                                                 <p> {order.createdAt}</p>
-                                        
+                                            {order.status=="Completa"?
+                                            <Link to={`/${storesId}/reviews`}>
+                                            <p>Tienda</p>
+                                            </Link>
+                                            :null}
                                           
                                          
                                         </div>

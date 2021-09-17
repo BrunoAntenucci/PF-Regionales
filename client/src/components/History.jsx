@@ -1,21 +1,24 @@
-import { makeStyles, Typography } from "@material-ui/core"
+import { makeStyles, Typography,Button } from "@material-ui/core"
 import React from "react"
 import Header from "./Header"
 import Card from './Card'
 import { useSelector } from "react-redux"
-import NoHistory from '../img/no-history.svg'
+import NoHistory from '../img/no-history.svg';
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
 root:{
-    margin:"250px 0",
+    margin:"80px 0",
    // padding: "0 10px 0 30px",
    width:"100vw",
    background:theme.palette.primary.light,
    padding:"0 30px 0 0",
-   borderTop:"30px solid "+theme.palette.primary.main,
-   borderBottom:"30px solid "+theme.palette.primary.main,
-   display:"flex",
+//    borderTop:"30px solid "+theme.palette.primary.main,
+//    borderBottom:"30px solid "+theme.palette.primary.main,
+    display:"flex",
    flexDirection:"row",
-   overflow:"scroll"
+//    overflow:"scroll",
+   justifyContent:"center",
+   
 },
 typografy:{
     padding:"0 20px"
@@ -36,12 +39,18 @@ function History(){
 return(<>
 
     <Header />
+    <Button
+         style={{height:"min-content" , marginTop:"20px"}}
+         
+              variant="contained" color="primary">
+                <Link to='/' style={{textDecoration:"none", color:"white"}}>volver</Link>
+                 </Button>
         
         {historyProducts?
     <div className={classes.root}>
        <Typography className={classes.typografy}
            variant="h4" component="h4" color="primary">
-       últimos {historyProducts.length} productos 
+       {/* últimos {historyProducts.length} productos  */}
                 </Typography>
        
         {historyProducts.map((p,i )=>{

@@ -4,6 +4,7 @@ const initialState = {
     categories: [],
     prodDetail: [],
     catDetail: [],
+    storeDetail: [],
     page: 1,
     user: {},
     categ: [],
@@ -15,8 +16,11 @@ const initialState = {
     cart: {},
     stores: [],
     orderDetail: [],
+    store:{},
     reviews: [],
-    users: []
+    users: [],
+    petitions: []
+
 }
 
 function rootReducer(state = initialState, action) {
@@ -63,12 +67,16 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 page: action.payload
             }
-            case 'GET_STORES':
+        case 'GET_STORES':
             return {
                 ...state,
                 stores: action.payload
             }
-
+        case 'GET_STORE_BY_ID':
+            return {
+                ...state,
+                storeDetail: action.payload
+            }
             case 'GET_ORDER_DETAIL':
             return {
                 ...state,
@@ -97,6 +105,25 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 wishlist: action.payload
             }
+        case 'FILTER_PRODUCTS':
+        var allProducts = state.allProducts;
+        var productByCategory = []
+        if( action.payload !== ''){
+            for (var i=0; i<allProducts.length; i++) {
+            for (var j=0; j<allProducts[i].category.length; j++) {
+                if (allProducts[i].category[j].name === action.payload) {
+                productByCategory.push(allProducts[i])
+                }
+            }
+            }
+        }else{
+            productByCategory = allProducts
+        }
+        return {
+            ...state, 
+            products: productByCategory
+
+        }
                  
         case "ADD_FAV":
             return {
@@ -127,15 +154,27 @@ function rootReducer(state = initialState, action) {
                     mercData: obj
             }
         case "CREATE_REVIEW":
+            
             return{
                 ...state,
-                // reviews: action.payload
-                reviews: [...state.reviews, action.payload[0]]
+                 reviews: action.payload
             }
-            case 'GET_ALL_USERS':
+
+        case "GET_STORE":
+            return{
+                ...state, 
+                store: action.payload
+            }    
+
+        case 'GET_ALL_USERS':
             return {
                 ...state,
                 users: action.payload
+            }
+            case 'GET_ALL_PETITIONS':
+            return {
+                ...state,
+                petitions: action.payload
             }
                
         default: return state;

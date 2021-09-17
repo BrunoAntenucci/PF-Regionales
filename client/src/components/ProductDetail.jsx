@@ -110,10 +110,8 @@ function ProductDetail(props) {
     const detail = useSelector((state) => state.prodDetail);
 
     console.log(props.match.params.id, 'id')
-
     console.log(detail, "detallewqsdqwd")
     
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -194,8 +192,16 @@ function ProductDetail(props) {
                         <Button
                 className={classes.buttonBack}
                  variant="contained" color="primary">
-                   <Link to = '/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
+                   <Link to = '/products' style={{textDecoration:"none", color:"white"}}>lista</Link>
                     </Button>
+                    <br/>
+                    <br/>
+                    <Button
+                className={classes.buttonBack}
+                 variant="contained" color="primary">
+                   <Link to = '/' style={{textDecoration:"none", color:"white"}}>home</Link>
+                    </Button>
+                    
                    
                          </div>     
                          <div className={classes.contentRight}>     

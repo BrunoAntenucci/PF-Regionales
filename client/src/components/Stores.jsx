@@ -3,11 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getStore } from '../actions';
-import { Button, Typography } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import stores from '../img/stores.svg'
 import { makeStyles } from '@material-ui/styles';
-import Rating from '../utils/rating';
+// import Rating from '../utils/rating';
 import {FaStar} from 'react-icons/fa';
+import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
 
 
 const useStyles = makeStyles((e)=>({
@@ -84,7 +88,7 @@ const Stores = () => {
     return (
         <>
             <Button
-         style={{height:"min-content"}}
+         style={{height:"min-content", marginTop:"20px"}}
          
               variant="contained" color="primary">
                 <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
@@ -118,9 +122,11 @@ const Stores = () => {
                         {store.reviews.map(review => {
                             return(
                                 <div>
-                                    <Rating value={review.rating}/>
                                     <p> {review.first_name}</p>
-                                    <p>{review.rating}</p><FaStar />
+                                    <Box component="fieldset" mb={0} borderColor="transparent">
+                                        {/* <Typography component="legend">Read only</Typography> */}
+                                        <Rating name="read-only" value={review.rating} readOnly />
+                                    </Box>
                                     <p>{review.comment}</p>
                                     <p>{review.createdAt.substring(0, 10)}</p>
                                 </div>
