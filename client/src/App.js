@@ -87,7 +87,6 @@ function App() {
           <Products guest={guest} setGuest={setGuest}/> 
           <Products/>
         </Route> */}
-        <Route exact path = "/" component = {Home} />
         <Route exact path = "/creation" component = {ProductCreation} />
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
@@ -102,27 +101,13 @@ function App() {
         <Route path="/detail/:id" component={ProductDetail} /> 
         <Route path='/storedetail/:id' component={StoreDetail} />
         <Route exact path = "/cart" component = {Cart} />
-        <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
-
-
-
-
-          {/* <Route exact path = "/reviews" component = {Reviews} /> */}
-
-          
-
-
+        {/* <Route exact path = "/reviews" component = {Reviews} /> */}
         <Route exact path= "/store/:id/reviews" component = {Reviews} /> 
-
-
-
-      
-        
-
+        <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/admin" component = {Paperbase} />
-
+        <Route exact path = "/" component = {Home} />
        
       </Switch>
       </ThemeProvider>
