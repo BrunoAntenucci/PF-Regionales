@@ -14,6 +14,7 @@ import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart"
 import StoreCreation from './components/StoreCreation';
 import StoreDetail from './components/StoreDetail'
+import ModifyStore from './components/ModifyStore'
 import { createTheme , ThemeProvider} from '@material-ui/core';
 // import Header from "./components/Header";
 // import { useDispatch } from "react-redux";
@@ -95,6 +96,7 @@ function App() {
         <Route exact path = "/categorycreation" component = {CategoryCreation} />
         <Route exact path = "/modifyProduct/:id" component = {ModifyProduct} />
         <Route exact path= "/modifycategory/:id" component = {ModifyCategory} />
+        <Route exact path= "/modifystore/:id" component = {ModifyStore} />
         <Route exact path = "/history" component = {History} />
         <Route exact path="/favourites" component={Favourites} />
         <Route exact path = "/profile" component = {Profile} />

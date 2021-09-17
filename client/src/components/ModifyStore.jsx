@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getProducts, postStore } from '../actions';
+import { getProducts, getStore, modifyStore } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -123,20 +123,32 @@ function validate(input){
     return errors
 }
 
-export default function StoreCreation(){
+export default function ModifyStore(props){
     const dispatch = useDispatch();
     //const history = useHistory();
     const [ errors, setErrors ] = useState({});
+    const id  = props.match.params.id
+    console.log(id, "ID")
+
+    useEffect((id) => {
+        dispatch(getStore(id));
+
+    }, [dispatch, getStore()])
+
+    const storedetail = useSelector((state) => state.storeDetail)
 
     const [ input, setInput ] = useState({
-        name: '',
-        description: '',
-        city: '',
-        products: [],
-        address: '',
-        img: ''
+        _id: storedetail._id,
+        name: storedetail.name,
+        description: storedetail.description,
+        city: storedetail.city,
+        products: storedetail.products,
+        address: storedetail.address,
+        img: storedetail.img
         //reputation: 0,
     });
+
+    console.log("INPUT", input)
 
   const classes = useStyles();
 
@@ -191,8 +203,8 @@ export default function StoreCreation(){
             alert('Form incomplete');
         }else{
             e.preventDefault();   
-            dispatch(postStore(input));
-            alert('Store created');     
+            dispatch(modifyStore(input._id, input));
+            alert('Store modified');     
             setInput({
                 name: '',
                 description: '',
@@ -314,7 +326,7 @@ export default function StoreCreation(){
             <div className={classes.root}>
             <div className={classes.card}>
         <Typography variant="h6" gutterBottom >
-        crear una tienda
+        Modificar tienda
         </Typography>
         <form onSubmit={(e) => handleSubmit(e)}>
         <Grid container spacing={3}>
@@ -424,7 +436,7 @@ export default function StoreCreation(){
                    <Link to = '/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
                     </Button>
                     <Button  variant="contained" className={classes.button} 
-                  color="secondary" type='submit'>Crear Producto</Button>
+                  color="secondary" type='submit'>Modificar tienda</Button>
            </div>
         </form>
         

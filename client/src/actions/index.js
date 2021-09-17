@@ -127,6 +127,19 @@ export function postStore(payload){
     
 }
 
+export function modifyStore(id, payload){
+    return async function (dispatch){
+        try{
+        const aux = await axios.patch('/store/' + id, payload);
+        return aux
+        } catch (error){
+            console.log(error)
+        }
+        
+    }
+    
+}
+
 export function getStore(){
     return async function (dispatch) {
         try {
