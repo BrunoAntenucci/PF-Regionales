@@ -13,7 +13,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { getAllUsers, getAllPetitions } from '../../actions';
+import { getAllUsers, getAllPetitions, getOrderDetail } from '../../actions';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -53,7 +53,8 @@ export default function Navigator(props) {
       console.log(e.target.innerText)
       
     } else if(e.target.innerText === "Mis compras"){
-      props.setComp("MyOrders")
+      props.setComp("Mis compras")
+      dispatch(getOrderDetail());
       console.log(e.target.innerText)
       
     }

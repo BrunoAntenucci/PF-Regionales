@@ -72,6 +72,7 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 stores: action.payload
             }
+           
         case 'GET_STORE_BY_ID':
             return {
                 ...state,

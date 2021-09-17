@@ -212,6 +212,8 @@ export default function Paperbase() {
             : component === "Mis compras"? <MyOrders />
             : ""}
 
+
+
           </Box>
           <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
           </Box>
