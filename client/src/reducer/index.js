@@ -104,6 +104,25 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 wishlist: action.payload
             }
+        case 'FILTER_PRODUCTS':
+        var allProducts = state.allProducts;
+        var productByCategory = []
+        if( action.payload !== ''){
+            for (var i=0; i<allProducts.length; i++) {
+            for (var j=0; j<allProducts[i].category.length; j++) {
+                if (allProducts[i].category[j].name === action.payload) {
+                productByCategory.push(allProducts[i])
+                }
+            }
+            }
+        }else{
+            productByCategory = allProducts
+        }
+        return {
+            ...state, 
+            products: productByCategory
+
+        }
                  
         case "ADD_FAV":
             return {
