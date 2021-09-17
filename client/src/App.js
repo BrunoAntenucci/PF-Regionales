@@ -72,9 +72,6 @@ const theme = createTheme({
 
 
 function App() {
-
-  // const [guest, setGuest] = useState(true)
-
   return (
     
     <BrowserRouter>
@@ -103,7 +100,7 @@ function App() {
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
 
-        <Route exact = "/reviews" component = {Reviews} /> 
+        <Route exact path= "/reviews" component = {Reviews} /> 
       
         
 
