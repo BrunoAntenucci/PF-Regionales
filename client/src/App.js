@@ -20,6 +20,7 @@ import Header from "./components/Header";
 // import { useDispatch } from "react-redux";
 // import { guestMati } from "./actions";
 // import { userCheck } from "./actions";
+import Footer from './components/Footer'
 import ModifyProduct from "./components/ModifyProduct";
 import CategoryCreation from "./components/CategoryCreation";
 import ModifyCategory from "./components/ModifyCategory";
@@ -79,7 +80,7 @@ function App() {
     <BrowserRouter>
     <ThemeProvider theme={theme}>
     <ReactNotification />
-    <Header />
+    {/* <Header /> */}
       <Switch>
         {/* <Route exact path="/" >
           <Products guest={guest} setGuest={setGuest}/> 
@@ -107,8 +108,10 @@ function App() {
         <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/admin" component = {Paperbase} />
         <Route exact path = "/" component = {Home} />
-       
+        
       </Switch>
+       <Footer/>
+      
       </ThemeProvider>
     </BrowserRouter>
   );

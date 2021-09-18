@@ -14,31 +14,101 @@ import stores from '../img/stores.svg';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(e => ({
+    conteiner1:{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        maxWidth: '1024px',
+        margin: ' 0 auto',
+        fontSize: 'calc(1em + 1vw)',
+        '@media(max-width: 375px)':{
+            display: 'flex',
+             marginLeft: '300px',
+             flexDirection: 'column',
+        //    width:"50%",
+        //    height:"50%"
+        maxWidth: '1024px',
+        justifyContent: 'center',
+        fontSize: '10vw',
+        
+        }
+        
+
+    },
+//     conteiner2:{
+//         width: 100%;
+// background: radial-gradient(circle, #E3E8D6 0%, #C8CAC4  100%);
+// padding: 80px 60px;
+//     },
   root:{
-    marginTop:"-50px ",
-   // padding: "0 10px 0 30px",
-   width:"100vw",
+     margin:"20px 30px 1000px 20px",
+//    // padding: "0 10px 0 30px",
+    width:"100vw",
  
-   background:e.palette.primary.light,
-   padding:"0 30px 0 0",
-   borderTop:"30px solid "+e.palette.primary.main,
-   borderBottom:"30px solid "+e.palette.primary.main,
-   display:"flex",
-   flexDirection:"row",
+//    background:e.palette.primary.light,
+//    padding:"0 30px 0 0",
+//    borderTop:"30px solid "+e.palette.primary.main,
+//    borderBottom:"30px solid "+e.palette.primary.main,
+//    display:"flex",
+//    flexDirection:"row",
+display: 'flex',
+  textAlign: 'left',
+  marginLeft: '-330px',
+//   margin: "-950px 0 auto " ,
+   '@media(max-width: 375px)':{
+    marginLeft: '100px',
+    flexDirection: 'column',
+    marginTop: ' 100px',
+    display: 'flex',
+
+}
+
   //  overflow:"scroll"
 },
 root2:{
-  marginTop:"-50px ",
- // padding: "0 10px 0 30px",
+   marginTop:"20px 30px 1000px 20px",
+//  // padding: "0 10px 0 30px",
  width:"100vw",
- background:e.palette.primary.light,
- padding:"0 30px 0 0",
- borderTop:"30px solid "+e.palette.primary.main,
- borderBottom:"30px solid "+e.palette.primary.main,
- display:"flex",
- flexDirection:"row",
+//  background:e.palette.primary.light,
+//  padding:"0 30px 0 0",
+//  borderTop:"30px solid "+e.palette.primary.main,
+//  borderBottom:"30px solid "+e.palette.primary.main,
+//  display:"flex",
+//  flexDirection:"row",
+display: 'flex',
+  textAlign: 'left',
+  marginLeft: '-300px',
+//   margin: "-950px 0 auto " ,
+ '@media(max-width: 375px)':{
+    marginLeft: '130px',
+    flexDirection: 'column',
+    marginTop: '50px',
+    
+}
+
 //  overflow:"scroll"
 },
+root3:{
+//     marginTop:"-900px ",
+//    // padding: "0 10px 0 30px",
+//    width:"100vw",
+//    background:e.palette.primary.light,
+//    padding:"0 30px 0 0",
+//    borderTop:"30px solid "+e.palette.primary.main,
+//    borderBottom:"30px solid "+e.palette.primary.main,
+//    display:"flex",
+//    flexDirection:"row",
+  //  overflow:"scroll"
+  display: 'flex',
+  textAlign: 'left',
+  marginLeft: '-330px',
+  margin: "-950px 0 auto " ,
+  '@media(max-width: 375px)':{
+    marginLeft: '50px',
+    flexDirection: 'column',
+    marginTop: ' -1000px'
+  }
+  },
 typografy:{
     padding:"0 20px"
 },
@@ -66,26 +136,89 @@ typografy:{
     // overflow:"scroll",
    
     minWidth: "1300px",
-  },leyend:{
+  },
+  leyend:{
     display:"flex",
     flexDirection:"row",
     margin: "0px 30px",
-    background: "rgb(83,83,83)",
-background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
+    // width:"50%",
+    // height:"50%",
+//     background: "rgb(83,83,83)",
+// background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
     color:e.palette.secondary.main,
     //background:"#ffffff32",
     flexWrap:"wrap",
     borderBottom: `1px solid ${ e.palette.primary.dark}`,
     //borderTop: `3px solid ${ e.palette.secondary.dark}`,
-    borderRadius:"2px"
-  },link:{
-    margin:"50px 30px 0px 20px",
+    borderRadius:"2px",
+    '@media(max-width: 375px)':{
+        marginTop: '330px',
+        marginRight:'52px',
+        flexDirection: 'column',
+    }
+  },
+  link:{
+    margin:"-50px 30px 0px 20px",
     textDecoration:"none",
-    color:e.palette.secondary.light
+    color:e.palette.secondary.light,
+    '@media(max-width: 375px)':{
+        marginLeft: '240px',
+        flexDirection: 'column',
+        marginTop:'-170px'
+    }
   },
   h1:{
     fontSize:"2.2em",
-    marginTop:"50px"
+    marginTop:"-50px",
+    marginLeft: '-300px',
+    '@media(max-width: 375px)':{
+        marginLeft: '-220px',
+        flexDirection: 'column',
+    }
+  },
+  h2:{
+    fontSize:"2.2em",
+    marginTop:"50px",
+    marginLeft: '-300px',
+    '@media(max-width: 375px)':{
+        marginLeft: '-250px',
+         flexDirection: 'column',
+         marginTop: '-200px',
+        //  textAlign: 'center',
+    }
+    
+  },
+  link2:{
+    margin:"50px 30px 0px 20px",
+    textDecoration:"none",
+    // color:e.palette.secondary.light,
+    '@media(max-width: 375px)':{
+        marginLeft: '750px',
+         flexDirection: 'column',
+         marginTop: '-170px',
+        //  textAlign: 'center',
+    }
+  },
+  h3:{
+    fontSize:"2.2em",
+    margin:"-990px 30px 0px 20px",
+    marginLeft: '-330px',
+    '@media(max-width: 375px)':{
+        marginLeft: '-250px',
+        flexDirection: 'column',
+        marginTop: ' -1200px'
+      }
+    
+  },
+  link3:{
+    margin:"-990px 30px 0px 20px",
+    textDecoration:"none",
+    color:e.palette.secondary.light,
+    '@media(max-width: 375px)':{
+        marginLeft: '85px',
+        flexDirection: 'column',
+        marginTop: ' -99px'
+      }
   },
   // root3:{
   //   marginTop:"10px ",
@@ -112,7 +245,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%,
   info:{
     margin:"0",
     color:"#eee",
-    fontSize:"1em",
+    fontSize:"0.5em",
     textAlign:"center"
     // position:"absolute",
      //bottom:"300px"
@@ -160,7 +293,7 @@ function Home() {
     //solo función de ejemplo
     const filterProductsByCat = () => {
       var arr = []
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 5; i++) {
         
           arr.push(allProducts[i])
         
@@ -170,7 +303,7 @@ function Home() {
     }
     const filterhistory = () =>{
       var arr = []
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 5; i++) {
         
           arr.push(historyProducts[i])        
         
@@ -180,7 +313,7 @@ function Home() {
     }
     const filterStores = () =>{
       var arr = []
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 4; i++) {
         
           arr.push(allStores[i])        
         
@@ -220,15 +353,15 @@ function Home() {
 
     return (
       
-        <div>
+        <div className={classes.conteiner1}>
           
             <section className={classes.section}>
-            <div className={classes.root3}>
+            <div >
+            <Header />
             <div className={classes.leyend}>
              <h1 className={classes.h1}> Productos</h1>
              <Link className={classes.link} to="/products"><p>ver más</p></Link>
             </div>
-            <Header />
             <div className={classes.root2}>
             {
                 filterProductsByCat()?.map((p,i) => {
@@ -278,13 +411,13 @@ function Home() {
             </div>
             
 
-            <div className={classes.root3}>
+            <div>
             <div className={classes.leyend}>
-            <h1 className={classes.h1}>Basado en tu última visita</h1>
-            <Link className={classes.link} to="/history"><p>ver más</p></Link>
+            <h1 className={classes.h2}>Basado en tu última visita</h1>
+            <Link className={classes.link2} to="/history"><p>ver más</p></Link>
             <div>
 
-    <Header />
+    {/* <Header /> */}
         
         {historyProducts?
     <div className={classes.root}>
@@ -327,17 +460,17 @@ function Home() {
                 <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
                  </Button> */}
          <div className={classes.leyend}>
-             <h1 className={classes.h1}> Tiendas</h1>
-             <Link className={classes.link} to="/store"><p>ver más</p></Link>
+             <h1 className={classes.h3}> Tiendas</h1>
+             <Link className={classes.link3} to="/store"><p>ver más</p></Link>
             </div>
-            <Header />        
         {/* <div className={classes.root}> */}
             <div style={{ marginTop:"10px"}}>
                 {/* <Typography variant="h2" className={classes.title}>
+                <Header />        
                     Tiendas
-                    </Typography> */}
+                </Typography> */}
                 
-                 <div  className={classes.root}>
+                 <div  className={classes.root3}>
             {
                 filterStores()?.map(store => {
                     return(

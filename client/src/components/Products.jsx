@@ -15,13 +15,20 @@ import Loading from './Loading'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      display:"flex",
-      flexDirection:"row",
-      justifyContent:"center",
+       display:"flex",
+    //   flexDirection:"row",
+    //   justifyContent:"center",
 
 
 
-     margin: "230px 0 auto " 
+    margin: "230px 0 auto " ,
+    display: 'flex',
+    textAlign: 'left',
+    marginLeft: '60px',
+    '@media(max-width: 375px)':{
+        marginLeft: '30px',
+        flexDirection: 'column',
+  }
 
     },
     font: {

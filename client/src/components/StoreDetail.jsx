@@ -47,6 +47,9 @@ export default function StoreDetail(props){
             <div>
                 <Link to={`/modifystore/${detail.id}`}>Editar tienda</Link>
             </div>
+            {/* <div>
+                <Link to={`/store/${detail.id}/reviews`}>Reviews</Link>
+            </div> */}
         </div>
     )
 
