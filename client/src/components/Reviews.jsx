@@ -60,10 +60,9 @@ export default function Reviews(props){
 
     const submitHandler =   (e)=>{
                 // e.prevent.default()
-                 dispatch(createReview(id, review))
+                dispatch(createReview(id, review))
                 console.log(createReview, 'review')
                 alert(`${userInfo.first_name} Gracias por tu review!`);
-    
                 history.push('/products')
             }
 

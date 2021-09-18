@@ -27,10 +27,14 @@ import MyStore from "./components/MyStore";
 import Stores from "./components/Stores";
 import MyOrders from "./components/MyOrders";
 import Reviews from "./components/Reviews";
-
+import ForgotPass from "./components/Password/ForgotPass";
+import Redirect from "./components/Password/RedirectMail";
+import ResetPass from "./components/Password/ResetPass";
 
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
+
+
 
 
 const theme = createTheme({
@@ -106,6 +110,9 @@ function App() {
         <Route exact path = "/orders" component = {MyOrders} />
 
         <Route exact path= "/store/:id/reviews" component = {Reviews} /> 
+        <Route exact path = "/forgot" component={ForgotPass}/>
+        <Route exact path = "/forgot/redirect" component={Redirect}/>
+        <Route exact path = "/user/reset/:token" component={ResetPass}/>
 
       
         

@@ -184,13 +184,13 @@ React.useEffect(()=>{
               
             <Grid container>
               <Grid item xs>
-                <LinkMUI href="/saveAccount" variant="body2">
-                  Forgot password?
+                <LinkMUI href="/forgot" variant="body2">
+                  Olvidaste tu contraseña?
                 </LinkMUI>
               </Grid>
               <Grid item>
                 <LinkMUI href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"No tienes cuenta aún? Sign Up"}
                 </LinkMUI>
               </Grid>
             </Grid>

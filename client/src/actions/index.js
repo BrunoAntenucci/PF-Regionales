@@ -594,3 +594,77 @@ export function deleteUser(id) {
     }
 }
 
+//--------RESET PASSWORD----------//
+// 1 - ENVÍA EL MAIL
+export function forgotPass(userInfo){
+    console.log(userInfo, 'email')
+    return  function(dispatch){
+        return axios({
+            method: "post",
+            data: {
+                email: userInfo.email
+            },
+            withCredentials: true,
+            url: "/user/forgot"
+        })
+        .then((res)=> {
+            console.log('action: forgot', res.data)
+            dispatch({
+                type: "FORGOT_PASS",
+                payload: res.data
+            })
+        })
+    }
+}
+//2 - verifica el token --->get a /reset/:token
+export function getToken(token, userInfo){
+    return async function (dispatch){
+        return axios ({
+            method: "get",
+            data: {
+                userInfo
+            }, 
+            withCredentials: true,
+            url: `/reset/${token}`
+        })
+        .then((res) => {
+            console.log('action resetPass', res.data)
+            dispatch({
+                type: "GET_TOKEN", 
+                payload: res.data
+            })
+        })
+    }
+}
+//3 - una vez verificado, POST a /reset/:token para cambiar la contraseña
+//paso contraseña por BODY, token por PARAMS
+export function resetPass(token, userInfo){
+    return async function (dispatch){
+        return axios ({
+            method :"post",
+            data: {
+                password: userInfo.password
+            }, 
+            withCredentials: true,
+            url: `/user/reset/${token}`
+        })
+        .then((res) => {
+            console.log('action resetPass', res.data)
+            dispatch({
+                type: "RESET_PASS", 
+                payload: res.data
+            })
+        })
+    }
+}
+// export async function verifyToken(token) {
+//     try {
+//       let result = await axios.post("http://localhost:3001/users/verifytoken", {
+//         token,
+//       });
+//       return result.data.message;
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+
