@@ -1,27 +1,33 @@
 
 const initialState = {
     products : [],
-    categories: [],
     prodDetail: [],
-    catDetail: [],
-    storeDetail: [],
-    page: 1,
-    user: {},
-    categ: [],
     allProducts: [],
+    
+    categories: [],
+    catDetail: [],
+    categ: [],
+    
+    storeDetail: [],
+    stores: [],
+    store:{},
+    
+    page: 1,
+    
+    user: {},
+    users: [],
+    
+    orderDetail: [],
+    orders: [],
+    orderId: [],
+
     mercData:{},
     // user: false,
     guest: {},
     wishlist: [],
     cart: {},
-    stores: [],
-    orderDetail: [],
-    store:{},
     reviews: [],
-    users: [],
     petitions: [],
-    orders: []
-
 }
 
 function rootReducer(state = initialState, action) {
@@ -83,6 +89,11 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 orderDetail: action.payload
+            }
+            case 'GET_ORDER_BY_ID':
+            return {
+                ...state,
+                orderId: action.payload
             }
         case "SIGN_IN": 
             return {

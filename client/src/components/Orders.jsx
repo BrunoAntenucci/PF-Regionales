@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { getAllOrders, completeOrder, cancelOrder, deleteOrder } from '../actions';
+import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -80,7 +81,7 @@ const Orders = () => {
             status: order.status,
         });
     });
-    console.log('array',arr);
+    //console.log('array',arr);
 
 
     function createData(order_id, owner, status, complete_button, cancel_button, delete_button ) {
@@ -90,7 +91,7 @@ const Orders = () => {
     let rows = [];
     for (let i = 0; i < arr.length; i++) {
         rows.push(createData(
-            arr[i].order_id, 
+            <Link to={`/orderdetail/${arr[i].order_id}`}>{arr[i].order_id}</Link>, 
             arr[i].owner, 
             arr[i].status, 
             <Button variant="outlined" color="success" onClick={() => handleComplete(arr[i].order_id)}>Complete</Button>,
@@ -98,7 +99,7 @@ const Orders = () => {
             <Button variant="outlined" color="secondary" onClick={() => handleDelete(arr[i].order_id)}>Delete</Button>
         ));
     }
-    console.log('rows', rows);
+    //console.log('rows', rows);
 
     const classes = useStyles();
   const [page, setPage] = React.useState(0);

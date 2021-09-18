@@ -229,7 +229,7 @@ export function getOrderDetail() {
               url: "/order"
             })
             .then((res) => {
-              console.log("[ACTION]RES GetAllOrders: ", res.data)
+              //console.log("[ACTION]RES GetAllOrders: ", res.data)
               dispatch({
                   type: "GET_ALL_ORDERS",
                   payload: res.data
@@ -237,6 +237,27 @@ export function getOrderDetail() {
             })
     }
   }
+
+  export function getOrderById(id) {
+    return function(dispatch) {
+        console.log('id',id);
+        return axios({
+            method: "GET",
+            withCredentials: true,
+            url: `/order/find/${id}`
+          })
+          .then((res) => {
+            console.log("ORDER DETAIL: ", res.data)
+            dispatch({
+                type: "GET_ORDER_BY_ID",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
 
 export function getProductDetail(id) {
     return async function(dispatch) {

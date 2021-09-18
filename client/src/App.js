@@ -32,6 +32,7 @@ import Reviews from "./components/Reviews";
 
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
+import OrderDetail from "./components/OrderDetail";
 
 
 const theme = createTheme({
@@ -106,6 +107,7 @@ function App() {
         <Route exact path= "/store/:id/reviews" component = {Reviews} /> 
         <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/admin" component = {Paperbase} />
+        <Route exact path = "/orderdetail/:id" component = {OrderDetail} />
         <Route exact path = "/" component = {Home} />
        
       </Switch>
