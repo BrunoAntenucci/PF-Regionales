@@ -660,13 +660,13 @@ export function deleteUser(id) {
 
 //--------RESET PASSWORD----------//
 // 1 - ENVÍA EL MAIL
-export function forgotPass(userInfo){
-    console.log(userInfo, 'email')
+export function forgotPass(email){
+    console.log(email, 'email')
     return  function(dispatch){
         return axios({
             method: "post",
             data: {
-                email: userInfo.email
+                email: email
             },
             withCredentials: true,
             url: "/user/forgot"
@@ -702,12 +702,12 @@ export function getToken(token, userInfo){
 }
 //3 - una vez verificado, POST a /reset/:token para cambiar la contraseña
 //paso contraseña por BODY, token por PARAMS
-export function resetPass(token, userInfo){
+export function resetPass(password, token){
     return async function (dispatch){
         return axios ({
             method :"post",
             data: {
-                password: userInfo.password
+                password: password
             }, 
             withCredentials: true,
             url: `/user/reset/${token}`

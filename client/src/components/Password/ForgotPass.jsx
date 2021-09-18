@@ -53,17 +53,19 @@ export default function ForgotPäss(){
     const usersE = users.map((el) =>{ return el.email})
 
     const userEmail = usersE.find((e) =>e === email)
-    console.log(userEmail, 'userEMa')
+    console.log(`EMAIL FORM: ${email}`)
 
     const handleSubmit =  (e) =>{
-        if(userEmail){
-            dispatch(forgotPass(email))
-            alert('Enviado correctamente')
-            // history.push("/forgot/redirect") --> si le dejo esto me tira un option /forgot 204
-        }
-        else{ 
-            alert('Este email no está registrado')
-        }
+        // if(userEmail){
+        //     dispatch(forgotPass(email))
+        //     alert('Enviado correctamente')
+        //     // history.push("/forgot/redirect") --> si le dejo esto me tira un option /forgot 204
+        // }
+        // else{ 
+        //     alert('Este email no está registrado')
+        // }
+      dispatch(forgotPass(email))
+      alert('Enviado correctamente')
     }
   
 
