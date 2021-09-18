@@ -171,6 +171,11 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 orders: action.payload
             } 
+            case "GET_ORDER_BY_STATUS":
+            return {
+                ...state,
+                orders: action.payload
+            } 
         case "CREATE_REVIEW":
             
             return{
