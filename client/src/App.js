@@ -120,7 +120,7 @@ function App() {
         <Route exact path = "/store" component = {MyStore} />
 
         <Route exact path = "/admin" component = {Paperbase} />
-        <Route exact path = "/orderdetail/:id" component = {OrderDetail} />
+        {/* <Route exact path = "/orderdetail/:id" component = {OrderDetail} /> */}
         <Route exact path = "/" component = {Home} />
        
       </Switch>

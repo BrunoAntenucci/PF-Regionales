@@ -11,7 +11,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import { makeStyles } from '@material-ui/core';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -33,21 +33,33 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 
+  const useStyles = makeStyles((e)=>({
+      root:{
+        margin: "80px 0"
+      },styledTableRow:{
+          width:"fit-content    "
+      }
+  }))
 
 const OrderDetail = (props) => {
     const dispatch = useDispatch();
     const orderById = useSelector(state => state.orderId); 
+    const classes = useStyles()
+    console.log('order_detail',props.idOrder)
 
-    console.log('order_detail',orderById)
-
+    
     useEffect(() => {
-        console.log('id antes de action',props.match.params.id);
-        dispatch(getOrderById(props.match.params.id));
-    },[]);
+        console.log('id antes de action',props.idOrder);
+        dispatch(getOrderById(props.idOrder));
+        return(()=>{
+            dispatch(getOrderById(props.idOrder)); 
+        })
+    },[props.idOrder]);
+    
 
     return (
         
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} className={classes.root}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                 <StyledTableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
@@ -92,7 +104,9 @@ const OrderDetail = (props) => {
                     {orderById.items?.map(item => {
                             return (
                                 <>
-                                    <StyledTableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                    <StyledTableRow 
+                                    className={classes.styledTableRow}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                         <StyledTableCell component="th" scope="row">Product id: <Link to={`/detail/${item.product}`}>{item.product}</Link></StyledTableCell>
                                         <StyledTableCell component="th" scope="row">Quantity: {item.quantity}</StyledTableCell>
                                         <StyledTableCell component="th" scope="row">Subtotal: $ {item.subTotal}</StyledTableCell>
