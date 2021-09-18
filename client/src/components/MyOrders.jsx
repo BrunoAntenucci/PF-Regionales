@@ -38,7 +38,7 @@ const useStyles = makeStyles((e) => ({
         flexDirection: "row",
         justifyContent: "space-around"
     }, itemsP: {
-        width: "150px",
+        width: "115px",
     }, pName: {
         color: e.palette.secondary.main
 
@@ -89,7 +89,7 @@ const MyOrders = () => {
                 >Listado de Ordenes</Typography>
                 <div className={classes.orders}>
                     {
-                        orderDetail.map(order => {
+                        orderDetail?.map(order => {
                             return (
                                 <>
                                     <div className={classes.orderN}>
@@ -102,7 +102,7 @@ const MyOrders = () => {
                                         </div>
                                         <hr></hr>
                                         <div className={classes.products}>
-                                            {order.cart?.items.map(item => {
+                                            {order.items.map(item => {
                                                 return (
 
 
@@ -125,7 +125,7 @@ const MyOrders = () => {
                                         <hr />
                                         <div className={classes.divItems}>
                                             <p className={classes.total} >total</p>
-                                            <p className={classes.total} >{order.cart.total}</p>
+                                            <p className={classes.total} >{order.total}</p>
                                         </div>
                                         <hr />
                                         <div className={classes.divExtra}>

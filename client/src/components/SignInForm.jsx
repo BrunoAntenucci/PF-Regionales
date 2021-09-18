@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -48,6 +49,63 @@ function Copyright() {
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    error:{
+      textAlign:"center",
+      color:theme.palette.error.main,
+      background:theme.palette.error.light,
+      padding:"10px",
+      position:"relative",
+      borderRadius:"10px",
+      border:"3px solid "+theme.palette.error.main,
+   
+      animationName: "$myEffect",
+      animationDuration: ".25s",
+    },
+
+    
+    "@keyframes myEffect": {
+      "0%": {
+       
+        transform: "translate(10%, 10%)",
+        
+      },
+      "10%": {
+      
+        transform: "translate(-10%, -10%)",
+      },
+      "20%": {
+       transform: "translate(10%, 10%)",
+      },
+      "30%": {
+      
+        transform: "translate(-10%, -10%)",
+      },
+      "40%": {
+        transform: "translate(10%, 10%)",
+      },
+      "50%": {
+      
+        transform: "translate(-10%, -10%)",
+      },
+      "60%": {
+       transform: "translate(10%, 10%)",
+      },
+      "70%": {
+      
+        transform: "translate(-10%, -10%)",
+      }, "80%": {
+      transform: "translate(10%, 10%)",
+      },
+      "90%": {
+      
+        transform: "translate(-10%, -10%)",
+      },
+      "100%": {
+      transform: "translate(10%, 10%)",
+      },
+    },
+   
+    
   }));
 
 
@@ -55,21 +113,39 @@ const SignInForm = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const classes = useStyles();
+    var userState = useSelector(  (state) =>  state.user)
 
-    
-React.useEffect(()=>{
-
-    document.title ="Log In"
-    
-    return(()=>{
-        document.title ="E-Market" 
-    })
-    },[])
-    
+    const [errorUser, setErrorUser] = React.useState(false)
     const [input, setInput] = useState({
         email : '',
         password:''
     })
+React.useEffect(()=>{
+
+    document.title ="Log In"
+    console.log("use effect render user", userState)
+    setErrorUser(false)
+    if( userState.email ){
+      setErrorUser(false)
+      history.push("/products")
+    }
+    return(()=>{
+        document.title ="E-Market" 
+    })
+    },[])
+    React.useEffect(()=>{
+
+      console.log("use effect useState user", userState)
+      if( userState.email ){
+        setErrorUser(false)
+        history.push("/products")
+      }else  if((!userState || userState == {} 
+        || userState == "No user exist") && input.email.length > 5){
+        setErrorUser(true)
+      }
+     
+      },[userState])
+    
     // const [errors, setErrors] = useState({});
 
     const handleChangeEmail = (e) => {
@@ -85,6 +161,7 @@ React.useEffect(()=>{
     }
     console.log(input)
     async function handleSubmit(e) {
+      setErrorUser(false)
       e.preventDefault();
       await dispatch(signIn(input))
       if (localStorage.history) {
@@ -94,7 +171,10 @@ React.useEffect(()=>{
         await localStorage.clear();
       }
       dispatch(checkUser())
-      history.push("/products")
+      // if(!userState || userState == {} || userState == "No user exist"){
+      //   setErrorUser(true)
+      // }
+      console.log("user",userState)
     }
 
     return(
@@ -195,7 +275,13 @@ React.useEffect(()=>{
               </Grid>
             </Grid>
           </form>
-        </div>
+        </div>{
+          errorUser?
+          <>
+        <h2 className={classes.error}> el mail no está registrado</h2>
+        </>
+        :""
+        }
         <Box mt={8}>
           <Copyright />
         </Box>
