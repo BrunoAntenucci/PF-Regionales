@@ -12,7 +12,8 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
-
+import orderDetail from './OrderDetail'
+import OrderDetail from './OrderDetail';
 
 const columns = [
     { id: 'order_id', label: 'Order Id', minWidth: 170, align: 'center' },
@@ -54,9 +55,10 @@ const columns = [
 
 const Orders = () => {
 
-    const allOrders = useSelector(state => state.orders);
+  const classes = useStyles();
+  const allOrders = useSelector(state => state.orders);
     const dispatch = useDispatch();
-
+    const [idOrder, setIdOrder] = React.useState("")
     const handleComplete = async (id) => {
         await dispatch(completeOrder(id));
         await dispatch(getAllOrders());
@@ -72,7 +74,11 @@ const Orders = () => {
         await dispatch(getAllOrders());
     }
 
-
+    const handleOrderDetailonClick = (e) => {
+      // console.log("handlerdetail",e.target.outerText)
+        e.preventDefault()
+        setIdOrder(e.target.outerText)
+    }
     let arr = [];
     allOrders.forEach(order => {
         arr.push({
@@ -81,6 +87,7 @@ const Orders = () => {
             status: order.status,
         });
     });
+    
     //console.log('array',arr);
 
 
@@ -91,7 +98,9 @@ const Orders = () => {
     let rows = [];
     for (let i = 0; i < arr.length; i++) {
         rows.push(createData(
-            <Link to={`/orderdetail/${arr[i].order_id}`}>{arr[i].order_id}</Link>, 
+            <p name={arr[i].order_id}
+            style={{cursor:"pointer"}}
+             onClick={(e) => handleOrderDetailonClick(e)}>{arr[i].order_id}</p>, 
             arr[i].owner, 
             arr[i].status, 
             <Button variant="outlined" color="success" onClick={() => handleComplete(arr[i].order_id)}>Complete</Button>,
@@ -101,7 +110,6 @@ const Orders = () => {
     }
     //console.log('rows', rows);
 
-    const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -116,6 +124,7 @@ const Orders = () => {
 
 
     return (
+      <>
         <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
@@ -160,6 +169,9 @@ const Orders = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
+
+      <OrderDetail idOrder ={idOrder}/>
+      </>
     )
 }
 
