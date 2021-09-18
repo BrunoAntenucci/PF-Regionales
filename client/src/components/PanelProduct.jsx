@@ -17,12 +17,12 @@ import Button from '@mui/material/Button';
 
 const columns = [
     
-    { id: 'name', label: 'Nombre', minWidth: 170, align: 'center' },
+    { id: 'name', label: 'Nombre', minWidth: 100, align: 'center' },
     { id: 'category', label: 'Categoria', minWidth: 100, align: 'center' },
     {
       id: 'id',
       label: 'Product Id',
-      minWidth: 170,
+      minWidth: 100,
       align: 'center',
     },
     {
@@ -145,7 +145,7 @@ const PanelProduct = () => {
         rows.push(createData(
             arr[i].name, 
             arr[i].category, 
-            arr[i].id, 
+            <Link to={`/detail/${arr[i].id}`}>{arr[i].id}</Link>,
             arr[i].quantity, 
            
             <Button variant="outlined" color="success" onClick={() => {handleSendEmail(arr[i].id, pro)
@@ -153,7 +153,7 @@ const PanelProduct = () => {
             
             <img alt='img not found' width='50px' height='50px' src={arr[i].image}></img>,
             <Button variant="outlined" color="error" onClick={() => handleDeleteProd(arr[i].id, arr[i])}>BORRAR</Button>,
-            <Link to={`/modifyProduct/${arr[i].id}`} style={{textDecoration:"none", color:"white"}}><Button variant="outlined" color="success" >Modificar</Button></Link>,
+            <Link to={`/modifyProduct/${arr[i].id}`} style={{textDecoration:"none", color:"white"}}><Button variant="outlined" color="secondary" >Modificar</Button></Link>,
             // <Button variant="outlined" color="error" onClick={() => handleStockM(arr[i].id, arr[i])}>-1</Button>,
         ));
     }
