@@ -62,7 +62,15 @@ const userSchema = new Schema({
     productsOwn: [{
         type: Schema.ObjectId,
         ref: "Product"
-    }]
+    }],
+    resetPasswordToken: {
+        type: String,
+        default: undefined
+    },
+    resetPasswordExpires: {
+        type: Date,
+        default: undefined
+    }
 }, { timestamps: true, versionKey: false })
 
 userSchema.methods.encryptPassword = (password) => {

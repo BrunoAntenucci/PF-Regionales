@@ -679,6 +679,72 @@ export function deleteUser(id) {
 }
 
 
+//--------RESET PASSWORD----------//
+// 1 - ENVÍA EL MAIL
+export function forgotPass(email){
+    console.log(email, 'email')
+    return  function(dispatch){
+        return axios({
+            method: "post",
+            data: {
+                email: email
+            },
+            withCredentials: true,
+            url: "/user/forgot"
+        })
+        .then((res)=> {
+            console.log('action: forgot', res.data)
+            dispatch({
+                type: "FORGOT_PASS",
+                payload: res.data
+            })
+        })
+    }
+}
+//2 - verifica el token --->get a /reset/:token
+export function getToken(token, userInfo){
+    return async function (dispatch){
+        return axios ({
+            method: "get",
+            data: {
+                userInfo
+            }, 
+            withCredentials: true,
+            url: `/reset/${token}`
+        })
+        .then((res) => {
+            console.log('action resetPass', res.data)
+            dispatch({
+                type: "GET_TOKEN", 
+                payload: res.data
+            })
+        })
+    }
+}
+//3 - una vez verificado, POST a /reset/:token para cambiar la contraseña
+//paso contraseña por BODY, token por PARAMS
+export function resetPass(password, token){
+    return async function (dispatch){
+        return axios ({
+            method :"post",
+            data: {
+                password: password
+            }, 
+            withCredentials: true,
+            url: `/user/reset/${token}`
+        })
+        .then((res) => {
+            console.log('action resetPass', res.data)
+            dispatch({
+                type: "RESET_PASS", 
+                payload: res.data
+            })
+        })
+    }
+}
+
+
+
 export function getAllPetitions() {
     return async function (dispatch) {
         try {
@@ -802,4 +868,5 @@ export function deleteOrder(id) {
           })
     }
 }
+
 

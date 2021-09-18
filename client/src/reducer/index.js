@@ -174,7 +174,7 @@ function rootReducer(state = initialState, action) {
         case "CREATE_REVIEW":
             
             return{
-                ...state,
+                ...state,                                                                                                       
                  reviews: action.payload
             }
 
