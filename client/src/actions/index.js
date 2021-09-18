@@ -221,6 +221,23 @@ export function getOrderDetail() {
     }
   }
 
+  export function getAllOrders() {
+    return function(dispatch) {
+      return axios({
+              method: "GET",
+              withCredentials: true,
+              url: "/order"
+            })
+            .then((res) => {
+              console.log("[ACTION]RES GetAllOrders: ", res.data)
+              dispatch({
+                  type: "GET_ALL_ORDERS",
+                  payload: res.data
+              })
+            })
+    }
+  }
+
 export function getProductDetail(id) {
     return async function(dispatch) {
         try {
@@ -692,6 +709,70 @@ export function denyPetition(id) {
             console.log("DENY PETITION: ", res.data)
             dispatch({
                 type: "DENY_PETITION",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+
+export function completeOrder(id) {
+    return function(dispatch) {
+        console.log('id',id);
+        return axios({
+            method: "post",
+            withCredentials: true,
+            url: `/order/complete/${id}`
+          })
+          .then((res) => {
+            console.log("COMPLETE ORDER: ", res.data)
+            dispatch({
+                type: "COMPLETE_ORDER",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function cancelOrder(id) {
+    return function(dispatch) {
+        console.log('id',id);
+        return axios({
+            method: "post",
+            withCredentials: true,
+            url: `/order/cancel/${id}`
+          })
+          .then((res) => {
+            console.log("CANCEL ORDER: ", res.data)
+            dispatch({
+                type: "CANCEL_ORDER",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function deleteOrder(id) {
+    return function(dispatch) {
+        console.log('id',id);
+        return axios({
+            method: "delete",
+            withCredentials: true,
+            url: `/order/remove/${id}`
+          })
+          .then((res) => {
+            console.log("DELETE ORDER: ", res.data)
+            dispatch({
+                type: "DELETE_ORDER",
                 payload: res.data
             })
           })

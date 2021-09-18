@@ -19,7 +19,8 @@ const initialState = {
     store:{},
     reviews: [],
     users: [],
-    petitions: []
+    petitions: [],
+    orders: []
 
 }
 
@@ -154,6 +155,11 @@ function rootReducer(state = initialState, action) {
                  ...state,
                     mercData: obj
             }
+            case "GET_ALL_ORDERS":
+            return {
+                ...state,
+                orders: action.payload
+            } 
         case "CREATE_REVIEW":
             
             return{
