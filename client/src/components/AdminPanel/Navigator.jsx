@@ -13,7 +13,8 @@ import CreateIcon from '@mui/icons-material/Create';
 import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { getAllUsers, getAllPetitions, getOrderDetail } from '../../actions';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import { getAllUsers, getAllPetitions, getOrderDetail, getAllOrders } from '../../actions';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -55,6 +56,11 @@ export default function Navigator(props) {
     } else if(e.target.innerText === "Mis compras"){
       props.setComp("Mis compras")
       dispatch(getOrderDetail());
+      console.log(e.target.innerText)
+
+    } else if(e.target.innerText === "Orders"){
+      props.setComp("Orders")
+      dispatch(getAllOrders());
       console.log(e.target.innerText)
       
     }
@@ -103,6 +109,12 @@ console.log(props, "props")
                 <ListItemButton selected="active" sx={item}  onClick={handleClick} >
                   <ListItemIcon><CreateIcon /></ListItemIcon>
                   <ListItemText>Create</ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item}  onClick={handleClick} >
+                  <ListItemIcon><AssignmentIcon /></ListItemIcon>
+                  <ListItemText>Orders</ListItemText>
                 </ListItemButton>
               </ListItem>
             <Divider sx={{ mt: 2 }} />
