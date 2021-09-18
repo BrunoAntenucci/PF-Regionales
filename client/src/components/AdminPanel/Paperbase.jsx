@@ -12,7 +12,11 @@ import MyOrders from '../MyOrders';
 import Petitions from '../Petitions';
 import MyStore from '../MyStore';
 import Orders from '../Orders';
+
 import { useSelector } from 'react-redux';
+
+
+import PanelProduct from '../PanelProduct';
 
 
 function Copyright() {
@@ -217,6 +221,7 @@ export default function Paperbase() {
             : component === "Petitions"?  <Petitions />
             : component === "Mis compras"? <MyOrders />
             : component === "Orders"? <Orders />
+            : component === "Products"? <PanelProduct />
             : ""}
 
 

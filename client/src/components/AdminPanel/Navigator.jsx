@@ -63,6 +63,9 @@ export default function Navigator(props) {
       dispatch(getAllOrders());
       console.log(e.target.innerText)
       
+    } else if(e.target.innerText === "Products"){
+      props.setComp("Products")
+      console.log(e.target.innerText)
     }
     console.log(props.comp, "props comp")
   }
@@ -129,11 +132,13 @@ console.log(props, "props")
                   <ListItemText>Create</ListItemText>
                 </ListItemButton>
               </ListItem>
+
              
             <ListItem disablePadding>
                 <ListItemButton selected="active" sx={item} onClick={handleClick}>
                   <ListItemIcon><LocalMallIcon /></ListItemIcon>
                   <ListItemText>Mis compras</ListItemText>
+
                 </ListItemButton>
               </ListItem>
             </>:
