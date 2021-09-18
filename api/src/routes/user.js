@@ -9,6 +9,7 @@ const nodemailer = require("nodemailer");
 const Cart = require("../models/cart/cart");
 const verifyToken  = require ("../middlewares/authJwt");
 const isSuperAdmin = require ("../middlewares/authJwt");
+const bcrypt = require("bcryptjs");
 
 const router = Router();
 
@@ -51,12 +52,15 @@ router.get("/forgot", (req, res, next) => {
 router.post("/forgot", (req, res, next) => { //Recibe un email
     async.waterfall([
         function(done) {
+            console.log("1-a")
             crypto.randomBytes(20, (err, buf) => {
                 var token = buf.toString('hex');
                 done(err, token);
             });
+            console.log("1-b")
         },
         function(token, done) {
+            console.log("2-a")
             User.findOne({email: req.body.email}, (err, user) => {
                 if (!user) {
                     req.flash('error', 'No account with that email address exists.');
@@ -69,8 +73,10 @@ router.post("/forgot", (req, res, next) => { //Recibe un email
                     done(err, token, user);
                 });
             });
+            console.log("2-b")
         },
         function(token, user, done) {
+            console.log("3-a")
             var smtpTransport = nodemailer.createTransport({
                 host: "smtp.sendgrid.net",
                 port: 465,
@@ -85,20 +91,22 @@ router.post("/forgot", (req, res, next) => { //Recibe un email
                 subject: "PF-Regionales Password Reset",
                 text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                 'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                'http://http://localhost:3000/user/reset/' + token + '\n\n' + //PARA EL DEPLOY, CAMBIAR A: https://pf-regionales.vercel.app/user/reset/
+                'http://localhost:3000/user/reset/' + token + '\n\n' + //PARA EL DEPLOY, CAMBIAR A: https://pf-regionales.vercel.app/user/reset/
                 'If you did not request this, please ignore this email and your password will remain unchanged.\n'
             };
             smtpTransport.sendMail(mailOptions, (err) => {
                 req.flash('info', `An email has been sent to ${user.email} with further instructions.`);
                 done(err, 'done');
             });
+            console.log("3-b")
         }
     ], function(err) {
-        console.log("4")
+        console.log("4-a")
         if (err) {
             return next(err);
         }
         res.redirect("/user/forgot")
+        console.log("4-a")
     });
 });
 
@@ -115,13 +123,14 @@ router.get("/reset/:token", (req, res, next) => {
 router.post('/reset/:token', (req, res, next) => {
     async.waterfall([
       function(done) {
-        User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+        console.log("5-a")
+        User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, async function(err, user) {
           if (!user) {
             req.flash('error', 'Password reset token is invalid or has expired.');
             return res.redirect('/user/forgot/failed');
           }
-  
-          user.password = req.body.password;
+          const hashPassword = await bcrypt.hash(req.body.password, 10);
+          user.password = hashPassword;
           user.resetPasswordToken = undefined;
           user.resetPasswordExpires = undefined;
   
@@ -131,21 +140,22 @@ router.post('/reset/:token', (req, res, next) => {
             });
           });
         });
+        console.log("5-b")
       },
       function(user, done) {
+        console.log("6-a")
         var smtpTransport = nodemailer.createTransport({
             host: "smtp.sendgrid.net",
             port: 465,
             auth: {
                 user: "apikey",
-                pass: "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"
+                pass: "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"
             }
         });
         var mailOptions = {
-            from: "matt_boca@hotmail.com",
+            from: "alumnohenry09@gmail.com",
             to: user.email,
-            from: 'passwordreset@demo.com',
-            subject: 'Your password has been changed',
+            subject: 'PF-Regionales Password Changed',
             text: 'Hello,\n\n' +
                 'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
         };
@@ -153,9 +163,12 @@ router.post('/reset/:token', (req, res, next) => {
           req.flash('success', 'Success! Your password has been changed.');
           done(err);
         });
+        console.log("6-b")
       }
     ], function(err) {
+        console.log("7-a")
       res.redirect('/user/forgot');
+      console.log("7-b")
     });
   });
 
