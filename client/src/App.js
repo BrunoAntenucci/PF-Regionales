@@ -78,7 +78,7 @@ function App() {
     <BrowserRouter>
     <ThemeProvider theme={theme}>
     <ReactNotification />
-    <Header />
+    {/* <Header /> */}
       <Switch>
         {/* <Route exact path="/" >
           <Products guest={guest} setGuest={setGuest}/> 
