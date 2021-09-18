@@ -119,8 +119,53 @@ router.get("/byUser/months", async(req, res, next) => {
                     monthsAnalytics.push(allOrders[i]);
                 }
             }
-        } 
-        //SACAR LOS DATOS DE LAS ORDENES DE MONTHSANALYTICS
+        }
+        var dataOrders = {
+            cantOrders: monthsAnalytics.length,
+            totalOrders: 0,
+            totalCreate: 0,
+            totalProcessing: 0,
+            totalComplete: 0,
+            totalCancelled: 0,
+            cantCreate: 0,
+            cantProcessing: 0,
+            cantComplete: 0,
+            cantCancelled: 0,
+            cantItems: 0,
+            totalItems: 0,
+        }
+        for (var i=0; i<monthsAnalytics.length; i++) {
+            dataOrders.totalOrders += monthsAnalytics[i].total;
+            if (monthsAnalytics[i].status === "Creada") {
+                dataOrders.totalCreate += monthsAnalytics[i].total;
+                dataOrders.cantCreate ++;
+            } else if (monthsAnalytics[i].status === "Procesando") {
+                dataOrders.totalProcessing += monthsAnalytics[i].total;
+                dataOrders.cantProcessing ++;
+            } else if (monthsAnalytics[i].status === "Completa") {
+                dataOrders.totalComplete += monthsAnalytics[i].total;
+                dataOrders.cantComplete ++;
+            } else if (monthsAnalytics[i].status === "Cancelada") {
+                dataOrders.totalCancelled += monthsAnalytics[i].total;
+                dataOrders.cantCancelled ++;
+            }
+            const items = monthsAnalytics[i].items;
+            for (var j=0; j<items.length; j++) {
+                dataOrders.cantItems += items[j].quantity;
+                dataOrders.totalItems += items[j].subTotal;
+                if (!dataOrders[`cant${items[j].product.name}`]) {
+                    dataOrders[`cant${items[j].product.name}`] = items[j].quantity;
+                } else {
+                    dataOrders[`cant${items[j].product.name}`] += items[j].quantity;
+                }
+                if (!dataOrders[`total${items[j].product.name}`]) {
+                    dataOrders[`total${items[j].product.name}`] = items[j].subTotal;
+                } else {
+                    dataOrders[`total${items[j].product.name}`] += items[j].subTotal;
+                }
+            }
+        }
+        return res.status(200).json(dataOrders);
     } else {
         return res.send("No hay usuario logiado.")
     }
