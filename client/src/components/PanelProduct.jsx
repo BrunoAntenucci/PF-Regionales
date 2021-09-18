@@ -1,7 +1,8 @@
 import * as React from 'react';
+import {Link} from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteUser, getAllUsers, getProducts, modifyProducts, deleteProducts } from '../actions/index';
+import { deleteUser, getAllUsers, getProducts, modifyProducts, deleteProducts, mailFav } from '../actions/index';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@mui/material/Paper';
@@ -44,9 +45,17 @@ const columns = [
       minWidth: 100,
       align: 'center',
     },
+
+    {
+      id: 'button3',
+      label: 'Modificar',
+      minWidth: 100,
+      align: 'center',
+    },
     
     
-    { id: 'image', label: 'img', minWidth: 170, align: 'center' },
+    
+    { id: 'image', label: 'Imagen', minWidth: 170, align: 'center' },
     
   ];
   
@@ -62,36 +71,37 @@ const columns = [
 
 const PanelProduct = () => {
     const dispatch = useDispatch();
-    const allProduct = useSelector(state => state.products)
-    const allUsers = useSelector(state => state.users);
+    var allProduct = useSelector(state => state.products)
+    const allUsers = useSelector(state => state.user);
+    allProduct = allProduct.filter(e => e.user==allUsers._id)
+    console.log(allProduct, "allproduct SASASA")
     
+    console.log(allUsers, "ALLUSER")
     
     useEffect(async() => {
-     dispatch(getProducts())
+     await dispatch(getProducts())
       
     }, []);
 
 
-    const handleDelete = async (id) => {
-        await dispatch(deleteUser(id));
-        await dispatch(getAllUsers());
+    const handleSendEmail = async (id, pro) => {
+      
+        if(pro.quantity===0){
+          
+          await dispatch(mailFav(id))};
+        
+      
     }
 
     const handleStock = async (id, product) => {
        product.quantity = product.quantity + 1
-       console.log(product, "panelpro")
+       
         await dispatch(modifyProducts(id, product))
         await dispatch(getProducts())
 
     }
 
-    const handleStockM = async (id, product) => {
-      product.quantity = product.quantity - 1
-      console.log(product, "panelpro")
-       await dispatch(modifyProducts(id, product))
-       await dispatch(getProducts())
-
-   }
+    
 
    const handleDeleteProd = async (id, product) => {
     
@@ -116,9 +126,9 @@ const PanelProduct = () => {
     });
     
 
-    function createData(name, category, id, quantity, button, image, button2) {
+    function createData(name, category, id, quantity, button, image, button2, button3) {
      category = category[1]
-        return {name, category, id, quantity, button, image, button2};
+        return {name, category, id, quantity, button, image, button2, button3};
       }
 
     let rows = [];
@@ -138,9 +148,12 @@ const PanelProduct = () => {
             arr[i].id, 
             arr[i].quantity, 
            
-            <Button variant="outlined" color="error" onClick={() => handleStock(arr[i].id, pro)}>+1</Button>,
+            <Button variant="outlined" color="success" onClick={() => {handleSendEmail(arr[i].id, pro)
+               handleStock(arr[i].id, pro)}}>+1</Button>,
+            
             <img alt='img not found' width='50px' height='50px' src={arr[i].image}></img>,
             <Button variant="outlined" color="error" onClick={() => handleDeleteProd(arr[i].id, arr[i])}>BORRAR</Button>,
+            <Link to={`/modifyProduct/${arr[i].id}`} style={{textDecoration:"none", color:"white"}}><Button variant="outlined" color="success" >Modificar</Button></Link>,
             // <Button variant="outlined" color="error" onClick={() => handleStockM(arr[i].id, arr[i])}>-1</Button>,
         ));
     }

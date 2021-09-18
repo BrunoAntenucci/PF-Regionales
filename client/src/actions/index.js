@@ -581,6 +581,27 @@ export function deleteFav(id) {
 }
 
 
+export function mailFav(payload) {
+    console.log(payload, "payloadaction")
+    return async function (dispatch) {
+        try {
+            const obj={
+                id:payload
+            }
+            const prod = await axios.post('/favourites/mail/', obj);
+            console.log(prod, "prodAction")
+            return dispatch ({
+                type: 'SEND_MAIL_FAVOURITES',
+                payload: prod.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+
+
 //------REVIEWS------
 export const createReview = (id, review) => {
     console.log("entra con: ", id,  review)
