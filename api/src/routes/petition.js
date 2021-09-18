@@ -198,7 +198,7 @@ router.post("/newPetition/store", async (req, res, next) => {
 router.post("/newPetition/category", async (req, res, next) => {
     const userSessionID = req?.session?.passport?.user
     const { dataCategory } = req.body;
-    console.log("CATEGORYNAME", categoryName)
+    console.log("CATEGORYNAME", dataCategory)
     if (userSessionID) {
         const user = await User.findById(userSessionID);
         const newPetition = new Petition({});

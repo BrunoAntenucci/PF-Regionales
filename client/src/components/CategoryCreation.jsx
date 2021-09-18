@@ -40,11 +40,11 @@ export default function CategoryCreation(){
     function handleSubmit(e){
         if(errors.name) {
             e.preventDefault();
-            alert('Form incomplete');
+            alert('Formulario incompleto');
         }else{
             e.preventDefault();   
             dispatch(postCategory(input));
-            alert('Category created');     
+            alert('Categoria creada');     
             setInput({
                 name: ''
             })
