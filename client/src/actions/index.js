@@ -100,16 +100,21 @@ export function postProducts(payload){
 }
 
 export function modifyProducts(id, payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.patch('/product/' + id, payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+    return function(dispatch) {
+        return axios({
+            method: "PATCH",
+            data: payload,
+            withCredentials: true,
+            url: `/product/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES PATCH_PRODUCT: ", res.data)
+            dispatch({
+                type: "PATCH_PRODUCT",
+                payload: res.data
+            })
+          })
     }
-    
 }
 
 export function postStore(payload){

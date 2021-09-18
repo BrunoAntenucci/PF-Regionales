@@ -41,6 +41,9 @@ router.post("/petitionAccepted", async (req, res, next) => {
     //.populate("user");
     const userLogged = await User.findById(userSessionID).populate("storesOwn").populate("productsOwn")
     //--Cambiar estado a Aceptada--//
+    if (petition.status === "Aceptada") {
+        return res.send(`Esta peticion ya fue aceptada.`)
+    }
     petition.status = "Aceptada"
     await petition.save();
     //---Crear nuevo producto o tienda segun corresponda---//
@@ -53,6 +56,7 @@ router.post("/petitionAccepted", async (req, res, next) => {
         newProduct.price = petition.dataProduct.price;
         newProduct.category = petition.dataProduct.category;
         newProduct.image = petition.dataProduct.image;
+        newProduct.quantity = petition.dataProduct.quantity;
         await newProduct.save()
             .then((result) => {
                 console.log("Producto nuevo creado!")
