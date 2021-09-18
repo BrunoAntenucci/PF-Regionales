@@ -30,6 +30,26 @@ export function getProductsByName(payload) {
     }
 }
 
+
+export function deleteProducts(id, payload){
+    return function(dispatch) {
+        return axios({
+            method: "DELETE",
+            data: payload,
+            withCredentials: true,
+            url: `/product/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES DELETE_PRODUCT: ", res.data)
+            dispatch({
+                type: "DELETE_PRODUCT",
+                payload: res.data
+            })
+          })
+    }
+}
+
+
 export function getCategories() {
     return async function (dispatch) {
         try {
@@ -83,19 +103,24 @@ export function postCategory(dataCategory){
     
 }
 
-export function modifyCategory(id, payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.patch(`/category/${id}`, payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
-    }
-    
-}
 
+export function modifyCategory(id, payload){
+    return function(dispatch) {
+        return axios({
+            method: "PATCH",
+            data: payload,
+            withCredentials: true,
+            url: `/petition/newPetition/categoryModify/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES PATCH_CATEGORY: ", res.data)
+            dispatch({
+                type: "PATCH_CATEGORY",
+                payload: res.data
+            })
+          })
+    }
+}
 
 
 export function postProducts(dataProduct){
@@ -124,16 +149,21 @@ export function postProducts(dataProduct){
 }
 
 export function modifyProducts(id, payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.patch('/product/' + id, payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+    return function(dispatch) {
+        return axios({
+            method: "PATCH",
+            data: payload,
+            withCredentials: true,
+            url: `/product/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES PATCH_PRODUCT: ", res.data)
+            dispatch({
+                type: "PATCH_PRODUCT",
+                payload: res.data
+            })
+          })
     }
-    
 }
 
 export function postStore(dataStore){
@@ -157,20 +187,25 @@ export function postStore(dataStore){
               console.log(err)
           })
     }
-    }
+}
 
 
 export function modifyStore(id, payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.patch('/store/' + id, payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+    return function(dispatch) {
+        return axios({
+            method: "PATCH",
+            data: payload,
+            withCredentials: true,
+            url: `/store/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES PATCH_STORE: ", res.data)
+            dispatch({
+                type: "PATCH_STORE",
+                payload: res.data
+            })
+          })
     }
-    
 }
 
 export function getStore(){
@@ -617,6 +652,27 @@ export function deleteFav(id) {
           })
     }
 }
+
+
+export function mailFav(payload) {
+    console.log(payload, "payloadaction")
+    return async function (dispatch) {
+        try {
+            const obj={
+                id:payload
+            }
+            const prod = await axios.post('/favourites/mail/', obj);
+            console.log(prod, "prodAction")
+            return dispatch ({
+                type: 'SEND_MAIL_FAVOURITES',
+                payload: prod.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 
 
 //------REVIEWS------

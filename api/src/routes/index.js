@@ -17,6 +17,7 @@ const auth = require("./auth")
 const favourites = require("./favourites");
 //const reviews = require("./reviews");
 const petition = require("./petition");
+const analytics = require("./analytics");
 
 const router = Router();
 
@@ -37,7 +38,8 @@ router.use("/order", order)
 router.use("/auth", auth)
 router.use("/favourites", favourites);
 // router.use("/reviews", reviews);
-router.use("/petition", petition)
+router.use("/petition", petition);
+router.use("/analytics", analytics);
 
 router.get("/", (req, res, next) => {
     res.send(req.user);

@@ -5,6 +5,7 @@ const Category = require('../models/Category');
 const verifyToken  = require ("../middlewares/authJwt");
 const isSuperAdmin = require ("../middlewares/authJwt");
 const User = require('../models/user/user');
+const offers = require("../middlewares/offers")
 
 
 router.post("/", [verifyToken, isSuperAdmin], async (req, res) => {
@@ -53,11 +54,13 @@ router.get("/:id",  (req, res) => {
 router.patch("/:id", async (req, res) => {
   const userSessionID = req?.session?.passport?.user
   const {id} = req.params;
+console.log(req.body, "reqBODY")
     try {
         const productCheck = await Product.findById(id);
-        if (productCheck.user.toString() === userSessionID) {
+        if (productCheck.user?.toString() === userSessionID) {
           console.log(`El usuario logeado (id= ${userSessionID}) es el dueño del producto.`)
           await Product.findByIdAndUpdate({ _id: id },{ ...req.body });
+
           return res.status(200).send(`Producto ${productCheck.name} fue actualizado con exito!`)
         } else {
           console.log(`El usuario logeado (id= ${userSessionID}) NO es el dueño del producto.`)

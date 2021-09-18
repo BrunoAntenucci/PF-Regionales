@@ -20,12 +20,21 @@ const ProductSchema = Schema({
         trim: true,
         required: true,
     },
+    priceInOffer: {
+        type: String,
+    },
+    isInOffer : {
+        type: Boolean,
+        enum: [false, true],
+        default: false
+    },
     category: [{
         type: Schema.ObjectId,
         ref: "Category",
     }],
     quantity: {
-        type: Number
+        type: Number,
+        required: true,
     },
     image: {
         type : String,
