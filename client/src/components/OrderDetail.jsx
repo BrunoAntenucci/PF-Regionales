@@ -36,6 +36,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   const useStyles = makeStyles((e)=>({
       root:{
         margin: "80px 0"
+      },styledTableRow:{
+          width:"fit-content    "
       }
   }))
 
@@ -45,6 +47,7 @@ const OrderDetail = (props) => {
     const classes = useStyles()
     console.log('order_detail',props.idOrder)
 
+    
     useEffect(() => {
         console.log('id antes de action',props.idOrder);
         dispatch(getOrderById(props.idOrder));
@@ -52,6 +55,7 @@ const OrderDetail = (props) => {
             dispatch(getOrderById(props.idOrder)); 
         })
     },[props.idOrder]);
+    
 
     return (
         
@@ -100,7 +104,9 @@ const OrderDetail = (props) => {
                     {orderById.items?.map(item => {
                             return (
                                 <>
-                                    <StyledTableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                    <StyledTableRow 
+                                    className={classes.styledTableRow}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                         <StyledTableCell component="th" scope="row">Product id: <Link to={`/detail/${item.product}`}>{item.product}</Link></StyledTableCell>
                                         <StyledTableCell component="th" scope="row">Quantity: {item.quantity}</StyledTableCell>
                                         <StyledTableCell component="th" scope="row">Subtotal: $ {item.subTotal}</StyledTableCell>
