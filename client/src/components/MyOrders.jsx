@@ -38,7 +38,7 @@ const useStyles = makeStyles((e) => ({
         flexDirection: "row",
         justifyContent: "space-around"
     }, itemsP: {
-        width: "150px",
+        width: "115px",
     }, pName: {
         color: e.palette.secondary.main
 

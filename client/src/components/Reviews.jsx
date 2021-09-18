@@ -42,6 +42,8 @@ export default function Reviews(props){
     console.log(userInfo, 'user')
 
     const store = useSelector(state => state.store)
+
+    console.log(props)
   
     const { id } = props.match.params
     const history = useHistory()
