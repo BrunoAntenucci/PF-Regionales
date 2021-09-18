@@ -103,19 +103,24 @@ export function postCategory(dataCategory){
     
 }
 
-export function modifyCategory(id, payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.patch(`/category/${id}`, payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
-    }
-    
-}
 
+export function modifyCategory(id, payload){
+    return function(dispatch) {
+        return axios({
+            method: "PATCH",
+            data: payload,
+            withCredentials: true,
+            url: `/petition/newPetition/categoryModify/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES PATCH_CATEGORY: ", res.data)
+            dispatch({
+                type: "PATCH_CATEGORY",
+                payload: res.data
+            })
+          })
+    }
+}
 
 
 export function postProducts(dataProduct){
@@ -182,20 +187,25 @@ export function postStore(dataStore){
               console.log(err)
           })
     }
-    }
+}
 
 
 export function modifyStore(id, payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.patch('/store/' + id, payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+    return function(dispatch) {
+        return axios({
+            method: "PATCH",
+            data: payload,
+            withCredentials: true,
+            url: `/store/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES PATCH_STORE: ", res.data)
+            dispatch({
+                type: "PATCH_STORE",
+                payload: res.data
+            })
+          })
     }
-    
 }
 
 export function getStore(){

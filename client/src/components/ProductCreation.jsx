@@ -185,11 +185,11 @@ export default function ProductCreation(){
         console.log(e)
         if(errors.name || errors.description || errors.price || errors.category || errors.quantity || errors.image) {
             e.preventDefault();
-            alert('Form incomplete');
+            alert('Formulario incompleto');
         }else{
             e.preventDefault();   
             dispatch(postProducts(input));
-            alert('Product created');     
+            alert('Producto creado');     
             setInput({
                 name: '',
                 description: '',

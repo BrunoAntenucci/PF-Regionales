@@ -104,6 +104,7 @@ const Stores = () => {
                 allStores.map(store => {
                     return(
                         <>
+                        <Link to={`/storedetail/${store._id}`}>
                         <div className={classes.divStore}>
                         <div  className={classes.storeImg}>
 
@@ -116,6 +117,7 @@ const Stores = () => {
                         </section>
                         </div> 
                         </div>
+                        </Link>
                         <h4>* Reviews *</h4>
                         {store?.numReviews  === 0 ? (<p>No hay reviews aún</p>) : 
                         (<div><p>{store.numReviews} reviews </p></div>)}
