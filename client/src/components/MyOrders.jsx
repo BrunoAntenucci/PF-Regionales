@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Typography } from '@material-ui/core';
+//import { Button, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderDetail } from '../actions';
@@ -74,7 +74,7 @@ const MyOrders = () => {
 
     return (
         <>
-            <Button
+            {/* <Button
                 style={{ height: "min-content" }}
                 variant="contained" color="primary">
                 <Link to='/products' style={{ textDecoration: "none", color: "white" }}>Volver</Link>
@@ -86,7 +86,7 @@ const MyOrders = () => {
 
                 <Typography variant="h6"
                 
-                >Listado de Ordenes</Typography>
+                >Listado de Ordenes</Typography> */}
                 <div className={classes.orders}>
                     {
                         orderDetail?.map(order => {
@@ -164,7 +164,7 @@ const MyOrders = () => {
                         )
                     }
                 </div>
-            </div>
+            
         </>
     )
 }
