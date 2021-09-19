@@ -8,6 +8,7 @@ const morgan = require('morgan');
 const routes = require("./routes/index");
 const flash = require("connect-flash");
 const createRoles = require("./libs/initialSetup")
+const offers = require("./middlewares/offers")
 //const cookieSession = require("cookie-session");
 const server = express();
 createRoles(server);
@@ -40,7 +41,7 @@ server.use((req, res, next) => { //para mostrar el mensaje de flash
   next();
 })
 //--------------------------------ROUTES-------------------------------------------------------------//
-server.use("/", routes);
+server.use("/", /*offers,*/ routes);
 
 //--------------------------------CONTROL GENERALIZADO DE ERRORES-----------------------------------//
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars

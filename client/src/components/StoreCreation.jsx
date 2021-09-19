@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import { getProducts, postStore } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -186,13 +186,13 @@ export default function StoreCreation(){
 
     function handleSubmit(e){
         console.log(e)
-        if(errors.name || errors.description || errors.city) {
+        if(errors.name || errors.description || errors.city || errors.products || errors.address || errors.img ){
             e.preventDefault();
-            alert('Form incomplete');
+            alert('Formulario incompleto');
         }else{
             e.preventDefault();   
             dispatch(postStore(input));
-            alert('Store created');     
+            alert('Tienda creada');     
             setInput({
                 name: '',
                 description: '',
@@ -314,7 +314,7 @@ export default function StoreCreation(){
             <div className={classes.root}>
             <div className={classes.card}>
         <Typography variant="h6" gutterBottom >
-        crear una tienda
+        Crear una tienda
         </Typography>
         <form onSubmit={(e) => handleSubmit(e)}>
         <Grid container spacing={3}>
@@ -420,7 +420,7 @@ export default function StoreCreation(){
         
              
                     <Button  variant="contained" className={classes.button} 
-                  color="secondary" type='submit'>Crear Producto</Button>
+                  color="secondary" type='submit'>Crear Tienda</Button>
            </div>
         </form>
         

@@ -14,12 +14,7 @@ const Favourites = ({id}) => {
   const wishlist = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
   const user = useSelector(state => state.user)
-  // const products = useSelector(state => state.products)
-  // const idProd = wishlist.map(el=>{
-  //   return el.product._id
-  // })
-  
-  // console.log(idProd, 'id')
+
 
   useEffect(() => {
     dispatch(getFav());
