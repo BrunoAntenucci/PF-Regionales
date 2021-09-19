@@ -294,6 +294,31 @@ export function getOrderDetail() {
     }
 }
 
+export function getOrderByStatus(payload) {
+    return function(dispatch) {
+        console.log('payload',payload);
+        return axios({
+            method: "POST",
+            data: {
+                orderStatus: payload
+            },
+            withCredentials: true,
+            url: "/order/orderByStatus"
+          })
+          .then((res) => {
+            console.log("ORDER BY STATUS: ", res.data)
+            dispatch({
+                type: "GET_ORDER_BY_STATUS",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+
 export function getProductDetail(id) {
     return async function(dispatch) {
         try {

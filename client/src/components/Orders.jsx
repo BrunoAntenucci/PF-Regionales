@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { getAllOrders, completeOrder, cancelOrder, deleteOrder } from '../actions';
+import { getAllOrders, completeOrder, cancelOrder, deleteOrder, getOrderByStatus } from '../actions';
 import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -12,8 +12,13 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
-import orderDetail from './OrderDetail'
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import OrderDetail from './OrderDetail';
+
 
 const columns = [
     { id: 'order_id', label: 'Order Id', minWidth: 170, align: 'center' },
@@ -57,58 +62,68 @@ const Orders = () => {
 
   const classes = useStyles();
   const allOrders = useSelector(state => state.orders);
-    const dispatch = useDispatch();
-    const [idOrder, setIdOrder] = React.useState("")
-    const handleComplete = async (id) => {
+  const dispatch = useDispatch();
+  const [idOrder, setIdOrder] = React.useState("")
+    
+  const handleComplete = async (id) => {
         await dispatch(completeOrder(id));
         await dispatch(getAllOrders());
     }
 
-    const handleCancel = async (id) => {
-        await dispatch(cancelOrder(id));
-        await dispatch(getAllOrders());
-    }
+  const handleCancel = async (id) => {
+      await dispatch(cancelOrder(id));
+      await dispatch(getAllOrders());
+  }
 
-    const handleDelete = async (id) => {
-        await dispatch(deleteOrder(id));
-        await dispatch(getAllOrders());
-    }
+  const handleDelete = async (id) => {
+      await dispatch(deleteOrder(id));
+      await dispatch(getAllOrders());
+  }
 
-    const handleOrderDetailonClick = (e) => {
-      // console.log("handlerdetail",e.target.outerText)
-        e.preventDefault()
-        setIdOrder(e.target.outerText)
-    }
-    let arr = [];
-    allOrders.forEach(order => {
-        arr.push({
-            order_id: order._id, 
-            owner: order.owner?.role, 
-            status: order.status,
-        });
-    });
+
+  const [status, setStatus] = React.useState('');
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setStatus(e.target.value);
+    dispatch(getOrderByStatus(e.target.value));
+  };
+
+  const handleOrderDetailonClick = (e) => {
+    // console.log("handlerdetail",e.target.outerText)
+      e.preventDefault()
+      setIdOrder(e.target.outerText)
+  }
+
+  let arr = [];
+  allOrders.forEach(order => {
+      arr.push({
+          order_id: order._id, 
+          owner: order.owner?.role, 
+          status: order.status,
+      });
+  });
     
     //console.log('array',arr);
 
-
-    function createData(order_id, owner, status, complete_button, cancel_button, delete_button ) {
-        return { order_id, owner, status, complete_button, cancel_button, delete_button };
-      }
-
-    let rows = [];
-    for (let i = 0; i < arr.length; i++) {
-        rows.push(createData(
-            <p name={arr[i].order_id}
-            style={{cursor:"pointer"}}
-             onClick={(e) => handleOrderDetailonClick(e)}>{arr[i].order_id}</p>, 
-            arr[i].owner, 
-            arr[i].status, 
-            <Button variant="outlined" color="success" onClick={() => handleComplete(arr[i].order_id)}>Complete</Button>,
-            <Button variant="outlined" color="error" onClick={() => handleCancel(arr[i].order_id)}>Cancel</Button>,
-            <Button variant="outlined" color="secondary" onClick={() => handleDelete(arr[i].order_id)}>Delete</Button>
-        ));
+  function createData(order_id, owner, status, complete_button, cancel_button, delete_button ) {
+      return { order_id, owner, status, complete_button, cancel_button, delete_button };
     }
-    //console.log('rows', rows);
+
+  let rows = [];
+  for (let i = 0; i < arr.length; i++) {
+      rows.push(createData(
+          <p name={arr[i].order_id}
+          style={{cursor:"pointer"}}
+            onClick={(e) => handleOrderDetailonClick(e)}>{arr[i].order_id}</p>, 
+          arr[i].owner, 
+          arr[i].status, 
+          <Button variant="outlined" color="success" onClick={() => handleComplete(arr[i].order_id)}>Aceptar</Button>,
+          <Button variant="outlined" color="error" onClick={() => handleCancel(arr[i].order_id)}>Cancelar</Button>,
+          <Button variant="outlined" color="secondary" onClick={() => handleDelete(arr[i].order_id)}>Eliminar</Button>
+      ));
+  }
+
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -125,6 +140,24 @@ const Orders = () => {
 
     return (
       <>
+      <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Orders</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={status}
+          label="Status"
+          onChange={handleChange}
+        >
+          <MenuItem value='Todas'>Todas</MenuItem>
+          <MenuItem value='Creada'>Creada</MenuItem>
+          <MenuItem value='Procesando'>Procesando</MenuItem>
+          <MenuItem value='Cancelada'>Cancelada</MenuItem>
+          <MenuItem value='Completa'>Completa</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
         <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
@@ -169,7 +202,6 @@ const Orders = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-
       <OrderDetail idOrder ={idOrder}/>
       </>
     )
