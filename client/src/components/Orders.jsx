@@ -83,10 +83,10 @@ const Orders = () => {
 
   const [status, setStatus] = React.useState('');
 
-  const handleChange = (event) => {
-    event.preventDefault();
-    setStatus(event.target.value);
-    dispatch(getOrderByStatus(event.target.value));
+  const handleChange = (e) => {
+    e.preventDefault();
+    setStatus(e.target.value);
+    dispatch(getOrderByStatus(e.target.value));
   };
 
   const handleOrderDetailonClick = (e) => {

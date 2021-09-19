@@ -50,9 +50,9 @@ const OrderDetail = (props) => {
     
     useEffect(() => {
         console.log('id antes de action',props.idOrder);
-        dispatch(getOrderById(props.idOrder));
-        return(()=>{
-            dispatch(getOrderById(props.idOrder)); 
+        //dispatch(getOrderById(props.idOrder));
+        return(async ()=>{
+            await dispatch(getOrderById(props.idOrder)); 
         })
     },[props.idOrder]);
     

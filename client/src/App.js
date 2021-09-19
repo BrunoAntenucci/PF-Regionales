@@ -107,22 +107,14 @@ function App() {
         <Route exact path = "/cart" component = {Cart} />
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
-  
         <Route exact path= "/store/:id/reviews" component = {Reviews} /> 
         <Route exact path = "/forgot" component={ForgotPass}/>
         <Route exact path = "/forgot/redirect" component={Redirect}/>
         <Route exact path = "/user/reset/:token" component={ResetPass}/>
-
-      
-        
-
-
         <Route exact path = "/store" component = {MyStore} />
-
         <Route exact path = "/admin" component = {Paperbase} />
         {/* <Route exact path = "/orderdetail/:id" component = {OrderDetail} /> */}
         <Route exact path = "/" component = {Home} />
-       
       </Switch>
       </ThemeProvider>
     </BrowserRouter>
