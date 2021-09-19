@@ -62,66 +62,67 @@ const Orders = () => {
 
   const classes = useStyles();
   const allOrders = useSelector(state => state.orders);
-    const dispatch = useDispatch();
-    const [idOrder, setIdOrder] = React.useState("")
-    const handleComplete = async (id) => {
+  const dispatch = useDispatch();
+  const [idOrder, setIdOrder] = React.useState("")
+    
+  const handleComplete = async (id) => {
         await dispatch(completeOrder(id));
         await dispatch(getAllOrders());
     }
 
-    const handleCancel = async (id) => {
-        await dispatch(cancelOrder(id));
-        await dispatch(getAllOrders());
-    }
+  const handleCancel = async (id) => {
+      await dispatch(cancelOrder(id));
+      await dispatch(getAllOrders());
+  }
 
-    const handleDelete = async (id) => {
-        await dispatch(deleteOrder(id));
-        await dispatch(getAllOrders());
-    }
+  const handleDelete = async (id) => {
+      await dispatch(deleteOrder(id));
+      await dispatch(getAllOrders());
+  }
 
 
-    const [status, setStatus] = React.useState('');
+  const [status, setStatus] = React.useState('');
 
-    const handleChange = (event) => {
-      event.preventDefault();
-      setStatus(event.target.value);
-      dispatch(getOrderByStatus(event.target.value));
-    };
+  const handleChange = (event) => {
+    event.preventDefault();
+    setStatus(event.target.value);
+    dispatch(getOrderByStatus(event.target.value));
+  };
 
-    const handleOrderDetailonClick = (e) => {
-      // console.log("handlerdetail",e.target.outerText)
-        e.preventDefault()
-        setIdOrder(e.target.outerText)
-    }
+  const handleOrderDetailonClick = (e) => {
+    // console.log("handlerdetail",e.target.outerText)
+      e.preventDefault()
+      setIdOrder(e.target.outerText)
+  }
 
-    let arr = [];
-    allOrders.forEach(order => {
-        arr.push({
-            order_id: order._id, 
-            owner: order.owner?.role, 
-            status: order.status,
-        });
-    });
+  let arr = [];
+  allOrders.forEach(order => {
+      arr.push({
+          order_id: order._id, 
+          owner: order.owner?.role, 
+          status: order.status,
+      });
+  });
     
     //console.log('array',arr);
 
-    function createData(order_id, owner, status, complete_button, cancel_button, delete_button ) {
-        return { order_id, owner, status, complete_button, cancel_button, delete_button };
-      }
-
-    let rows = [];
-    for (let i = 0; i < arr.length; i++) {
-        rows.push(createData(
-            <p name={arr[i].order_id}
-            style={{cursor:"pointer"}}
-             onClick={(e) => handleOrderDetailonClick(e)}>{arr[i].order_id}</p>, 
-            arr[i].owner, 
-            arr[i].status, 
-            <Button variant="outlined" color="success" onClick={() => handleComplete(arr[i].order_id)}>Aceptar</Button>,
-            <Button variant="outlined" color="error" onClick={() => handleCancel(arr[i].order_id)}>Cancelar</Button>,
-            <Button variant="outlined" color="secondary" onClick={() => handleDelete(arr[i].order_id)}>Eliminar</Button>
-        ));
+  function createData(order_id, owner, status, complete_button, cancel_button, delete_button ) {
+      return { order_id, owner, status, complete_button, cancel_button, delete_button };
     }
+
+  let rows = [];
+  for (let i = 0; i < arr.length; i++) {
+      rows.push(createData(
+          <p name={arr[i].order_id}
+          style={{cursor:"pointer"}}
+            onClick={(e) => handleOrderDetailonClick(e)}>{arr[i].order_id}</p>, 
+          arr[i].owner, 
+          arr[i].status, 
+          <Button variant="outlined" color="success" onClick={() => handleComplete(arr[i].order_id)}>Aceptar</Button>,
+          <Button variant="outlined" color="error" onClick={() => handleCancel(arr[i].order_id)}>Cancelar</Button>,
+          <Button variant="outlined" color="secondary" onClick={() => handleDelete(arr[i].order_id)}>Eliminar</Button>
+      ));
+  }
 
 
   const [page, setPage] = React.useState(0);
