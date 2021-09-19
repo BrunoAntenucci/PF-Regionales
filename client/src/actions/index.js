@@ -298,7 +298,7 @@ export function getOrderByStatus(payload) {
     return function(dispatch) {
         console.log('payload',payload);
         return axios({
-            method: "GET",
+            method: "POST",
             data: {
                 orderStatus: payload
             },
