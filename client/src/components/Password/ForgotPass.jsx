@@ -8,7 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { forgotPass, getAllUsers } from '../../actions/index';
+import { Link } from 'react-router-dom';
+import { forgotPass, getAllUsers, getPass } from '../../actions/index';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -49,26 +50,32 @@ export default function ForgotPäss(){
         dispatch(getAllUsers())
     }, [dispatch])
 
-    const users = useSelector(state => state.users)
-    const usersE = users.map((el) =>{ return el.email})
+    // const users = useSelector(state => state.users)
+    // const usersE = users.map((el) =>{ return el.email})
 
-    const userEmail = usersE.find((e) =>e === email)
-    console.log(userEmail, 'userEMa')
+    // const userEmail = usersE.find((e) =>e === email)
+    // console.log(userEmail, 'userEMa')
 
     const handleSubmit =  (e) =>{
-        if(userEmail){
+        // if(userEmail){
             dispatch(forgotPass(email))
             alert('Enviado correctamente')
+            dispatch(getPass())
             // history.push("/forgot/redirect") --> si le dejo esto me tira un option /forgot 204
-        }
-        else{ 
-            alert('Este email no está registrado')
-        }
+        // }
+        // else{ 
+        //     alert('Este email no está registrado')
+        // }
     }
   
 
     return(
         <div>
+              <Button
+                style={{height:"min-content"}}
+                variant="contained" color="primary">
+                <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
+                 </Button>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Typography component="h1" variant="h5">
