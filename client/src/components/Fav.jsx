@@ -10,7 +10,7 @@ export default function Fav ({id}) {
     const wishlist = useSelector(state => state.wishlist);
     const [fav, setFav] = useState(false)
  
-    console.log(wishlist, 'wish')
+    //console.log(wishlist, 'wish')
 
     const handleFavClick =   (e) => {
         //e.preventDefault();

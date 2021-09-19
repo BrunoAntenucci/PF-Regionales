@@ -152,6 +152,7 @@ router.delete("/delete/:petitionId", async (req, res, next) => {
 router.post("/newPetition/product", async (req, res, next) => {
     const userSessionID = req?.session?.passport?.user;
     const { dataProduct } = req.body;
+    console.log("dataProduct", dataProduct)
     if (userSessionID) {
         const user = await User.findById(userSessionID);
         const newPetition = new Petition({});
@@ -193,7 +194,7 @@ router.post("/newPetition/store", async (req, res, next) => {
 router.post("/newPetition/category", async (req, res, next) => {
     const userSessionID = req?.session?.passport?.user
     const { dataCategory } = req.body;
-    //console.log("CATEGORYNAME", categoryName)
+    console.log("CATEGORYNAME", categoryName)
     if (userSessionID) {
         const user = await User.findById(userSessionID);
         const newPetition = new Petition({});

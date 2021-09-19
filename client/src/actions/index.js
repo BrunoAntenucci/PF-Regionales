@@ -58,15 +58,27 @@ export function getCategoryToModify(id) {
     }
 }
 
-export function postCategory(payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.post('petition/newPetition/category', payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+export function postCategory(dataCategory){
+    
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                dataCategory: dataCategory
+            },
+            withCredentials: true,
+            url: "/petition/newPetition/category"
+          })
+          .then((res) => {
+            console.log("CREATE PRODUCT: ", res.data)
+            dispatch({
+                type: "POST_PRODUCT",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
     
 }
@@ -86,15 +98,27 @@ export function modifyCategory(id, payload){
 
 
 
-export function postProducts(payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.post('petition/newPetition/product', payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+export function postProducts(dataProduct){
+    
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                dataProduct: dataProduct
+            },
+            withCredentials: true,
+            url: "/petition/newPetition/product"
+          })
+          .then((res) => {
+            console.log("CREATE PRODUCT: ", res.data)
+            dispatch({
+                type: "POST_PRODUCT",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
     
 }
@@ -112,12 +136,34 @@ export function modifyProducts(id, payload){
     
 }
 
-export function postStore(payload){
+export function postStore(dataStore){
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                dataStore: dataStore
+            },
+            withCredentials: true,
+            url: "/petition/newPetition/store"
+          })
+          .then((res) => {
+            console.log("CREATE STORE: ", res.data)
+            dispatch({
+                type: "POST_STORE",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+    }
+
+
+export function modifyStore(id, payload){
     return async function (dispatch){
         try{
-        const aux = await axios.post('petition/newPetition/store', payload);
-        console.log(aux)
-        console.log(payload)
+        const aux = await axios.patch('/store/' + id, payload);
         return aux
         } catch (error){
             console.log(error)
@@ -169,6 +215,23 @@ export function getOrderDetail() {
               console.log("[ACTION]RES GetOrder: ", res.data)
               dispatch({
                   type: "GET_ORDER_DETAIL",
+                  payload: res.data
+              })
+            })
+    }
+  }
+
+  export function getAllOrders() {
+    return function(dispatch) {
+      return axios({
+              method: "GET",
+              withCredentials: true,
+              url: "/order"
+            })
+            .then((res) => {
+              console.log("[ACTION]RES GetAllOrders: ", res.data)
+              dispatch({
+                  type: "GET_ALL_ORDERS",
                   payload: res.data
               })
             })
@@ -594,6 +657,7 @@ export function deleteUser(id) {
     }
 }
 
+
 //--------RESET PASSWORD----------//
 // 1 - ENVÍA EL MAIL
 export function forgotPass(userInfo){
@@ -674,4 +738,131 @@ export function resetPass(token, userInfo){
         })
     }
 }
+
+
+
+export function getAllPetitions() {
+    return async function (dispatch) {
+        try {
+            const allPetitions = await axios.get('/petition/all');
+            return dispatch ({
+                type: 'GET_ALL_PETITIONS',
+                payload: allPetitions.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export function acceptPetition(id) {
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                petitionId: id
+            },
+            withCredentials: true,
+            url: "/petition/petitionAccepted"
+          })
+          .then((res) => {
+            console.log("ACCEPT PETITION: ", res.data)
+            dispatch({
+                type: "ACCEPT_PETITION",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function denyPetition(id) {
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                petitionId: id
+            },
+            withCredentials: true,
+            url: "/petition/petitionDenied"
+          })
+          .then((res) => {
+            console.log("DENY PETITION: ", res.data)
+            dispatch({
+                type: "DENY_PETITION",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+
+export function completeOrder(id) {
+    return function(dispatch) {
+        console.log('id',id);
+        return axios({
+            method: "post",
+            withCredentials: true,
+            url: `/order/complete/${id}`
+          })
+          .then((res) => {
+            console.log("COMPLETE ORDER: ", res.data)
+            dispatch({
+                type: "COMPLETE_ORDER",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function cancelOrder(id) {
+    return function(dispatch) {
+        console.log('id',id);
+        return axios({
+            method: "post",
+            withCredentials: true,
+            url: `/order/cancel/${id}`
+          })
+          .then((res) => {
+            console.log("CANCEL ORDER: ", res.data)
+            dispatch({
+                type: "CANCEL_ORDER",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function deleteOrder(id) {
+    return function(dispatch) {
+        console.log('id',id);
+        return axios({
+            method: "delete",
+            withCredentials: true,
+            url: `/order/remove/${id}`
+          })
+          .then((res) => {
+            console.log("DELETE ORDER: ", res.data)
+            dispatch({
+                type: "DELETE_ORDER",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
 

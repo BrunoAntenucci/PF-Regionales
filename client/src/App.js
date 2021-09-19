@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import './App.css';
-//import Home from './components/Home';
+import Home from './components/Home';
 import ProductCreation from "./components/ProductCreation";
 import SignInForm from './components/SignInForm';
 import SignUpForm from './components/SignUpForm'
@@ -14,8 +14,9 @@ import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart"
 import StoreCreation from './components/StoreCreation';
 import StoreDetail from './components/StoreDetail'
+import ModifyStore from './components/ModifyStore'
 import { createTheme , ThemeProvider} from '@material-ui/core';
-// import Header from "./components/Header";
+import Header from "./components/Header";
 // import { useDispatch } from "react-redux";
 // import { guestMati } from "./actions";
 // import { userCheck } from "./actions";
@@ -77,9 +78,6 @@ const theme = createTheme({
 
 
 function App() {
-
-  // const [guest, setGuest] = useState(true)
-
   return (
     
     <BrowserRouter>
@@ -99,16 +97,16 @@ function App() {
         <Route exact path = "/categorycreation" component = {CategoryCreation} />
         <Route exact path = "/modifyProduct/:id" component = {ModifyProduct} />
         <Route exact path= "/modifycategory/:id" component = {ModifyCategory} />
+        <Route exact path= "/modifystore/:id" component = {ModifyStore} />
         <Route exact path = "/history" component = {History} />
         <Route exact path="/favourites" component={Favourites} />
         <Route exact path = "/profile" component = {Profile} />
         <Route path="/detail/:id" component={ProductDetail} /> 
         <Route path='/storedetail/:id' component={StoreDetail} />
         <Route exact path = "/cart" component = {Cart} />
-        <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
-
+  
         <Route exact path= "/store/:id/reviews" component = {Reviews} /> 
         <Route exact path = "/forgot" component={ForgotPass}/>
         <Route exact path = "/forgot/redirect" component={Redirect}/>
@@ -117,8 +115,11 @@ function App() {
       
         
 
-        <Route exact path = "/admin" component = {Paperbase} />
 
+        <Route exact path = "/store" component = {MyStore} />
+
+        <Route exact path = "/admin" component = {Paperbase} />
+        <Route exact path = "/" component = {Home} />
        
       </Switch>
       </ThemeProvider>

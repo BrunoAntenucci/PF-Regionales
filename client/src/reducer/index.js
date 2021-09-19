@@ -18,7 +18,9 @@ const initialState = {
     orderDetail: [],
     store:{},
     reviews: [],
-    users: []
+    users: [],
+    petitions: [],
+    orders: []
 
 }
 
@@ -71,6 +73,7 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 stores: action.payload
             }
+           
         case 'GET_STORE_BY_ID':
             return {
                 ...state,
@@ -104,6 +107,25 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 wishlist: action.payload
             }
+        case 'FILTER_PRODUCTS':
+        var allProducts = state.allProducts;
+        var productByCategory = []
+        if( action.payload !== ''){
+            for (var i=0; i<allProducts.length; i++) {
+            for (var j=0; j<allProducts[i].category.length; j++) {
+                if (allProducts[i].category[j].name === action.payload) {
+                productByCategory.push(allProducts[i])
+                }
+            }
+            }
+        }else{
+            productByCategory = allProducts
+        }
+        return {
+            ...state, 
+            products: productByCategory
+
+        }
                  
         case "ADD_FAV":
             return {
@@ -133,6 +155,11 @@ function rootReducer(state = initialState, action) {
                  ...state,
                     mercData: obj
             }
+            case "GET_ALL_ORDERS":
+            return {
+                ...state,
+                orders: action.payload
+            } 
         case "CREATE_REVIEW":
             
             return{
@@ -150,6 +177,11 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 users: action.payload
+            }
+            case 'GET_ALL_PETITIONS':
+            return {
+                ...state,
+                petitions: action.payload
             }
                
         default: return state;
