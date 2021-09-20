@@ -10,8 +10,10 @@ const monthName = monthsArray[today.getMonth()];
 
 router.get("/byUser/all", async(req, res, next) => {
     const userSessionID = req?.session?.passport?.user
+    console.log(req.session)
     if (userSessionID) {
         const allOrders = await Order.find({owner: userSessionID})
+        console.log(allOrders, "all orDERSAWS")
         const byStatus = {
             cantOrders: allOrders.length,
             totalOrders: 0,
