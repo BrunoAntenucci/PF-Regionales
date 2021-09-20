@@ -30,6 +30,26 @@ export function getProductsByName(payload) {
     }
 }
 
+
+export function deleteProducts(id, payload){
+    return function(dispatch) {
+        return axios({
+            method: "DELETE",
+            data: payload,
+            withCredentials: true,
+            url: `/product/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES DELETE_PRODUCT: ", res.data)
+            dispatch({
+                type: "DELETE_PRODUCT",
+                payload: res.data
+            })
+          })
+    }
+}
+
+
 export function getCategories() {
     return async function (dispatch) {
         try {
@@ -58,43 +78,72 @@ export function getCategoryToModify(id) {
     }
 }
 
-export function postCategory(payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.post('petition/newPetition/category', payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+export function postCategory(dataCategory){
+    
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                dataCategory: dataCategory
+            },
+            withCredentials: true,
+            url: "/petition/newPetition/category"
+          })
+          .then((res) => {
+            console.log("CREATE PRODUCT: ", res.data)
+            dispatch({
+                type: "POST_PRODUCT",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
     
 }
+
 
 export function modifyCategory(id, payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.patch(`/category/${id}`, payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+    return function(dispatch) {
+        return axios({
+            method: "PATCH",
+            data: payload,
+            withCredentials: true,
+            url: `/petition/newPetition/categoryModify/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES PATCH_CATEGORY: ", res.data)
+            dispatch({
+                type: "PATCH_CATEGORY",
+                payload: res.data
+            })
+          })
     }
-    
 }
 
 
-
-export function postProducts(payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.post('petition/newPetition/product', payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+export function postProducts(dataProduct){
+    
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                dataProduct: dataProduct
+            },
+            withCredentials: true,
+            url: "/petition/newPetition/product"
+          })
+          .then((res) => {
+            console.log("CREATE PRODUCT: ", res.data)
+            dispatch({
+                type: "POST_PRODUCT",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
     
 }
@@ -117,19 +166,46 @@ export function modifyProducts(id, payload){
     }
 }
 
-export function postStore(payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.post('petition/newPetition/store', payload);
-        console.log(aux)
-        console.log(payload)
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+export function postStore(dataStore){
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                dataStore: dataStore
+            },
+            withCredentials: true,
+            url: "/petition/newPetition/store"
+          })
+          .then((res) => {
+            console.log("CREATE STORE: ", res.data)
+            dispatch({
+                type: "POST_STORE",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
     }
-    
+}
+
+
+export function modifyStore(id, payload){
+    return function(dispatch) {
+        return axios({
+            method: "PATCH",
+            data: payload,
+            withCredentials: true,
+            url: `/store/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES PATCH_STORE: ", res.data)
+            dispatch({
+                type: "PATCH_STORE",
+                payload: res.data
+            })
+          })
+    }
 }
 
 export function getStore(){
@@ -179,6 +255,90 @@ export function getOrderDetail() {
             })
     }
   }
+
+  export function getAllOrders() {
+    return function(dispatch) {
+      return axios({
+              method: "GET",
+              withCredentials: true,
+              url: "/order"
+            })
+            .then((res) => {
+              //console.log("[ACTION]RES GetAllOrders: ", res.data)
+              dispatch({
+                  type: "GET_ALL_ORDERS",
+                  payload: res.data
+              })
+            })
+    }
+  }
+
+  export function getOrderById(id) {
+    return function(dispatch) {
+        console.log('id',id);
+        return axios({
+            method: "GET",
+            withCredentials: true,
+            url: `/order/find/${id}`
+          })
+          .then((res) => {
+            console.log("ORDER DETAIL: ", res.data)
+            dispatch({
+                type: "GET_ORDER_BY_ID",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function getOrderByStatus(payload) {
+
+    if(payload =="Todas"){
+        return function(dispatch) {
+            console.log('payload todas',payload);
+            return axios({
+                    method: "GET",
+                    withCredentials: true,
+                    url: "/order"
+                  })
+                  .then((res) => {
+                    //console.log("[ACTION]RES GetAllOrders: ", res.data)
+                    dispatch({
+                        type: "GET_ALL_ORDERS",
+                        payload: res.data
+                    })
+                  })
+          }
+
+    }else{
+        return function(dispatch) {
+            console.log('payload',payload);
+            return axios({
+                method: "POST",
+                data: {
+                    orderStatus: payload
+                },
+                withCredentials: true,
+                url: "/order/allOrdersByStatus"
+              })
+              .then((res) => {
+                console.log("ORDER BY STATUS: ", res.data)
+                dispatch({
+                    type: "GET_ORDER_BY_STATUS",
+                    payload: res.data
+                })
+              })
+              .catch((err) => {
+                  console.log(err)
+              })
+        }
+    }
+
+}
+
 
 export function getProductDetail(id) {
     return async function(dispatch) {
@@ -515,6 +675,27 @@ export function deleteFav(id) {
 }
 
 
+export function mailFav(payload) {
+    console.log(payload, "payloadaction")
+    return async function (dispatch) {
+        try {
+            const obj={
+                id:payload
+            }
+            const prod = await axios.post('/favourites/mail/', obj);
+            console.log(prod, "prodAction")
+            return dispatch ({
+                type: 'SEND_MAIL_FAVOURITES',
+                payload: prod.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+
+
 //------REVIEWS------
 export const createReview = (id, review) => {
     console.log("entra con: ", id,  review)
@@ -600,6 +781,72 @@ export function deleteUser(id) {
 }
 
 
+//--------RESET PASSWORD----------//
+// 1 - ENVÍA EL MAIL
+export function forgotPass(email){
+    console.log(email, 'email')
+    return  function(dispatch){
+        return axios({
+            method: "post",
+            data: {
+                email: email
+            },
+            withCredentials: true,
+            url: "/user/forgot"
+        })
+        .then((res)=> {
+            console.log('action: forgot', res.data)
+            dispatch({
+                type: "FORGOT_PASS",
+                payload: res.data
+            })
+        })
+    }
+}
+//2 - verifica el token --->get a /reset/:token
+export function getToken(token, userInfo){
+    return async function (dispatch){
+        return axios ({
+            method: "get",
+            data: {
+                userInfo
+            }, 
+            withCredentials: true,
+            url: `/reset/${token}`
+        })
+        .then((res) => {
+            console.log('action resetPass', res.data)
+            dispatch({
+                type: "GET_TOKEN", 
+                payload: res.data
+            })
+        })
+    }
+}
+//3 - una vez verificado, POST a /reset/:token para cambiar la contraseña
+//paso contraseña por BODY, token por PARAMS
+export function resetPass(password, token){
+    return async function (dispatch){
+        return axios ({
+            method :"post",
+            data: {
+                password: password
+            }, 
+            withCredentials: true,
+            url: `/user/reset/${token}`
+        })
+        .then((res) => {
+            console.log('action resetPass', res.data)
+            dispatch({
+                type: "RESET_PASS", 
+                payload: res.data
+            })
+        })
+    }
+}
+
+
+
 export function getAllPetitions() {
     return async function (dispatch) {
         try {
@@ -659,4 +906,69 @@ export function denyPetition(id) {
           })
     }
 }
+
+
+export function completeOrder(id) {
+    return function(dispatch) {
+        console.log('id',id);
+        return axios({
+            method: "post",
+            withCredentials: true,
+            url: `/order/complete/${id}`
+          })
+          .then((res) => {
+            console.log("COMPLETE ORDER: ", res.data)
+            dispatch({
+                type: "COMPLETE_ORDER",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function cancelOrder(id) {
+    return function(dispatch) {
+        console.log('id',id);
+        return axios({
+            method: "post",
+            withCredentials: true,
+            url: `/order/cancel/${id}`
+          })
+          .then((res) => {
+            console.log("CANCEL ORDER: ", res.data)
+            dispatch({
+                type: "CANCEL_ORDER",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function deleteOrder(id) {
+    return function(dispatch) {
+        console.log('id',id);
+        return axios({
+            method: "delete",
+            withCredentials: true,
+            url: `/order/remove/${id}`
+          })
+          .then((res) => {
+            console.log("DELETE ORDER: ", res.data)
+            dispatch({
+                type: "DELETE_ORDER",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
 

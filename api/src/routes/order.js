@@ -63,7 +63,7 @@ router.get("/currentUser", async (req, res, next) => {
     return res.status(200).send("No se encontro ese usuario");
 })
 
-//---------------FILTRAR ORDERS POR ESTADO---------------//
+//---------------FILTRAR ORDERS DE UN USER POR ESTADO---------------//
 router.post("/orderByStatus", async (req, res, next) => {
     //--Es por usuario o todas?
     const userSessionID = req?.session?.passport?.user;
@@ -72,7 +72,8 @@ router.post("/orderByStatus", async (req, res, next) => {
     if (userSessionID) {
         console.log("Filtrar ordenes del usuario en sesion.")
         const user = await User.findById(userSessionID).populate("order")
-        const ordersByStatus = user.order.filter(order => order.status === orderStatus)
+        const ordersByStatus = await user.order.filter(order => order.status === orderStatus)
+        console.log('orderByStatus',ordersByStatus);
         return res.status(200).send(ordersByStatus)
     } else {
         return res.send("No hay usuario logueado")
@@ -82,6 +83,7 @@ router.post("/orderByStatus", async (req, res, next) => {
         // return res.status(200).send(ordersByStatus)
     }
 })
+//------------------FILTRAR TODAS LAS ORDERS POR ESTADO---------------------//
 router.post("/allOrdersByStatus", async (req, res, next) => {
     const { orderStatus } = req.body;
     const orders = await Order.find({})

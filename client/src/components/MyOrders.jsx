@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Typography } from '@material-ui/core';
+//import { Button, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderDetail } from '../actions';
@@ -38,7 +38,7 @@ const useStyles = makeStyles((e) => ({
         flexDirection: "row",
         justifyContent: "space-around"
     }, itemsP: {
-        width: "150px",
+        width: "115px",
     }, pName: {
         color: e.palette.secondary.main
 
@@ -74,7 +74,7 @@ const MyOrders = () => {
 
     return (
         <>
-            <Button
+            {/* <Button
                 style={{ height: "min-content" }}
                 variant="contained" color="primary">
                 <Link to='/products' style={{ textDecoration: "none", color: "white" }}>Volver</Link>
@@ -86,10 +86,10 @@ const MyOrders = () => {
 
                 <Typography variant="h6"
                 
-                >Listado de Ordenes</Typography>
+                >Listado de Ordenes</Typography> */}
                 <div className={classes.orders}>
                     {
-                        orderDetail.map(order => {
+                        orderDetail?.map(order => {
                             return (
                                 <>
                                     <div className={classes.orderN}>
@@ -102,7 +102,7 @@ const MyOrders = () => {
                                         </div>
                                         <hr></hr>
                                         <div className={classes.products}>
-                                            {order.cart?.items.map(item => {
+                                            {order.items.map(item => {
                                                 return (
 
 
@@ -125,7 +125,7 @@ const MyOrders = () => {
                                         <hr />
                                         <div className={classes.divItems}>
                                             <p className={classes.total} >total</p>
-                                            <p className={classes.total} >{order.cart?.total}</p>
+                                            <p className={classes.total} >{order.total}</p>
                                         </div>
                                         <hr />
                                         <div className={classes.divExtra}>
@@ -164,7 +164,7 @@ const MyOrders = () => {
                         )
                     }
                 </div>
-            </div>
+            
         </>
     )
 }

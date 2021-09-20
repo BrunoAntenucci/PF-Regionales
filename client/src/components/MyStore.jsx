@@ -3,23 +3,27 @@ import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import ProductCreation from './ProductCreation';
 import StoreCreation from './StoreCreation';
+import CategoryCreation from './CategoryCreation';
 import { makeStyles } from '@material-ui/styles';
 import createStore from '../img/market-create.svg'
 import createProduct from '../img/product-create.svg'
-
+import createCategory from '../img/category-create.svg'
 const useStyles = makeStyles((e) => ({
 root:{
 margin:"0 auto",
 display:"flex",
 flexDirection:"row",
-justifyContent:"center"
+justifyContent:"center",
+    flexWrap:"wrap",
 },
 divElection:{
     width:"fit-content",
     height:"fit-content",
-    margin:"10px 30px",
+    margin:"10px 10px",
     textAlign:"center",
-    padding:"50px",
+    padding:"30px",
+   
+    
    // background:"#eee",
     borderRadius:"9px",
     //boxShadow:"inset 0px 0px 70px #0001",
@@ -48,6 +52,8 @@ const MyStore = () => {
     }
     else if(e.target.nextSibling.innerHTML == "crear tienda"){
         setStore("crear tienda")
+    }else if(e.target.nextSibling.innerHTML == "crear categoria"){
+        setStore("crear categoria")
     }
     }
     console.log(store)
@@ -69,7 +75,7 @@ const MyStore = () => {
                  variant="contained" color="primary">
                   Volver
                     </Button>
-           <StoreCreation/>
+                    <ProductCreation />
            </>:
            store == "crear tienda"?
            <>
@@ -82,7 +88,21 @@ const MyStore = () => {
                  variant="contained" color="primary">
                   Volver
                     </Button>
-           <ProductCreation />
+                    <StoreCreation/>
+          
+           </>:
+           store == "crear categoria"?
+           <>
+            <Button
+            style={{height:"min-content"}}
+            onClick={e => {
+                e.preventDefault()
+                setStore("")
+            }}
+                 variant="contained" color="primary">
+                  Volver
+                    </Button>
+                    <CategoryCreation />
            </>:
            <>
            <div className={classes.divElection}
@@ -96,6 +116,12 @@ const MyStore = () => {
            <img className={classes.imgElection}
             src={createProduct}/> 
            <h2>crear producto</h2>
+           </div>
+           <div className={classes.divElection}
+            onClick={handlerStore}>
+           <img className={classes.imgElection}
+            src={createCategory}/> 
+           <h2>crear categoria</h2>
            </div>
            </>}
             {/* <StoreCreation/>

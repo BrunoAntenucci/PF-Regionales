@@ -14,6 +14,7 @@ import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart"
 import StoreCreation from './components/StoreCreation';
 import StoreDetail from './components/StoreDetail'
+import ModifyStore from './components/ModifyStore'
 import { createTheme , ThemeProvider} from '@material-ui/core';
 import Header from "./components/Header";
 // import { useDispatch } from "react-redux";
@@ -27,10 +28,15 @@ import MyStore from "./components/MyStore";
 import Stores from "./components/Stores";
 import MyOrders from "./components/MyOrders";
 import Reviews from "./components/Reviews";
-
+import ForgotPass from "./components/Password/ForgotPass";
+import Redirect from "./components/Password/RedirectMail";
+import ResetPass from "./components/Password/ResetPass";
 
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
+import OrderDetail from "./components/OrderDetail";
+
+
 
 
 const theme = createTheme({
@@ -78,7 +84,7 @@ function App() {
     <BrowserRouter>
     <ThemeProvider theme={theme}>
     <ReactNotification />
-    <Header />
+    {/* <Header /> */}
       <Switch>
         {/* <Route exact path="/" >
           <Products guest={guest} setGuest={setGuest}/> 
@@ -92,6 +98,7 @@ function App() {
         <Route exact path = "/categorycreation" component = {CategoryCreation} />
         <Route exact path = "/modifyProduct/:id" component = {ModifyProduct} />
         <Route exact path= "/modifycategory/:id" component = {ModifyCategory} />
+        <Route exact path= "/modifystore/:id" component = {ModifyStore} />
         <Route exact path = "/history" component = {History} />
         <Route exact path="/favourites" component={Favourites} />
         <Route exact path = "/profile" component = {Profile} />
@@ -100,12 +107,14 @@ function App() {
         <Route exact path = "/cart" component = {Cart} />
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
-        {/* <Route exact path = "/reviews" component = {Reviews} /> */}
         <Route exact path= "/store/:id/reviews" component = {Reviews} /> 
+        <Route exact path = "/forgot" component={ForgotPass}/>
+        <Route exact path = "/forgot/redirect" component={Redirect}/>
+        <Route exact path = "/user/reset/:token" component={ResetPass}/>
         <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/admin" component = {Paperbase} />
+        {/* <Route exact path = "/orderdetail/:id" component = {OrderDetail} /> */}
         <Route exact path = "/" component = {Home} />
-       
       </Switch>
       </ThemeProvider>
     </BrowserRouter>
