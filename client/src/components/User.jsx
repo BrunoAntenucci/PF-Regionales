@@ -209,22 +209,8 @@ const User = () => {
                     <ListItemText primary="Favoritos" />
                     </Link>
                   </StyledMenuItem>
-                  <StyledMenuItem>
-                    <ListItemIcon>
-                      <LocalMallIcon fontSize="small" />
-                    </ListItemIcon>
-                    <Link to="/orders" style={{textDecoration:"none",  color:"inherit"}}>
-                    <ListItemText primary="Mis compras" />
-                    </Link>
-                  </StyledMenuItem>
-                  <StyledMenuItem>
-                    <ListItemIcon>
-                      <StorefrontIcon fontSize="small" />
-                    </ListItemIcon>
-                    <Link to="/store" style={{textDecoration:"none",  color:"inherit"}}>
-                    <ListItemText primary="Mi tienda" />
-                    </Link>
-                  </StyledMenuItem>
+                  
+
                   <StyledMenuItem onClick={handleClickCart} >
                     <ListItemIcon >
                       <ShoppingCartIcon fontSize="small" />

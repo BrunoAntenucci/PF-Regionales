@@ -295,27 +295,48 @@ export function getOrderDetail() {
 }
 
 export function getOrderByStatus(payload) {
-    return function(dispatch) {
-        console.log('payload',payload);
-        return axios({
-            method: "POST",
-            data: {
-                orderStatus: payload
-            },
-            withCredentials: true,
-            url: "/order/orderByStatus"
-          })
-          .then((res) => {
-            console.log("ORDER BY STATUS: ", res.data)
-            dispatch({
-                type: "GET_ORDER_BY_STATUS",
-                payload: res.data
-            })
-          })
-          .catch((err) => {
-              console.log(err)
-          })
+
+    if(payload =="Todas"){
+        return function(dispatch) {
+            console.log('payload todas',payload);
+            return axios({
+                    method: "GET",
+                    withCredentials: true,
+                    url: "/order"
+                  })
+                  .then((res) => {
+                    //console.log("[ACTION]RES GetAllOrders: ", res.data)
+                    dispatch({
+                        type: "GET_ALL_ORDERS",
+                        payload: res.data
+                    })
+                  })
+          }
+
+    }else{
+        return function(dispatch) {
+            console.log('payload',payload);
+            return axios({
+                method: "POST",
+                data: {
+                    orderStatus: payload
+                },
+                withCredentials: true,
+                url: "/order/allOrdersByStatus"
+              })
+              .then((res) => {
+                console.log("ORDER BY STATUS: ", res.data)
+                dispatch({
+                    type: "GET_ORDER_BY_STATUS",
+                    payload: res.data
+                })
+              })
+              .catch((err) => {
+                  console.log(err)
+              })
+        }
     }
+
 }
 
 
