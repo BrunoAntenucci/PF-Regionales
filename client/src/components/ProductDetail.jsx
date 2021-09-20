@@ -108,6 +108,7 @@ function ProductDetail(props) {
     const classes = useStyles();
     const history = useHistory();
     const detail = useSelector((state) => state.prodDetail);
+    const user = useSelector((state) => state.user);
 
     console.log(props.match.params.id, 'id')
     console.log(detail, "detallewqsdqwd")
@@ -204,22 +205,25 @@ function ProductDetail(props) {
                     
                    
                          </div>     
-                         <div className={classes.contentRight}>     
-                         <div className={classes.cardDiv}
-                                        >
-                                <Typography
-                                    className={classes.cardTypo}
-                                    variant="body1" color="primary" component="p"                                  
+                         <div className={classes.contentRight}>
+                         {detail.product[0].user === user._id ? 
+                            <div className={classes.cardDiv}>
+                                    <>
+                                    <Typography
+                                        className={classes.cardTypo}
+                                        variant="body1" color="primary" component="p"                                  
                                     >
                                         <Link to={"/modifyProduct/"+p._id}
-                                        style={{textDecoration:"none",color:"inherit"}}>
-                                   modificar producto
-                                   </Link>
-                                        </Typography>
-                                        {/*le puse la llave mía porque no me mostraba la de material UI*/}
+                                            style={{textDecoration:"none",color:"inherit"}}>
+                                            {'modificar producto'} 
+                                        </Link>
+                                    </Typography>
+                                            {/*le puse la llave mía porque no me mostraba la de material UI*/}
                                     <img src={iconChange?iconChange:BuildOutlinedIcon}
-                                     className={classes.cart}></img>
-                                    </div>
+                                        className={classes.cart}></img>
+                                    </>
+                                </div> 
+                            : null}
                              <div className={classes.info}>  
                             <Grid container spacing={2} direction="column"
                             justifyContent="flex-start"
