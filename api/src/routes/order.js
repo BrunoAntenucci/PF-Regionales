@@ -63,14 +63,6 @@ router.get("/currentUser", async (req, res, next) => {
     return res.status(200).send("No se encontro ese usuario");
 })
 
-//--------------FILTRAR TODAS LAS ORDERS POR ESTADO-----------------//
-router.post("/allOrdersByStatus", async (req, res, next) => {
-    const { orderStatus } = req.body;
-    const orders = await Order.find({})
-    const ordersByStatus = orders.filter(order => order.status === orderStatus)
-    return res.status(200).send(ordersByStatus)
-})
-
 //---------------FILTRAR ORDERS DE UN USER POR ESTADO---------------//
 router.post("/orderByStatus", async (req, res, next) => {
     //--Es por usuario o todas?
@@ -84,11 +76,19 @@ router.post("/orderByStatus", async (req, res, next) => {
         console.log('orderByStatus',ordersByStatus);
         return res.status(200).send(ordersByStatus)
     } else {
-        console.log("Filtrar dentro de todas las ordenes")
-        const orders = await Order.find({})
-        const ordersByStatus = orders.filter(order => order.status === orderStatus)
-        return res.status(200).send(ordersByStatus)
+        return res.send("No hay usuario logueado")
+        // console.log("Filtrar dentro de todas las ordenes")
+        // const orders = await Order.find({})
+        // const ordersByStatus = orders.filter(order => order.status === orderStatus)
+        // return res.status(200).send(ordersByStatus)
     }
+})
+//------------------FILTRAR TODAS LAS ORDERS POR ESTADO---------------------//
+router.post("/allOrdersByStatus", async (req, res, next) => {
+    const { orderStatus } = req.body;
+    const orders = await Order.find({})
+    const ordersByStatus = orders.filter(order => order.status === orderStatus)
+    return res.status(200).send(ordersByStatus)
 })
 //------------------ORDENES PREVIAS---------------------//
 router.get("/prevOrders", async(req, res, next) => {
@@ -193,7 +193,15 @@ router.post("/newOrder", async(req, res, next) => {
 
     console.log("REQ BODY: ", req.body)
 
-    const cart = await Cart.findById(cartId).populate("items")
+    const cart = await Cart.findById(cartId).populate({
+        path: "items",
+        populate: {
+            path: "product",
+            populate: {
+                path: "user"
+            }
+        }
+    })
     console.log("CART: ", cart)
 
     const shipInfo = await ShipInfo.findById(shipInfoId);
@@ -201,6 +209,26 @@ router.post("/newOrder", async(req, res, next) => {
     newOrder.items = cart.items
     newOrder.total = cart.total
     await newOrder.save();
+
+    //---------ENVIAR ORDENES A LOS VENDEDORES---------//
+    var itemsOwners = []
+    cart.items.forEach((product) => {
+        if(!itemsOwners.includes(product.product.user)) {
+            itemsOwners.push(product.product.user)
+        }
+    })
+    itemsOwners.forEach(async(owners) => {
+        const productOwner = await User.findById(owners);
+        productOwner.petitionsAsVendor = [...productOwner.petitionsAsVendor, newOrder._id]
+        await productOwner.save()
+        console.log(`Se agrego la peticion al usuario vendedor`)
+    })
+    // cart.items.forEach(async(product) => {
+    //     const productOwner = await User.findById(product.product.user);
+    //     productOwner.petitionsAsVendor = [...productOwner.petitionsAsVendor, newOrder._id]
+    //     await productOwner.save()
+    //     console.log(`Se agrego la peticion al usuario vendedor`)
+    // })
     
     //---------LIMPIAR CARRITO DEL USER------//
     cart.items = [];

@@ -145,7 +145,7 @@ export default function StoreCreation(){
     }, [dispatch])
 
     const products = useSelector((state) => state.products)
-
+    const user = useSelector((state) => state.user)
 
     function handleProducts(e){
         if (input.products.includes(e.target.value)) {
@@ -359,9 +359,9 @@ export default function StoreCreation(){
           onChange={handleProducts}
         >
              {
-                                products.map((e, i) => 
+                                products.map((e, i) => e.user === user._id ?
                                <MenuItem key={i} value={e._id}>{e.name}</MenuItem>
-                                 )
+                                 : null)
              }
         </Select>
       </FormControl>
