@@ -1,128 +1,75 @@
-import styled from "styled-components";
-// import Image from 'next/image' 
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Link from '@material-ui/core/Link';
 
-
-const Root = styled.div`
-width: 100%;
-background: radial-gradient(circle, #E3E8D6 0%, #C8CAC4  100%);
-padding: 80px 60px;
-@media(max-width: 375px){
-  font-size: 100px;
-  }
-`
-
-const Conteiner = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 1024px;
-    margin: 0 auto;
-`
-
-// export const Wrapper = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     max-width: 1024px;
-//     margin: 0 auto;
-//     /* background: red; */
-// `
-
-const Text = styled.a`
-    font-size: 0.8rem;
-    color: black;
-    margin: 0 4px;
-    margin-bottom: 20px;
-    &:hover {
-      color: #7ECAFF;
-      transition: 0.1s ease-in;
-  }
-`
-
-// const StyledCopyright = styled.a`
-//     font-size: 0.7rem;
-//     color: #FFF;
-//     margin-bottom: 20px;
-//     text-decoration: none;
-// `
-
-// const StyledBar = styled.a`
-//     width: 1px;
-//     height: 50px;
-//     background-color: #FFF;
-// `
-
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  margin-left: 60px;
-  @media(max-width: 375px){
-    margin-left: 30px;
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-export const Title = styled.p`
-  font-size: 20px;
-  color: black;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  font-weight: bold;
-  font-family: ubuntu;
-`;
-
-export const Row = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  grid-gap: 20px;
-  @media (max-width: 1000px) {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  }
-`;
-
-export const Icon = styled.i`
-    font-size: 18px;
-    margin-right: 16px;
-`
-
-// const StyledImage = styled.div`
-//     margin-left: -10px;
-// `
-
-const Footer = () => {
-
-    // const logoWhite = "https://ecommics.s3.sa-east-1.amazonaws.com/images/ecommics-logo-white.svg";
-
-    return (
-        <Root>
-            <Conteiner>
-                <Row>
-                    <Column>
-                    <Title>Acerca de</Title>
-                        <Text href="/help/contact">Contacto</Text>                        
-                        <Text href="/help/privacy">Política de privacidad</Text>
-                        <Text href="/help/terms-and-conditions">Términos de uso</Text>
-                    </Column>
-                    <Column>
-                    <Title>Contacto</Title>
-                        <Text href="#">Whatsapp</Text>
-                        <Text href="#">Email</Text>
-                        <Text href="#">Ayuda</Text>
-                    </Column>
-                    <Column>
-                    <Title>Redes sociales</Title>
-                        <Text href="https://www.facebook.com/profile.php?id=100072715101850" target="_blank">Facebook</Text>
-                        <Text href="https://twitter.com/AlumnoHenry" target="_blank">Twitter</Text>
-                        <Text href="https://www.instagram.com/" target="_blank">Instagram</Text>
-                        
-                    </Column>
-                </Row>
-            </Conteiner>
-        </Root>
-    )
+export default function Footer() {
+  return (
+    <footer>
+      <Box
+        px={{ xs: 3, sm: 10 }}
+        bgcolor="text.secondary"
+        py={{ xs: 5, sm: 10 }}
+        color="white"
+        width= '100%'
+      >
+        <Container maxWidth="lg">
+          <Grid container spacing={5}>
+            <Grid item xs={12} sm={4}>
+              <Box borderBottom={1}>Ayuda</Box>
+              <Box>
+                <Link href="/" color="inherit">
+                  Contacto
+                </Link>
+              </Box>
+              <Box>
+                <Link href="/" color="inherit">
+                  Soporte
+                </Link>
+              </Box>
+              <Box>
+                <Link href="/" color="inherit">
+                Política de privacidad
+                </Link>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Box borderBottom={1}>Cuenta</Box>
+              <Box>
+                <Link href="http://localhost:3000/signin" color="inherit">
+                  Acceder
+                </Link>
+              </Box>
+              <Box>
+                <Link href="/" color="inherit">
+                  Registrarse
+                </Link>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Box borderBottom={1}>Redes Sociales</Box>
+              <Box>
+                <Link href="https://www.facebook.com/profile.php?id=100072715101850" target="_blank" color="inherit">
+                  Facebook
+                </Link>
+              </Box>
+              <Box>
+                <Link href="https://twitter.com/AlumnoHenry" target="_blank" color="inherit">
+                  Twitter
+                </Link>
+              </Box>
+              <Box>
+                <Link href="https://www.instagram.com/" target="_blank" color="inherit">
+                  Instagram
+                </Link>
+              </Box>
+            </Grid>
+          </Grid>
+          <Box textAlign="center" pt={{ xs: 5, sm: 10 }} pb={{ xs: 5, sm: 0 }}>
+            e-MARKET &reg; {new Date().getFullYear()}
+          </Box>
+        </Container>
+      </Box>
+    </footer>
+  );
 }
-
-export default Footer;
-// © 2021 GitHub, Inc.

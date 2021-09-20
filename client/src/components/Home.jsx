@@ -12,29 +12,30 @@ import {FaStar} from 'react-icons/fa';
 import { getStore } from '../actions';
 import stores from '../img/stores.svg';
 import Grid from '@material-ui/core/Grid';
+import Footer from './Footer'
 
 const useStyles = makeStyles(e => ({
-    conteiner1:{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        maxWidth: '1024px',
-        margin: ' 0 auto',
-        fontSize: 'calc(1em + 1vw)',
-        '@media(max-width: 375px)':{
-            display: 'flex',
-             marginLeft: '300px',
-             flexDirection: 'column',
-        //    width:"50%",
-        //    height:"50%"
-        maxWidth: '1024px',
-        justifyContent: 'center',
-        fontSize: '10vw',
+    // conteiner1:{
+    //     display: 'flex',
+    //     flexDirection: 'column',
+    //     justifyContent: 'center',
+    //     // maxWidth: '1024px',
+    //     margin: ' 0 auto',
+    //     fontSize: 'calc(1em + 1vw)',
+    //     '@media(max-width: 375px)':{
+    //         display: 'flex',
+    //          marginLeft: '300px',
+    //          flexDirection: 'column',
+    //     //    width:"50%",
+    //     //    height:"50%"
+    //     maxWidth: '1024px',
+    //     justifyContent: 'center',
+    //     fontSize: '10vw',
         
-        }
+    //     }
         
 
-    },
+    // },
 //     conteiner2:{
 //         width: 100%;
 // background: radial-gradient(circle, #E3E8D6 0%, #C8CAC4  100%);
@@ -53,7 +54,8 @@ const useStyles = makeStyles(e => ({
 //    flexDirection:"row",
 display: 'flex',
   textAlign: 'left',
-  marginLeft: '-330px',
+  marginLeft: 'auto',
+  overflow:"scroll",
 //   margin: "-950px 0 auto " ,
    '@media(max-width: 375px)':{
     marginLeft: '100px',
@@ -66,7 +68,7 @@ display: 'flex',
   //  overflow:"scroll"
 },
 root2:{
-   marginTop:"20px 30px 1000px 20px",
+//    marginTop:"20px 30px 1000px 20px",
 //  // padding: "0 10px 0 30px",
  width:"100vw",
 //  background:e.palette.primary.light,
@@ -77,7 +79,8 @@ root2:{
 //  flexDirection:"row",
 display: 'flex',
   textAlign: 'left',
-  marginLeft: '-300px',
+  margin: 'auto',
+  overflow:"scroll",
 //   margin: "-950px 0 auto " ,
  '@media(max-width: 375px)':{
     marginLeft: '130px',
@@ -100,8 +103,9 @@ root3:{
 //    flexDirection:"row",
   //  overflow:"scroll"
   display: 'flex',
-  textAlign: 'left',
-  marginLeft: '-330px',
+//   textAlign: 'left',
+  marginLeft: 'auto',
+  overflow:"scroll",
   margin: "-950px 0 auto " ,
   '@media(max-width: 375px)':{
     marginLeft: '50px',
@@ -352,14 +356,14 @@ function Home() {
 }    
 
     return (
-      
+      <div >
         <div className={classes.conteiner1}>
           
             <section className={classes.section}>
             <div >
             <Header />
             <div className={classes.leyend}>
-             <h1 className={classes.h1}> Productos</h1>
+             <h4 className={classes.h1}> Productos</h4>
              <Link className={classes.link} to="/products"><p>ver más</p></Link>
             </div>
             <div className={classes.root2}>
@@ -499,8 +503,8 @@ function Home() {
                                     <p>{review.comment}</p>
                                     <p>{review.createdAt.substring(0, 10)}</p>
                                 </div>
-                            )
-                        })} */}
+                                )
+                            })} */}
                         <div>    
                         </div>
                         </>
@@ -513,14 +517,15 @@ function Home() {
                  {/* <h3>Modificar producto</h3> */}
             
                  </div>
-               
+              
 
           </div>
             
         </div>
         </section>
         </div>
-       
+        <Footer />
+      </div>
     )
 }
 
