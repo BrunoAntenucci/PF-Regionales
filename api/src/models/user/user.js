@@ -29,12 +29,6 @@ const userSchema = new Schema({
         enum: ["User", "Admin", "SuperAdmin"],
         default: "User"
     },
-    // status: {         type: String,         enum : ['NEW','STATUS'],         default: 'NEW'     },
-    role: {
-        type: String,
-        enum: ["User", "Admin", "SuperAdmin"],
-        default: "User"
-    },
     ship_info: [{ 
         type: Schema.ObjectId, 
         ref: "ShipInfo"
@@ -62,6 +56,10 @@ const userSchema = new Schema({
     productsOwn: [{
         type: Schema.ObjectId,
         ref: "Product"
+    }],
+    petitionsAsVendor: [{
+        type: Schema.ObjectId,
+        ref: "Petition"
     }],
     resetPasswordToken: {
         type: String,

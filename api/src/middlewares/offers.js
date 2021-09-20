@@ -108,6 +108,14 @@ module.exports = async function offers(req, res, next) {
             return next();
         }
     } else {
+        const otherProducts1 = productsInOfferLUNES.concat(productsInOfferMIERCOLES)
+        const otherProducts2 = otherProducts1.concat(productsInOfferVIERNES)
+        if (otherProducts2.length > 0) {
+            otherProducts2.forEach(async(product) => {
+                product.isInOffer = false
+                await product.save()
+            })
+        }
         return next()
     }
     
