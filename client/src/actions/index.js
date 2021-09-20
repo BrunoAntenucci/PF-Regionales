@@ -90,9 +90,9 @@ export function postCategory(dataCategory){
             url: "/petition/newPetition/category"
           })
           .then((res) => {
-            console.log("CREATE PRODUCT: ", res.data)
+            console.log("CREATE CATEGORY: ", res.data)
             dispatch({
-                type: "POST_PRODUCT",
+                type: "POST_CATEGORY",
                 payload: res.data
             })
           })
