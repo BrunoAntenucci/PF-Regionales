@@ -28,7 +28,7 @@ export default function CategoryCreation(){
         setInput({
             ...input,
             [e.target.name]: e.target.value,
-          })
+        })
           setErrors(validate({
               ...input,
               [e.target.name]: e.target.value,
@@ -37,7 +37,7 @@ export default function CategoryCreation(){
 
     }
 
-    function handleSubmit(e){
+    function handleSubmit (e){
         if(errors.name) {
             e.preventDefault();
             alert('Formulario incompleto');

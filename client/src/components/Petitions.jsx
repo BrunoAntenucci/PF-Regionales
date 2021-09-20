@@ -69,7 +69,7 @@ const Petitions = () => {
     let arr = [];
     allPetitions.forEach(petition => {
         arr.push({
-            name: petition.dataStore?.name || petition.dataProduct?.name , 
+            name: petition.dataStore?.name || petition.dataProduct?.name || petition.dataCategory?.name, 
             about: petition.about, 
             id: petition._id, 
             status: petition.status});
