@@ -17,6 +17,8 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import { getAllUsers, getAllPetitions, getOrderDetail, getAllOrders } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { checkUser } from '../../actions/index';
 
 const item = {
   py: '2px',
@@ -37,6 +39,9 @@ export default function Navigator(props) {
   const { ...other } = props;
   const dispatch = useDispatch();
   const role = useSelector(state => state.user.role)
+  useEffect(() => {
+    dispatch(checkUser())
+  }, [])
   const handleClick = (e) => {
     e.preventDefault();
     if(e.target.innerText === "Users"){
@@ -70,8 +75,7 @@ export default function Navigator(props) {
     console.log(props.comp, "props comp")
   }
 
-
-console.log(props, "props")
+  console.log(props, "props")
 
   return (
     <Drawer variant="permanent" {...other}>
