@@ -62,6 +62,10 @@ const userSchema = new Schema({
     productsOwn: [{
         type: Schema.ObjectId,
         ref: "Product"
+    }],
+    petitionsAsVendor: [{
+        type: Schema.ObjectId,
+        ref: "Petition"
     }]
 }, { timestamps: true, versionKey: false })
 
