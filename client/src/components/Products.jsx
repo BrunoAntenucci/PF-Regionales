@@ -38,24 +38,22 @@ const useStyles = makeStyles((theme) => ({
         background: "rgb(83,83,83)",
 background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+theme.palette.primary.light+" 76%, "+theme.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
     },
-    aside:{
-        maxHeight:"500px",
-        margin:"100px 20px",
-        minWidth:"300px",
-        border: "5px solid "+theme.palette.primary.main,
-        borderRadius:"20px",
-        position:"sticky",
-        background:theme.palette.primary.light,
-
-    },
+   
     section:{
         margin:"0 "
     },
+    gridCard:{
+    minWidth:"350px",
+    maxWidth:"400px"
+    },
     products:{
         background:"#eee",
-        width: 1100,
+        maxWidth: "1800px",
+        minWidth:"450px",
+        display:"flex",
+        flexWrap:"wrap",
 
-    borderRadius: '5%',
+    borderRadius: '1%',
    
 
     },
@@ -74,7 +72,7 @@ function Products(props) {
     const [pageN, setPageN] = useState(1);
     const [render, setRender] = useState('');
     // const [prodPerPage] = useState(9);
-    const [prodPerPage , setProdPerPage] = useState(9)
+    const [prodPerPage , setProdPerPage] = useState(12)
     const indexOfLastProd = pageN * prodPerPage; 
     const indexOfFirstProd = indexOfLastProd - prodPerPage;  
 
@@ -127,12 +125,12 @@ function Products(props) {
                {/* <aside className={classes.aside}>
                     <div></div>
                 </aside> */}
-                <Button
+                {/* <Button
          style={{height:"min-content" , marginTop:"10px"}}
          
               variant="contained" color="primary">
                 <Link to='/' style={{textDecoration:"none", color:"white"}}>volver</Link>
-                 </Button>
+                 </Button> */}
                 <section className={classes.section}>
             <div className={classes.font}>
                 <Typography 
@@ -153,7 +151,7 @@ function Products(props) {
                     return (
                         
                         <Fragment key={i}>              
-                                    <Grid item xs={4}>     
+                                    <Grid item xs={6}  className={classes.gridCard}>     
 
                                     <div 
                                     onClick={() => {HandleHistoryOnClick(
@@ -198,9 +196,10 @@ function Products(props) {
                             
                              
                                
-                                    <Grid item xs={4}>     
+                                    <Grid item xs={6} className={classes.gridCard}>     
 
                                     <div 
+
                                     onClick={e => {HandleHistoryOnClick(
                                         e,
                                         p?.name,
