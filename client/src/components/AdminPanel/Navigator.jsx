@@ -72,6 +72,10 @@ export default function Navigator(props) {
       props.setComp("Products")
       console.log(e.target.innerText)
     }
+      else if(e.target.innerText === "Analytics"){
+      props.setComp("Analytics")
+      console.log(e.target.innerText)
+    }
     console.log(props.comp, "props comp")
   }
 
@@ -128,6 +132,12 @@ export default function Navigator(props) {
                   <ListItemText>Mis compras</ListItemText>
                 </ListItemButton>
               </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item} onClick={handleClick}>
+                  <ListItemIcon><LocalMallIcon /></ListItemIcon>
+                  <ListItemText>Products</ListItemText>
+                </ListItemButton>
+              </ListItem>
               </>: role=="User"?
             <>
              <ListItem disablePadding>
@@ -160,7 +170,7 @@ export default function Navigator(props) {
               <ListItemText sx={{ color: '#fff' }}>Quality</ListItemText>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton selected="active" sx={item}>
+              <ListItemButton selected="active" sx={item} onClick={handleClick}>
                 <ListItemIcon><SettingsIcon /></ListItemIcon>
                 <ListItemText>Analytics</ListItemText>
               </ListItemButton>
