@@ -75,30 +75,30 @@ display: 'flex',
   //  overflow:"scroll"
 },
 root2:{
-//    marginTop:"20px 30px 1000px 20px",
-//  // padding: "0 10px 0 30px",
-//  width:"100vw",
-//  background:e.palette.primary.light,
-//  padding:"0 30px 0 0",
-//  borderTop:"30px solid "+e.palette.primary.main,
-//  borderBottom:"30px solid "+e.palette.primary.main,
-//  display:"flex",
-//  flexDirection:"row",
-// display: 'flex',
-//   textAlign: 'left',
-//   margin: 'auto',
-//   overflow:"scroll",
-//   marginLeft: '200px',
-//   flexDirection: 'row',
-//   margin: "-950px 0 auto " ,
-//  '@media(max-width: 375px)':{
-//     marginLeft: '130px',
-//     flexDirection: 'column',
-//     marginTop: '50px',
-    
-// }
+   marginTop:"20px 30px 1000px 20px",
+ // padding: "0 10px 0 30px",
+ maxHeight:"500px",
+ maxWidth:"1500px",
+ background:e.palette.primary.light,
+ padding:"0 30px 0 0",
+ borderTop:"30px solid "+e.palette.primary.main,
+ borderBottom:"30px solid "+e.palette.primary.main,
+ display:"flex",
 
-//  overflow:"scroll"
+  textAlign: 'left',
+  margin: 'auto',
+  overflow:"scroll",
+  marginLeft: '200px',
+  flexDirection: 'row',
+
+ '@media(max-width: 375px)':{
+    marginLeft: '130px',
+    flexDirection: 'column',
+    marginTop: '50px',
+    
+},
+
+ overflow:"scroll"
 },
 root3:{
 //     marginTop:"-900px ",
@@ -114,8 +114,8 @@ root3:{
   display: 'flex',
 //   textAlign: 'left',
 marginLeft: '250px',
-  overflow:"scroll",
-  margin: "-950px 0 auto " ,
+
+
   '@media(max-width: 375px)':{
     marginLeft: '50px',
     flexDirection: 'column',
@@ -392,6 +392,8 @@ const settings = {
   speed: 300,
   slidesToShow: 4,
   slidesToScroll: 4,
+  rows: 2,
+slidesPerRow: 1,
   beforeChange: (current, next) => setImageIndex(next),
   responsive: [
     {
