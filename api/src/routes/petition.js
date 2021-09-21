@@ -81,6 +81,8 @@ router.post("/petitionAccepted", async (req, res, next) => {
         newStore.description = petition.dataStore.description;
         newStore.city = petition.dataStore.city;
         newStore.address = petition.dataStore.address;
+        newStore.products = petition.dataStore.products;
+        newStore.img = petition.dataStore.img;
         newStore.owner = petition.user;
         await newStore.save()
             .then((result) => {

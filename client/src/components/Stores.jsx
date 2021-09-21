@@ -143,7 +143,6 @@ const Stores = () => {
             </div>
           
                  </div>
-                 <h3>Modificar producto</h3>
             
                  </>
         
