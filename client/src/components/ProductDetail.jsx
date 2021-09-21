@@ -82,7 +82,15 @@ const useStyles = makeStyles((theme) => ({
         borderRadius:"10px",
         background:theme.palette.primary.light,
         cursor:"pointer",
-        border:"1px solid "+theme.palette.primary.main
+        border:"1px solid "+theme.palette.primary.main,
+        "&:hover":{
+
+            background:theme.palette.primary.superLight,
+          
+          },
+          "&:active":{
+            boxShadow:"inset  2px 2px 4px #0005"
+          }
       },
       cart:{
         padding:"7px",
@@ -93,7 +101,10 @@ const useStyles = makeStyles((theme) => ({
         justifySelf: "end",
         background:theme.palette.primary.main,
          borderRadius:"50%",
-         border:"3px solid white"
+         border:"3px solid white",
+         cursor:"pointer",
+             
+    
         
       },
       cardTypo:{
