@@ -7,13 +7,6 @@ module.exports = async function offers(req, res, next) {
     const dayName = daysArray[date.getDay()]
 
     const allProducts = await Product.find({}).populate("category")
-    // allProducts.forEach(async(product) => {
-    //     product.isInOffer = false;
-    //     await product.save();
-    // })
-    const productsInOfferLUNES = []
-    const productsInOfferMIERCOLES = []
-    const productsInOfferVIERNES = []
     const allCategory = await Category.find({})
 
     if (dayName === "Lunes") { //15% OFF en Frutas y Verduras
@@ -21,14 +14,14 @@ module.exports = async function offers(req, res, next) {
         const categoryID = allCategory.filter(category => category.name === "Frutas y Verduras")[0]._id.toString()
 
         //--Sacar de oferta a los demas productos--//
-        const otherProducts = productsInOfferMIERCOLES.concat(productsInOfferVIERNES)
-        if (otherProducts.length > 0) {
-            otherProducts.forEach(async(product) => {
-                product.isInOffer = false
+        allProducts.forEach(async (product) => {
+            if (product.isInOffer) {
+                product.isInOffer = false;
                 await product.save()
-            })
-        }
-
+                console.log(`Producto ${product.name} sacado de oferta`)
+            }
+        })
+        //--Guardo los productos de la categoria en oferta, y les aplico la oferta--//
         for (var i=0; i<allProducts.length; i++) {
             for (var j=0; j<allProducts[i].category.length; j++) {
                 if (allProducts[i].category[j]._id.toString() === categoryID) {
@@ -52,14 +45,14 @@ module.exports = async function offers(req, res, next) {
         const categoryID = allCategory.filter(category => category.name === "Carnes")[0]._id.toString()
 
         //--Sacar de oferta a los demas productos--//
-        const otherProducts = productsInOfferLUNES.concat(productsInOfferVIERNES)
-        if (otherProducts.length > 0) {
-            otherProducts.forEach(async(product) => {
-                product.isInOffer = false
+        allProducts.forEach(async (product) => {
+            if (product.isInOffer) {
+                product.isInOffer = false;
                 await product.save()
-            })
-        }
-        
+                console.log(`Producto ${product.name} sacado de oferta`)
+            }
+        })
+        //--Guardo los productos de la categoria en oferta, y les aplico la oferta--//
         for (var i=0; i<allProducts.length; i++) {
             for (var j=0; j<allProducts[i].category.length; j++) {
                 if (allProducts[i].category[j]._id.toString() === categoryID) {
@@ -83,13 +76,14 @@ module.exports = async function offers(req, res, next) {
         const categoryID = allCategory.filter(category => category.name === "Bebidas")[0]._id.toString()
         
         //--Sacar de oferta a los demas productos--//
-        const otherProducts = productsInOfferLUNES.concat(productsInOfferMIERCOLES)
-        if (otherProducts.length > 0) {
-            otherProducts.forEach(async(product) => {
-                product.isInOffer = false
+        allProducts.forEach(async (product) => {
+            if (product.isInOffer) {
+                product.isInOffer = false;
                 await product.save()
-            })
-        }
+                console.log(`Producto ${product.name} sacado de oferta`)
+            }
+        })
+        //--Guardo los productos de la categoria en oferta, y les aplico la oferta--//
         for (var i=0; i<allProducts.length; i++) {
             for (var j=0; j<allProducts[i].category.length; j++) {
                 if (allProducts[i].category[j]._id.toString() === categoryID) {
@@ -108,14 +102,14 @@ module.exports = async function offers(req, res, next) {
             return next();
         }
     } else {
-        const otherProducts1 = productsInOfferLUNES.concat(productsInOfferMIERCOLES)
-        const otherProducts2 = otherProducts1.concat(productsInOfferVIERNES)
-        if (otherProducts2.length > 0) {
-            otherProducts2.forEach(async(product) => {
-                product.isInOffer = false
+        allProducts.forEach(async (product) => {
+            if (product.isInOffer) {
+                product.isInOffer = false;
                 await product.save()
-            })
-        }
+                console.log(`Producto ${product.name} sacado de oferta`)
+            }
+        })
+        console.log("Todos los productos fueron sacados de ofertas")
         return next()
     }
     
