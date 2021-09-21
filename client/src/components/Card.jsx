@@ -44,7 +44,17 @@ const useStyles = makeStyles((e) =>({
     borderRadius:"10px",
     background:e.palette.primary.light,
     cursor:"pointer",
-    border:"1px solid "+e.palette.primary.main
+    border:"1px solid "+e.palette.primary.main,
+    
+    "&:hover":{
+
+      background:e.palette.primary.superLight,
+    
+    },
+    "&:active":{
+      boxShadow:"inset  2px 2px 4px #0005"
+    }
+    
   },
   cardTypoN:{
     height:"max-content",
@@ -63,7 +73,9 @@ const useStyles = makeStyles((e) =>({
     borderRadius:"10px",
     background:e.palette.primary.light,
    
-    border:"1px solid "+e.palette.primary.main
+    border:"1px solid "+e.palette.primary.main,
+    
+
   },
   cart:{
     padding:"7px",
@@ -93,6 +105,7 @@ const useStyles = makeStyles((e) =>({
     height:"max-content",
     padding:"3px 5px",
     color:e.palette.primary.dark,
+    
   }
 }));
 function Card({name,category, price, image, quantity, id}) {

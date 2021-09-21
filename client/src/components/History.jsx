@@ -7,17 +7,40 @@ import NoHistory from '../img/no-history.svg';
 import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
 root:{
-    margin:"80px 0",
+    margin:"80px auto",
    // padding: "0 10px 0 30px",
-   width:"100vw",
+   width:"95vw",
    background:theme.palette.primary.light,
    padding:"0 30px 0 0",
-//    borderTop:"30px solid "+theme.palette.primary.main,
-//    borderBottom:"30px solid "+theme.palette.primary.main,
+    borderTop:"30px solid "+theme.palette.primary.main,
+    //borderBottom:"30px solid "+theme.palette.primary.main,
     display:"flex",
    flexDirection:"row",
-//    overflow:"scroll",
+    overflow:"auto",
    justifyContent:"center",
+   "box-shadow": "inset 0 0 20px "+theme.palette.primary.main,
+   '&::-webkit-scrollbar': {
+    width: '0.4em'
+  },
+  '&::-webkit-scrollbar-track': {
+    boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+    webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+  },
+  '&::-webkit-scrollbar-thumb': {
+      backgroundColor: theme.palette.primary.main,
+      borderRadius:"10px",
+      border: '3px solid '+theme.palette.primary.dark
+    },
+    
+    "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover": {
+      backgroundColor: theme.palette.primary.dark,
+  },
+  "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
+    backgroundColor: "#2b2b2b",
+  },
+    
+ 
+  
    
 },
 typografy:{

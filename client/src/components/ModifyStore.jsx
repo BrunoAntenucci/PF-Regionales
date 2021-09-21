@@ -136,6 +136,8 @@ export default function ModifyStore(props){
     }, [dispatch, getStore()])
 
     const storedetail = useSelector((state) => state.storeDetail)
+    const user = useSelector((state) => state.user)
+
 
     const [ input, setInput ] = useState({
         _id: storedetail._id,
@@ -371,9 +373,9 @@ export default function ModifyStore(props){
           onChange={handleProducts}
         >
              {
-                                products.map((e, i) => 
+                                products.map((e, i) => e.user === user._id ?
                                <MenuItem key={i} value={e._id}>{e.name}</MenuItem>
-                                 )
+                               : null)
              }
         </Select>
       </FormControl>

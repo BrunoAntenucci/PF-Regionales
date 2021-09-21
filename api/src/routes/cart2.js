@@ -179,7 +179,7 @@ router.post("/fromGuest", async (req, res, next) => {
                     path: "product"
                 }
             })
-            for (var i=0; i<guestCart.items.length; i++) {
+            for (var i=0; i<guestCart?.items?.length; i++) {
                 for (var j=0; j<cart.items.length; j++) {
                     console.log(guestCart.items[i]?.product._id, " vs ", cart.items[j]?.product._id.toString());
                     if (guestCart.items[i]?.product._id === cart.items[j]?.product._id.toString()) {

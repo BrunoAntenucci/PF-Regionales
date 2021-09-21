@@ -25,6 +25,7 @@ export default function StoreDetail(props){
 
     return (
         <div>
+            <img src={detail.img}/>
             <h1>{detail.name}</h1>
             <h2>{detail.description}</h2>
             <h3>{detail.address}</h3>
@@ -55,9 +56,6 @@ export default function StoreDetail(props){
                                 </div>
                             )
                     }) : null}
-            </div>
-            <div>
-                <Link to={`/store/${detail.id}/reviews`}>Deja tu review</Link>
             </div>
             <br/>
             <div>

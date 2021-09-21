@@ -61,7 +61,11 @@ function rootReducer(state = initialState, action) {
         case 'POST_CATEGORY':            
             return {
             ...state,
-            }    
+            }
+        case 'POST_STORE':            
+            return {
+            ...state,
+            }     
         case 'GET_PRODUCT_DETAIL':
             return {
                 ...state,

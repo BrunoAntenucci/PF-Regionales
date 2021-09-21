@@ -33,9 +33,10 @@ divElection:{
     width:"400px",
     transition: "all 0.25s",
     cursor:"pointer",
+    filter: "saturate(0%)",
     "&:hover": {
         width:"450px",
-        filter: "saturate(0%)"
+        filter: "saturate(100%)"
       }
 }
 
