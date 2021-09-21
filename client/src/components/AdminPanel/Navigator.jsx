@@ -93,13 +93,12 @@ export default function Navigator(props) {
           </ListItemIcon>
           <ListItemText>Project Overview</ListItemText>
         </ListItem>
-        
           <Box sx={{ bgcolor: '#101F33' }}>
             <ListItem sx={{ py: 2, px: 3 }}>
               <ListItemText sx={{ color: '#fff' }}>Actions</ListItemText>
             </ListItem>
           
-              {role=="Admin"?
+              {role==="Admin"?
               <>
             <ListItem disablePadding>
               <ListItemButton selected="active" sx={item}  onClick={handleClick}>
@@ -125,7 +124,6 @@ export default function Navigator(props) {
                   <ListItemText>Create</ListItemText>
                 </ListItemButton>
               </ListItem>
-             
             <ListItem disablePadding>
                 <ListItemButton selected="active" sx={item} onClick={handleClick}>
                   <ListItemIcon><LocalMallIcon /></ListItemIcon>
@@ -138,7 +136,7 @@ export default function Navigator(props) {
                   <ListItemText>Products</ListItemText>
                 </ListItemButton>
               </ListItem>
-              </>: role=="User"?
+              </>: role==="User"?
             <>
              <ListItem disablePadding>
                 <ListItemButton selected="active" sx={item}  onClick={handleClick} >
@@ -146,22 +144,16 @@ export default function Navigator(props) {
                   <ListItemText>Create</ListItemText>
                 </ListItemButton>
               </ListItem>
-
-             
             <ListItem disablePadding>
                 <ListItemButton selected="active" sx={item} onClick={handleClick}>
                   <ListItemIcon><LocalMallIcon /></ListItemIcon>
                   <ListItemText>Mis compras</ListItemText>
-
                 </ListItemButton>
               </ListItem>
             </>:
             <>
-            
-            
             </>
               }
-          
             <Divider sx={{ mt: 2 }} />
           </Box>
           <Divider sx={{ mt: 2 }} /> 

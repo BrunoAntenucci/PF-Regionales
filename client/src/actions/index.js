@@ -261,7 +261,7 @@ export function getOrderDetail() {
       return axios({
               method: "GET",
               withCredentials: true,
-              url: "/order"
+              url: "/petition/asVendor"
             })
             .then((res) => {
               //console.log("[ACTION]RES GetAllOrders: ", res.data)
