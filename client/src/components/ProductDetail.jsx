@@ -241,7 +241,7 @@ function ProductDetail(props) {
                             alignItems="flex-start">
                                 <Grid item xs>
                                     <h3 className={classes.paper +" "+classes.cname }>{p.name}</h3>
-                                    {p.priceInOffer ? <h3 className={classes.paper  +" "+classes.cprice} >OFERTA! ${p?.priceInOffer}</h3> : <h3 className={classes.paper  +" "+classes.cprice} >NORMAL: ${p.price}</h3>}
+                                    {p.isInOffer ? <h3 className={classes.paper  +" "+classes.cprice} >OFERTA! ${p?.priceInOffer}</h3> : <h3 className={classes.paper  +" "+classes.cprice} >NORMAL: ${p.price}</h3>}
                                     {/* <h3 className={classes.paper  +" "+classes.cprice} >${p.price}</h3> */}
                                     
                                         <h3  className={classes.paper  +" "+classes.cquantity} >Stock: {p.quantity===0?<h3 style={{color:"red"}}>No hay stock</h3>:p.quantity}</h3>

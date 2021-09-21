@@ -33,13 +33,12 @@ router.get("/byId", async (req, res, next) => {
 })
 
 router.post("/petitionAccepted", async (req, res, next) => {
-    const userSessionID = req?.session?.passport?.user
     const petitionId = req.body.petitionId;
     const petition = await Petition.findById(petitionId)
     .populate("dataProduct")
     .populate("dataStore")
     //.populate("user");
-    const userLogged = await User.findById(userSessionID).populate("storesOwn").populate("productsOwn")
+    const userPetition = await User.findById(petition.user).populate("storesOwn").populate("productsOwn")
     //--Cambiar estado a Aceptada--//
     if (petition.status === "Aceptada") {
         return res.send(`Esta peticion ya fue aceptada.`)
@@ -64,9 +63,9 @@ router.post("/petitionAccepted", async (req, res, next) => {
             .catch((err) => {
                 next(err)
             })
-        userLogged.productsOwn = newProduct._id
-        userLogged.role = "Admin"
-        userLogged.save()
+        userPetition.productsOwn = [...userPetition.productsOwn, newProduct._id]
+        userPetition.role = "Admin"
+        userPetition.save()
             .then((result) => {
                 console.log("Producto agregado al usuario y se actualizo su role a Admin!")
             })
@@ -91,9 +90,9 @@ router.post("/petitionAccepted", async (req, res, next) => {
             .catch((err) => {
                 next(err)
             })
-        userLogged.storesOwn = newStore._id
-        userLogged.role = "Admin"
-        userLogged.save()
+        userPetition.storesOwn = [...userPetition.storesOwn, newStore._id]
+        userPetition.role = "Admin"
+        userPetition.save()
             .then((result) => {
                 console.log("Store agregado al usuario y se actualizo su role a Admin!")
             })
