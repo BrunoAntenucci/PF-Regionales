@@ -41,7 +41,7 @@ server.use((req, res, next) => { //para mostrar el mensaje de flash
   next();
 })
 //--------------------------------ROUTES-------------------------------------------------------------//
-server.use("/", /*offers,*/ routes);
+server.use("/", offers, routes);
 
 //--------------------------------CONTROL GENERALIZADO DE ERRORES-----------------------------------//
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars

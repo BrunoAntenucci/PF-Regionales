@@ -12,7 +12,7 @@ const initialState = {
     stores: [],
     store:{},
     
-    page: 1,
+    // page: 1,
     
     user: {},
     users: [],
