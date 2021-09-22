@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { getStoreById, getProducts } from '../actions'
-import FavCard from '../components/FavCard'
 import Card from '../components/Card'
-import Reviews from '../components/Reviews'
+//import Reviews from '../components/Reviews'
 
 
 export default function StoreDetail(props){
@@ -15,14 +14,14 @@ export default function StoreDetail(props){
     const categories = useSelector((state) => state.categories);
     const products = useSelector((state) => state.products);
 
-    const ownProducts = products.filter(e => detail.products.includes(e._id) ? e : null);
+    const ownProducts = products.filter(e => detail?.products?.includes(e._id) ? e : null);
 
     console.log(ownProducts, 'OWN')
 
     useEffect(()=> {
         dispatch(getStoreById(props.match.params.id));
         dispatch(getProducts())
-    }, [dispatch, getStoreById])
+    }, [dispatch, getStoreById, getProducts])
 
     return (
         <div>
@@ -62,7 +61,9 @@ export default function StoreDetail(props){
             </div>
             <br/>
             <div>
+                { 
                 <Link to={`/modifystore/${detail.id}`}>Editar tienda</Link>
+                }
             </div>
         </div>
     )

@@ -18,8 +18,7 @@ const Favourites = ({id}) => {
 
   useEffect(() => {
     dispatch(getFav());
-    return dispatch(getFav())
-  }, [])
+  }, [dispatch])
 
   return (
   <div>
@@ -35,7 +34,9 @@ const Favourites = ({id}) => {
         name={name}
         price={price}
         _id={_id}
-        description={description}/>)
+        description={description}
+        />
+        )
       :<p>No tienes favoritos aún</p>}
        
       </div>

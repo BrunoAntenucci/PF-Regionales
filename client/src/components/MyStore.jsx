@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import ProductCreation from './ProductCreation';
 import StoreCreation from './StoreCreation';
+import CategoryCreation from './CategoryCreation';
 import { makeStyles } from '@material-ui/styles';
 import createStore from '../img/market-create.svg'
 import createProduct from '../img/product-create.svg'
@@ -48,6 +49,8 @@ const MyStore = () => {
     }
     else if(e.target.nextSibling.innerHTML == "crear tienda"){
         setStore("crear tienda")
+    }else if(e.target.nextSibling.innerHTML == "crear categoria"){
+        setStore("crear categoria")
     }
     }
     console.log(store)
@@ -85,6 +88,19 @@ const MyStore = () => {
                     <StoreCreation/>
           
            </>:
+           store == "crear categoria"?
+           <>
+            <Button
+            style={{height:"min-content"}}
+            onClick={e => {
+                e.preventDefault()
+                setStore("")
+            }}
+                 variant="contained" color="primary">
+                  Volver
+                    </Button>
+                    <CategoryCreation />
+           </>:
            <>
            <div className={classes.divElection}
            onClick={handlerStore}>
@@ -97,6 +113,12 @@ const MyStore = () => {
            <img className={classes.imgElection}
             src={createProduct}/> 
            <h2>crear producto</h2>
+           </div>
+           <div className={classes.divElection}
+            onClick={handlerStore}>
+           <img className={classes.imgElection}
+            src={createProduct}/> 
+           <h2>crear categoria</h2>
            </div>
            </>}
             {/* <StoreCreation/>

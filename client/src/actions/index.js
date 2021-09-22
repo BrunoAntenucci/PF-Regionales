@@ -30,6 +30,26 @@ export function getProductsByName(payload) {
     }
 }
 
+
+export function deleteProducts(id, payload){
+    return function(dispatch) {
+        return axios({
+            method: "DELETE",
+            data: payload,
+            withCredentials: true,
+            url: `/product/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES DELETE_PRODUCT: ", res.data)
+            dispatch({
+                type: "DELETE_PRODUCT",
+                payload: res.data
+            })
+          })
+    }
+}
+
+
 export function getCategories() {
     return async function (dispatch) {
         try {
@@ -83,19 +103,24 @@ export function postCategory(dataCategory){
     
 }
 
-export function modifyCategory(id, payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.patch(`/category/${id}`, payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
-    }
-    
-}
 
+export function modifyCategory(id, payload){
+    return function(dispatch) {
+        return axios({
+            method: "PATCH",
+            data: payload,
+            withCredentials: true,
+            url: `/petition/newPetition/categoryModify/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES PATCH_CATEGORY: ", res.data)
+            dispatch({
+                type: "PATCH_CATEGORY",
+                payload: res.data
+            })
+          })
+    }
+}
 
 
 export function postProducts(dataProduct){
@@ -124,16 +149,21 @@ export function postProducts(dataProduct){
 }
 
 export function modifyProducts(id, payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.patch('/product/' + id, payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+    return function(dispatch) {
+        return axios({
+            method: "PATCH",
+            data: payload,
+            withCredentials: true,
+            url: `/product/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES PATCH_PRODUCT: ", res.data)
+            dispatch({
+                type: "PATCH_PRODUCT",
+                payload: res.data
+            })
+          })
     }
-    
 }
 
 export function postStore(dataStore){
@@ -157,20 +187,25 @@ export function postStore(dataStore){
               console.log(err)
           })
     }
-    }
+}
 
 
 export function modifyStore(id, payload){
-    return async function (dispatch){
-        try{
-        const aux = await axios.patch('/store/' + id, payload);
-        return aux
-        } catch (error){
-            console.log(error)
-        }
-        
+    return function(dispatch) {
+        return axios({
+            method: "PATCH",
+            data: payload,
+            withCredentials: true,
+            url: `/store/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES PATCH_STORE: ", res.data)
+            dispatch({
+                type: "PATCH_STORE",
+                payload: res.data
+            })
+          })
     }
-    
 }
 
 export function getStore(){
@@ -229,7 +264,7 @@ export function getOrderDetail() {
               url: "/order"
             })
             .then((res) => {
-              console.log("[ACTION]RES GetAllOrders: ", res.data)
+              //console.log("[ACTION]RES GetAllOrders: ", res.data)
               dispatch({
                   type: "GET_ALL_ORDERS",
                   payload: res.data
@@ -237,6 +272,27 @@ export function getOrderDetail() {
             })
     }
   }
+
+  export function getOrderById(id) {
+    return function(dispatch) {
+        console.log('id',id);
+        return axios({
+            method: "GET",
+            withCredentials: true,
+            url: `/order/find/${id}`
+          })
+          .then((res) => {
+            console.log("ORDER DETAIL: ", res.data)
+            dispatch({
+                type: "GET_ORDER_BY_ID",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
 
 export function getProductDetail(id) {
     return async function(dispatch) {
@@ -573,6 +629,27 @@ export function deleteFav(id) {
 }
 
 
+export function mailFav(payload) {
+    console.log(payload, "payloadaction")
+    return async function (dispatch) {
+        try {
+            const obj={
+                id:payload
+            }
+            const prod = await axios.post('/favourites/mail/', obj);
+            console.log(prod, "prodAction")
+            return dispatch ({
+                type: 'SEND_MAIL_FAVOURITES',
+                payload: prod.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+
+
 //------REVIEWS------
 export const createReview = (id, review) => {
     console.log("entra con: ", id,  review)
@@ -660,13 +737,13 @@ export function deleteUser(id) {
 
 //--------RESET PASSWORD----------//
 // 1 - ENVÍA EL MAIL
-export function forgotPass(userInfo){
-    console.log(userInfo, 'email')
-    return async function(dispatch){
+export function forgotPass(email){
+    console.log(email, 'email')
+    return  function(dispatch){
         return axios({
             method: "post",
             data: {
-                email: userInfo.email
+                email: email
             },
             withCredentials: true,
             url: "/user/forgot"
@@ -719,12 +796,12 @@ export function getToken(token, userInfo){
 }
 //3 - una vez verificado, POST a /reset/:token para cambiar la contraseña
 //paso contraseña por BODY, token por PARAMS
-export function resetPass(token, userInfo){
-    return function (dispatch){
+export function resetPass(password, token){
+    return async function (dispatch){
         return axios ({
             method :"post",
             data: {
-                password: userInfo.password
+                password: password
             }, 
             withCredentials: true,
             url: `/user/reset/${token}`

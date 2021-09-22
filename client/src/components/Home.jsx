@@ -299,7 +299,7 @@ function Home() {
                 name= {p?.name}
                 price={p?.price}
                 quantity={p?.quantity}
-                category={p?.category.map((e, k) => {
+                category={p?.category?.map((e, k) => {
                     const aux = categories.find(i => i._id === e)
                     return <p key={k}>{aux?.name}</p>
                 })}

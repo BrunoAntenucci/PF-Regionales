@@ -13,6 +13,12 @@ import Petitions from '../Petitions';
 import MyStore from '../MyStore';
 import Orders from '../Orders';
 
+import { useSelector } from 'react-redux';
+
+
+import PanelProduct from '../PanelProduct';
+
+
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -173,10 +179,13 @@ const drawerWidth = 256;
 export default function Paperbase() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  
   const [component, setComponent] = React.useState("")
+   
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -207,11 +216,12 @@ export default function Paperbase() {
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}>
 
-            {component === "Users"? <Users />
+            {component === "Users" ? <Users />
             : component === "Create"? <MyStore/>
-            : component === "Petitions"? <Petitions />
+            : component === "Petitions"?  <Petitions />
             : component === "Mis compras"? <MyOrders />
             : component === "Orders"? <Orders />
+            : component === "Products"? <PanelProduct />
             : ""}
 
 

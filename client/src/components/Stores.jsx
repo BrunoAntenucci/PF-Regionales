@@ -6,8 +6,6 @@ import { getStore } from '../actions';
 import { Button } from '@material-ui/core';
 import stores from '../img/stores.svg'
 import { makeStyles } from '@material-ui/styles';
-// import Rating from '../utils/rating';
-import {FaStar} from 'react-icons/fa';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -104,6 +102,7 @@ const Stores = () => {
                 allStores.map(store => {
                     return(
                         <>
+                        <Link to={`/storedetail/${store._id}`}>
                         <div className={classes.divStore}>
                         <div  className={classes.storeImg}>
 
@@ -116,6 +115,7 @@ const Stores = () => {
                         </section>
                         </div> 
                         </div>
+                        </Link>
                         <h4>* Reviews *</h4>
                         {store?.numReviews  === 0 ? (<p>No hay reviews aún</p>) : 
                         (<div><p>{store.numReviews} reviews </p></div>)}

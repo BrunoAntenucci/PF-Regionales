@@ -18,27 +18,27 @@ export default function Newsletter() {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            let response 
+            let res
             if(!email){
                 alert('El email no es correcto')
             }
             if(e.target.value === 'suscribe'){
-                await axios.put('http://http://localhost:3000/newsletter/suscribe', {email})
+                res = await axios.put('http://http://localhost:3000/newsletter/suscribe', {email})
             } else {
-                await axios.put('http://http://localhost:3000/newsletter/unsuscribe', {email})
+                res = await axios.put('http://http://localhost:3000/newsletter/unsuscribe', {email})
             }
             if(res.data.error){
                 return res.data.message
             } else {
-                res.data.message
+                return res.data.message
             }
             setEmail('')
         }
         catch(error){
             console.log(error)
         }
-
-        return(
+    }
+        return (
             <div>
                 <ul>
                     <span>Newsletter</span>
@@ -60,5 +60,5 @@ export default function Newsletter() {
                 </ul>
             </div>
         )
-    }
+   
 }

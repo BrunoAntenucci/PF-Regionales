@@ -34,6 +34,8 @@ import ResetPass from "./components/Password/ResetPass";
 
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
+import OrderDetail from "./components/OrderDetail";
+import Newsletter from "./components/Newsletter";
 
 
 
@@ -111,7 +113,7 @@ function App() {
         <Route exact path = "/forgot" component={ForgotPass}/>
         <Route exact path = "/forgot/redirect" component={Redirect}/>
         <Route exact path = "/user/reset/:token" component={ResetPass}/>
-
+       
       
         
 
@@ -119,6 +121,7 @@ function App() {
         <Route exact path = "/store" component = {MyStore} />
 
         <Route exact path = "/admin" component = {Paperbase} />
+        {/* <Route exact path = "/orderdetail/:id" component = {OrderDetail} /> */}
         <Route exact path = "/" component = {Home} />
        
       </Switch>

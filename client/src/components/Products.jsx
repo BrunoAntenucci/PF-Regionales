@@ -11,6 +11,7 @@ import Paginate from './Paginate';
 import Header from './Header';
 import History from './History';
 import Loading from './Loading'
+import Newsletter from './Newsletter';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -128,9 +129,9 @@ function Products(props) {
                     <div></div>
                 </aside> */}
                 <Button
-         style={{height:"min-content" , marginTop:"10px"}}
+                    style={{height:"min-content" , marginTop:"10px"}}
          
-              variant="contained" color="primary">
+                variant="contained" color="primary">
                 <Link to='/' style={{textDecoration:"none", color:"white"}}>volver</Link>
                  </Button>
                 <section className={classes.section}>
@@ -245,6 +246,7 @@ function Products(props) {
             }
             </Grid>
             
+            
            <div className={classes.cpaginate}>
             <Paginate 
                     prodPerPage = {prodPerPage}
@@ -254,7 +256,7 @@ function Products(props) {
                 />
                 </div>
                  </section>
-                 
+                 {/* <div><Newsletter /></div>   */}
         </div>
         
     )

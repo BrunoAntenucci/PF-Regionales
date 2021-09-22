@@ -16,6 +16,7 @@ const order = require("./order")
 const auth = require("./auth")
 const favourites = require("./favourites");
 const petition = require("./petition");
+const analytics = require("./analytics");
 const newsletter = require("./newsletter");
 
 const router = Router();
@@ -36,7 +37,9 @@ router.use("/cartOld", cartOld);
 router.use("/order", order)
 router.use("/auth", auth)
 router.use("/favourites", favourites);
+// router.use("/reviews", reviews);
 router.use("/petition", petition);
+router.use("/analytics", analytics);
 router.use("/newsletter", newsletter);
 
 router.get("/", (req, res, next) => {
