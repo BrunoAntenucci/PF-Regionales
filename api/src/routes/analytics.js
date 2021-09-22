@@ -96,9 +96,10 @@ router.get("/byUser/items", async(req, res, next) => {
     }
 });
 
-router.get("/byUser/months", async(req, res, next) => {
+router.post("/byUser/months", async(req, res, next) => {
     const userSessionID = req?.session?.passport?.user
     const { monthStart, monthEnd } = req.body; //entre 0 y 11, donde 0 corresponde a Enero, 1 a Febrero y así sucesivamente.
+    console.log(req.body, "REQ BODY")
     if (userSessionID) {
         const allOrders = await Order.find({owner: userSessionID}).populate({
             path: "items",
@@ -108,6 +109,7 @@ router.get("/byUser/months", async(req, res, next) => {
         });
         const monthsAnalytics = [];
         if (monthStart && monthEnd) {
+            console.log(monthsAnalytics, "monthIFIF")
             for (var i=0; i<allOrders.length; i++) {
                 const orderDate = allOrders[i].createdAt.getMonth();
                 if (orderDate >= monthStart && orderDate <= monthEnd) {
@@ -152,6 +154,7 @@ router.get("/byUser/months", async(req, res, next) => {
                 dataOrders.cantCancelled ++;
             }
             const items = monthsAnalytics[i].items;
+            console.log(monthsAnalytics, "itemsMONTH")
             for (var j=0; j<items.length; j++) {
                 dataOrders.cantItems += items[j].quantity;
                 dataOrders.totalItems += items[j].subTotal;
