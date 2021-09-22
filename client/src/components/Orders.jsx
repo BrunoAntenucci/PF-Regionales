@@ -84,6 +84,7 @@ const Orders = () => {
   const [status, setStatus] = React.useState('');
 
   const handleChange = (e) => {
+    console.log('handleChange',e.target.value);
     e.preventDefault();
     setStatus(e.target.value);
     dispatch(getOrderByStatus(e.target.value));
@@ -93,13 +94,14 @@ const Orders = () => {
     // console.log("handlerdetail",e.target.outerText)
       e.preventDefault()
       setIdOrder(e.target.outerText)
+      //setIdOrder(e.target.value)
   }
 
   let arr = [];
   allOrders.forEach(order => {
       arr.push({
           order_id: order._id, 
-          owner: order.owner?.role, 
+          owner: order.owner, 
           status: order.status,
       });
   });

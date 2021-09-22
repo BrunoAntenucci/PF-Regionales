@@ -24,8 +24,8 @@ const useStyles = makeStyles((e)=>({
     },
     carts:{
         width:"50%",
-        margin:"50px",
-        padding:"30px",
+        margin:"0 50px",
+        padding:"0 30px",
         borderRadius:"10px",
         textAlign:"center",
         
@@ -271,7 +271,7 @@ console.log(myCart)
      <div>
     
               <form onSubmit={handlerOnSubmit}>
-     <Typography variant="h6" gutterBottom>
+     <Typography variant="h6" gutterBottom marginTop='0.32em' color="primary">
        Shipping address
      </Typography>
      <Grid container spacing={3}>
@@ -332,8 +332,8 @@ console.log(myCart)
        </Grid> */}
      </Grid>
      <Typography variant="h5" color="primary" className={classes.total} gutterBottom>
-      total: { myCart.total}</Typography>
-     <Button type="submit" color="secondary">Pagar</Button>
+      total: ${ myCart.total}</Typography>
+     <Button type="submit" color="secondary" variant="outlined"><Typography variant="h6">Pagar</Typography></Button>
      </form>
                  
                 </div>

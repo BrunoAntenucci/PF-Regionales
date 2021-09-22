@@ -261,7 +261,7 @@ export function getOrderDetail() {
       return axios({
               method: "GET",
               withCredentials: true,
-              url: "/order"
+              url: "/petition/asVendor"
             })
             .then((res) => {
               //console.log("[ACTION]RES GetAllOrders: ", res.data)
@@ -295,14 +295,13 @@ export function getOrderDetail() {
 }
 
 export function getOrderByStatus(payload) {
-
-    if(payload =="Todas"){
+    if(payload ==="Todas"){
         return function(dispatch) {
             console.log('payload todas',payload);
             return axios({
                     method: "GET",
                     withCredentials: true,
-                    url: "/order"
+                    url: "/petition/asVendor"
                   })
                   .then((res) => {
                     //console.log("[ACTION]RES GetAllOrders: ", res.data)
@@ -319,15 +318,58 @@ export function getOrderByStatus(payload) {
             return axios({
                 method: "POST",
                 data: {
-                    orderStatus: payload
+                    status: payload
                 },
                 withCredentials: true,
-                url: "/order/allOrdersByStatus"
+                url: "/petition/asVendor/filter"
               })
               .then((res) => {
                 console.log("ORDER BY STATUS: ", res.data)
                 dispatch({
                     type: "GET_ORDER_BY_STATUS",
+                    payload: res.data
+                })
+              })
+              .catch((err) => {
+                  console.log(err)
+              })
+        }
+    }
+
+}
+
+export function getUserOrdersByStatus(payload) {
+    if(payload ==="Todas"){
+        return function(dispatch) {
+            console.log('payload todas',payload);
+            return axios({
+                    method: "GET",
+                    withCredentials: true,
+                    url: "/order/currentUser"
+                  })
+                  .then((res) => {
+                    //console.log("[ACTION]RES GetAllOrders: ", res.data)
+                    dispatch({
+                        type: "GET_ORDER_DETAIL",
+                        payload: res.data
+                    })
+                  })
+          }
+    }else{
+        return function(dispatch) {
+            console.log('payload',payload);
+            return axios({
+                method: "POST",
+                data: {
+                    orderStatus: payload
+                },
+                withCredentials: true,
+                url: "/order/orderByStatus"
+              })
+              .then((res) => {
+                console.log("ORDER BY STATUS: ", res.data)
+                dispatch({
+                    type: "GET_ORDER_DETAIL",
                     payload: res.data
                 })
               })

@@ -316,11 +316,11 @@ router.get("/checkout/:orderId", async(req, res, next) => {
     const itemsArray = order.items.map((item) => {
         const obj = {
             id: item.product._id.toString(),
-            title: item.product.name,
+            title: item.product?.name,
             currency_id: "ARS",
             picture_url: item.product.image,
             description: item.product.description,
-            category_id: item.product.category[0].name,
+            category_id: item.product.category[0]?.name,
             quantity: item.quantity,
             unit_price: parseInt(item.product.price),
         }
