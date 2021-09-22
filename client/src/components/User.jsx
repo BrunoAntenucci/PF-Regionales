@@ -52,6 +52,7 @@ const useStyles = makeStyles(theme => ({
       
       color:"#fff",
       padding:"0 8px",
+      borderRadius:"5px"
      // height:"max-content",
       
     },paper:{
@@ -82,6 +83,7 @@ const useStyles = makeStyles(theme => ({
   const StyledMenu = withStyles({
     paper: {
       border: '1px solid #d3d4d5',
+      borderRadius: '5px'
     },
   })((props) => (
     <Menu

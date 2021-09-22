@@ -124,7 +124,7 @@ function Card({name,category, price, image, quantity, id}) {
     const item = {
         product: {
             _id: id,
-            price:parseInt(price),
+            price: parseInt(price),
             name,
             image,
         },
@@ -184,7 +184,7 @@ function Card({name,category, price, image, quantity, id}) {
             {title}
             </Typography> */}
             <Typography variant="h4" color="textSecondary" component="p">
-           $ {price} 
+              $ {price} 
             </Typography>
             
             <Typography variant="body1" color="textSecondary" component="p">
