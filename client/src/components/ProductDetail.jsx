@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
         border:"1px solid"+theme.palette.primary.main
     },
     cname:{
-        fontSize:"22px",
+        fontSize:"26px",
         color:"#333",
         fontFamily:"tahoma"
     },
@@ -66,6 +66,12 @@ const useStyles = makeStyles((theme) => ({
         fontSize:"36px",
         color:"black",
         fontFamily:"roboto"
+    },
+    cpriceoffer:{
+        fontSize:"26px",
+        color:"red",
+        fontFamily:"roboto",
+        textDecoration: "line-through"
     },
     buttonBack:{
         padding:"10px",
@@ -241,10 +247,10 @@ function ProductDetail(props) {
                             alignItems="flex-start">
                                 <Grid item xs>
                                     <h3 className={classes.paper +" "+classes.cname }>{p.name}</h3>
-                                    {p.priceInOffer ? <h3 className={classes.paper  +" "+classes.cprice} >OFERTA! ${p?.priceInOffer}</h3> : <h3 className={classes.paper  +" "+classes.cprice} >NORMAL: ${p.price}</h3>}
+                                    {p.isInOffer ? <h3 className={classes.paper  +" "+classes.cprice} ><Typography  className={classes.cpriceoffer}>${p?.price}</Typography>OFERTA!  ${p?.priceInOffer}</h3> : <h3 className={classes.paper  +" "+classes.cprice} >NORMAL: ${p.price}</h3>}
                                     {/* <h3 className={classes.paper  +" "+classes.cprice} >${p.price}</h3> */}
                                     
-                                        <h3  className={classes.paper  +" "+classes.cquantity} >Stock: {p.quantity===0?<h3 style={{color:"red"}}>No hay stock</h3>:p.quantity}</h3>
+                                        <h3  className={classes.paper  +" "+classes.cquantity} >Stock: {p.quantity===0?<h3 style={{color:"#f50057"}}>No hay stock</h3>:p.quantity}</h3>
                                     
                                     
                                     

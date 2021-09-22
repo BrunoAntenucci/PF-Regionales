@@ -52,6 +52,7 @@ const useStyles = makeStyles(theme => ({
       
       color:"#fff",
       padding:"0 8px",
+      borderRadius:"5px"
      // height:"max-content",
       
     },paper:{
@@ -82,6 +83,7 @@ const useStyles = makeStyles(theme => ({
   const StyledMenu = withStyles({
     paper: {
       border: '1px solid #d3d4d5',
+      borderRadius: '5px'
     },
   })((props) => (
     <Menu
@@ -225,6 +227,14 @@ const User = () => {
                     </ListItemIcon>
                     <Link to="/admin" style={{textDecoration:"none",  color:"inherit"}}>
                     <ListItemText primary="Admin panel" />
+                    </Link>
+                  </StyledMenuItem>
+                  <StyledMenuItem>
+                    <ListItemIcon>
+                      <AssignmentIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Link to="/admin2" style={{textDecoration:"none",  color:"inherit"}}>
+                    <ListItemText primary="Admin panel 2" />
                     </Link>
                   </StyledMenuItem>
                   <StyledMenuItem onClick={handleLogOut}>

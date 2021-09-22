@@ -71,7 +71,15 @@ router.post("/orderByStatus", async (req, res, next) => {
     console.log(`Filtrar ordenes por estado= ${orderStatus}`)
     if (userSessionID) {
         console.log("Filtrar ordenes del usuario en sesion.")
-        const user = await User.findById(userSessionID).populate("order")
+        const user = await User.findById(userSessionID).populate({
+            path: "order",
+            populate: {
+                path: "items",
+                populate: {
+                    path: "product"
+                }
+            }
+        })
         const ordersByStatus = await user.order.filter(order => order.status === orderStatus)
         console.log('orderByStatus',ordersByStatus);
         return res.status(200).send(ordersByStatus)
@@ -316,11 +324,11 @@ router.get("/checkout/:orderId", async(req, res, next) => {
     const itemsArray = order.items.map((item) => {
         const obj = {
             id: item.product._id.toString(),
-            title: item.product.name,
+            title: item.product?.name,
             currency_id: "ARS",
             picture_url: item.product.image,
             description: item.product.description,
-            category_id: item.product.category[0].name,
+            category_id: item.product.category[0]?.name,
             quantity: item.quantity,
             unit_price: parseInt(item.product.price),
         }
