@@ -78,6 +78,10 @@ export default function Navigator(props) {
       else if(e.target.innerText === "Analytics"){
       props.setComp("Analytics")
       console.log(e.target.innerText)
+
+    } else if(e.target.innerText === "AdminAnalytics"){
+      props.setComp("AdminAnalytics")
+      console.log(e.target.innerText)
     }
     console.log(props.comp, "props comp")
   }
@@ -140,6 +144,9 @@ export default function Navigator(props) {
                   <ListItemText>Products</ListItemText>
                 </ListItemButton>
               </ListItem>
+
+              
+              
               </>: role==="User"?
             <>
              <ListItem disablePadding>
@@ -154,6 +161,9 @@ export default function Navigator(props) {
                   <ListItemText>Mis compras</ListItemText>
                 </ListItemButton>
               </ListItem>
+
+             
+
             </>:
             <>
             </>
@@ -170,7 +180,16 @@ export default function Navigator(props) {
                 <ListItemIcon><SettingsIcon /></ListItemIcon>
                 <ListItemText>Analytics</ListItemText>
               </ListItemButton>
+
+             
+
             </ListItem>
+            <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item} onClick={handleClick}>
+                  <ListItemIcon><StyleIcon /></ListItemIcon>
+                  <ListItemText>AdminAnalytics</ListItemText>
+                </ListItemButton>
+              </ListItem>
             <Divider sx={{ mt: 2 }} />
           </Box>
       </List>
