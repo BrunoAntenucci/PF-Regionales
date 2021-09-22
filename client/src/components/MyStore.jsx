@@ -30,12 +30,12 @@ divElection:{
     color:"#555"
 
 },imgElection:{
-    width:"400px",
+    width:"300px",
     transition: "all 0.25s",
     cursor:"pointer",
     filter: "saturate(0%)",
     "&:hover": {
-        width:"450px",
+        width:"350px",
         filter: "saturate(100%)"
       }
 }

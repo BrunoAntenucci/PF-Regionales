@@ -15,6 +15,7 @@ import LocalMallIcon from '@material-ui/icons/LocalMall';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import StyleIcon from '@mui/icons-material/Style';
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import { getAllUsers, getAllPetitions, getOrderDetail, getAllOrders } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -38,6 +39,7 @@ const itemCategory = {
 
 export default function Navigator(props) {
   const { ...other } = props;
+  const name = useSelector(state => state.user);
   const dispatch = useDispatch();
   const role = useSelector(state => state.user.role)
   useEffect(() => {
@@ -86,13 +88,14 @@ export default function Navigator(props) {
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-          <Link to='/products' style={{textDecoration:"none",  color:"inherit"}}>E-market</Link>
+        <HomeIcon />
+          <Link to='/products' style={{textDecoration:"none",  color:"inherit", marginLeft:"10px"}}>E-market</Link>
         </ListItem>
         <ListItem sx={{ ...item, ...itemCategory }}>
           <ListItemIcon>
-            <HomeIcon />
+            <EmojiEmotionsIcon />
           </ListItemIcon>
-          <ListItemText>Project Overview</ListItemText>
+          <ListItemText sx={{ fontSize: "18px", color: '#fff' }}>Hola {name.first_name}!</ListItemText>
         </ListItem>
           <Box sx={{ bgcolor: '#101F33' }}>
             <ListItem sx={{ py: 2, px: 3 }}>
