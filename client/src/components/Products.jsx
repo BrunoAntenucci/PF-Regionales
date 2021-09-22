@@ -10,18 +10,26 @@ import { Link } from 'react-router-dom';
 import Paginate from './Paginate';
 import Header from './Header';
 import History from './History';
-import Loading from './Loading'
+import Loading from './Loading';
+import Footer from './Footer'
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      display:"flex",
-      flexDirection:"row",
-      justifyContent:"center",
+       display:"flex",
+    //   flexDirection:"row",
+    //   justifyContent:"center",
 
 
 
-     margin: "230px 0 auto " 
+    margin: "230px 0 auto " ,
+    display: 'flex',
+    textAlign: 'left',
+    marginLeft: '60px',
+    '@media(max-width: 375px)':{
+        marginLeft: '30px',
+        flexDirection: 'column',
+  }
 
     },
     font: {
@@ -252,8 +260,9 @@ function Products(props) {
                     pageN = {pageN}
                 />
                 </div>
+                <Footer/>  
                  </section>
-                 
+              
         </div>
         
     )

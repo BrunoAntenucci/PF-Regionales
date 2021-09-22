@@ -229,6 +229,14 @@ const User = () => {
                     <ListItemText primary="Admin panel" />
                     </Link>
                   </StyledMenuItem>
+                  <StyledMenuItem>
+                    <ListItemIcon>
+                      <AssignmentIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Link to="/admin2" style={{textDecoration:"none",  color:"inherit"}}>
+                    <ListItemText primary="Admin panel 2" />
+                    </Link>
+                  </StyledMenuItem>
                   <StyledMenuItem onClick={handleLogOut}>
                     <ListItemIcon>
                       <ExitToAppIcon fontSize="small" />
