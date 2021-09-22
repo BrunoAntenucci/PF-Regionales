@@ -39,7 +39,18 @@ const BarChart = () => {
      height={350}
      width={300}
      options={{
-       maintainAspectRatio:false
+       maintainAspectRatio:false,
+       plugins: {
+        title: {
+            display: true,
+            text: ' ORDENES',
+            align: 'CENTER',
+            labels: {
+                fontSize: 10
+            }
+            
+              },
+    }
      }}
      />
         </div>
