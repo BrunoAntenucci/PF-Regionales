@@ -32,13 +32,13 @@ router.get('/search/:name', async (req, res) => {
     
 })
 
-router.delete('/delete', async (req, res) => {
-    const name = req.body.name
-    await Category.deleteOne({ name:name })
+router.delete('/delete/:id', async (req, res) => {
+    const {id} = req.params; 
+    await Category.deleteOne({ _id: id })
     res.json({ msg: 'Category eliminated'})
 })
 
-router.get("/filter/:id",  (req, res) => { 
+router.get("/filter/:id", (req, res) => { 
     const {id} = req.params; 
 
       Category.find({ _id: id }, (err, category) => {
@@ -51,7 +51,7 @@ router.get("/filter/:id",  (req, res) => {
 
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", [verifyToken, isSuperAdmin], async (req, res) => {
     try {
         const {id} = req.params;
         await Category.findByIdAndUpdate({ _id: id },{ ...req.body });

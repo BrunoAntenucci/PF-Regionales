@@ -14,9 +14,9 @@ module.exports = async function offers(req, res, next) {
     const allProducts = await Product.find({}).populate("category")
     const allCategory = await Category.find({})
 
-    const productsInOfferLUNES = []
-    const productsInOfferMIERCOLES = []
-    const productsInOfferVIERNES = []
+    // const productsInOfferLUNES = []
+    // const productsInOfferMIERCOLES = []
+    // const productsInOfferVIERNES = []
 
     if (dayName === "Lunes") { //15% OFF en Frutas y Verduras
         console.log(`[dayName=${dayName}] -> Hoy es Lunes! 15%OFF en Frutas y Verduras!`)
