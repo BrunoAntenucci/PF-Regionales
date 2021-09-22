@@ -261,7 +261,7 @@ export function getOrderDetail() {
       return axios({
               method: "GET",
               withCredentials: true,
-              url: "/order"
+              url: "/petition/asVendor"
             })
             .then((res) => {
               //console.log("[ACTION]RES GetAllOrders: ", res.data)
@@ -296,13 +296,13 @@ export function getOrderDetail() {
 
 export function getOrderByStatus(payload) {
 
-    if(payload =="Todas"){
+    if(payload ==="Todas"){
         return function(dispatch) {
             console.log('payload todas',payload);
             return axios({
                     method: "GET",
                     withCredentials: true,
-                    url: "/order"
+                    url: "/petition/asVendor"
                   })
                   .then((res) => {
                     //console.log("[ACTION]RES GetAllOrders: ", res.data)
@@ -319,10 +319,10 @@ export function getOrderByStatus(payload) {
             return axios({
                 method: "POST",
                 data: {
-                    orderStatus: payload
+                    status: payload
                 },
                 withCredentials: true,
-                url: "/order/allOrdersByStatus"
+                url: "/petition/asVendor/filter"
               })
               .then((res) => {
                 console.log("ORDER BY STATUS: ", res.data)

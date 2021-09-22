@@ -217,4 +217,33 @@ router.post("/newPetition/category", async (req, res, next) => {
     }
 })
 
+router.get("/asVendor", async(req, res, next) => {
+    const userSessionID = req?.session?.passport?.user;
+    if (userSessionID) {
+        const user = await User.findById(userSessionID).populate("petitionsAsVendor");
+        return res.status(200).send(user.petitionsAsVendor)
+    } else {
+        return res.send("No hay usuario logueado.")
+    }
+})
+
+router.post("/asVendor/filter", async(req, res, next) => {
+    const userSessionID = req?.session?.passport?.user;
+    const { status } = req.body;
+    console.log('Filtrar ordenes por status',status)
+    if (userSessionID) {
+        const user = await User.findById(userSessionID).populate("petitionsAsVendor")
+        const byStatus = []
+        for (var i=0; i<user.petitionsAsVendor.length; i++) {
+            if (user.petitionsAsVendor[i].status === status) {
+                byStatus.push(user.petitionsAsVendor[i])
+            }
+        }
+        return res.status(200).send(byStatus)
+    } else {
+        return res.send("No hay usuario logueado.")
+    }
+})
+
+
 module.exports = router;

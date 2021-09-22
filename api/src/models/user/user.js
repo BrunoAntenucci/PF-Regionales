@@ -59,7 +59,7 @@ const userSchema = new Schema({
     }],
     petitionsAsVendor: [{
         type: Schema.ObjectId,
-        ref: "Petition"
+        ref: "Order"
     }],
     resetPasswordToken: {
         type: String,

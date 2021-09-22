@@ -47,7 +47,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
     maxWidth:"400px"
     },
     products:{
-        background:"#eee",
+        background:"#eaeff1",
         maxWidth: "1800px",
         minWidth:"450px",
         display:"flex",
