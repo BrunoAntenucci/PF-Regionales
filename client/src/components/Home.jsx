@@ -39,8 +39,12 @@ const useStyles = makeStyles(e => ({
     // //     fontSize: '10vw',
     
     // //     }
-     width:"100vw",
-        overflow: 'auto'
+    //  width:"100vw",
+//     '@media(max-width: 375px)':{
+//       marginLeft: '30px',
+//       flexDirection: 'column',
+// }
+       
 
      },
 //     conteiner2:{
@@ -48,238 +52,166 @@ const useStyles = makeStyles(e => ({
 // background: radial-gradient(circle, #E3E8D6 0%, #C8CAC4  100%);
 // padding: 80px 60px;
 //     },
-  root:{
-     margin:"20px 30px 1000px 20px",
-//    // padding: "0 10px 0 30px",
-    width:"100vw",
- 
-//    background:e.palette.primary.light,
-//    padding:"0 30px 0 0",
-//    borderTop:"30px solid "+e.palette.primary.main,
-//    borderBottom:"30px solid "+e.palette.primary.main,
-//    display:"flex",
-//    flexDirection:"row",
-display: 'flex',
-  textAlign: 'left',
-  marginLeft: '250px',
-  overflow:"scroll",
-//   margin: "-950px 0 auto " ,
-   '@media(max-width: 375px)':{
-    marginLeft: '100px',
-    flexDirection: 'column',
-    marginTop: ' 100px',
-    display: 'flex',
+root:{
+  // marginTop:"500px ",
+ // padding: "0 10px 0 30px",
+//  width:"100%",
 
-}
-
-  //  overflow:"scroll"
-},
-root2:{
-//    marginTop:"20px 30px 1000px 20px",
-//  // padding: "0 10px 0 30px",
-//  width:"100vw",
 //  background:e.palette.primary.light,
 //  padding:"0 30px 0 0",
 //  borderTop:"30px solid "+e.palette.primary.main,
 //  borderBottom:"30px solid "+e.palette.primary.main,
-//  display:"flex",
-//  flexDirection:"row",
-// display: 'flex',
-//   textAlign: 'left',
-//   margin: 'auto',
-//   overflow:"scroll",
-//   marginLeft: '200px',
-//   flexDirection: 'row',
-//   margin: "-950px 0 auto " ,
-//  '@media(max-width: 375px)':{
-//     marginLeft: '130px',
-//     flexDirection: 'column',
-//     marginTop: '50px',
-    
-// }
-
+ display:"flex",
+ flexDirection:"row",
+ justifyContent:"center",
+ margin: "0px 0 auto " ,
+ direction:"row",
+justifyContent:"center",
+alignItems:"flex-start",
+ 
 //  overflow:"scroll"
+'@media (max-width: 375px)':{
+  // justifyContent:'center',
+  // marginLeft: '500px',
+  // // // marginLeft: '90px',
+  // width: 'auto',
+  // display: 'center',
+   flexDirection: 'column',
+  // justifyContent: 'center',
+  // alignItems: 'center',
+  // height: '140',
+  // marginTop: 300,
+// marginLeft: '-5',
+    overflow:"scroll",
+    // padding: '0 -5rem',
+    // width: '100%',
+    // whiteSpace: 'nowrap',
+    // margin: '100%',
+    overflow:"scroll",
+
+ 
+
+}
 },
-root3:{
-//     marginTop:"-900px ",
-//    // padding: "0 10px 0 30px",
-//    width:"100vw",
-//    background:e.palette.primary.light,
-//    padding:"0 30px 0 0",
-//    borderTop:"30px solid "+e.palette.primary.main,
-//    borderBottom:"30px solid "+e.palette.primary.main,
-//    display:"flex",
-//    flexDirection:"row",
-  //  overflow:"scroll"
-  display: 'flex',
-//   textAlign: 'left',
-marginLeft: '250px',
-  overflow:"scroll",
-  margin: "-950px 0 auto " ,
-  '@media(max-width: 375px)':{
-    marginLeft: '50px',
-    flexDirection: 'column',
-    marginTop: ' -1000px'
-  }
-  },
+root2:{
+// marginTop:"-50px ",
+// padding: "0 10px 0 30px",
+width:"100%",
+// background:e.palette.primary.light,
+// padding:"0 30px 0 0",
+// borderTop:"30px solid "+e.palette.primary.main,
+// borderBottom:"30px solid "+e.palette.primary.main,
+display:"flex",
+flexDirection:"row",
+justifyContent:"center",
+overflow:"scroll",
+
+'@media(max-width: 375px)':{
+// padding: '0 -5rem',
+// width: '100%',
+ whiteSpace: 'nowrap',
+// margin: '1%',
+overflow:"scroll",
+justifyContent:"center",
+flexDirection: 'column',
+
+}
+},
 typografy:{
-    padding:"0 20px"
+  padding:"0 20px"
 },
-  // products: {
-  //   display:"flex",
-  //   flexDirection:"row",
-  //   justifyContent:"center",
-  //   padding:"15px 40px",
-  //   backgroundColor:"#0000001b",
-  //   flexWrap:"wrap",
-  //   flexBasis: "100%",
-  //   // overflow:"scroll"
-    
-  //   // "&:hover": {
-  //   //   backgroundColor: 'rgb(7, 177, 77, 0.42)'
-  //   // }
-  // },
-  section:{
-    display:"flex",
-    margin: "80px auto",
-    flexDirection:"column",
-    // background:e.palette.secondary.dark,
-   
-    borderBottom: `1px solid ${ e.palette.primary.dark}` ,
-    // overflow:"scroll",
-   
-    minWidth: "1300px",
-  },
-  leyend:{
+// products: {
+//   display:"flex",
+//   flexDirection:"row",
+//   justifyContent:"center",
+//   padding:"15px 40px",
+//   backgroundColor:"#0000001b",
+//   flexWrap:"wrap",
+//   flexBasis: "100%",
+//   // overflow:"scroll"
+  
+//   // "&:hover": {
+//   //   backgroundColor: 'rgb(7, 177, 77, 0.42)'
+//   // }
+// },
+section:{
+  display:"flex",
+  margin: "80px auto",
+  flexDirection:"column",
+  // background:e.palette.secondary.dark,
+ 
+  // borderBottom: `1px solid ${ e.palette.primary.dark}` ,
+  // overflow:"scroll",
+ 
+  minWidth: "1300px",
+},leyend:{
+  display:"flex",
+  flexDirection:"row",
+  margin: "0px 30px",
+//   background: "rgb(83,83,83)",
+// background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
+  color:e.palette.secondary.main,
+  background:"#ffffff32",
+  flexWrap:"wrap",
+  borderBottom: `1px solid ${ e.palette.primary.dark}`,
+  //borderTop: `3px solid ${ e.palette.secondary.dark}`,
+  borderRadius:"2px"
+},link:{
+  margin:"50px 30px 0px 20px",
+  textDecoration:"none",
+  color:e.palette.secondary.light
+},
+h1:{
+  fontSize:"2.2em",
+  marginTop:"50px"
+},
+// root3:{
+//   marginTop:"10px ",
+
+// }
+storeImg:{
+  backgroundImage:`url(${stores})`,
+  width:"420px",
+    height:"300px",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+},
+divStores:{
     display:"flex",
     flexDirection:"row",
-    margin: "0px 30px",
-    // width:"50%",
-    // height:"50%",
-//     background: "rgb(83,83,83)",
-// background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
-    color:e.palette.secondary.main,
-    //background:"#ffffff32",
     flexWrap:"wrap",
-    borderBottom: `1px solid ${ e.palette.primary.dark}`,
-    //borderTop: `3px solid ${ e.palette.secondary.dark}`,
-    borderRadius:"2px",
-    '@media(max-width: 375px)':{
-        marginTop: '330px',
-        marginRight:'52px',
-        flexDirection: 'column',
-    }
-  },
-  link:{
-    margin:"-50px 30px 0px 20px",
-    textDecoration:"none",
-    color:e.palette.secondary.light,
-    '@media(max-width: 375px)':{
-        marginLeft: '240px',
-        flexDirection: 'column',
-        marginTop:'-170px'
-    }
-  },
-  h1:{
-    fontSize:"2.2em",
-    marginTop:"-50px",
-    marginLeft: '-300px',
-    '@media(max-width: 375px)':{
-        marginLeft: '-220px',
-        flexDirection: 'column',
-    }
-  },
-  h2:{
-    fontSize:"2.2em",
-    marginTop:"50px",
-    marginLeft: '-300px',
-    '@media(max-width: 375px)':{
-        marginLeft: '-250px',
-         flexDirection: 'column',
-         marginTop: '-200px',
-        //  textAlign: 'center',
-    }
-    
-  },
-  link2:{
-    margin:"50px 30px 0px 20px",
-    textDecoration:"none",
-    // color:e.palette.secondary.light,
-    '@media(max-width: 375px)':{
-        marginLeft: '750px',
-         flexDirection: 'column',
-         marginTop: '-170px',
-        //  textAlign: 'center',
-    }
-  },
-  h3:{
-    fontSize:"2.2em",
-    margin:"-990px 30px 0px 20px",
-    marginLeft: '-330px',
-    '@media(max-width: 375px)':{
-        marginLeft: '-250px',
-        flexDirection: 'column',
-        marginTop: ' -1200px'
-      }
-    
-  },
-  link3:{
-    margin:"-990px 30px 0px 20px",
-    textDecoration:"none",
-    color:e.palette.secondary.light,
-    '@media(max-width: 375px)':{
-        marginLeft: '85px',
-        flexDirection: 'column',
-        marginTop: ' -99px'
-      }
-  },
-  // root3:{
-  //   marginTop:"10px ",
-
-  // }
-  storeImg:{
-    backgroundImage:`url(${stores})`,
-    width:"420px",
-      height:"300px",
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
-  },
-  divStores:{
-      display:"flex",
-      flexDirection:"row",
-      flexWrap:"wrap",
-     
-      alignContent:"center",
-     justifyContent:"center",
-     // width:"80%",
-     background:"#eee",
-     borderRadius:"10px"
-  },
-  info:{
-    margin:"0",
-    color:"#eee",
-    fontSize:"0.5em",
-    textAlign:"center"
-    // position:"absolute",
-     //bottom:"300px"
- },
- infoDiv:{
-     position:"relative",
-     top:"75%",
-     left:"36%",
-    display:"flex",
-      alignContent:"center",
-     justifyContent:"center",
-     flexDirection:"column",
-     width: "fit-content",
-     height: "fit-content",
-     //border: "1px solid #c3c3c3",
-     display: "flex",
-     flexWrap: "wrap",
-     
- },
- title:{
-     borderTop:"1px solid"+e.palette.primary.dark,
+   
+    alignContent:"center",
+   justifyContent:"center",
+   // width:"80%",
+   background:"#eee",
+   borderRadius:"10px"
+},
+info:{
+  margin:"0",
+  color:"#eee",
+  fontSize:"1em",
+  textAlign:"center"
+  // position:"absolute",
+   //bottom:"300px"
+},
+infoDiv:{
+   position:"relative",
+   top:"75%",
+   left:"36%",
+  display:"flex",
+    alignContent:"center",
+   justifyContent:"center",
+   flexDirection:"column",
+   width: "fit-content",
+   height: "fit-content",
+   //border: "1px solid #c3c3c3",
+   display: "flex",
+   flexWrap: "wrap",
+   
+},
+title:{
+   borderTop:"1px solid"+e.palette.primary.dark,
 textAlign:"center",
 color:"#fff",
 padding:"30px",
@@ -287,6 +219,7 @@ background:"linear-gradient( "+e.palette.primary.main+" 70%, #eee)"
 }
 
 }));
+
 
   
 function Home() {
@@ -306,7 +239,7 @@ function Home() {
     //solo función de ejemplo
     const filterProductsByCat = () => {
       var arr = []
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 4; i++) {
         
           arr.push(allProducts[i])
         
@@ -316,7 +249,7 @@ function Home() {
     }
     const filterhistory = () =>{
       var arr = []
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 4; i++) {
         
           arr.push(historyProducts[i])        
         
@@ -363,90 +296,30 @@ function Home() {
     
     console.log( JSON.parse(localStorage.getItem("historyProducts")))
 }    
-const SlickArrowLeft = ({ onClick }) => {
-    return (
-        <div className="arrow next" onClick={onClick}>
-            <FaArrowLeft />
-        </div>
-    );
-};
-  const SlickArrowRight = ({ onClick }) => {
-    return (
-        <div className="arrow prev" onClick={onClick}>
-            <FaArrowRight />
-        </div>
-    );
-};
-const settings = {
-    useTransform: true,
-    // fade: true,
-     cssEase: 'ease-out',
-     autoplay:true,
-     slide:'.slider-pic', 
-//     arrows:false,
-//     initialSlide: 0,
-  prevArrow: <SlickArrowLeft />,
-    nextArrow: <SlickArrowRight />,
-  dots: true,
-  infinite: false,
-  speed: 300,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  beforeChange: (current, next) => setImageIndex(next),
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        infinite: true,
-        dots: true
-      }
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2
-      }
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    }
-    // You can unslick at a given breakpoint now by adding:
-    // settings: "unslick"
-    // instead of a settings object
-  ]
 
-			
-  };
 
     return (
       <div >
-        <div className={classes.conteiner1}>
-          
-            <section className={classes.section}>
-            <div >
             <Header />
+      
+        <div className={classes.root}>
+            <section className={classes.section}>
+           
             <div className={classes.leyend}>
              <h4 className={classes.h1}> Productos</h4>
              <Link className={classes.link} to="/products"><p>ver más</p></Link>
             </div>
-            <div className={classes.root2}>
-            <div className="SliderContainer">
-            <Slider {...settings}  >
+           
+          
+           
             {
                 filterProductsByCat()?.map((p,i) => {
                   return (
                       
-                      <Fragment key={i._id} className={i == imageIndex ? "slide activeSlide" : "slide"}>              
-                                  <Grid >     
+                      <Fragment key={i}>              
+                                     
 
-                                  <div 
+                                  <Grid item xs={6} 
                                   onClick={() => {HandleHistoryOnClick(
                                      
                                       p?.name,
@@ -473,7 +346,7 @@ const settings = {
                                                   id={p?._id}
                                                   
                                                   />
-                                     </div>
+                                    
 
                                   </Grid>
                               
@@ -482,28 +355,29 @@ const settings = {
                   )
               })
             }
-            </Slider>
-            </div>
-            </div>
+        
+       
+         
             
-            </div>
             
+            </section>
+            </div>
 
-            <div>
+            <div >
             <div className={classes.leyend}>
             <h1 className={classes.h2}>Basado en tu última visita</h1>
             <Link className={classes.link2} to="/history"><p>ver más</p></Link>
             <div>
 
-    {/* <Header /> */}
+ 
         
         {historyProducts?
-    <div className={classes.root}>
+    <div item xs={6}  className={classes.root2}>
+        
        {/* <Typography className={classes.typografy}
            variant="h4" component="h4" color="primary">
        últimos {historyProducts.length} productos 
                 </Typography> */}
-       
         {filterhistory()?.map((p,i )=>{
             return(<Card  
                 key={i}                  
@@ -518,19 +392,21 @@ const settings = {
                 id={p?.id}                
                 />
             )           
-        })}        
+        })}   
+       
         </div>
         :
        <div style={{textAlign:"center"}}>
         <img src={NoHistory} style={{width:"50%",textAlign:"center"}}/>
         </div>
         }   
+        
         </div>
 
       
        
 
-        <div style={{marginTop:"20px"}}>
+        <div item xs={8} >
             {/* <Button
          style={{height:"min-content"}}
          
@@ -548,7 +424,7 @@ const settings = {
                     Tiendas
                 </Typography> */}
                 
-                 <div  className={classes.root3}>
+                 <div  className={classes.root2}>
             {
                 filterStores()?.map(store => {
                     return(
@@ -567,21 +443,6 @@ const settings = {
                         </div> 
                         </div>
                         </Link>
-                        {/* <h4>* Reviews *</h4>
-                        {store?.numReviews  === 0 ? (<p>No hay reviews aún</p>) : 
-                        (<div><p>{store.numReviews} reviews </p></div>)}
-                        {store?.reviews.map(review => {
-                            return(
-                                <div>
-                                    <p> {review.first_name}</p>
-                                    <Box component="fieldset" mb={0} borderColor="transparent">
-                                        <Rating name="read-only" value={review.rating} readOnly />
-                                    </Box>
-                                    <p>{review.comment}</p>
-                                    <p>{review.createdAt.substring(0, 10)}</p>
-                                </div>
-                            )
-                        })} */}
                         <div>    
                         </div>
                         </>
@@ -599,9 +460,9 @@ const settings = {
           </div>
             
         </div>
-        </section>
-        <Footer />
-        </div>
+        {/* </section> */}
+        
+        <Footer  />
       </div>
     )
 }
