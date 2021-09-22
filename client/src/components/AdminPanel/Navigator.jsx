@@ -14,6 +14,7 @@ import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import StyleIcon from '@mui/icons-material/Style';
 import { getAllUsers, getAllPetitions, getOrderDetail, getAllOrders } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -132,7 +133,7 @@ export default function Navigator(props) {
               </ListItem>
               <ListItem disablePadding>
                 <ListItemButton selected="active" sx={item} onClick={handleClick}>
-                  <ListItemIcon><LocalMallIcon /></ListItemIcon>
+                  <ListItemIcon><StyleIcon /></ListItemIcon>
                   <ListItemText>Products</ListItemText>
                 </ListItemButton>
               </ListItem>
