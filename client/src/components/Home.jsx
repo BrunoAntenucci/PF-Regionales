@@ -1,7 +1,7 @@
 import React, { Fragment }  from 'react';
 import Header from './Header';
 import { getProducts, getCategories } from '../actions/index';
-import { useEffect , useState} from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from './Card';
 import { makeStyles,Typography ,Button} from '@material-ui/core';
@@ -12,116 +12,33 @@ import {FaStar} from 'react-icons/fa';
 import { getStore } from '../actions';
 import stores from '../img/stores.svg';
 import Grid from '@material-ui/core/Grid';
-import Footer from './Footer';
-import Box from '@material-ui/core/Box';
-import Slider from "react-slick";
-import FaArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import FaArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-
-
 
 const useStyles = makeStyles(e => ({
-     conteiner1:{
-    // //     display: 'flex',
-    // //     flexDirection: 'column',
-    // //     justifyContent: 'center',
-    // //     // maxWidth: '1024px',
-    // //     margin: ' 0 auto',
-    // //     fontSize: 'calc(1em + 1vw)',
-    // //     '@media(max-width: 375px)':{
-    // //         display: 'flex',
-    // //          marginLeft: '300px',
-    // //          flexDirection: 'column',
-    // //     //    width:"50%",
-    // //     //    height:"50%"
-    // //     maxWidth: '1024px',
-    // //     justifyContent: 'center',
-    // //     fontSize: '10vw',
-    
-    // //     }
-     width:"100vw",
-        overflow: 'auto'
-
-     },
-//     conteiner2:{
-//         width: 100%;
-// background: radial-gradient(circle, #E3E8D6 0%, #C8CAC4  100%);
-// padding: 80px 60px;
-//     },
   root:{
-     margin:"20px 30px 1000px 20px",
-//    // padding: "0 10px 0 30px",
-    width:"100vw",
+    marginTop:"-50px ",
+   // padding: "0 10px 0 30px",
+   width:"100vw",
  
-//    background:e.palette.primary.light,
-//    padding:"0 30px 0 0",
-//    borderTop:"30px solid "+e.palette.primary.main,
-//    borderBottom:"30px solid "+e.palette.primary.main,
-//    display:"flex",
-//    flexDirection:"row",
-display: 'flex',
-  textAlign: 'left',
-  marginLeft: '250px',
-  overflow:"scroll",
-//   margin: "-950px 0 auto " ,
-   '@media(max-width: 375px)':{
-    marginLeft: '100px',
-    flexDirection: 'column',
-    marginTop: ' 100px',
-    display: 'flex',
-
-}
-
+   background:e.palette.primary.light,
+   padding:"0 30px 0 0",
+   borderTop:"30px solid "+e.palette.primary.main,
+   borderBottom:"30px solid "+e.palette.primary.main,
+   display:"flex",
+   flexDirection:"row",
   //  overflow:"scroll"
 },
 root2:{
-   marginTop:"20px 30px 1000px 20px",
+  marginTop:"-50px ",
  // padding: "0 10px 0 30px",
- maxHeight:"500px",
- maxWidth:"1500px",
+ width:"100vw",
  background:e.palette.primary.light,
  padding:"0 30px 0 0",
  borderTop:"30px solid "+e.palette.primary.main,
  borderBottom:"30px solid "+e.palette.primary.main,
  display:"flex",
-
-  textAlign: 'left',
-  margin: 'auto',
-  overflow:"scroll",
-  marginLeft: '200px',
-  flexDirection: 'row',
-
- '@media(max-width: 375px)':{
-    marginLeft: '130px',
-    flexDirection: 'column',
-    marginTop: '50px',
-    
+ flexDirection:"row",
+//  overflow:"scroll"
 },
-
- overflow:"scroll"
-},
-root3:{
-//     marginTop:"-900px ",
-//    // padding: "0 10px 0 30px",
-//    width:"100vw",
-//    background:e.palette.primary.light,
-//    padding:"0 30px 0 0",
-//    borderTop:"30px solid "+e.palette.primary.main,
-//    borderBottom:"30px solid "+e.palette.primary.main,
-//    display:"flex",
-//    flexDirection:"row",
-  //  overflow:"scroll"
-  display: 'flex',
-//   textAlign: 'left',
-marginLeft: '250px',
-
-
-  '@media(max-width: 375px)':{
-    marginLeft: '50px',
-    flexDirection: 'column',
-    marginTop: ' -1000px'
-  }
-  },
 typografy:{
     padding:"0 20px"
 },
@@ -149,89 +66,26 @@ typografy:{
     // overflow:"scroll",
    
     minWidth: "1300px",
-  },
-  leyend:{
+  },leyend:{
     display:"flex",
     flexDirection:"row",
     margin: "0px 30px",
-    // width:"50%",
-    // height:"50%",
-//     background: "rgb(83,83,83)",
-// background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
+    background: "rgb(83,83,83)",
+background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
     color:e.palette.secondary.main,
     //background:"#ffffff32",
     flexWrap:"wrap",
     borderBottom: `1px solid ${ e.palette.primary.dark}`,
     //borderTop: `3px solid ${ e.palette.secondary.dark}`,
-    borderRadius:"2px",
-    '@media(max-width: 375px)':{
-        marginTop: '330px',
-        marginRight:'52px',
-        flexDirection: 'column',
-    }
-  },
-  link:{
-    margin:"-50px 30px 0px 20px",
+    borderRadius:"2px"
+  },link:{
+    margin:"50px 30px 0px 20px",
     textDecoration:"none",
-    color:e.palette.secondary.light,
-    '@media(max-width: 375px)':{
-        marginLeft: '240px',
-        flexDirection: 'column',
-        marginTop:'-170px'
-    }
+    color:e.palette.secondary.light
   },
   h1:{
     fontSize:"2.2em",
-    marginTop:"-50px",
-    marginLeft: '-300px',
-    '@media(max-width: 375px)':{
-        marginLeft: '-220px',
-        flexDirection: 'column',
-    }
-  },
-  h2:{
-    fontSize:"2.2em",
-    marginTop:"50px",
-    marginLeft: '-300px',
-    '@media(max-width: 375px)':{
-        marginLeft: '-250px',
-         flexDirection: 'column',
-         marginTop: '-200px',
-        //  textAlign: 'center',
-    }
-    
-  },
-  link2:{
-    margin:"50px 30px 0px 20px",
-    textDecoration:"none",
-    // color:e.palette.secondary.light,
-    '@media(max-width: 375px)':{
-        marginLeft: '750px',
-         flexDirection: 'column',
-         marginTop: '-170px',
-        //  textAlign: 'center',
-    }
-  },
-  h3:{
-    fontSize:"2.2em",
-    margin:"-990px 30px 0px 20px",
-    marginLeft: '-330px',
-    '@media(max-width: 375px)':{
-        marginLeft: '-250px',
-        flexDirection: 'column',
-        marginTop: ' -1200px'
-      }
-    
-  },
-  link3:{
-    margin:"-990px 30px 0px 20px",
-    textDecoration:"none",
-    color:e.palette.secondary.light,
-    '@media(max-width: 375px)':{
-        marginLeft: '85px',
-        flexDirection: 'column',
-        marginTop: ' -99px'
-      }
+    marginTop:"50px"
   },
   // root3:{
   //   marginTop:"10px ",
@@ -258,7 +112,7 @@ typografy:{
   info:{
     margin:"0",
     color:"#eee",
-    fontSize:"0.5em",
+    fontSize:"1em",
     textAlign:"center"
     // position:"absolute",
      //bottom:"300px"
@@ -300,13 +154,13 @@ function Home() {
         dispatch(getStore());
     }, [dispatch])
 
-    const [imageIndex, setImageIndex] = useState(0);
+
     
 
     //solo función de ejemplo
     const filterProductsByCat = () => {
       var arr = []
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 4; i++) {
         
           arr.push(allProducts[i])
         
@@ -316,7 +170,7 @@ function Home() {
     }
     const filterhistory = () =>{
       var arr = []
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 3; i++) {
         
           arr.push(historyProducts[i])        
         
@@ -326,7 +180,7 @@ function Home() {
     }
     const filterStores = () =>{
       var arr = []
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 3; i++) {
         
           arr.push(allStores[i])        
         
@@ -363,89 +217,24 @@ function Home() {
     
     console.log( JSON.parse(localStorage.getItem("historyProducts")))
 }    
-const SlickArrowLeft = ({ onClick }) => {
-    return (
-        <div className="arrow next" onClick={onClick}>
-            <FaArrowLeft />
-        </div>
-    );
-};
-  const SlickArrowRight = ({ onClick }) => {
-    return (
-        <div className="arrow prev" onClick={onClick}>
-            <FaArrowRight />
-        </div>
-    );
-};
-const settings = {
-    useTransform: true,
-    // fade: true,
-     cssEase: 'ease-out',
-     autoplay:true,
-     slide:'.slider-pic', 
-//     arrows:false,
-//     initialSlide: 0,
-  prevArrow: <SlickArrowLeft />,
-    nextArrow: <SlickArrowRight />,
-  dots: true,
-  infinite: false,
-  speed: 300,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  rows: 2,
-slidesPerRow: 1,
-  beforeChange: (current, next) => setImageIndex(next),
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        infinite: true,
-        dots: true
-      }
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2
-      }
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    }
-    // You can unslick at a given breakpoint now by adding:
-    // settings: "unslick"
-    // instead of a settings object
-  ]
-
-			
-  };
 
     return (
-      <div >
-        <div className={classes.conteiner1}>
+      
+        <div>
           
             <section className={classes.section}>
-            <div >
-            <Header />
+            <div className={classes.root3}>
             <div className={classes.leyend}>
-             <h4 className={classes.h1}> Productos</h4>
+             <h1 className={classes.h1}> Productos</h1>
              <Link className={classes.link} to="/products"><p>ver más</p></Link>
             </div>
+            <Header />
             <div className={classes.root2}>
-            <div className="SliderContainer">
-            <Slider {...settings}  >
             {
                 filterProductsByCat()?.map((p,i) => {
                   return (
                       
-                      <Fragment key={i._id} className={i == imageIndex ? "slide activeSlide" : "slide"}>              
+                      <Fragment key={i}>              
                                   <Grid >     
 
                                   <div 
@@ -484,20 +273,18 @@ slidesPerRow: 1,
                   )
               })
             }
-            </Slider>
-            </div>
             </div>
             
             </div>
             
 
-            <div>
+            <div className={classes.root3}>
             <div className={classes.leyend}>
-            <h1 className={classes.h2}>Basado en tu última visita</h1>
-            <Link className={classes.link2} to="/history"><p>ver más</p></Link>
+            <h1 className={classes.h1}>Basado en tu última visita</h1>
+            <Link className={classes.link} to="/history"><p>ver más</p></Link>
             <div>
 
-    {/* <Header /> */}
+    <Header />
         
         {historyProducts?
     <div className={classes.root}>
@@ -540,22 +327,21 @@ slidesPerRow: 1,
                 <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
                  </Button> */}
          <div className={classes.leyend}>
-             <h1 className={classes.h3}> Tiendas</h1>
-             <Link className={classes.link3} to="/store"><p>ver más</p></Link>
+             <h1 className={classes.h1}> Tiendas</h1>
+             <Link className={classes.link} to="/store"><p>ver más</p></Link>
             </div>
+            <Header />        
         {/* <div className={classes.root}> */}
             <div style={{ marginTop:"10px"}}>
                 {/* <Typography variant="h2" className={classes.title}>
-                <Header />        
                     Tiendas
-                </Typography> */}
+                    </Typography> */}
                 
-                 <div  className={classes.root3}>
+                 <div  className={classes.root}>
             {
                 filterStores()?.map(store => {
                     return(
                         <>
-                        <Link to={`/storedetail/${store?._id}`}>
                         <div className={classes.divStore}>
                         <div  className={classes.storeImg}>
 
@@ -568,17 +354,15 @@ slidesPerRow: 1,
                         </section>
                         </div> 
                         </div>
-                        </Link>
                         {/* <h4>* Reviews *</h4>
                         {store?.numReviews  === 0 ? (<p>No hay reviews aún</p>) : 
                         (<div><p>{store.numReviews} reviews </p></div>)}
-                        {store?.reviews.map(review => {
+                        {store.reviews.map(review => {
                             return(
                                 <div>
+                                    <Rating value={review.rating}/>
                                     <p> {review.first_name}</p>
-                                    <Box component="fieldset" mb={0} borderColor="transparent">
-                                        <Rating name="read-only" value={review.rating} readOnly />
-                                    </Box>
+                                    <p>{review.rating}</p><FaStar />
                                     <p>{review.comment}</p>
                                     <p>{review.createdAt.substring(0, 10)}</p>
                                 </div>
@@ -596,15 +380,14 @@ slidesPerRow: 1,
                  {/* <h3>Modificar producto</h3> */}
             
                  </div>
-              
+               
 
           </div>
             
         </div>
         </section>
-        <Footer />
         </div>
-      </div>
+       
     )
 }
 
