@@ -169,7 +169,7 @@ function Products(props) {
                                             <h3>{p?.id}</h3>
                                                 <Card                    
                                                     name= {p?.name}
-                                                    price={p?.price}
+                                                    price={p?.isInOffer ? p?.priceInOffer: p?.price}
                                                     quantity={p?.quantity}
                                                     category={p?.category?.map((e, k) => {
                                                         const aux = categories.find(i => i._id === e)
