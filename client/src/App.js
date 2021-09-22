@@ -20,6 +20,7 @@ import Header from "./components/Header";
 // import { useDispatch } from "react-redux";
 // import { guestMati } from "./actions";
 // import { userCheck } from "./actions";
+import Footer from './components/Footer'
 import ModifyProduct from "./components/ModifyProduct";
 import CategoryCreation from "./components/CategoryCreation";
 import ModifyCategory from "./components/ModifyCategory";
@@ -174,7 +175,10 @@ function App() {
         <Route exact path = "/admin2" component = {Main} />
         {/* <Route exact path = "/orderdetail/:id" component = {OrderDetail} /> */}
         <Route exact path = "/" component = {Home} />
+
       </Switch>
+       {/* <Footer/> */}
+      
       </ThemeProvider>
     </BrowserRouter>
   );

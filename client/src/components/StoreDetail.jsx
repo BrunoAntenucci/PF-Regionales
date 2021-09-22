@@ -416,6 +416,32 @@ export default function StoreDetail(props){
                                             image={e?.image }
                                             id={e?._id}/>
                 )}
+<<<<<<< HEAD
+            </div>
+
+            <div>
+                <h2>Reviews</h2>
+                    {detail.reviews ? detail.reviews.map(review => {
+                            return(
+                                <div>
+                                    <p> {review.first_name}</p>
+                                    <p>={review.rating} </p>
+                                    <p>{review.comment}</p>
+                                    <p>{review.createdAt.substring(0, 10)}</p>
+                                </div>
+                            )
+                    }) : null}
+            </div>
+            <br/>
+            <div>
+                { 
+                <Link to={`/modifystore/${detail.id}`}>Editar tienda</Link>
+                }
+            </div>
+            {/* <div>
+                <Link to={`/store/${detail.id}/reviews`}>Reviews</Link>
+=======
+>>>>>>> acb0d242120a2d8d76d512be35be5c075ea9767a
             </div> */}
         </div>
     )

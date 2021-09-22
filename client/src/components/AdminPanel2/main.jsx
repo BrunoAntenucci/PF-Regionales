@@ -42,6 +42,7 @@ function AdminPanel(){
             : component === "Orders"? <Orders />
             : component === "Products"? <PanelProduct />
             :  component === "Analytics"? <BarChart />
+            :  component === "Analytics"? <BarChart />
             : ""}
             </div>
         </div>
