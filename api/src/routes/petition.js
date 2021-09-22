@@ -230,7 +230,7 @@ router.get("/asVendor", async(req, res, next) => {
 router.post("/asVendor/filter", async(req, res, next) => {
     const userSessionID = req?.session?.passport?.user;
     const { status } = req.body;
-    console.log('Filtrar ordenes por status',status)
+    console.log(`Filtrar ordenes por status=${status}`)
     if (userSessionID) {
         const user = await User.findById(userSessionID).populate("petitionsAsVendor")
         const byStatus = []
@@ -244,6 +244,5 @@ router.post("/asVendor/filter", async(req, res, next) => {
         return res.send("No hay usuario logueado.")
     }
 })
-
 
 module.exports = router;
