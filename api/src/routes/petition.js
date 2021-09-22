@@ -220,7 +220,7 @@ router.post("/newPetition/category", async (req, res, next) => {
 router.get("/asVendor", async(req, res, next) => {
     const userSessionID = req?.session?.passport?.user;
     if (userSessionID) {
-        const user = await User.findById(userSessionID).populate("petitionsAsVendor")
+        const user = await User.findById(userSessionID).populate("petitionsAsVendor");
         return res.status(200).send(user.petitionsAsVendor)
     } else {
         return res.send("No hay usuario logueado.")
