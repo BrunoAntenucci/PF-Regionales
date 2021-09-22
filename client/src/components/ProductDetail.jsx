@@ -244,7 +244,7 @@ function ProductDetail(props) {
                                     {p.isInOffer ? <h3 className={classes.paper  +" "+classes.cprice} >OFERTA! ${p?.priceInOffer}</h3> : <h3 className={classes.paper  +" "+classes.cprice} >NORMAL: ${p.price}</h3>}
                                     {/* <h3 className={classes.paper  +" "+classes.cprice} >${p.price}</h3> */}
                                     
-                                        <h3  className={classes.paper  +" "+classes.cquantity} >Stock: {p.quantity===0?<h3 style={{color:"red"}}>No hay stock</h3>:p.quantity}</h3>
+                                        <h3  className={classes.paper  +" "+classes.cquantity} >Stock: {p.quantity===0?<h3 style={{color:"#f50057"}}>No hay stock</h3>:p.quantity}</h3>
                                     
                                     
                                     
