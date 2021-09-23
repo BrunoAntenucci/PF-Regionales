@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
     },
     products:{
             background:"#eee",
-            maxWidth: "1800px",
+            maxWidth: "4000px",
             minWidth:"450px",
             display:"flex",
             flexWrap:"wrap",
@@ -147,45 +147,45 @@ const useStyles = makeStyles((theme) => ({
         margin:"2px 40px",
        
     },
-    // cardDiv:{
-    //     display: "flex",
-    //     justifyContent: "center",
-    //     alignItems:"center",
-    //     flexDirection:"row",
-    //     padding:"3px 10px",
-    //     borderRadius:"10px",
-    //     background:theme.palette.primary.light,
-    //     cursor:"pointer",
-    //     border:"1px solid "+theme.palette.primary.main,
-    //     "&:hover":{
+    cardDiv:{
+        display: "flex",
+        justifyContent: "center",
+        alignItems:"center",
+        flexDirection:"row",
+        padding:"3px 10px",
+        borderRadius:"10px",
+        background:theme.palette.primary.light,
+        cursor:"pointer",
+        border:"1px solid "+theme.palette.primary.main,
+        "&:hover":{
 
-    //         background:theme.palette.primary.superLight,
+            background:theme.palette.primary.superLight,
           
-    //       },
-    //       "&:active":{
-    //         boxShadow:"inset  2px 2px 4px #0005"
-    //       }
-    //   },
-    //   cart:{
-    //     padding:"7px",
-    //     margin:"0 5px",
-    //     width:"16px",
+          },
+          "&:active":{
+            boxShadow:"inset  2px 2px 4px #0005"
+          }
+      },
+      cart:{
+        padding:"7px",
+        margin:"0 5px",
+        width:"16px",
        
-    //     height:"16px",
-    //     justifySelf: "end",
-    //     background:theme.palette.primary.main,
-    //      borderRadius:"50%",
-    //      border:"3px solid white",
-    //      cursor:"pointer",
+        height:"16px",
+        justifySelf: "end",
+        background:theme.palette.primary.main,
+         borderRadius:"50%",
+         border:"3px solid white",
+         cursor:"pointer",
              
     
         
-    //   },
-    //   cardTypo:{
-    //     height:"max-content",
-    //     padding:"3px 5px",
-    //     color:theme.palette.primary.dark,
-    //   }
+      },
+      cardTypo:{
+        height:"max-content",
+        padding:"3px 5px",
+        color:theme.palette.primary.dark,
+      }
   }));
 
 export default function StoreDetail(props){
@@ -416,32 +416,6 @@ export default function StoreDetail(props){
                                             image={e?.image }
                                             id={e?._id}/>
                 )}
-<<<<<<< HEAD
-            </div>
-
-            <div>
-                <h2>Reviews</h2>
-                    {detail.reviews ? detail.reviews.map(review => {
-                            return(
-                                <div>
-                                    <p> {review.first_name}</p>
-                                    <p>={review.rating} </p>
-                                    <p>{review.comment}</p>
-                                    <p>{review.createdAt.substring(0, 10)}</p>
-                                </div>
-                            )
-                    }) : null}
-            </div>
-            <br/>
-            <div>
-                { 
-                <Link to={`/modifystore/${detail.id}`}>Editar tienda</Link>
-                }
-            </div>
-            {/* <div>
-                <Link to={`/store/${detail.id}/reviews`}>Reviews</Link>
-=======
->>>>>>> acb0d242120a2d8d76d512be35be5c075ea9767a
             </div> */}
         </div>
     )
