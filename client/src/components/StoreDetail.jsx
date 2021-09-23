@@ -17,6 +17,7 @@ import { Button, Typography } from '@material-ui/core';
 //import cartEmpty from '../img/cart-empty.png'
 import iconChange from '../img/change-icon.png'
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
+import Footer from './Footer';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -100,11 +101,12 @@ const useStyles = makeStyles((theme) => ({
     },
     products:{
             background:"#eee",
-            maxWidth: "1800px",
+            maxWidth: "4000px",
             minWidth:"450px",
+            height: 600,
             display:"flex",
             flexWrap:"wrap",
-            borderRadius: '1%',
+            // borderRadius: '1%',
     },
     revDiv:{
         display: "flex",
@@ -234,6 +236,7 @@ export default function StoreDetail(props){
 
     return (
         <div>
+            <div> 
             <div className={classes.titular}>
 
                 <Typography 
@@ -404,45 +407,9 @@ export default function StoreDetail(props){
                 : <Loading/>
             }
             </Grid>
+             {/* <Footer  style={{width:"100%"}}/> */}
 
-            {/* <div>{ownProducts.map((e) => <Card
-                                            name= {e?.name}
-                                            price={e?.price}
-                                            quantity={e?.quantity}
-                                            category={e?.category?.map((el, k) => {
-                                                const aux = categories.find(i => i._id === el)
-                                                return <p key={k}>{aux?.name}</p>
-                                                    })}
-                                            image={e?.image }
-                                            id={e?._id}/>
-                )}
-<<<<<<< HEAD
-            </div>
-
-            <div>
-                <h2>Reviews</h2>
-                    {detail.reviews ? detail.reviews.map(review => {
-                            return(
-                                <div>
-                                    <p> {review.first_name}</p>
-                                    <p>={review.rating} </p>
-                                    <p>{review.comment}</p>
-                                    <p>{review.createdAt.substring(0, 10)}</p>
-                                </div>
-                            )
-                    }) : null}
-            </div>
-            <br/>
-            <div>
-                { 
-                <Link to={`/modifystore/${detail.id}`}>Editar tienda</Link>
-                }
-            </div>
-            {/* <div>
-                <Link to={`/store/${detail.id}/reviews`}>Reviews</Link>
-=======
->>>>>>> acb0d242120a2d8d76d512be35be5c075ea9767a
-            </div> */}
+             </div>
         </div>
     )
 
