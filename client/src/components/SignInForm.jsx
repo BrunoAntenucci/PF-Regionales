@@ -125,7 +125,8 @@ React.useEffect(()=>{
     document.title ="Log In"
     console.log("use effect render user", userState)
     setErrorUser(false)
-    if( userState.email ){
+   
+    if( userState.token ){
       setErrorUser(false)
       history.push("/products")
     }
@@ -136,7 +137,7 @@ React.useEffect(()=>{
     React.useEffect(()=>{
 
       console.log("use effect useState user", userState)
-      if( userState.email ){
+      if( userState.token ){
         setErrorUser(false)
         history.push("/products")
       }else  if((!userState || userState == {} 
