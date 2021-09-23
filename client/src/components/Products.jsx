@@ -17,16 +17,20 @@ import Footer from './Footer'
 const useStyles = makeStyles((theme) => ({
     root: {
        display:"flex",
+    //   flexDirection:"row",
+    //   justifyContent:"center",
+    // margin: "230px 0 auto " ,
+    // textAlign: 'left',
+    // marginLeft: '60px', <--- se sacooo
     flexDirection:"row",
      justifyContent:"center",
     margin: "230px 0 auto " ,
     // textAlign: 'left',
     // marginLeft: '60px',
     '@media(max-width: 375px)':{
-        marginLeft: '30px',
+        // marginLeft: '30px', <---- se sacooo
         flexDirection: 'column',
   }
-
     },
     font: {
         marginLeft: '10px',
@@ -44,7 +48,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
     },
    
     section:{
-        margin:"0 "
+        margin:"0px"
     },
     gridCard:{
     minWidth:"350px",
@@ -68,6 +72,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
   }));
 
 function Products(props) {
+    const classes = useStyles();
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products);
     console.log(allProducts, "dqwdqwdqwdqwdqwdqw")
@@ -83,7 +88,6 @@ function Products(props) {
     const currentProd = allProducts && allProducts?.slice(indexOfFirstProd, indexOfLastProd); 
     //const currentProd = Array.isArray(allProducts) && allProducts.slice(indexOfFirstProd, indexOfLastProd); 
 
-
     const paginate = (pageNumber) => {
         setPageN(pageNumber);
         window.scroll(0, 0)//UX
@@ -91,18 +95,13 @@ function Products(props) {
     
     useEffect(() => {
         dispatch(getProducts());
-        document.title = "E-Market"
-    }, [dispatch])
-
-    useEffect(() => {
         dispatch(getCategories());
-    }, [dispatch])
+        document.title = "E-Market"
+    }, [])
+
     
     const HandleHistoryOnClick=(name,price,category,image,id,quantity)=>{
         var historyArray= [];
-        
-        
-       // var historyArraySTringify = JSON.stringify(historyArray)
         if(!localStorage.getItem("historyProducts")){
             historyArray.push({name,price,category,image,id,quantity })
             localStorage.setItem("historyProducts", JSON.stringify(historyArray))
@@ -115,13 +114,13 @@ function Products(props) {
             
             localStorage.setItem("historyProducts", JSON.stringify(historyArray))
         }
-       
-      
-        
         console.log( JSON.parse(localStorage.getItem("historyProducts")))
     }    
   
-    const classes = useStyles();
+    // function checkStorage() {
+    //     console.log("CHECK STORAGE")
+    //     const Storage = JSON.parse(localStorage.getItem('history'));
+    //     console.log("STORAGE: ", Storage)
 
     // function checkStorage() {
     //     console.log("CHECK STORAGE")
@@ -137,9 +136,7 @@ function Products(props) {
     // }
 
     return (
-        <div >
-
-       
+        <div>
         <div className={classes.root}>
         
             {/* <button onClick={cleanStorage}>borrar localStorage</button>
@@ -254,9 +251,6 @@ function Products(props) {
                                                         p?.image,
                                                         p?._id
                                                         )}}
-
-
-
                                                     />
                                         </div>
 
