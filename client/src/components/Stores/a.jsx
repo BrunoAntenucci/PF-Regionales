@@ -18,79 +18,82 @@ const useStyles = makeStyles(e => ({
   root:{
     // marginTop:"-50px ",
    // padding: "0 10px 0 30px",
-   width:"100vw",
+  //  width:"100vw",
+  display:"flex",
+  flexDirection:"row",
+  justifyContent:"center",
  
    background:e.palette.primary.light,
    padding:"0 30px 0 0",
    borderTop:"30px solid "+e.palette.primary.main,
    borderBottom:"30px solid "+e.palette.primary.main,
-   display:"flex",
-   flexDirection:"row",
-    overflow:"scroll",
-  '@media(max-width: 375px)':{
+  //  overflow:"scroll",
+   '@media(max-width: 375px)':{
     // marginLeft: '30px',
     flexDirection: 'column',
     overflow:"scroll",
-  }
+}
+
 },
-// root2:{
-//   marginTop:"-50px ",
-//  // padding: "0 10px 0 30px",
+root2:{
+  marginTop:"-50px ",
+ // padding: "0 10px 0 30px",
 //  width:"100vw",
-//  background:e.palette.primary.light,
-//  padding:"0 30px 0 0",
-//  borderTop:"30px solid "+e.palette.primary.main,
-//  borderBottom:"30px solid "+e.palette.primary.main,
-//  display:"flex",
-//  flexDirection:"row",
-// //  overflow:"scroll"
-// '@media (max-width: 375px)':{
-//   // justifyContent:'center',
-//   // marginLeft: '500px',
-//   // // // marginLeft: '90px',
-//   // width: 'auto',
-//   // display: 'center',
-//    flexDirection: 'column',
-//   // justifyContent: 'center',
-//   // alignItems: 'center',
-//   // height: '140',
-//   // marginTop: 300,
-// // marginLeft: '-5',
-//     overflow:"scroll",
-//     // padding: '0 -5rem',
-//     // width: '100%',
-//     // whiteSpace: 'nowrap',
-//     // margin: '100%',
-//     overflow:"scroll",
+ background:e.palette.primary.light,
+ padding:"0 30px 0 0",
+ borderTop:"30px solid "+e.palette.primary.main,
+ borderBottom:"30px solid "+e.palette.primary.main,
+ display:"flex",
+ flexDirection:"row",
+//  overflow:"scroll"
+'@media (max-width: 375px)':{
+  // justifyContent:'center',
+  // marginLeft: '500px',
+  // // // marginLeft: '90px',
+  // width: 'auto',
+  // display: 'center',
+   flexDirection: 'column',
+  // justifyContent: 'center',
+  // alignItems: 'center',
+  // height: '140',
+  // marginTop: 300,
+// marginLeft: '-5',
+    overflow:"scroll",
+    // padding: '0 -5rem',
+    // width: '100%',
+    // whiteSpace: 'nowrap',
+    // margin: '100%',
+    overflow:"scroll",
 
  
 
-// }
-// },
-root2:{
-// marginTop:"-50px ",
-// padding: "0 10px 0 30px",
-width:"100%",
-// background:e.palette.primary.light,
-// padding:"0 30px 0 0",
-// borderTop:"30px solid "+e.palette.primary.main,
-// borderBottom:"30px solid "+e.palette.primary.main,
-display:"flex",
-flexDirection:"row",
-justifyContent:"center",
-overflow:"scroll",
-
-'@media(max-width: 375px)':{
-// padding: '0 -5rem',
-// width: '100%',
-//  whiteSpace: 'nowrap',
-// margin: '1%',
-overflow:"scroll",
-// justifyContent:"center",
-flexDirection: 'column',
-
 }
 },
+// root2:{
+// // marginTop:"-50px ",
+// // padding: "0 10px 0 30px",
+// width:"100%",
+// // background:e.palette.primary.light,
+// // padding:"0 30px 0 0",
+// // borderTop:"30px solid "+e.palette.primary.main,
+// // borderBottom:"30px solid "+e.palette.primary.main,
+// display:"flex",
+// flexDirection:"row",
+// justifyContent:"center",
+// overflow:"scroll",
+
+// '@media(max-width: 375px)':{
+// // padding: '0 -5rem',
+// // width: '100%',
+//  whiteSpace: 'nowrap',
+// // margin: '1%',
+// overflow:"scroll",
+// justifyContent:"center",
+// flexDirection: 'column',
+// padding:"15px 40px",
+
+// }
+// },
 typografy:{
   padding:"0 20px"
 },
@@ -99,7 +102,7 @@ typografy:{
   //   flexDirection:"row",
   //   justifyContent:"center",
   //   padding:"15px 40px",
-  //   backgroundColor:"#0000001b",
+  //   // backgroundColor:"#0000001b",
   //   flexWrap:"wrap",
   //   flexBasis: "100%",
   //   // overflow:"scroll"
@@ -108,20 +111,8 @@ typografy:{
   //   //   backgroundColor: 'rgb(7, 177, 77, 0.42)'
   //   // }
   // },
-  section:{
-    // display:"flex",
-    // margin: "80px auto",
-    // flexDirection:"column",
-    // // background:e.palette.secondary.dark,
-   
-    // borderBottom: `1px solid ${ e.palette.primary.dark}` ,
-    // // overflow:"scroll",
-   
-    // minWidth: "1300px",
-    margin: '0',
-  },
   products:{
-    // background:"#eaeff1",
+    background:"#eaeff1",
     maxWidth: "1800px",
     minWidth:"450px",
     display:"flex",
@@ -131,12 +122,23 @@ borderRadius: '1%',
 
 
 },
-  leyend:{
+  section:{
+    // display:"flex",
+    // margin: "80px auto",
+    // flexDirection:"column",
+    // // background:e.palette.secondary.dark,
+   
+    // borderBottom: `1px solid ${ e.palette.primary.dark}` ,
+    // // overflow:"scroll",
+   
+    // minWidth: "1300px", 
+    margin: '0',
+  },leyend:{
     display:"flex",
     flexDirection:"row",
     margin: "0px 30px",
     background: "rgb(83,83,83)",
-    background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
+background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
     color:e.palette.secondary.main,
     //background:"#ffffff32",
     flexWrap:"wrap",
@@ -310,8 +312,8 @@ function Home() {
     return (
       <div >
       
-            <Header />
         <div  className={classes.root}>
+            <Header />
             <section className={classes.section}>
            
             <div className={classes.leyend}>
@@ -319,10 +321,10 @@ function Home() {
              <Link className={classes.link} to="/products"><p>ver más</p></Link>
             </div>
             <Grid 
-                    container direction="row"
-                justifyContent="center"
-                alignItems="flex-start"
-                className={classes.products}>  
+                //     container direction="row"
+                // justifyContent="center"
+                // alignItems="flex-start"
+                >          
           
            
             {
@@ -355,142 +357,18 @@ function Home() {
                                                       return <p key={k}>{aux?.name}</p>
                                                   })}
                                                   image={p?.image }
-
-                                                  id={p?._id}
-                                                  
-                                                  />
-                                    
+                                                  id={p?._id}                                                  
+                                                  />                            
 
                                   </Grid>
                       </Fragment>
                   )
               })
             }
-         </Grid>    
-        </section>
-      </div>
-
-
-      <div  className={classes.root}>
-            <section className={classes.section}>
-           
-            <div className={classes.leyend}>
-            <h1 className={classes.h1}>Basado en tu última visita</h1>
-            <Link className={classes.link} to="/history"><p>ver más</p></Link>
-            </div>
-            <Grid 
-                    container direction="row"
-                justifyContent="center"
-                alignItems="flex-start"
-                className={classes.products}>  
-          
-           
-            {
-                filterhistory()?.map((p,i )=>{
-                  return (
-                      
-                      <Fragment key={i}>              
-                                     
-
-                                  <Grid item lg={3} >                                                                           
-                                          <Card  
-                                              key={i}                  
-                                              name= {p?.name}
-                                              price={p?.price}
-                                              quantity={p?.quantity}
-                                              category={p?.category?.map((e, k) => {
-                                                  const aux = categories.find(i => i._id === e)
-                                                  return <p key={k}>{aux?.name}</p>
-                                              })}
-                                              image={p?.image }
-                                              id={p?.id}                
-                                              />
-                                    
-
-                                  </Grid>
-                      </Fragment>
-                  )
-              })
-            }
-         </Grid>    
-        </section>
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* 
-      <div  className={classes.root} >
-      <section className={classes.section}>
-      <div className={classes.leyend}>
-      <h1 className={classes.h1}>Basado en tu última visita</h1>
-      <Link className={classes.link} to="/history"><p>ver más</p></Link>
-      </div>
-      <Grid 
-                    container direction="row"
-                justifyContent="center"
-                alignItems="flex-start"
-                className={classes.products}>  
-
+            </Grid>        
  
-        
-        {historyProducts?
-    <Grid >         
-          {
-            
-            filterhistory()?.map((p,i )=>{
-              return(
-                <Fragment key={i}>     
-                <Grid item lg={3}>
-              
-                  <Card  
-                      key={i}                  
-                      name= {p?.name}
-                      price={p?.price}
-                      quantity={p?.quantity}
-                      category={p?.category?.map((e, k) => {
-                          const aux = categories.find(i => i._id === e)
-                          return <p key={k}>{aux?.name}</p>
-                      })}
-                      image={p?.image }
-                      id={p?.id}                
-                      />
-                 </Grid>
-                 </Fragment>
-              )           
-          })}   
-        
-       
-        </Grid>
-        :
-       <div style={{textAlign:"center"}}>
-        <img src={NoHistory} style={{width:"50%",textAlign:"center"}}/>
-        </div>
-        }   
-         </Grid>
-        
-
-      
         </section>
-
-        
-               
-
-         
-            
-        </div> */}
-        {/* </section> */}
+      </div>
         
         <Footer  />
       </div>
