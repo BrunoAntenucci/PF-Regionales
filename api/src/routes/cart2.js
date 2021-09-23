@@ -148,6 +148,7 @@ router.delete("/removeItem", async(req, res, next) => {
 
 router.post("/fromGuest", async (req, res, next) => {
     const guestCart = req.body.guestCart;
+    console.log("GUESTCART: ", guestCart)
     const userSessionID = req?.session?.passport?.user;
     if(userSessionID) {
         const user = await User.findOne({
@@ -179,6 +180,7 @@ router.post("/fromGuest", async (req, res, next) => {
                     path: "product"
                 }
             })
+            console.log("PASO EL BUSCADO DE CART: ", cart)
             for (var i=0; i<guestCart?.items?.length; i++) {
                 for (var j=0; j<cart.items.length; j++) {
                     console.log(guestCart.items[i]?.product._id, " vs ", cart.items[j]?.product._id.toString());

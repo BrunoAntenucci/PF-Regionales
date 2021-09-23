@@ -33,7 +33,7 @@ module.exports = async function offers(req, res, next) {
         //const categoryID = allCategory.filter(category => category.name === "Carnes")[0]._id.toString()
         allProducts.forEach(async (product) => {
             for (var i=0; i<product.category.length; i++) {
-                if (product.category[i].name === "Carnes") {
+                if (product.isInOffer === false && product.category[i].name === "Carnes") {
                     product.priceInOffer = (product.price * 0.85).toString();
                     product.isInOffer = true;
                     await product.save()
