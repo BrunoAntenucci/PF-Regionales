@@ -123,18 +123,18 @@ function Products(props) {
   
     const classes = useStyles();
 
-    function checkStorage() {
-        console.log("CHECK STORAGE")
-        const Storage = JSON.parse(localStorage.getItem('history'));
-        console.log("STORAGE: ", Storage)
+    // function checkStorage() {
+    //     console.log("CHECK STORAGE")
+    //     const Storage = JSON.parse(localStorage.getItem('history'));
+    //     console.log("STORAGE: ", Storage)
 
-    }
-    function cleanStorage() {
-        console.log("CHECK STORAGE")
-        localStorage.clear();
-        const StorageCleaned = JSON.parse(localStorage.getItem('history'))
-        console.log("STORAGE: ", StorageCleaned)
-    }
+    // }
+    // function cleanStorage() {
+    //     console.log("CHECK STORAGE")
+    //     localStorage.clear();
+    //     const StorageCleaned = JSON.parse(localStorage.getItem('history'))
+    //     console.log("STORAGE: ", StorageCleaned)
+    // }
 
     return (
         <div >
@@ -142,8 +142,8 @@ function Products(props) {
        
         <div className={classes.root}>
         
-            <button onClick={cleanStorage}>borrar localStorage</button>
-            <button onClick={checkStorage}>check localStorage</button>
+            {/* <button onClick={cleanStorage}>borrar localStorage</button>
+            <button onClick={checkStorage}>check localStorage</button> */}
             <Header guest={props.guest} setGuest={props.setGuest}/>
                {/* <aside className={classes.aside}>
                     <div></div>
