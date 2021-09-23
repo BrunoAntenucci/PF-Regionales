@@ -42,9 +42,11 @@ export default function Navigator(props) {
   const name = useSelector(state => state.user);
   const dispatch = useDispatch();
   const role = useSelector(state => state.user.role)
+
   useEffect(() => {
     dispatch(checkUser())
   }, [])
+  
   const handleClick = (e) => {
     e.preventDefault();
     if(e.target.innerText === "Users"){
@@ -82,13 +84,13 @@ export default function Navigator(props) {
     console.log(props.comp, "props comp")
   }
 
-  console.log(props, "props")
+  //console.log(props, "props")
 
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-        <HomeIcon />
+          <HomeIcon />
           <Link to='/products' style={{textDecoration:"none",  color:"inherit", marginLeft:"10px"}}>E-market</Link>
         </ListItem>
         <ListItem sx={{ ...item, ...itemCategory }}>
@@ -97,38 +99,81 @@ export default function Navigator(props) {
           </ListItemIcon>
           <ListItemText sx={{ fontSize: "18px", color: '#fff' }}>Hola {name.first_name}!</ListItemText>
         </ListItem>
-          <Box sx={{ bgcolor: '#101F33' }}>
-            <ListItem sx={{ py: 2, px: 3 }}>
-              <ListItemText sx={{ color: '#fff' }}>Actions</ListItemText>
-            </ListItem>
-          
-              {role==="Admin"?
-              <>
-            <ListItem disablePadding>
-              <ListItemButton selected="active" sx={item}  onClick={handleClick}>
-                <ListItemIcon><PeopleIcon /></ListItemIcon>
-                <ListItemText>Users</ListItemText>
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-            <ListItemButton selected="active" sx={item}  onClick={handleClick} >
-              <ListItemIcon><AssignmentIcon /></ListItemIcon>
-              <ListItemText>Orders</ListItemText>
-            </ListItemButton>
+        <Box sx={{ bgcolor: '#101F33' }}>
+          <ListItem sx={{ py: 2, px: 3 }}>
+            <ListItemText sx={{ color: '#fff' }}>Actions</ListItemText>
           </ListItem>
-          <ListItem disablePadding>
-              <ListItemButton selected="active" sx={item} onClick={handleClick}>
-                <ListItemIcon><DnsRoundedIcon /></ListItemIcon>
-                <ListItemText>Petitions</ListItemText>
+            
+            {
+              role === "superAdmin" ?
+            <>
+              <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item}  onClick={handleClick}>
+                  <ListItemIcon><PeopleIcon /></ListItemIcon>
+                  <ListItemText>Users</ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+              <ListItemButton selected="active" sx={item}  onClick={handleClick} >
+                <ListItemIcon><AssignmentIcon /></ListItemIcon>
+                <ListItemText>Orders</ListItemText>
               </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item} onClick={handleClick}>
+                  <ListItemIcon><DnsRoundedIcon /></ListItemIcon>
+                  <ListItemText>Petitions</ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                  <ListItemButton selected="active" sx={item}  onClick={handleClick} >
+                    <ListItemIcon><CreateIcon /></ListItemIcon>
+                    <ListItemText>Create</ListItemText>
+                  </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                  <ListItemButton selected="active" sx={item} onClick={handleClick}>
+                    <ListItemIcon><LocalMallIcon /></ListItemIcon>
+                    <ListItemText>Mis compras</ListItemText>
+                  </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                  <ListItemButton selected="active" sx={item} onClick={handleClick}>
+                    <ListItemIcon><StyleIcon /></ListItemIcon>
+                    <ListItemText>Products</ListItemText>
+                  </ListItemButton>
+              </ListItem>
+            </>
+            : role === "User" ?
+            <>
+              <ListItem disablePadding>
                 <ListItemButton selected="active" sx={item}  onClick={handleClick} >
                   <ListItemIcon><CreateIcon /></ListItemIcon>
                   <ListItemText>Create</ListItemText>
                 </ListItemButton>
               </ListItem>
-            <ListItem disablePadding>
+              <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item} onClick={handleClick}>
+                  <ListItemIcon><LocalMallIcon /></ListItemIcon>
+                  <ListItemText>Mis compras</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </>
+            : role === "Admin"?
+            <>
+              <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item}  onClick={handleClick} >
+                  <ListItemIcon><AssignmentIcon /></ListItemIcon>
+                  <ListItemText>Orders</ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item}  onClick={handleClick} >
+                  <ListItemIcon><CreateIcon /></ListItemIcon>
+                  <ListItemText>Create</ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
                 <ListItemButton selected="active" sx={item} onClick={handleClick}>
                   <ListItemIcon><LocalMallIcon /></ListItemIcon>
                   <ListItemText>Mis compras</ListItemText>
@@ -140,26 +185,12 @@ export default function Navigator(props) {
                   <ListItemText>Products</ListItemText>
                 </ListItemButton>
               </ListItem>
-              </>: role==="User"?
-            <>
-             <ListItem disablePadding>
-                <ListItemButton selected="active" sx={item}  onClick={handleClick} >
-                  <ListItemIcon><CreateIcon /></ListItemIcon>
-                  <ListItemText>Create</ListItemText>
-                </ListItemButton>
-              </ListItem>
-            <ListItem disablePadding>
-                <ListItemButton selected="active" sx={item} onClick={handleClick}>
-                  <ListItemIcon><LocalMallIcon /></ListItemIcon>
-                  <ListItemText>Mis compras</ListItemText>
-                </ListItemButton>
-              </ListItem>
-            </>:
-            <>
             </>
-              }
-            <Divider sx={{ mt: 2 }} />
-          </Box>
+            : "null"
+            }
+            
+          <Divider sx={{ mt: 2 }} />
+        </Box>
           <Divider sx={{ mt: 2 }} /> 
           <Box sx={{ bgcolor: '#101F33' }}>
             <ListItem sx={{ py: 2, px: 3 }}>
