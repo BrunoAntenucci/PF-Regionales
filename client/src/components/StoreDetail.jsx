@@ -361,15 +361,15 @@ export default function StoreDetail(props){
 
                                     <div 
 
-                                    onClick={e => {HandleHistoryOnClick(
-                                        e,
-                                        p?.name,
-                                        p?.price,
-                                        p?.category,
-                                        p?.image,
-                                        p?._id
-                                        )}}
-                                        >
+                                    // onClick={e => {HandleHistoryOnClick(
+                                    //     e,
+                                    //     p?.name,
+                                    //     p?.price,
+                                    //     p?.category,
+                                    //     p?.image,
+                                    //     p?._id
+                                    //     )}}
+                                        > 
                                     
                                             <h3>{p?.id}</h3>
 
@@ -416,6 +416,30 @@ export default function StoreDetail(props){
                                             image={e?.image }
                                             id={e?._id}/>
                 )}
+
+            </div>
+
+            <div>
+                <h2>Reviews</h2>
+                    {detail.reviews ? detail.reviews.map(review => {
+                            return(
+                                <div>
+                                    <p> {review.first_name}</p>
+                                    <p>={review.rating} </p>
+                                    <p>{review.comment}</p>
+                                    <p>{review.createdAt.substring(0, 10)}</p>
+                                </div>
+                            )
+                    }) : null}
+            </div>
+            <br/>
+            <div>
+                { 
+                <Link to={`/modifystore/${detail.id}`}>Editar tienda</Link>
+                }
+            </div>
+            {/* <div>
+                <Link to={`/store/${detail.id}/reviews`}>Reviews</Link>
             </div> */}
         </div>
     )

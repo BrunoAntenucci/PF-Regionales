@@ -71,8 +71,10 @@ function Navigator(props){
         dispatch(checkUser())
         document.title = "Admin Pannel (2)"
     },[])
+    const name = useSelector(state => state.user);
+const role = useSelector(state => state.user.role)
     const dispatch = useDispatch();
-  const role = useSelector(state => state.user.role)
+  
 
 
   const handleClick = (e) => {
@@ -118,54 +120,100 @@ function Navigator(props){
               variant="h6"> <Link to='/products' style={{textDecoration:"none",  color:"inherit"}}>
                   E-market</Link> </Typography> 
         
+                  <Typography className={classes.typo}
+              variant="h6"> Hola {name.first_name}! </Typography> 
+        
+            
             <div className={classes.content}>
+
+
             <Typography className={classes.contentTypo}
               variant="body2"> Actions </Typography> 
               <div >
-                <div className={classes.contentActions}
+                  {role=="Admin"?
+                  <>
+                   <div className={classes.contentActions}
+                   onClick={handleClick}>
+                      <PeopleIcon/>
+                 <Typography className={classes.contentActionsTypo}
+               variant="body1">Users</Typography> 
+                 </div>
+                 <div className={classes.contentActions}
                   onClick={handleClick}>
-                     <PeopleIcon/>
-                <Typography className={classes.contentActionsTypo}
-              variant="body1">Users</Typography> 
-                </div>
-                <div className={classes.contentActions}
-                 onClick={handleClick}>
-                <AssignmentIcon/>
-                <Typography className={classes.contentActionsTypo}
+                 <AssignmentIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Orders</Typography> 
+                 </div>
+                 <div className={classes.contentActions}
+                  onClick={handleClick}>
+                 <DnsRoundedIcon/>
+                    
+                 <Typography className={classes.contentActionsTypo}
                
-              variant="body1">Orders</Typography> 
-                </div>
-                <div className={classes.contentActions}
-                 onClick={handleClick}>
-                <DnsRoundedIcon/>
+               variant="body1">Petitions</Typography> 
+                 </div >
+                 <div className={classes.contentActions}
+                  onClick={handleClick}>
+                     <CreateIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Create</Typography> 
+                 </div>
+                 <div className={classes.contentActions}
+                  onClick={handleClick}>
+                     <LocalMallIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Mis compras</Typography> 
+                 </div><div className={classes.contentActions}
+                  onClick={handleClick}>
+                 <LocalMallIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Products</Typography> 
+                 </div>
+                  </>:
+                  role=="User"?
+                  <>
                    
-                <Typography className={classes.contentActionsTypo}
-              
-              variant="body1">Petitions</Typography> 
-                </div >
-                <div className={classes.contentActions}
-                 onClick={handleClick}>
-                    <CreateIcon/>
-                <Typography className={classes.contentActionsTypo}
-               
-              variant="body1">Create</Typography> 
-                </div>
-                <div className={classes.contentActions}
-                 onClick={handleClick}>
-                    <LocalMallIcon/>
-                <Typography className={classes.contentActionsTypo}
-               
-              variant="body1">Mis compras</Typography> 
-                </div><div className={classes.contentActions}
-                 onClick={handleClick}>
-                <LocalMallIcon/>
-                <Typography className={classes.contentActionsTypo}
-               
-              variant="body1">Products</Typography> 
-                </div>
+                 <div className={classes.contentActions}
+                  onClick={handleClick}>
+                     <CreateIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Create</Typography> 
+                 </div>
+                 <div className={classes.contentActions}
+                  onClick={handleClick}>
+                     <LocalMallIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Mis compras</Typography> 
+                 </div><div className={classes.contentActions}
+                  onClick={handleClick}>
+                 <LocalMallIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Products</Typography> 
+                 </div>
+                  </>
+                  :""
+                  }
+               <div className={classes.content}>
+        <Typography className={classes.contentTypo}>Analytics</Typography>
+        <div className={classes.contentActions}
+                   onClick={handleClick}>
+                      <SettingsIcon />
+                 <Typography className={classes.contentActionsTypo}
+               variant="body1">Analytics</Typography> 
+                 </div>
+                  </div>
                 
               </div>
             </div>
+            <Typography className={classes.typo}
+              variant="body1"> Role: {role} </Typography> 
         </section>
     )
 }

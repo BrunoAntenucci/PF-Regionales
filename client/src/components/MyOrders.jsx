@@ -176,7 +176,17 @@ const MyOrders = () => {
                                             {order.status==="Procesando"?
                                              <p style={{color:"#aa4"}}>
                                                   {order.status}</p>:
-                                             <p> {order.status}</p> }
+                                                order.status==="Completa"?
+                                                <p style={{color:"#3e8850"}}>
+                                                  {order.status}</p>:
+                                                  order.status==="Cancelada"?
+                                                  <p style={{color:"#aa4444"}}>
+                                                  {order.status}</p>:
+                                                      <p style={{color:"#9386dd"}}>
+                                                      {order.status}</p>
+                                              }
+                                            
+
                                             <p style={{fontWeight:"600"}}>
                                                 Fecha y hora de la compra:
                                             </p>

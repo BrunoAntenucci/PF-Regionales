@@ -167,6 +167,7 @@ React.useEffect(()=>{
       if (localStorage.history) {
         console.log("ENTRO DONDE TENIA QUE ENTRAR :)")
         const guestCart = await JSON.parse(localStorage.getItem('history'));
+        console.log("GUEST CART: ", guestCart)
         await dispatch(guestCartToUserCart(guestCart))
         await localStorage.clear();
       }

@@ -24,7 +24,7 @@ server.use(express.urlencoded({ extended: true}));
 server.use(express.json());
 server.use(cors({
 
-  origin: "http://localhost:3000 ", // DEPLOY: https://pf-regionales.vercel.app // DEV: http://localhost:3000
+  origin: "http://localhost:3000", // DEPLOY: https://pf-regionales.vercel.app // DEV: http://localhost:3000
   credentials: true
 }));
 server.use(session({
@@ -41,7 +41,7 @@ server.use((req, res, next) => { //para mostrar el mensaje de flash
   next();
 })
 //--------------------------------ROUTES-------------------------------------------------------------//
-server.use("/", offers, routes);
+server.use("/", /*offers,*/ routes);
 
 //--------------------------------CONTROL GENERALIZADO DE ERRORES-----------------------------------//
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars

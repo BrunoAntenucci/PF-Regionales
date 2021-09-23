@@ -12,7 +12,7 @@ const initialState = {
     stores: [],
     store:{},
     
-    page: 1,
+    // page: 1,
     
     user: {},
     users: [],
@@ -93,12 +93,12 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 storeDetail: action.payload
             }
-            case 'GET_ORDER_DETAIL':
+        case 'GET_ORDER_DETAIL':
             return {
                 ...state,
                 orderDetail: action.payload
             }
-            case 'GET_ORDER_BY_ID':
+        case 'GET_ORDER_BY_ID':
             return {
                 ...state,
                 orderId: action.payload
@@ -206,6 +206,11 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 petitions: action.payload
+            }
+        case "CLEAR_PROD_DETAIL": 
+            return {
+                ...state,
+                prodDetail: action.payload
             }
                
         default: return state;
