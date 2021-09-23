@@ -17,16 +17,20 @@ import Footer from './Footer'
 const useStyles = makeStyles((theme) => ({
     root: {
        display:"flex",
+    //   flexDirection:"row",
+    //   justifyContent:"center",
+    // margin: "230px 0 auto " ,
+    // textAlign: 'left',
+    // marginLeft: '60px', <--- se sacooo
     flexDirection:"row",
      justifyContent:"center",
     margin: "230px 0 auto " ,
     // textAlign: 'left',
     // marginLeft: '60px',
     '@media(max-width: 375px)':{
-        marginLeft: '30px',
+        // marginLeft: '30px', <---- se sacooo
         flexDirection: 'column',
   }
-
     },
     font: {
         marginLeft: '10px',
@@ -44,7 +48,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
     },
    
     section:{
-        margin:"0 "
+        margin:"0px"
     },
     gridCard:{
     minWidth:"350px",
@@ -254,9 +258,6 @@ function Products(props) {
                                                         p?.image,
                                                         p?._id
                                                         )}}
-
-
-
                                                     />
                                         </div>
 
