@@ -361,15 +361,15 @@ export default function StoreDetail(props){
 
                                     <div 
 
-                                    onClick={e => {HandleHistoryOnClick(
-                                        e,
-                                        p?.name,
-                                        p?.price,
-                                        p?.category,
-                                        p?.image,
-                                        p?._id
-                                        )}}
-                                        >
+                                    // onClick={e => {HandleHistoryOnClick(
+                                    //     e,
+                                    //     p?.name,
+                                    //     p?.price,
+                                    //     p?.category,
+                                    //     p?.image,
+                                    //     p?._id
+                                    //     )}}
+                                        > 
                                     
                                             <h3>{p?.id}</h3>
 
@@ -416,7 +416,7 @@ export default function StoreDetail(props){
                                             image={e?.image }
                                             id={e?._id}/>
                 )}
-<<<<<<< HEAD
+
             </div>
 
             <div>
@@ -440,8 +440,6 @@ export default function StoreDetail(props){
             </div>
             {/* <div>
                 <Link to={`/store/${detail.id}/reviews`}>Reviews</Link>
-=======
->>>>>>> acb0d242120a2d8d76d512be35be5c075ea9767a
             </div> */}
         </div>
     )
