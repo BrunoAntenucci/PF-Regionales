@@ -96,10 +96,11 @@ export function modifyProducts(id, payload){
 
 
 export function getProductDetail(id) {
+    console.log("GET PRODUCT DETAIL")
     return async function(dispatch) {
         try {
             const prodDet = await axios.get('/product/' + id);
-            console.log(prodDet)
+            console.log("RETURN:", prodDet.data)
             return dispatch({
                 type: 'GET_PRODUCT_DETAIL',
                 payload: prodDet.data
@@ -1051,4 +1052,28 @@ export function deleteOrder(id) {
     }
 }
 
+export function getOffers() {
+    console.log("ACTION GET OFFERS")
+    return function(dispatch) {
+        return axios({
+            method: "GET",
+            withCredentials: true,
+            url: "/offers"
+        })
+        .then((res) => {
+            dispatch({
+                type: "GET_OFFERS",
+                payload: res.data
+            })
+        })
+    }
+}
 
+export function clearProDetail() {
+    return function(dispatch) {
+        dispatch({
+            type: "CLEAR_PROD_DETAIL",
+            payload: {}
+        })
+    }
+}

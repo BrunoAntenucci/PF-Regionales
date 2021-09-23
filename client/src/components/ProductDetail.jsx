@@ -2,7 +2,7 @@ import React, { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getCategories, getProductDetail } from '../actions/index';
+import { clearProDetail, getCategories, getProductDetail } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -128,16 +128,15 @@ function ProductDetail(props) {
     const user = useSelector((state) => state.user);
     const categories = useSelector((state) => state.categories)
 
-    console.log(props.match.params.id, 'id')
-    console.log(detail, "detalle")
-
     useEffect(() => {
         dispatch(getProductDetail(props.match.params.id));
         dispatch(getCategories());
         return ()=>{
             document.title = "E-Market"
+            dispatch(clearProDetail())
         }
     }, [])
+
 
     const handleCartClick = async (detail) => {
         let historial = { 
@@ -178,47 +177,6 @@ function ProductDetail(props) {
             historial.total += item.product.price;
             historial.items.push(item)
             localStorage.setItem('history', JSON.stringify(historial));
-        }
-    }
-    const handleRemoveCart = (detail) => {
-        let historial = { 
-            items: [],
-            total: 0
-        };
-        const item = {
-            product: {
-                _id: detail[0]._id,
-                price: parseInt(detail[0].price),
-                name: detail[0].name,
-                description: detail[0].description,
-                image: detail[0].image,
-            },
-            quantity: 1,
-            subTotal: parseInt(detail[0].price)
-        }
-        if (user) {
-            dispatch(removeProductFromCart(item.product._id, parseInt(item.product.price)))
-        }
-        if(!localStorage.history && !user) {
-            console.log("No hay localStorage ni User. Nada que hacer")
-        } 
-        if (localStorage.history && !user) {
-            console.log("Hay Storage sin User.")
-            historial = JSON.parse(localStorage.getItem('history'));
-            for (var i=0; i<historial.items.length; i++) {
-                if (historial.items[i].product._id === item.product._id) {
-                    historial.items[i].quantity--;
-                    historial.items[i].subTotal -= item.product.price;
-                    historial.total -= item.product.price;
-                    if (historial.items[i].quantity === 0) {
-                        historial.items.splice(i, 1);
-                    }
-                    console.log("Producto eliminado");
-                    i=-1;
-                    return localStorage.setItem('history', JSON.stringify(historial));
-                }
-            }
-            console.log("No existe ese producto en el LocalStorage")
         }
     }
     

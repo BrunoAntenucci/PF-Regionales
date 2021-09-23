@@ -161,16 +161,6 @@ function Card({name,category, price, image, quantity, id, description}) {
 }
 
 //------------------------------------------------
-
-console.log(`
-name=${name}, 
-category=${category}, 
-price=${price}, 
-image=${image}, 
-quantity=${quantity}, 
-id=${id}
-description=${description}
-`)
     
     return (
         
