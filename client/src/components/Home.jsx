@@ -176,9 +176,8 @@ function Home() {
         dispatch(getStore());
     }, [dispatch])
 
-
+    var historyProducts = JSON.parse(localStorage.getItem("historyProducts"))
     
-
     //solo función de ejemplo
     const filterProductsByCat = () => {
       var arr = []
@@ -210,7 +209,7 @@ function Home() {
       return arr
 
     }
-    var historyProducts = JSON.parse(localStorage.getItem("historyProducts"))
+    
    if(historyProducts){
        
        historyProducts = historyProducts.reverse()
