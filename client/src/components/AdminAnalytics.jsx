@@ -50,12 +50,16 @@ const AdminAnalytics = () => {
            }
            
              },
+             legend: {
+                 display: true,
+                 position: 'left'
+             }
    }
     }}
      />
         </div>
         <div> 
-    <Bar 
+    <Doughnut 
      data={{labels: ['totalOrders','totalProcessing', 'totalComplete','totalCancelled'],
     datasets:[{
       label:"Pesos ($)",
@@ -77,7 +81,7 @@ const AdminAnalytics = () => {
       plugins: {
       title: {
            display: true,
-           text: ' GASTADO-VENTAS',
+           text: ' INGRESOS-VENTAS',
            align: 'start'
            
              },
