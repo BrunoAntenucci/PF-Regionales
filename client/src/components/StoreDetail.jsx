@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
     },
     products:{
             background:"#eee",
-            maxWidth: "1800px",
+            maxWidth: "4000px",
             minWidth:"450px",
             display:"flex",
             flexWrap:"wrap",
@@ -416,30 +416,6 @@ export default function StoreDetail(props){
                                             image={e?.image }
                                             id={e?._id}/>
                 )}
-
-            </div>
-
-            <div>
-                <h2>Reviews</h2>
-                    {detail.reviews ? detail.reviews.map(review => {
-                            return(
-                                <div>
-                                    <p> {review.first_name}</p>
-                                    <p>={review.rating} </p>
-                                    <p>{review.comment}</p>
-                                    <p>{review.createdAt.substring(0, 10)}</p>
-                                </div>
-                            )
-                    }) : null}
-            </div>
-            <br/>
-            <div>
-                { 
-                <Link to={`/modifystore/${detail.id}`}>Editar tienda</Link>
-                }
-            </div>
-            {/* <div>
-                <Link to={`/store/${detail.id}/reviews`}>Reviews</Link>
             </div> */}
         </div>
     )
