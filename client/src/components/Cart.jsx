@@ -1,16 +1,16 @@
 import { Button, makeStyles, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import { addProductToCart, getCartByUser, postOrder, removeProductFromCart, removeItemFromCart } from '../actions';
+import { Link } from 'react-router-dom';
+import { addProductToCart, getCartByUser, removeProductFromCart, removeItemFromCart } from '../actions';
 import Loading from './Loading'
 import { useMercadopago } from "react-sdk-mercadopago";
 import axios from 'axios';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+//import FormControlLabel from '@material-ui/core/FormControlLabel';
+//import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((e)=>({
     root:{
@@ -91,14 +91,12 @@ const Cart = () => {
     });
     const dispatch = useDispatch();
     const myCart = useSelector((state) => state.cart );
-    const allProd = useSelector((state) => state.products);
     const [loading,setLoading] = useState({
         boolean:false,
         id:""
-    })
-    const infoUser = useSelector((state) => state.user)
-    const mercData = useSelector((state) => state.mercData)
-    const classes = useStyles()
+    });
+    const infoUser = useSelector((state) => state.user);
+    const classes = useStyles();
     const [user,setUser]= useState({
         cartId:"",
         country:"",
@@ -106,39 +104,15 @@ const Cart = () => {
         postal_code:"",
         address_name:"",
         address_number:""
-    })
-
-    // React.useEffect(() => {
-    //     const script = document.createElement('script');
-    //     script.src = "https://sdk.mercadopago.com/js/v2";
-
-    //     script.async = true;
-    //     document.body.appendChild(script);
-
-    //     script.onload(() => {
-    //     const mp = new MercadoPago('TEST-585c1527-f870-4d86-8b32-bf639ae06253', {
-    //         locale: 'es-AR'
-    //     });
-    //     })
-    // }, [])
-
-    // React.useEffect(() => {
-    //     dispatch(getCartByUser())
-    //     handlerUserOrder()
-    //     setUser({
-    //         cartId:myCart._id
-    //     })
-    // },[])
+    });
     
     React.useEffect(() => {
-        
-        // setLoading(false) 
+        dispatch(getCartByUser())
         setLoading({
             boolean:false,
             id:""
         }) 
-    },[myCart])
-
+    },[])
 
     console.log("my cart: ", myCart);
 
@@ -171,17 +145,17 @@ const Cart = () => {
         myCart.items = myCart.items.filter(e => e.product._id !== id)
     }
 
-    const handlerUserOrder =()=>{
-        if(infoUser?.ship_info?.length>0){
-            setUser({
-                country:infoUser.ship_info.country,
-                city:infoUser.ship_info.city,
-                postal_code:infoUser.ship_info.postal_code,
-                address_name: infoUser.ship_info.address_number,
-                address_number:infoUser.ship_info.address_name
-            })    
-        } 
-    }
+    // const handlerUserOrder =()=>{
+    //     if(infoUser?.ship_info?.length>0){
+    //         setUser({
+    //             country:infoUser.ship_info.country,
+    //             city:infoUser.ship_info.city,
+    //             postal_code:infoUser.ship_info.postal_code,
+    //             address_name: infoUser.ship_info.address_number,
+    //             address_number:infoUser.ship_info.address_name
+    //         })    
+    //     } 
+    // }
     const handlerOnSubmit = (e) => {
         e.preventDefault()
         axios({
@@ -217,9 +191,7 @@ const Cart = () => {
             }
         })
     }
-console.log(myCart)
-// console.log(user)
-// console.log("info user", infoUser)
+
     return (
         <div className={classes.root}>
        
