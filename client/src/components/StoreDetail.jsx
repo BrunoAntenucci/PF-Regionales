@@ -364,15 +364,15 @@ export default function StoreDetail(props){
 
                                     <div 
 
-                                    onClick={e => {HandleHistoryOnClick(
-                                        e,
-                                        p?.name,
-                                        p?.price,
-                                        p?.category,
-                                        p?.image,
-                                        p?._id
-                                        )}}
-                                        >
+                                    // onClick={e => {HandleHistoryOnClick(
+                                    //     e,
+                                    //     p?.name,
+                                    //     p?.price,
+                                    //     p?.category,
+                                    //     p?.image,
+                                    //     p?._id
+                                    //     )}}
+                                        > 
                                     
                                             <h3>{p?.id}</h3>
 
