@@ -77,6 +77,7 @@ export function postProducts(dataProduct){
 }
 
 export function modifyProducts(id, payload){
+    console.log(id, payload, "holitas")
     return function(dispatch) {
         return axios({
             method: "PATCH",
