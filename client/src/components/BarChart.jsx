@@ -70,7 +70,7 @@ const BarChart = () => {
         title: {
             display: true,
             text: ' ORDENES',
-            align: 'CENTER',
+            align: 'start',
             labels: {
                 fontSize: 10
             }
