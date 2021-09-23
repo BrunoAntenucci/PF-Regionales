@@ -312,13 +312,13 @@ function Home() {
             <h1 className={classes.h1}>Basado en tu última visita</h1>
             <Link className={classes.link} to="/history"><p>ver más</p></Link>
             </div>
-            <Grid 
+            {historyProducts?
+            <div 
                     container direction="row"
                 justifyContent="center"
                 alignItems="flex-start"
                 className={classes.products}>  
           
-           
             {
                 filterhistory()?.map((p,i )=>{
                   return (
@@ -346,7 +346,11 @@ function Home() {
                   )
               })
             }
-         </Grid>    
+         </div>
+         :
+       <div style={{textAlign:"center"}}>
+        <img src={NoHistory} style={{width:"45%",textAlign:"center"}}/>
+        </div>  }  
         </section>
       </div>
 
