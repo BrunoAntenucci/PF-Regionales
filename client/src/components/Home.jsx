@@ -22,92 +22,27 @@ const useStyles = makeStyles(e => ({
  
    background:e.palette.primary.light,
    padding:"0 30px 0 0",
-   borderTop:"30px solid "+e.palette.primary.main,
-   borderBottom:"30px solid "+e.palette.primary.main,
+  //  borderTop:"30px solid "+e.palette.primary.main,
+  //  borderBottom:"30px solid "+e.palette.primary.main,
+   borderTop: e.palette.primary.main,
+   borderBottom: e.palette.primary.main,
+
    display:"flex",
    flexDirection:"row",
     overflow:"scroll",
+    
   '@media(max-width: 375px)':{
     // marginLeft: '30px',
     flexDirection: 'column',
     overflow:"scroll",
   }
 },
-// root2:{
-//   marginTop:"-50px ",
-//  // padding: "0 10px 0 30px",
-//  width:"100vw",
-//  background:e.palette.primary.light,
-//  padding:"0 30px 0 0",
-//  borderTop:"30px solid "+e.palette.primary.main,
-//  borderBottom:"30px solid "+e.palette.primary.main,
-//  display:"flex",
-//  flexDirection:"row",
-// //  overflow:"scroll"
-// '@media (max-width: 375px)':{
-//   // justifyContent:'center',
-//   // marginLeft: '500px',
-//   // // // marginLeft: '90px',
-//   // width: 'auto',
-//   // display: 'center',
-//    flexDirection: 'column',
-//   // justifyContent: 'center',
-//   // alignItems: 'center',
-//   // height: '140',
-//   // marginTop: 300,
-// // marginLeft: '-5',
-//     overflow:"scroll",
-//     // padding: '0 -5rem',
-//     // width: '100%',
-//     // whiteSpace: 'nowrap',
-//     // margin: '100%',
-//     overflow:"scroll",
 
- 
 
-// }
-// },
-root2:{
-// marginTop:"-50px ",
-// padding: "0 10px 0 30px",
-width:"100%",
-// background:e.palette.primary.light,
-// padding:"0 30px 0 0",
-// borderTop:"30px solid "+e.palette.primary.main,
-// borderBottom:"30px solid "+e.palette.primary.main,
-display:"flex",
-flexDirection:"row",
-justifyContent:"center",
-overflow:"scroll",
-
-'@media(max-width: 375px)':{
-// padding: '0 -5rem',
-// width: '100%',
-//  whiteSpace: 'nowrap',
-// margin: '1%',
-overflow:"scroll",
-// justifyContent:"center",
-flexDirection: 'column',
-
-}
-},
 typografy:{
   padding:"0 20px"
 },
-  // products: {
-  //   display:"flex",
-  //   flexDirection:"row",
-  //   justifyContent:"center",
-  //   padding:"15px 40px",
-  //   backgroundColor:"#0000001b",
-  //   flexWrap:"wrap",
-  //   flexBasis: "100%",
-  //   // overflow:"scroll"
-    
-  //   // "&:hover": {
-  //   //   backgroundColor: 'rgb(7, 177, 77, 0.42)'
-  //   // }
-  // },
+
   section:{
     // display:"flex",
     // margin: "80px auto",
@@ -136,11 +71,12 @@ borderRadius: '1%',
     flexDirection:"row",
     margin: "0px 30px",
     background: "rgb(83,83,83)",
-    background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
+    background:e.palette.primary.light,
+    // background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
     color:e.palette.secondary.main,
     //background:"#ffffff32",
     flexWrap:"wrap",
-    borderBottom: `1px solid ${ e.palette.primary.dark}`,
+    // borderBottom: `1px solid ${ e.palette.primary.dark}`,
     //borderTop: `3px solid ${ e.palette.secondary.dark}`,
     borderRadius:"2px"
   },link:{
@@ -150,12 +86,10 @@ borderRadius: '1%',
   },
   h1:{
     fontSize:"2.2em",
-    marginTop:"50px"
+    marginTop:"50px",
+    
   },
-  // root3:{
-  //   marginTop:"10px ",
-
-  // }
+  
   storeImg:{
     backgroundImage:`url(${stores})`,
     width:"420px",
@@ -417,80 +351,48 @@ function Home() {
       </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* 
-      <div  className={classes.root} >
-      <section className={classes.section}>
-      <div className={classes.leyend}>
-      <h1 className={classes.h1}>Basado en tu última visita</h1>
-      <Link className={classes.link} to="/history"><p>ver más</p></Link>
-      </div>
-      <Grid 
+      <div  className={classes.root}>
+            <section className={classes.section}>
+           
+            <div className={classes.leyend}>
+            <h1 className={classes.h1}> Tiendas</h1>
+            <Link className={classes.link} to="/store"><p>ver más</p></Link>
+            </div>
+            <Grid 
                     container direction="row"
                 justifyContent="center"
                 alignItems="flex-start"
                 className={classes.products}>  
+          
+           
+            {
+                filterStores()?.map(store => {
+                  return(
+                      <>
+                      <Link to={`/storedetail/${store?._id}`}>
+                      <div className={classes.divStore}>
+                      <div  className={classes.storeImg}>
 
- 
-        
-        {historyProducts?
-    <Grid >         
-          {
-            
-            filterhistory()?.map((p,i )=>{
-              return(
-                <Fragment key={i}>     
-                <Grid item lg={3}>
-              
-                  <Card  
-                      key={i}                  
-                      name= {p?.name}
-                      price={p?.price}
-                      quantity={p?.quantity}
-                      category={p?.category?.map((e, k) => {
-                          const aux = categories.find(i => i._id === e)
-                          return <p key={k}>{aux?.name}</p>
-                      })}
-                      image={p?.image }
-                      id={p?.id}                
-                      />
-                 </Grid>
-                 </Fragment>
-              )           
-          })}   
-        
-       
-        </Grid>
-        :
-       <div style={{textAlign:"center"}}>
-        <img src={NoHistory} style={{width:"50%",textAlign:"center"}}/>
-        </div>
-        }   
-         </Grid>
-        
-
-      
+                      <section className={classes.infoDiv}>
+                      <h4  className={classes.info}>{store?.name}</h4>
+                      <p  className={classes.info}>{store?.description}</p>
+                      <p  className={classes.info}
+                          style={{marginTop:"10px", color:"yellow"}}
+                      >{store?.city}</p>
+                      </section>
+                      </div> 
+                      </div>
+                      </Link>
+                      <div>    
+                      </div>
+                      </>
+                  )
+              })
+            }
+         </Grid>    
         </section>
-
-        
-               
-
-         
-            
-        </div> */}
-        {/* </section> */}
+      </div>
+     
         
         <Footer  />
       </div>
