@@ -51,6 +51,12 @@ const theme = createTheme({
         dark: '#006db3',
         superDark:"#081627"
       },
+      secondary: {
+        light: '#f8bbd0',
+        main: '#f06292',
+        dark: '#f50057',
+        superDark:"#ab003c"
+      },
     },
     typography: {
       h5: {
