@@ -18,6 +18,10 @@ root:{
     height:"100vh",
     background:e.palette.primary.superDark,
     color:"white",
+     '@media(max-width: 800px )':{
+     display:"none"
+   
+    }
     
 },
 typo:{

@@ -8,7 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { forgotPass, getAllUsers } from '../../actions/index';
+import { Link } from 'react-router-dom';
+import { forgotPass, getAllUsers, getPass } from '../../actions/index';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function ForgotPäss(){
+export default function ForgotPass(){
     React.useEffect(()=>{
 
         document.title ="Forgot pass"
@@ -49,21 +50,13 @@ export default function ForgotPäss(){
         dispatch(getAllUsers())
     }, [dispatch])
 
-    const users = useSelector(state => state.users)
-    const usersE = users.map((el) =>{ return el.email})
+    // const users = useSelector(state => state.users)
+    // const usersE = users.map((el) =>{ return el.email})
 
-    const userEmail = usersE.find((e) =>e === email)
-    console.log(`EMAIL FORM: ${email}`)
+    // const userEmail = usersE.find((e) =>e === email)
+    // console.log(`EMAIL FORM: ${email}`)
 
     const handleSubmit =  (e) =>{
-        // if(userEmail){
-        //     dispatch(forgotPass(email))
-        //     alert('Enviado correctamente')
-        //     // history.push("/forgot/redirect") --> si le dejo esto me tira un option /forgot 204
-        // }
-        // else{ 
-        //     alert('Este email no está registrado')
-        // }
       dispatch(forgotPass(email))
       alert('Enviado correctamente')
     }
@@ -71,6 +64,11 @@ export default function ForgotPäss(){
 
     return(
         <div>
+              <Button
+                style={{height:"min-content"}}
+                variant="contained" color="primary">
+                <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
+                 </Button>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Typography component="h1" variant="h5">
