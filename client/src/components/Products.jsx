@@ -17,15 +17,11 @@ import Footer from './Footer'
 const useStyles = makeStyles((theme) => ({
     root: {
        display:"flex",
-    //   flexDirection:"row",
-    //   justifyContent:"center",
-
-
-
+    flexDirection:"row",
+     justifyContent:"center",
     margin: "230px 0 auto " ,
-    display: 'flex',
-    textAlign: 'left',
-    marginLeft: '60px',
+    // textAlign: 'left',
+    // marginLeft: '60px',
     '@media(max-width: 375px)':{
         marginLeft: '30px',
         flexDirection: 'column',
@@ -128,6 +124,9 @@ function Products(props) {
     const classes = useStyles();
 
     return (
+        <div >
+
+       
         <div className={classes.root}>
             <Header guest={props.guest} setGuest={props.setGuest}/>
                {/* <aside className={classes.aside}>
@@ -260,9 +259,11 @@ function Products(props) {
                     pageN = {pageN}
                 />
                 </div>
-                <Footer/>  
                  </section>
               
+        </div>
+        <Footer/>  
+
         </div>
         
     )

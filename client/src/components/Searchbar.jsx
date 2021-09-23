@@ -4,7 +4,7 @@ import axios from 'axios'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 // import { Autocomplete } from '@material-ui/lab';
 // import TextField from "@material-ui/core/TextField"
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,fade } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 // import InputBase from '@material-ui/core/InputBase';
 // import IconButton from '@material-ui/core/IconButton';
@@ -25,7 +25,21 @@ const useStyles = makeStyles((theme) => ({
     // alignItems: 'center',
     // height:"40px",
     width: "500px",
-    zIndex:"100"
+    zIndex:"100",
+    flexDirection:"row",
+    marginTop: '5px',
+
+    '@media(max-width: 900px)':{
+      padding: '0 -1rem',
+      width: '80%',
+      marginLeft: '25px',
+      marginTop: '5px',
+    whiteSpace: 'nowrap',
+    //  maxHeight: '4px',
+    
+
+    },
+  
   },
   input: {
     marginLeft: theme.spacing(1),
