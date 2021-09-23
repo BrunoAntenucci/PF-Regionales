@@ -14,9 +14,8 @@ import MyStore from '../MyStore';
 import Orders from '../Orders';
 import BarChart from '../BarChart';
 import AdminAnalytics from '../AdminAnalytics';
-import Categories from '../Categories'
-import StoresAdmin from '../StoresAdmin'
-import BarChart from '../BarChart'
+import Categories from '../Categories';
+import StoresAdmin from '../StoresAdmin';
 import { useSelector } from 'react-redux';
 import PanelProduct from '../PanelProduct';
 
