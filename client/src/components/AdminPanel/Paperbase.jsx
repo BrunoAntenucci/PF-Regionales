@@ -12,15 +12,12 @@ import MyOrders from '../MyOrders';
 import Petitions from '../Petitions';
 import MyStore from '../MyStore';
 import Orders from '../Orders';
-import Categories from '../Categories'
-import StoresAdmin from '../StoresAdmin'
-import BarChart from '../BarChart'
-
+import BarChart from '../BarChart';
+import AdminAnalytics from '../AdminAnalytics';
+import Categories from '../Categories';
+import StoresAdmin from '../StoresAdmin';
 import { useSelector } from 'react-redux';
-
-
 import PanelProduct from '../PanelProduct';
-
 
 function Copyright() {
   return (
@@ -226,10 +223,10 @@ export default function Paperbase() {
             : component === "Orders"? <Orders />
             : component === "Products"? <PanelProduct />
             : component === "Analytics"? <BarChart />
+            : component === "AdminAnalytics"? <AdminAnalytics />
             : component === "Categorias"? <Categories />
             : component === "Stores"? <StoresAdmin />
             : ""}
-
 
 
           </Box>

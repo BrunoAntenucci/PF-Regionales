@@ -14,29 +14,16 @@ const FavCard = ({name, image, price, _id}) => {
     }
     useEffect(()=>{
         dispatch(getFav())
-    }, [])
+    }, [dispatch])
     console.log('wishFav', wishlist)
 
     return(
         <div>
-        <div>
-            {wishlist?.map(p =>{
-                return(
-                    <div>
-                        <img src={image} />
+            <img src={image} />
                         <div>{name}</div>
                         <div>{price}</div>
                     <button onClick={deleteOfList}>Eliminar</button>
-                    <div>
-                    
-            <Link to={`/detail/${p.product?._id}`}>
-            <button>Ver detalle</button>
-            </Link> 
-        </div>
-                    </div>
-                )
-            })}
-        </div>
+
        
         </div>
     )

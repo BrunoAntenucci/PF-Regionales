@@ -885,9 +885,26 @@ export function forgotPass(email){
         })
     }
 }
+
+export function getPass() {
+    return function(dispatch) {
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "user/forgot"
+          })
+          .then((res) => {
+              console.log("GET PASS: ", res.data)
+            dispatch({
+                type: "GET_PASS",
+                payload: res.data
+            })
+          })
+    }
+}
 //2 - verifica el token --->get a /reset/:token
 export function getToken(token, userInfo){
-    return async function (dispatch){
+    return  function (dispatch){
         return axios ({
             method: "get",
             data: {

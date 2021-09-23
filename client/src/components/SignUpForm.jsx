@@ -102,10 +102,10 @@ const SignUpForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(register.passMatch === false){
-            alert('"Passwords dont match"')
+            alert('"Passwords no coinciden"')
         } else {
             dispatch(signUp(register))
-            alert('The account is created successfully');
+            alert('La cuenta fue creada exitosamente');
             history.push('/products');
             }
         } 

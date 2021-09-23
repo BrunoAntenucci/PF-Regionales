@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { clearProDetail, getCategories, getProductDetail } from '../actions/index';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -213,7 +214,7 @@ function ProductDetail(props) {
                    
                          </div>     
                          <div className={classes.contentRight}>
-                         {detail.product[0].user === user._id ? 
+                         {user._id && detail.product[0].user === user._id ? 
                             <div className={classes.cardDiv}>
                                     <>
                                     <Typography

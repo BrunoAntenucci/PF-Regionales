@@ -148,7 +148,7 @@ function Products(props) {
                 {/* <Button
          style={{height:"min-content" , marginTop:"10px"}}
          
-              variant="contained" color="primary">
+                variant="contained" color="primary">
                 <Link to='/' style={{textDecoration:"none", color:"white"}}>volver</Link>
                  </Button> */}
                 <section className={classes.section}>
@@ -263,6 +263,7 @@ function Products(props) {
                 : <Loading/>
             }
             </Grid>
+            
             
            <div className={classes.cpaginate}>
             <Paginate 
