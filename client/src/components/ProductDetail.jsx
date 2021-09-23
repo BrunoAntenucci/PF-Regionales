@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getCategories, getProductDetail } from '../actions/index';
+import { clearProDetail, getCategories, getProductDetail } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -122,73 +122,63 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductDetail(props) {
 
+    const dispatch = useDispatch();
     const classes = useStyles();
-    const history = useHistory();
     const detail = useSelector((state) => state.prodDetail);
     const user = useSelector((state) => state.user);
-
-    console.log(props.match.params.id, 'id')
-    console.log(detail, "detallewqsdqwd")
-    
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getCategories());
-        
-    }, [dispatch])
-    useEffect(() => {
-        var product =   detail?.product?.find( e => e)
-        document.title = product?.name
-        return(()=>{
-            document.title = "E-Market"
-            
-        })
-    }, [detail?.product])
-
     const categories = useSelector((state) => state.categories)
-    
+
     useEffect(() => {
         dispatch(getProductDetail(props.match.params.id));
-    },[dispatch, props.match.params.id]);
+        dispatch(getCategories());
+        return ()=>{
+            document.title = "E-Market"
+            dispatch(clearProDetail())
+        }
+    }, [])
 
-    const handleCartClick = (detail) => {
-        let historial = [];
 
-        if(!localStorage.getItem('history')) {
-            historial.push(detail[0]);
-            localStorage.setItem('history', JSON.stringify(historial));
-        } else {
+    const handleCartClick = async (detail) => {
+        let historial = { 
+            items: [],
+            total: 0
+        };
+        const item = {
+            product: {
+                _id: detail[0]._id,
+                price: parseInt(detail[0].price),
+                name: detail[0].name,
+                description: detail[0].description,
+                image: detail[0].image,
+            },
+            quantity: 1,
+            subTotal: parseInt(detail[0].price)
+        }
+
+        if (user) {
+            dispatch(addProductToCart(item.product._id, parseInt(item.product.price)))
+        }
+        if(!localStorage.history && !user) {
+            historial.items.push(item)
+            historial.total += item.product.price;
+            return localStorage.setItem('history', JSON.stringify(historial));
+        } 
+        if (localStorage.history && !user) {
             historial = JSON.parse(localStorage.getItem('history'));
-
-            if(!historial.some(p=> detail.map(pd => pd._id).includes(p._id)) ) {
-                historial.push(...detail);
+            console.log("HISTORIAL: ", historial)
+            for (var i=0; i<historial.items.length; i++) {
+                if (historial.items[i].product._id === item.product._id) {
+                    historial.items[i].quantity++;
+                    historial.items[i].subTotal += item.product.price;
+                    historial.total += item.product.price;
+                    return localStorage.setItem('history', JSON.stringify(historial));
+                } 
             }
-    
+            historial.total += item.product.price;
+            historial.items.push(item)
             localStorage.setItem('history', JSON.stringify(historial));
         }
-        console.log(JSON.parse(localStorage.getItem('history')))
     }
-    
-    //---------------LOCAL STORAGE--------------------
-    // useEffect(() => {
-    //     const localStorageContent = localStorage.getItem('history');
-
-    // let historial;
-    // if(!localStorageContent) {
-    //     historial = [];
-    // } else {
-    //     historial = JSON.parse(localStorageContent);
-    // }
-    // console.log('history', localStorageContent);
-    // console.log('historial', historial);
-
-    // if(!historial.some(p=> detail.product.map(pd => pd._id).includes(p._id)) ) {
-    //     historial.push(...detail.product);
-    // }
-    
-  
-    // localStorage.setItem('history', JSON.stringify(historial));
-    // }, [detail.product])
     
     //------------------------------------------------
 

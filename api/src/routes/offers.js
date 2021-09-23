@@ -1,7 +1,8 @@
+const { Router } = require("express");
+const router = Router();
 const Product = require("../models/Product")
-//const Category = require("../models/Category")
-module.exports = async function offers(req, res, next) {
-    //------IDENTIFICAR DIA DE LA SEMANA------//
+
+router.get("/", async(req, res, next) => {
     const daysArray = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
     const date = new Date();
     const dayName = daysArray[date.getDay()]
@@ -73,7 +74,9 @@ module.exports = async function offers(req, res, next) {
             }
         })
         console.log("Todos los productos fueron sacados de ofertas")
-        return next()
+        return next();
     }
     
-}
+})
+
+module.exports = router;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Link} from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteUser, getAllUsers, getProducts, modifyProducts, deleteProducts, mailFav } from '../actions/index';
+import { deleteUser, getAllUsers, getProducts, modifyProducts, deleteProducts, mailFav, getProductDetail } from '../actions/index';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@mui/material/Paper';
@@ -78,9 +78,8 @@ const PanelProduct = () => {
     
     console.log(allUsers, "ALLUSER")
     
-    useEffect(async() => {
-     await dispatch(getProducts())
-      
+    useEffect(() => {
+     dispatch(getProducts())
     }, []);
 
 
@@ -129,7 +128,7 @@ const PanelProduct = () => {
     function createData(name, category, id, quantity, button, image, button2, button3) {
      category = category[1]
         return {name, category, id, quantity, button, image, button2, button3};
-      }
+    }
 
     let rows = [];
     for (let i = 0; i < arr.length; i++) {
@@ -142,6 +141,7 @@ const PanelProduct = () => {
         price: arr[i].price,
         description: arr[i].description
        }
+       console.log("PRO: ", pro)
         rows.push(createData(
             arr[i].name, 
             arr[i].category, 
@@ -153,7 +153,7 @@ const PanelProduct = () => {
             
             <img alt='img not found' width='50px' height='50px' src={arr[i].image}></img>,
             <Button variant="outlined" color="error" onClick={() => handleDeleteProd(arr[i].id, arr[i])}>BORRAR</Button>,
-            <Link to={`/modifyProduct/${arr[i].id}`} style={{textDecoration:"none", color:"white"}}><Button variant="outlined" color="secondary" >Modificar</Button></Link>,
+            <Link to={`/modifyProduct/${arr[i].id}`} style={{textDecoration:"none", color:"white"}}><Button variant="outlined" color="secondary">Modificar</Button></Link>,
             // <Button variant="outlined" color="error" onClick={() => handleStockM(arr[i].id, arr[i])}>-1</Button>,
         ));
     }
