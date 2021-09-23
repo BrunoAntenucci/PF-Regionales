@@ -68,9 +68,28 @@ const useStyles = makeStyles((e)=>({
    color:"#fff",
    padding:"30px",
    background:"linear-gradient( "+e.palette.primary.main+" 70%, #eee)"
-}
-    
+    },
+    revDiv:{
+        display: "flex",
+       marginTop: "100px",
+        alignItems: 'center',
+        flexDirection:"column",
+        background:"#eee",
+        padding: "10px",
+        color: e.palette.text.secondary,
+        border: "1px solid #c3c3c3"
 
+    },
+    revbox: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: 'center',
+        flexDirection:"column",
+        background:"#eee",
+        padding: "10px",
+        color: e.palette.text.secondary,
+
+    }
 }))
 const Stores = () => {
     const dispatch = useDispatch();
@@ -102,7 +121,7 @@ const Stores = () => {
                 allStores.map(store => {
                     return(
                         <>
-                        <Link to={`/storedetail/${store._id}`}>
+                        <Link to={`/storedetail/${store._id}`}  Style={{textDecoration:"none"}}>
                         <div className={classes.divStore}>
                         <div  className={classes.storeImg}>
 
@@ -116,24 +135,54 @@ const Stores = () => {
                         </div> 
                         </div>
                         </Link>
-                        <h4>* Reviews *</h4>
-                        {store?.numReviews  === 0 ? (<p>No hay reviews aún</p>) : 
-                        (<div><p>{store.numReviews} reviews </p></div>)}
+
+                        <div className={classes.revDiv}>
+                        <Typography 
+                            variant="h5" 
+                            ml={1}>
+                            Reviews
+                        </Typography>
+                        
+                        {store?.numReviews  === 0 ? 
+                        (<Typography 
+                            variant="h7" 
+                            ml={1}>No hay reviews aún </Typography>) : 
+                        (<div><Typography 
+                            variant="h7" 
+                            ml={1}>{store.numReviews} reviews  </Typography></div>)}
+                       
                         {store.reviews.map(review => {
                             return(
-                                <div>
-                                    <p> {review.first_name}</p>
+                                <div className={classes.revbox}>
+                                    <Typography 
+                                                variant="h7" 
+                                                ml={1}>
+                                                {review.first_name}:    
+                                            </Typography>
+                                            <br/>
+                                    
                                     <Box component="fieldset" mb={0} borderColor="transparent">
                                         {/* <Typography component="legend">Read only</Typography> */}
                                         <Rating name="read-only" value={review.rating} readOnly />
                                     </Box>
-                                    <p>{review.comment}</p>
-                                    <p>{review.createdAt.substring(0, 10)}</p>
+                                    <Typography 
+                                                variant="h7" 
+                                                ml={1}>
+                                                "{review.comment}"
+                                    </Typography>
+                                    <br/>
+                                    <Typography 
+                                                variant="h7" 
+                                                ml={1}>
+                                                {review.createdAt.substring(0, 10)}
+                                    </Typography>    
                                 </div>
                             )
                         })}
-                        <div>    
                         </div>
+                        
+                        
+                        
                         </>
                     )
                 })
@@ -148,3 +197,17 @@ const Stores = () => {
 }
 
 export default Stores
+
+// {store.reviews.map(review => {
+//     return(
+//         <div>
+//             <p> {review.first_name}</p>
+//             <Box component="fieldset" mb={0} borderColor="transparent">
+//                 {/* <Typography component="legend">Read only</Typography> */}
+//                 <Rating name="read-only" value={review.rating} readOnly />
+//             </Box>
+//             <p>{review.comment}</p>
+//             <p>{review.createdAt.substring(0, 10)}</p>
+//         </div>
+//     )
+// })}

@@ -6,8 +6,35 @@ import NavBar from './Navbar';
 import { makeStyles } from '@material-ui/core/styles';
 import {Table, TableContainer, TableHead} from '@material-ui/core';
 import {getFav} from '../actions/index';
+import MaterialTable from "material-table";
+import {Modal, TextField, Button} from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({}))
+const columns = [
+  {title: 'Imagen', field: 'image'},
+  {title: 'Nombre', field: 'name'},
+  {title: 'Descripción', field: 'price'},
+  {title: 'Precio', field: 'price', type: 'numeric'}
+]
+
+const useStyles = makeStyles(theme => ({
+  modal: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)'
+  },
+  iconos:{
+    cursor: 'pointer'
+  }, 
+  inputMaterial:{
+    width: '100%'
+  }
+}))
 ///FALTATÍA AGREGARLE UN LOADING MIENTRAS CARGA
 const Favourites = ({id}) => {
   const classes = useStyles()
@@ -19,6 +46,8 @@ const Favourites = ({id}) => {
   useEffect(() => {
     dispatch(getFav());
   }, [dispatch])
+
+ 
 
   return (
   <div>
