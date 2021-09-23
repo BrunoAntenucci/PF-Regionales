@@ -18,23 +18,23 @@ const useStyles = makeStyles(e => ({
   root:{
     // marginTop:"-50px ",
    // padding: "0 10px 0 30px",
-   width:"100vw",
- 
-   background:e.palette.primary.light,
-   padding:"0 30px 0 0",
+   
+    width:"100%",
+   background:e.palette.primary.superLight,
+   //padding:"0 30px 0 0",
   //  borderTop:"30px solid "+e.palette.primary.main,
   //  borderBottom:"30px solid "+e.palette.primary.main,
    borderTop: e.palette.primary.main,
    borderBottom: e.palette.primary.main,
-
-   display:"flex",
-   flexDirection:"row",
-    overflow:"scroll",
+    overflow:"auto",
+  //  display:"flex",
+  //  flexDirection:"row",
+  
     
   '@media(max-width: 375px)':{
     // marginLeft: '30px',
     flexDirection: 'column',
-    overflow:"scroll",
+    
   }
 },
 
@@ -53,15 +53,17 @@ typografy:{
     // // overflow:"scroll",
    
     // minWidth: "1300px",
-    margin: '0',
+    margin: '0 ',
   },
   products:{
     // background:"#eaeff1",
-    maxWidth: "1800px",
-    minWidth:"450px",
+    margin:"0 auto",
+    maxWidth: "1600px",
+    minWidth:"250px",
     display:"flex",
+    justifyContent:"center",
     flexWrap:"wrap",
-
+    marginBottom:"20px",
 borderRadius: '1%',
 
 
@@ -70,17 +72,20 @@ borderRadius: '1%',
     display:"flex",
     flexDirection:"row",
     margin: "0px 30px",
-    background: "rgb(83,83,83)",
-    background:e.palette.primary.light,
+    //background: "rgb(83,83,83)",
+    background:e.palette.primary.superLight,
     // background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
     color:e.palette.secondary.main,
     //background:"#ffffff32",
     flexWrap:"wrap",
+    padding:"0 20px",
     // borderBottom: `1px solid ${ e.palette.primary.dark}`,
     //borderTop: `3px solid ${ e.palette.secondary.dark}`,
     borderRadius:"2px"
   },link:{
-    margin:"50px 30px 0px 20px",
+    padding:"10px",
+    height:"fit-content",
+    alignSelf:"center",
     textDecoration:"none",
     color:e.palette.secondary.light
   },
@@ -191,21 +196,39 @@ function Home() {
     }
     const filterhistory = () =>{
       var arr = []
-      for (let i = 0; i < 4; i++) {
+      if(historyProducts.length>=4){
+        for (let i = 0; i < 4; i++) {
         
           arr.push(historyProducts[i])        
         
       }
+      }else{
+        for (let i = 0; i < historyProducts.length; i++) {
+        
+          arr.push(historyProducts[i])        
+        
+      }
+      }
+      
       return arr
 
     }
     const filterStores = () =>{
       var arr = []
-      for (let i = 0; i < 3; i++) {
+      if(allStores.length>=3){
+        for (let i = 0; i < 3; i++) {
         
           arr.push(allStores[i])        
         
       }
+    }else{
+        for (let i = 0; i < allStores.length; i++) {
+        
+          arr.push(allStores[i])        
+        
+      }
+      }
+     
       return arr
 
     }
@@ -241,6 +264,7 @@ function Home() {
 
 
     return (
+      <>
       <div >
       
             <Header />
@@ -249,7 +273,9 @@ function Home() {
            
             <div className={classes.leyend}>
              <h1 className={classes.h1}> Productos</h1>
-             <Link className={classes.link} to="/products"><p>ver más</p></Link>
+             <Link className={classes.link} 
+      
+             to="/products"><p>ver más</p></Link>
             </div>
             <Grid 
                     container direction="row"
@@ -397,8 +423,12 @@ function Home() {
       </div>
      
         
-        {/* <Footer  /> */}
+
+       
+
       </div>
+       {/* <Footer  /> */}
+       </>
     )
 }
 

@@ -40,24 +40,26 @@ const useStyles = makeStyles(theme => ({
     display:"flex",
     justifyContent:"space-between",
     flexDirection:"row",
-    '@media(max-width: 480px)':{
-      padding: '0 -5rem',
-      width: '100%',
-    whiteSpace: 'nowrap',
-    margin: '1%',
+    // '@media(max-width: 800px )':{
+    //   padding: '0 -5rem',
+    //   width: '100%',
+    // whiteSpace: 'nowrap',
+    // //margin: '1%',
    
-    }
+    // }
     
     
   },
   menuButton: {
+    color:"white",
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
+    fontSize:"1.3rem",
+    [theme.breakpoints.up('md')]: {
       display: 'none',
     }
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: drawerWidth,
       flexShrink: 0,
     },
@@ -72,7 +74,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1	 
     },
     appBar: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
             width: `calc(100% - 240px)`,
             marginLeft: 240,
         }
@@ -95,6 +97,9 @@ const useStyles = makeStyles(theme => ({
       theme.spacing(1) + 2
   }px`,
   },
+  list:{
+    
+  },
   buttons:{
     
     color:"#fff",
@@ -102,18 +107,21 @@ const useStyles = makeStyles(theme => ({
   },
   paper:{
     width: "max-content",
-    // padding: theme.spacing(2),
+    '@media(max-width: 960px)':{
+      display:"none"
+  
+      },
     textAlign: 'center',
   },
   tabs:{
     
     padding:"0 10px",
-    '@media(max-width: 480px)':{
-      padding: '0 -5rem',
-      width: '50%',
-    whiteSpace: 'auto'
+    // '@media(max-width: 800px)':{
+    //   padding: '0 -5rem',
+    //   width: '50%',
+    // whiteSpace: 'auto'
 
-    }
+    // }
   },
   formControl:{
     margin:"0 10px",
@@ -155,13 +163,13 @@ const useStyles = makeStyles(theme => ({
     width: "500px",
     zIndex:"100",
     flexDirection:"row",
-    '@media(max-width: 480px)':{
-      padding: '0 -1rem',
-      width: '-70%',
-    whiteSpace: 'nowrap',
+    // '@media(max-width: 800px)':{
+    //   padding: '0 -1rem',
+    //   width: '-70%',
+    // whiteSpace: 'nowrap',
     
 
-    },
+    // },
   }
 }));
 
@@ -273,7 +281,7 @@ function Navbar(props) {
           textColor="secondary"
           centered
         >
-          <List>
+          <List >
     
         <Link to="/history" style={{textDecoration:"none", color:"inherit"  }}>
         <Tab label="historial" size="small"  className={classes.tabs} color="secondary"/>
@@ -324,7 +332,7 @@ function Navbar(props) {
       <div className={classes.root} color="primary"> 
         
         <IconButton
-            color="inherit"
+            color="white"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
