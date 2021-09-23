@@ -43,8 +43,8 @@ const BarChart = () => {
        plugins: {
         title: {
             display: true,
-            text: ' ORDENES',
-            align: 'CENTER',
+            text: 'ORDENES-COMPRAS',
+            align: 'start',
             labels: {
                 fontSize: 10
             }
@@ -72,8 +72,24 @@ const BarChart = () => {
      height={350}
      width={300}
      options={{
-       maintainAspectRatio:false
-     }}
+      
+        maintainAspectRatio:false,
+        plugins: {
+        title: {
+             display: true,
+             text: ' GASTADO-COMPRAS',
+             align: 'start'
+             
+               },
+         legend: {
+             display: true,
+             position: 'left'
+         }
+         },
+        
+     }
+     
+ }
      />
      </div>    
         

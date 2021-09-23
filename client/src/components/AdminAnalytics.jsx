@@ -39,8 +39,19 @@ const AdminAnalytics = () => {
      height={350}
      width={300}
      options={{
-       maintainAspectRatio:false
-     }}
+      maintainAspectRatio:false,
+      plugins: {
+       title: {
+           display: true,
+           text: 'ORDENES-VENTAS',
+           align: 'start',
+           labels: {
+               fontSize: 10
+           }
+           
+             },
+   }
+    }}
      />
         </div>
         <div> 
@@ -61,8 +72,24 @@ const AdminAnalytics = () => {
      height={350}
      width={300}
      options={{
-       maintainAspectRatio:false
-     }}
+      
+      maintainAspectRatio:false,
+      plugins: {
+      title: {
+           display: true,
+           text: ' GASTADO-VENTAS',
+           align: 'start'
+           
+             },
+       legend: {
+           display: true,
+           position: 'left'
+       }
+       },
+      
+   }
+   
+}
      />
      </div>    
         
