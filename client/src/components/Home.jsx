@@ -398,7 +398,7 @@ function Home() {
       </div>
      
         
-        <Footer  />
+        {/* <Footer  /> */}
       </div>
     )
 }
