@@ -253,7 +253,7 @@ function Home() {
              <Link className={classes.link} to="/products"><p>ver más</p></Link>
             </div>
             <Grid 
-                    container direction="row"
+                container direction="row"
                 justifyContent="center"
                 alignItems="flex-start"
                 className={classes.products}>  
@@ -356,7 +356,7 @@ function Home() {
            
             <div className={classes.leyend}>
             <h1 className={classes.h1}> Tiendas</h1>
-            <Link className={classes.link} to="/store"><p>ver más</p></Link>
+            <Link className={classes.link} to="/stores"><p>ver más</p></Link>
             </div>
             <Grid 
                     container direction="row"

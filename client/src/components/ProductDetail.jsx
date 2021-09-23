@@ -223,7 +223,7 @@ function ProductDetail(props) {
                    
                          </div>     
                          <div className={classes.contentRight}>
-                         {detail.product[0].user === user._id ? 
+                         {user._id && detail.product[0].user === user._id ? 
                             <div className={classes.cardDiv}>
                                     <>
                                     <Typography
