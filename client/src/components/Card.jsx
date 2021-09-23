@@ -18,8 +18,8 @@ import { addProductToCart, removeProductFromCart } from '../actions/index';
 const useStyles = makeStyles((e) =>({
   root: {
     minWidth: 300,
-    marginLeft: "30px",
-    margin: "30px 0",
+    //marginLeft: "30px",
+    margin: "10px",
     height: "fit-content",
     width: 300,
   },

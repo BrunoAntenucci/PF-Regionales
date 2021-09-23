@@ -5,13 +5,14 @@ import Link from '@material-ui/core/Link';
 
 export default function Footer() {
   return (
-    <footer>
+    <footer style={{margin:"0 auto"}}>
       <Box
+        
         px={{ xs: 3, sm: 10 }}
         bgcolor="text.secondary"
         py={{ xs: 5, sm: 10 }}
         color="white"
-        width= '100%'
+        width= '91.20%'
       >
         <Container maxWidth="lg">
           <Grid container spacing={5}>
@@ -70,6 +71,6 @@ export default function Footer() {
           </Box>
         </Container>
       </Box>
-    </footer>
+      </footer>
   );
 }

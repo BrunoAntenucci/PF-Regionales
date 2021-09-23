@@ -116,21 +116,21 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.secondary,
 
     },
-    // content:{
-    //     display:"flex",
-    //     flexDirection:"row",
-    //     justifyContent:"center"
+    content:{
+        display:"flex",
+        flexDirection:"row",
+        justifyContent:"center"
 
 
-    // },
-    // info:{
-    //     background:"#fff",
-    //     padding:"10px",
-    //     borderRadius:"10px",
-    //     textAlign:"justify",
-    //     margin:"20px 0",
-    //     border:"1px solid"+theme.palette.primary.main
-    // },
+    },
+    info:{
+        background:"#fff",
+        padding:"10px",
+        borderRadius:"10px",
+        textAlign:"justify",
+        margin:"20px 0",
+        border:"1px solid"+theme.palette.primary.main
+    },
     // cname:{
     //     fontSize:"22px",
     //     color:"#333",
@@ -361,15 +361,15 @@ export default function StoreDetail(props){
 
                                     <div 
 
-                                    onClick={e => {HandleHistoryOnClick(
-                                        e,
-                                        p?.name,
-                                        p?.price,
-                                        p?.category,
-                                        p?.image,
-                                        p?._id
-                                        )}}
-                                        >
+                                    // onClick={e => {HandleHistoryOnClick(
+                                    //     e,
+                                    //     p?.name,
+                                    //     p?.price,
+                                    //     p?.category,
+                                    //     p?.image,
+                                    //     p?._id
+                                    //     )}}
+                                        > 
                                     
                                             <h3>{p?.id}</h3>
 
