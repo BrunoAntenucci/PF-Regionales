@@ -116,21 +116,21 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.secondary,
 
     },
-    // content:{
-    //     display:"flex",
-    //     flexDirection:"row",
-    //     justifyContent:"center"
+    content:{
+        display:"flex",
+        flexDirection:"row",
+        justifyContent:"center"
 
 
-    // },
-    // info:{
-    //     background:"#fff",
-    //     padding:"10px",
-    //     borderRadius:"10px",
-    //     textAlign:"justify",
-    //     margin:"20px 0",
-    //     border:"1px solid"+theme.palette.primary.main
-    // },
+    },
+    info:{
+        background:"#fff",
+        padding:"10px",
+        borderRadius:"10px",
+        textAlign:"justify",
+        margin:"20px 0",
+        border:"1px solid"+theme.palette.primary.main
+    },
     // cname:{
     //     fontSize:"22px",
     //     color:"#333",
@@ -147,45 +147,45 @@ const useStyles = makeStyles((theme) => ({
         margin:"2px 40px",
        
     },
-    // cardDiv:{
-    //     display: "flex",
-    //     justifyContent: "center",
-    //     alignItems:"center",
-    //     flexDirection:"row",
-    //     padding:"3px 10px",
-    //     borderRadius:"10px",
-    //     background:theme.palette.primary.light,
-    //     cursor:"pointer",
-    //     border:"1px solid "+theme.palette.primary.main,
-    //     "&:hover":{
+    cardDiv:{
+        display: "flex",
+        justifyContent: "center",
+        alignItems:"center",
+        flexDirection:"row",
+        padding:"3px 10px",
+        borderRadius:"10px",
+        background:theme.palette.primary.light,
+        cursor:"pointer",
+        border:"1px solid "+theme.palette.primary.main,
+        "&:hover":{
 
-    //         background:theme.palette.primary.superLight,
+            background:theme.palette.primary.superLight,
           
-    //       },
-    //       "&:active":{
-    //         boxShadow:"inset  2px 2px 4px #0005"
-    //       }
-    //   },
-    //   cart:{
-    //     padding:"7px",
-    //     margin:"0 5px",
-    //     width:"16px",
+          },
+          "&:active":{
+            boxShadow:"inset  2px 2px 4px #0005"
+          }
+      },
+      cart:{
+        padding:"7px",
+        margin:"0 5px",
+        width:"16px",
        
-    //     height:"16px",
-    //     justifySelf: "end",
-    //     background:theme.palette.primary.main,
-    //      borderRadius:"50%",
-    //      border:"3px solid white",
-    //      cursor:"pointer",
+        height:"16px",
+        justifySelf: "end",
+        background:theme.palette.primary.main,
+         borderRadius:"50%",
+         border:"3px solid white",
+         cursor:"pointer",
              
     
         
-    //   },
-    //   cardTypo:{
-    //     height:"max-content",
-    //     padding:"3px 5px",
-    //     color:theme.palette.primary.dark,
-    //   }
+      },
+      cardTypo:{
+        height:"max-content",
+        padding:"3px 5px",
+        color:theme.palette.primary.dark,
+      }
   }));
 
 export default function StoreDetail(props){

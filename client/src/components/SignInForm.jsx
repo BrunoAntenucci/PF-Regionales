@@ -51,7 +51,7 @@ function Copyright() {
     },
     error:{
       textAlign:"center",
-      color:theme.palette.error.main,
+      color:"white",
       background:theme.palette.error.light,
       padding:"10px",
       position:"relative",

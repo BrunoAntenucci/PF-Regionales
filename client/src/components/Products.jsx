@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   }
     },
     font: {
-        marginLeft: '10px',
+       
         padding: "10px 20px",
         //marginTop: '10px',
         marginBottom: '0px',
@@ -57,7 +57,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
     products:{
         background:"#eaeff1",
         maxWidth: "1800px",
-        minWidth:"450px",
+        minWidth:"250px",
         display:"flex",
         flexWrap:"wrap",
 
