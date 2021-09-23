@@ -229,15 +229,6 @@ function Products(props) {
                                                     })}
                                                     image={p?.image }
 
-                                                    id={p?._id}
-                                                    onClick={e => {HandleHistoryOnClick(
-                                                        e,
-                                                        p?.name,
-                                                        p?.price,
-                                                        p?.category,
-                                                        p?.image,
-                                                        p?._id
-                                                        )}}
                                                     />
                                         </div>
 
