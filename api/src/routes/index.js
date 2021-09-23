@@ -15,7 +15,6 @@ const cart = require("./cart2");
 const order = require("./order")
 const auth = require("./auth")
 const favourites = require("./favourites");
-//const reviews = require("./reviews");
 const petition = require("./petition");
 const analytics = require("./analytics");
 const offers = require("./offers")

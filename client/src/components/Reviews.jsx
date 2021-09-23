@@ -7,6 +7,10 @@ import { createReview, getStoreReview, checkUser } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import { Button } from '@material-ui/core';
 
 const labels = {
   0.5: 'Muy pésimo',
@@ -22,11 +26,18 @@ const labels = {
 };
 
 const useStyles = makeStyles({
-  root: {
-    width: 200,
-    display: 'flex',
-    alignItems: 'center',
-  },
+  root:{
+    margin:"30px auto",
+    width:"fit-content",
+},
+card:{
+    // display:"flex",
+    margin:"30px auto",
+    width:"600px",
+    padding: "40px",
+    borderRadius: "20px",
+    boxShadow:"3px 3px 3px #0003"
+},
 });
 
 export default function Reviews(props){
@@ -70,16 +81,21 @@ export default function Reviews(props){
 
 
     return (
-        <div> 
-            <Link to='/products'>Volver</Link>
-            <h2>Deja tu review sobre la Tienda {store.name}</h2>
+      <div className={classes.root}>
+      <div className={classes.card}>
+        <Button style={{height:"min-content", marginTop:"5px", marginBottom: "60px"}} variant="contained" color="primary">
+          <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
+        </Button>
+          
             {userInfo? (
             <form onSubmit={submitHandler}>
-                <div>
-                    <h3>Escribele tu review a la tienda</h3>
-                </div>
+                <Typography variant="h4" gutterBottom >
+                   Deja tu review sobre la Tienda {store.name}
+                    </Typography>
+
                 <div className={classes.root}>
                 <Rating
+                    size="large"
                     name="hover-feedback"
                     value={rating}
                     precision={0.5}
@@ -89,27 +105,34 @@ export default function Reviews(props){
                     setHover(e.target.value);
                     }}
                 />
-                {rating !== null && <Box ml={2}>{labels[hover !== -1 ? hover : rating]}</Box>}
+                {rating !== null && <Box align="center" ml={100}>{labels[hover !== -1 ? hover : rating]}</Box>}
                 </div>
 
                 <div>
-                       <label htmlFor="comment">Comment</label>
-                       <textarea
-                         placeholder="Escribe aquí tu comentario"
+                <Grid item xs={12} sm={6}>
+                
+                <TextField 
+                        multiline
+                        rows={10}
+                        variant="outlined"   
+                        style={{ width: 500, height: 250 }}
+                         placeholder=" Escribe aquí tu comentario..."
                          id="comment"
                          value={comment}
                          onChange={(e) => setComment(e.target.value)}
-                       ></textarea>
+                       /> 
+                </Grid>        
                 </div>
                 <div>
                        <label />
-                       <button className="primary" type="submit">
+                       <Button variant="contained" className={classes.button} type="submit">
                          Enviar
-                       </button>
+                       </Button>
                      </div>
             </form>
          ): null}
             
+        </div>
         </div>
     )
 }

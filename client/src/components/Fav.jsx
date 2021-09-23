@@ -16,7 +16,6 @@ export default function Fav ({id}) {
         //e.preventDefault();
         if(!user) return alert('Debes loguearte primero')
         if(user) {
-            //dispatch(getFav())
             dispatch(addFav(id))
             setFav(true)
         }
