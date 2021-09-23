@@ -39,41 +39,94 @@ import Newsletter from "./components/Newsletter";
 
 
 
-
 const theme = createTheme({
     palette: {
-      primary: {
-        light: '#d0ebc155',
-        main: '#BAD799',
-        dark: '#798f60',
-        contrastText: '#fff',
-      },
-      secondary: {
-        light: '#b3a77388',
-        main: '#97630e',
-        dark: '#5f3e0a',
-        contrastText: '#fff',
-      },
-      transparent: {
-        light: '#ffffff',
-        main: '#fafafa0',
-        dark: '#000000',
-        contrastText: '#000',
-      },
-       error:{
-        light:"#fdd6",
-        main:"#722",
-        dark:"#311"
-      },
+      // primary: {
+      //   superLight:"#d0ebc133",
+      //   light: '#d0ebc155',
+      //   main: '#BAD799',
+      //   dark: '#798f60',
+      //   contrastText: '#fff',
+      // },
+      // secondary: {
+      //   light: '#b3a77388',
+      //   main: '#97630e',
+      //   dark: '#5f3e0a',
+      //   contrastText: '#fff',
+      // },
+      // transparent: {
+      //   light: '#ffffff',
+      //   main: '#fafafa0',
+      //   dark: '#000000',
+      //   contrastText: '#000',
+      // },
+      //  error:{
+      //   light:"#fdd6",
+      //   main:"#722",
+      //   dark:"#311"
+      // },
+      // "@global": {
+      //   body: {
+      //     scrollbarColor: "#6b6b6b #2b2b2b",
+      //     "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
+      //       backgroundColor: "#2b2b2b",
+      //     },
+      //     "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
+      //       borderRadius: 8,
+      //       backgroundColor: "#6b6b6b",
+      //       minHeight: 24,
+      //       border: "3px solid #2b2b2b",
+      //     },
+      //     "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus": {
+      //       backgroundColor: "#959595",
+      //     },
+      //     "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active": {
+      //       backgroundColor: "#959595",
+      //     },
+      //     "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover": {
+      //       backgroundColor: "#959595",
+      //     },
+      //     "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
+      //       backgroundColor: "#2b2b2b",
+      //     },
+      //   },
+      // },
     //   warning:{
 
     //   },
     //   info:{
 
     //   },
-      success:{
-        main:"#55a"
-      }
+      // success:{
+      //   main:"#55a"
+      // }
+      primary: {
+        light: '#63ccff',
+        main: '#009be5',
+        dark: '#006db3',
+      },
+    },
+    typography: {
+      h5: {
+        fontWeight: 500,
+        fontSize: 26,
+        letterSpacing: 0.5,
+      },
+    },
+    shape: {
+      borderRadius: 8,
+    },
+    components: {
+      MuiTab: {
+        defaultProps: {
+          disableRipple: true,
+        },
+      },
+    },
+    mixins: {
+      toolbar: {
+        minHeight: 48,
+      },
     },
   });
 
@@ -108,22 +161,14 @@ function App() {
         <Route exact path = "/cart" component = {Cart} />
         <Route exact path = "/stores" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
-  
         <Route exact path= "/store/:id/reviews" component = {Reviews} /> 
         <Route exact path = "/forgot" component={ForgotPass}/>
         <Route exact path = "/forgot/redirect" component={Redirect}/>
         <Route exact path = "/user/reset/:token" component={ResetPass}/>
-       
-      
-        
-
-
         <Route exact path = "/store" component = {MyStore} />
-
         <Route exact path = "/admin" component = {Paperbase} />
         {/* <Route exact path = "/orderdetail/:id" component = {OrderDetail} /> */}
         <Route exact path = "/" component = {Home} />
-       
       </Switch>
       </ThemeProvider>
     </BrowserRouter>

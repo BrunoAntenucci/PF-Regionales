@@ -90,9 +90,9 @@ export function postCategory(dataCategory){
             url: "/petition/newPetition/category"
           })
           .then((res) => {
-            console.log("CREATE PRODUCT: ", res.data)
+            console.log("CREATE CATEGORY: ", res.data)
             dispatch({
-                type: "POST_PRODUCT",
+                type: "POST_CATEGORY",
                 payload: res.data
             })
           })
@@ -261,7 +261,7 @@ export function getOrderDetail() {
       return axios({
               method: "GET",
               withCredentials: true,
-              url: "/order"
+              url: "/petition/asVendor"
             })
             .then((res) => {
               //console.log("[ACTION]RES GetAllOrders: ", res.data)
@@ -293,6 +293,94 @@ export function getOrderDetail() {
           })
     }
 }
+
+export function getOrderByStatus(payload) {
+    if(payload ==="Todas"){
+        return function(dispatch) {
+            console.log('payload todas',payload);
+            return axios({
+                    method: "GET",
+                    withCredentials: true,
+                    url: "/petition/asVendor"
+                  })
+                  .then((res) => {
+                    //console.log("[ACTION]RES GetAllOrders: ", res.data)
+                    dispatch({
+                        type: "GET_ALL_ORDERS",
+                        payload: res.data
+                    })
+                  })
+          }
+
+    }else{
+        return function(dispatch) {
+            console.log('payload',payload);
+            return axios({
+                method: "POST",
+                data: {
+                    status: payload
+                },
+                withCredentials: true,
+                url: "/petition/asVendor/filter"
+              })
+              .then((res) => {
+                console.log("ORDER BY STATUS: ", res.data)
+                dispatch({
+                    type: "GET_ORDER_BY_STATUS",
+                    payload: res.data
+                })
+              })
+              .catch((err) => {
+                  console.log(err)
+              })
+        }
+    }
+
+}
+
+export function getUserOrdersByStatus(payload) {
+    if(payload ==="Todas"){
+        return function(dispatch) {
+            console.log('payload todas',payload);
+            return axios({
+                    method: "GET",
+                    withCredentials: true,
+                    url: "/order/currentUser"
+                  })
+                  .then((res) => {
+                    //console.log("[ACTION]RES GetAllOrders: ", res.data)
+                    dispatch({
+                        type: "GET_ORDER_DETAIL",
+                        payload: res.data
+                    })
+                  })
+          }
+    }else{
+        return function(dispatch) {
+            console.log('payload',payload);
+            return axios({
+                method: "POST",
+                data: {
+                    orderStatus: payload
+                },
+                withCredentials: true,
+                url: "/order/orderByStatus"
+              })
+              .then((res) => {
+                console.log("ORDER BY STATUS: ", res.data)
+                dispatch({
+                    type: "GET_ORDER_DETAIL",
+                    payload: res.data
+                })
+              })
+              .catch((err) => {
+                  console.log(err)
+              })
+        }
+    }
+
+}
+
 
 export function getProductDetail(id) {
     return async function(dispatch) {

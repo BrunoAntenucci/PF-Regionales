@@ -118,7 +118,7 @@ const PanelProduct = () => {
             image: product.image,
             id: product._id, 
             name: product.name, 
-            category: [product.category[0]._id, product.category[0].name],
+            category: [product.category[0]?._id, product.category[0]?.name],
             quantity:  product.quantity,
             price: product.price,
             description: product.description
@@ -137,7 +137,7 @@ const PanelProduct = () => {
         image: arr[i].image,
         id: arr[i]._id, 
         name: arr[i].name, 
-        category: arr[i].category[0]._id,
+        category: arr[i].category[0]?._id,
         quantity:  arr[i].quantity,
         price: arr[i].price,
         description: arr[i].description

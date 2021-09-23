@@ -58,6 +58,14 @@ function rootReducer(state = initialState, action) {
             return {
             ...state,
             }
+        case 'POST_CATEGORY':            
+            return {
+            ...state,
+            }
+        case 'POST_STORE':            
+            return {
+            ...state,
+            }     
         case 'GET_PRODUCT_DETAIL':
             return {
                 ...state,
@@ -167,6 +175,11 @@ function rootReducer(state = initialState, action) {
                     mercData: obj
             }
             case "GET_ALL_ORDERS":
+            return {
+                ...state,
+                orders: action.payload
+            } 
+            case "GET_ORDER_BY_STATUS":
             return {
                 ...state,
                 orders: action.payload

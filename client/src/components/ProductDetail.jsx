@@ -82,7 +82,15 @@ const useStyles = makeStyles((theme) => ({
         borderRadius:"10px",
         background:theme.palette.primary.light,
         cursor:"pointer",
-        border:"1px solid "+theme.palette.primary.main
+        border:"1px solid "+theme.palette.primary.main,
+        "&:hover":{
+
+            background:theme.palette.primary.superLight,
+          
+          },
+          "&:active":{
+            boxShadow:"inset  2px 2px 4px #0005"
+          }
       },
       cart:{
         padding:"7px",
@@ -93,7 +101,10 @@ const useStyles = makeStyles((theme) => ({
         justifySelf: "end",
         background:theme.palette.primary.main,
          borderRadius:"50%",
-         border:"3px solid white"
+         border:"3px solid white",
+         cursor:"pointer",
+             
+    
         
       },
       cardTypo:{
@@ -108,6 +119,7 @@ function ProductDetail(props) {
     const classes = useStyles();
     const history = useHistory();
     const detail = useSelector((state) => state.prodDetail);
+    const user = useSelector((state) => state.user);
 
     console.log(props.match.params.id, 'id')
     console.log(detail, "detallewqsdqwd")
@@ -204,32 +216,35 @@ function ProductDetail(props) {
                     
                    
                          </div>     
-                         <div className={classes.contentRight}>     
-                         <div className={classes.cardDiv}
-                                        >
-                                <Typography
-                                    className={classes.cardTypo}
-                                    variant="body1" color="primary" component="p"                                  
+                         <div className={classes.contentRight}>
+                         {detail.product[0].user === user._id ? 
+                            <div className={classes.cardDiv}>
+                                    <>
+                                    <Typography
+                                        className={classes.cardTypo}
+                                        variant="body1" color="primary" component="p"                                  
                                     >
                                         <Link to={"/modifyProduct/"+p._id}
-                                        style={{textDecoration:"none",color:"inherit"}}>
-                                   modificar producto
-                                   </Link>
-                                        </Typography>
-                                        {/*le puse la llave mía porque no me mostraba la de material UI*/}
+                                            style={{textDecoration:"none",color:"inherit"}}>
+                                            {'modificar producto'} 
+                                        </Link>
+                                    </Typography>
+                                            {/*le puse la llave mía porque no me mostraba la de material UI*/}
                                     <img src={iconChange?iconChange:BuildOutlinedIcon}
-                                     className={classes.cart}></img>
-                                    </div>
+                                        className={classes.cart}></img>
+                                    </>
+                                </div> 
+                            : null}
                              <div className={classes.info}>  
                             <Grid container spacing={2} direction="column"
                             justifyContent="flex-start"
                             alignItems="flex-start">
                                 <Grid item xs>
                                     <h3 className={classes.paper +" "+classes.cname }>{p.name}</h3>
-                                    {p.priceInOffer ? <h3 className={classes.paper  +" "+classes.cprice} >OFERTA! ${p?.priceInOffer}</h3> : <h3 className={classes.paper  +" "+classes.cprice} >NORMAL: ${p.price}</h3>}
+                                    {p.isInOffer ? <h3 className={classes.paper  +" "+classes.cprice} >OFERTA! ${p?.priceInOffer}</h3> : <h3 className={classes.paper  +" "+classes.cprice} >NORMAL: ${p.price}</h3>}
                                     {/* <h3 className={classes.paper  +" "+classes.cprice} >${p.price}</h3> */}
                                     
-                                        <h3  className={classes.paper  +" "+classes.cquantity} >Stock: {p.quantity===0?<h3 style={{color:"red"}}>No hay stock</h3>:p.quantity}</h3>
+                                        <h3  className={classes.paper  +" "+classes.cquantity} >Stock: {p.quantity===0?<h3 style={{color:"#f50057"}}>No hay stock</h3>:p.quantity}</h3>
                                     
                                     
                                     

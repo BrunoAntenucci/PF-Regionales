@@ -12,6 +12,7 @@ import MyOrders from '../MyOrders';
 import Petitions from '../Petitions';
 import MyStore from '../MyStore';
 import Orders from '../Orders';
+import BarChart from '../BarChart'
 
 import { useSelector } from 'react-redux';
 
@@ -222,6 +223,7 @@ export default function Paperbase() {
             : component === "Mis compras"? <MyOrders />
             : component === "Orders"? <Orders />
             : component === "Products"? <PanelProduct />
+            :  component === "Analytics"? <BarChart />
             : ""}
 
 

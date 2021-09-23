@@ -44,6 +44,13 @@ const petitionSchema = new Schema({
         },
         address: {
             type: String
+        },
+        products: [{
+            type: Schema.ObjectId,
+            ref: "Product"
+        }],
+        img: {
+            type: String
         }
     },
     dataCategory: {

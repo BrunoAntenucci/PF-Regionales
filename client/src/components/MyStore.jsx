@@ -7,32 +7,36 @@ import CategoryCreation from './CategoryCreation';
 import { makeStyles } from '@material-ui/styles';
 import createStore from '../img/market-create.svg'
 import createProduct from '../img/product-create.svg'
-
+import createCategory from '../img/category-create.svg'
 const useStyles = makeStyles((e) => ({
 root:{
 margin:"0 auto",
 display:"flex",
 flexDirection:"row",
-justifyContent:"center"
+justifyContent:"center",
+    flexWrap:"wrap",
 },
 divElection:{
     width:"fit-content",
     height:"fit-content",
-    margin:"10px 30px",
+    margin:"10px 10px",
     textAlign:"center",
-    padding:"50px",
+    padding:"30px",
+   
+    
    // background:"#eee",
     borderRadius:"9px",
     //boxShadow:"inset 0px 0px 70px #0001",
     color:"#555"
 
 },imgElection:{
-    width:"400px",
+    width:"300px",
     transition: "all 0.25s",
     cursor:"pointer",
+    filter: "saturate(0%)",
     "&:hover": {
-        width:"450px",
-        filter: "saturate(0%)"
+        width:"350px",
+        filter: "saturate(100%)"
       }
 }
 
@@ -117,7 +121,7 @@ const MyStore = () => {
            <div className={classes.divElection}
             onClick={handlerStore}>
            <img className={classes.imgElection}
-            src={createProduct}/> 
+            src={createCategory}/> 
            <h2>crear categoria</h2>
            </div>
            </>}

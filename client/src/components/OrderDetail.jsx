@@ -42,6 +42,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   }))
 
 const OrderDetail = (props) => {
+    console.log('props',props);
     const dispatch = useDispatch();
     const orderById = useSelector(state => state.orderId); 
     const classes = useStyles()
@@ -51,10 +52,10 @@ const OrderDetail = (props) => {
     useEffect(() => {
         console.log('id antes de action',props.idOrder);
         dispatch(getOrderById(props.idOrder));
-        return(()=>{
-            dispatch(getOrderById(props.idOrder)); 
-        })
-    },[props.idOrder]);
+        // return(async ()=>{
+        //     await dispatch(getOrderById(props.idOrder)); 
+        // })
+    },[dispatch, props.idOrder]);
     
 
     return (

@@ -33,13 +33,12 @@ router.get("/byId", async (req, res, next) => {
 })
 
 router.post("/petitionAccepted", async (req, res, next) => {
-    const userSessionID = req?.session?.passport?.user
     const petitionId = req.body.petitionId;
     const petition = await Petition.findById(petitionId)
     .populate("dataProduct")
     .populate("dataStore")
     //.populate("user");
-    const userLogged = await User.findById(userSessionID).populate("storesOwn").populate("productsOwn")
+    const userPetition = await User.findById(petition.user).populate("storesOwn").populate("productsOwn")
     //--Cambiar estado a Aceptada--//
     if (petition.status === "Aceptada") {
         return res.send(`Esta peticion ya fue aceptada.`)
@@ -64,9 +63,9 @@ router.post("/petitionAccepted", async (req, res, next) => {
             .catch((err) => {
                 next(err)
             })
-        userLogged.productsOwn = newProduct._id
-        userLogged.role = "Admin"
-        userLogged.save()
+        userPetition.productsOwn = [...userPetition.productsOwn, newProduct._id]
+        userPetition.role = "Admin"
+        userPetition.save()
             .then((result) => {
                 console.log("Producto agregado al usuario y se actualizo su role a Admin!")
             })
@@ -81,6 +80,8 @@ router.post("/petitionAccepted", async (req, res, next) => {
         newStore.description = petition.dataStore.description;
         newStore.city = petition.dataStore.city;
         newStore.address = petition.dataStore.address;
+        newStore.products = petition.dataStore.products;
+        newStore.img = petition.dataStore.img;
         newStore.owner = petition.user;
         await newStore.save()
             .then((result) => {
@@ -89,9 +90,9 @@ router.post("/petitionAccepted", async (req, res, next) => {
             .catch((err) => {
                 next(err)
             })
-        userLogged.storesOwn = newStore._id
-        userLogged.role = "Admin"
-        userLogged.save()
+        userPetition.storesOwn = [...userPetition.storesOwn, newStore._id]
+        userPetition.role = "Admin"
+        userPetition.save()
             .then((result) => {
                 console.log("Store agregado al usuario y se actualizo su role a Admin!")
             })
@@ -215,5 +216,34 @@ router.post("/newPetition/category", async (req, res, next) => {
         return res.send("Debes loguearte primero para enviar una peticion.")
     }
 })
+
+router.get("/asVendor", async(req, res, next) => {
+    const userSessionID = req?.session?.passport?.user;
+    if (userSessionID) {
+        const user = await User.findById(userSessionID).populate("petitionsAsVendor");
+        return res.status(200).send(user.petitionsAsVendor)
+    } else {
+        return res.send("No hay usuario logueado.")
+    }
+})
+
+router.post("/asVendor/filter", async(req, res, next) => {
+    const userSessionID = req?.session?.passport?.user;
+    const { status } = req.body;
+    console.log('Filtrar ordenes por status',status)
+    if (userSessionID) {
+        const user = await User.findById(userSessionID).populate("petitionsAsVendor")
+        const byStatus = []
+        for (var i=0; i<user.petitionsAsVendor.length; i++) {
+            if (user.petitionsAsVendor[i].status === status) {
+                byStatus.push(user.petitionsAsVendor[i])
+            }
+        }
+        return res.status(200).send(byStatus)
+    } else {
+        return res.send("No hay usuario logueado.")
+    }
+})
+
 
 module.exports = router;

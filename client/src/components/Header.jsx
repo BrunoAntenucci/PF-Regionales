@@ -96,7 +96,8 @@ function Header(props) {
                 {/*este div sirve para lograr el centrado del search sin margin*/ }
                 <button className={classes.buttonLogo}
                 onClick={(e) => handleClick(e)}>
-                  <Link to = '/products'><img src={imgLogo}   className={classes.logo} alt="logo"/></Link></button>
+                  <Link to = '/products'><img src={imgLogo}  style={{display:"none"}}
+                   className={classes.logo} alt="logo"/></Link></button>
                 {/* <Button
                 className={classes.button}
                  variant="contained" color="primary">

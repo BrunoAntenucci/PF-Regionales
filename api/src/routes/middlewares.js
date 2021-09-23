@@ -22,6 +22,7 @@ module.exports = async function offers(req, res, next) {
     const daysArray = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
     const date = new Date();
     const dayName = daysArray[date.getDay()]
+    
 
     const allProducts = await Product.find({}).populate("category")
     allProducts.forEach(async(product) => {
