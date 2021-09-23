@@ -5,18 +5,18 @@ import { Bar } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
 
 
-const BarChart = () => {
-    const [order, setOrder] = useState()
+const AdminAnalytics = () => {
+    const [orderVendor, setorderVendor] = useState()
     useEffect( async () => {
     const response = await axios({
     method: "GET",
     withCredentials: true,
-    url: '/analytics/byUser/all'})
+    url: '/analytics/forVendor/all'})
     
-    setOrder(response.data)
+    setorderVendor(response.data)
     
     },[]) 
-    console.log(order, "orderANALITICS")
+    console.log(orderVendor, "orderANALITICS")
 
     return(
     
@@ -27,7 +27,7 @@ const BarChart = () => {
      data={{labels: ['cantOrders', 'cantCreate', 'cantProcessing', 'cantComplete', 'cantCancelled'],
     datasets:[{
       label:"# of Orders",
-      data:[order?.cantOrders, order?.cantCreate, order?.cantProcessing, order?.cantComplete, order?.cantCancelled],
+      data:[orderVendor?.cantOrders, orderVendor?.cantCreate, orderVendor?.cantProcessing, orderVendor?.cantComplete, orderVendor?.cantCancelled],
       backgroundColor: [
           'rgba(103, 175, 243, 0.6)',
           'rgba(171, 103, 243, 0.6)',
@@ -39,23 +39,23 @@ const BarChart = () => {
      height={350}
      width={300}
      options={{
-       maintainAspectRatio:false,
-       plugins: {
-        title: {
-            display: true,
-            text: 'ORDENES-COMPRAS',
-            align: 'start',
-            labels: {
-                fontSize: 10
-            }
-            
-              },
-              legend: {
-                  display: true,
-                  position: 'left'
-              }
-    }
-     }}
+      maintainAspectRatio:false,
+      plugins: {
+       title: {
+           display: true,
+           text: 'ORDENES-VENTAS',
+           align: 'start',
+           labels: {
+               fontSize: 10
+           }
+           
+             },
+             legend: {
+                 display: true,
+                 position: 'left'
+             }
+   }
+    }}
      />
         </div>
         <div> 
@@ -63,7 +63,7 @@ const BarChart = () => {
      data={{labels: ['totalOrders','totalProcessing', 'totalComplete','totalCancelled'],
     datasets:[{
       label:"Pesos ($)",
-      data:[order?.totalOrders, order?.totalProcessing, order?.totalComplete, order?.totalCancelled,],
+      data:[orderVendor?.totalOrders, orderVendor?.totalProcessing, orderVendor?.totalComplete, orderVendor?.totalCancelled,],
       backgroundColor: [
         'rgba(103, 175, 243, 0.6)',
         'rgb(243, 171, 103)',
@@ -77,23 +77,23 @@ const BarChart = () => {
      width={300}
      options={{
       
-        maintainAspectRatio:false,
-        plugins: {
-        title: {
-             display: true,
-             text: ' GASTADO-COMPRAS',
-             align: 'start'
-             
-               },
-         legend: {
-             display: true,
-             position: 'left'
-         }
-         },
-        
-     }
-     
- }
+      maintainAspectRatio:false,
+      plugins: {
+      title: {
+           display: true,
+           text: ' INGRESOS-VENTAS',
+           align: 'start'
+           
+             },
+       legend: {
+           display: true,
+           position: 'left'
+       }
+       },
+      
+   }
+   
+}
      />
      </div>    
         
@@ -104,4 +104,4 @@ const BarChart = () => {
 }
 
 
-export default BarChart;
+export default AdminAnalytics;

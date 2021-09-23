@@ -409,7 +409,7 @@ export default function StoreDetail(props){
             </Grid>
              {/* <Footer  style={{width:"100%"}}/> */}
 
-             </div>
+     </div>
         </div>
     )
 
