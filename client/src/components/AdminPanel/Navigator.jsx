@@ -11,12 +11,14 @@ import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import CreateIcon from '@mui/icons-material/Create';
 import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import StyleIcon from '@mui/icons-material/Style';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
-import { getAllUsers, getAllPetitions, getOrderDetail, getAllOrders } from '../../actions';
+import { getAllUsers, getAllPetitions, getOrderDetail, getAllOrders, getCategories, getStore } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -42,7 +44,7 @@ export default function Navigator(props) {
   const name = useSelector(state => state.user);
   const dispatch = useDispatch();
   const role = useSelector(state => state.user.role)
-
+  
   useEffect(() => {
     dispatch(checkUser())
   }, [])
@@ -53,26 +55,29 @@ export default function Navigator(props) {
       props.setComp("Users")
       dispatch(getAllUsers());
       console.log(e)
-
+    }else if(e.target.innerText === "Categories"){
+      props.setComp("Categorias")
+      console.log(e.target.innerText)
+      dispatch(getCategories());
     }else if(e.target.innerText === "Create"){
       props.setComp("Create")
       console.log(e.target.innerText)
-      
+    }else if(e.target.innerText === "Stores"){
+      props.setComp("Stores")
+      console.log(e.target.innerText)
+      dispatch(getStore());  
     } else if(e.target.innerText === "Petitions"){
       props.setComp("Petitions")
       dispatch(getAllPetitions());
-      console.log(e.target.innerText)
-      
+      console.log(e.target.innerText)  
     } else if(e.target.innerText === "Mis compras"){
       props.setComp("Mis compras")
       dispatch(getOrderDetail());
       console.log(e.target.innerText)
-
     } else if(e.target.innerText === "Orders"){
       props.setComp("Orders")
       dispatch(getAllOrders());
-      console.log(e.target.innerText)
-      
+      console.log(e.target.innerText)      
     } else if(e.target.innerText === "Products"){
       props.setComp("Products")
       console.log(e.target.innerText)
@@ -180,15 +185,29 @@ export default function Navigator(props) {
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton selected="active" sx={item} onClick={handleClick}>
-                  <ListItemIcon><StyleIcon /></ListItemIcon>
-                  <ListItemText>Products</ListItemText>
+                  <ListItemButton selected="active" sx={item} onClick={handleClick}>
+                    <ListItemIcon><StyleIcon /></ListItemIcon>
+                    <ListItemText>Products</ListItemText>
+                  </ListItemButton>
+              </ListItem>
+              
+              {/* VER SI ESTO VA!!!
+              <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item}  onClick={handleClick}>
+                  <ListItemIcon><LocalOfferOutlinedIcon /></ListItemIcon>
+                  <ListItemText>Categories</ListItemText>
                 </ListItemButton>
               </ListItem>
-            </>
+              <ListItem disablePadding>
+                <ListItemButton selected="active" sx={item}  onClick={handleClick}>
+                  <ListItemIcon><StorefrontOutlinedIcon /></ListItemIcon>
+                  <ListItemText>Stores</ListItemText>
+                </ListItemButton>
+              </ListItem> */}
+              </>
             : "null"
             }
-            
+
           <Divider sx={{ mt: 2 }} />
         </Box>
           <Divider sx={{ mt: 2 }} /> 

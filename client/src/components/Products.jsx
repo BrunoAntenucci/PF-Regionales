@@ -19,9 +19,14 @@ const useStyles = makeStyles((theme) => ({
        display:"flex",
     //   flexDirection:"row",
     //   justifyContent:"center",
-    margin: "230px 0 auto " ,
-    textAlign: 'left',
+    // margin: "230px 0 auto " ,
+    // textAlign: 'left',
     // marginLeft: '60px', <--- se sacooo
+    flexDirection:"row",
+     justifyContent:"center",
+    margin: "230px 0 auto " ,
+    // textAlign: 'left',
+    // marginLeft: '60px',
     '@media(max-width: 375px)':{
         // marginLeft: '30px', <---- se sacooo
         flexDirection: 'column',
@@ -122,8 +127,27 @@ function Products(props) {
   
     const classes = useStyles();
 
+    function checkStorage() {
+        console.log("CHECK STORAGE")
+        const Storage = JSON.parse(localStorage.getItem('history'));
+        console.log("STORAGE: ", Storage)
+
+    }
+    function cleanStorage() {
+        console.log("CHECK STORAGE")
+        localStorage.clear();
+        const StorageCleaned = JSON.parse(localStorage.getItem('history'))
+        console.log("STORAGE: ", StorageCleaned)
+    }
+
     return (
+        <div >
+
+       
         <div className={classes.root}>
+        
+            <button onClick={cleanStorage}>borrar localStorage</button>
+            <button onClick={checkStorage}>check localStorage</button>
             <Header guest={props.guest} setGuest={props.setGuest}/>
                {/* <aside className={classes.aside}>
                     <div></div>
@@ -181,7 +205,7 @@ function Products(props) {
                                                     image={p?.image }
 
                                                     id={p?._id}
-                                                    
+                                                    description={p?.description}
                                                     />
                                        </div>
 
@@ -224,16 +248,16 @@ function Products(props) {
                                                         return <p key={k}>{aux?.name}</p>
                                                     })}
                                                     image={p?.image }
-
-                                                    // id={p?._id}
-                                                    // onClick={e => {HandleHistoryOnClick(
-                                                    //     e,
-                                                    //     p?.name,
-                                                    //     p?.price,
-                                                    //     p?.category,
-                                                    //     p?.image,
-                                                    //     p?._id
-                                                    //     )}}
+                                                    description={p?.description}
+                                                    id={p?._id}
+                                                    onClick={e => {HandleHistoryOnClick(
+                                                        e,
+                                                        p?.name,
+                                                        p?.price,
+                                                        p?.category,
+                                                        p?.image,
+                                                        p?._id
+                                                        )}}
                                                     />
                                         </div>
 
@@ -255,9 +279,11 @@ function Products(props) {
                     pageN = {pageN}
                 />
                 </div>
-                <Footer/>  
                  </section>
               
+        </div>
+        <Footer/>  
+
         </div>
         
     )

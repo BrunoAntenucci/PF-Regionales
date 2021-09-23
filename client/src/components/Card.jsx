@@ -11,8 +11,9 @@ import cartEmpty from '../img/cart-empty.png'
 import cartStock from '../img/outStock-cart.png'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProductToCart } from '../actions';
 import Fav from './Fav'; 
+//--------IMPORT ACTIONS-----------//
+import { addProductToCart, removeProductFromCart } from '../actions/index';
 
 const useStyles = makeStyles((e) =>({
   root: {
@@ -108,16 +109,17 @@ const useStyles = makeStyles((e) =>({
     
   }
 }));
-function Card({name,category, price, image, quantity, id}) {
+function Card({name,category, price, image, quantity, id, description}) {
 
     const classes = useStyles();
     
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
-   // console.log(id)
+    //console.log(id)
 
-    const handleCartClick = (name, price, image, id) => {
-      let historial = { 
+   const handleCartClick = async (id, name, category, price, image, quantity, description) => {
+     console.log("AGREGAR A CARRITO STORAGE")
+    let historial = { 
         items: [],
         total: 0
     };
@@ -125,43 +127,56 @@ function Card({name,category, price, image, quantity, id}) {
         product: {
             _id: id,
             price: parseInt(price),
-            name,
-            image,
+            name: name,
+            description: description,
+            image: image,
         },
-         quantity: 1,
+        quantity: 1,
         subTotal: parseInt(price)
-      }
-     //console.log( JSON.parse(localStorage.getItem("historyProducts")))
-      if (user) {
+    }
+
+    if (user) {
         dispatch(addProductToCart(item.product._id, parseInt(item.product.price)))
-   
-      }if(!localStorage.history && !user) {
-      historial.items.push(item)
-      historial.total += item.product.price;
-      return localStorage.setItem('history', JSON.stringify(historial));
-      } 
-      if (localStorage.history && !user) {
+    }
+    if(!localStorage.history && !user) {
+        historial.items.push(item)
+        historial.total += item.product.price;
+        return localStorage.setItem('history', JSON.stringify(historial));
+    } 
+    if (localStorage.history && !user) {
         historial = JSON.parse(localStorage.getItem('history'));
+        console.log("HISTORIAL: ", historial)
         for (var i=0; i<historial.items.length; i++) {
-          if (historial.items[i].product._id === item.product._id) {
-              historial.items[i].quantity++;
-              historial.items[i].subTotal += item.product.price;
-              historial.total += item.product.price;
-              return localStorage.setItem('history', JSON.stringify(historial));
-          } 
-      }
-      historial.total += item.product.price;
-      historial.items.push(item)
-      localStorage.setItem('history', JSON.stringify(historial));
-  }
-  }
+            if (historial.items[i].product._id === item.product._id) {
+                historial.items[i].quantity++;
+                historial.items[i].subTotal += item.product.price;
+                historial.total += item.product.price;
+                return localStorage.setItem('history', JSON.stringify(historial));
+            } 
+        }
+        historial.total += item.product.price;
+        historial.items.push(item)
+        localStorage.setItem('history', JSON.stringify(historial));
+    }
+}
+
+//------------------------------------------------
+
+console.log(`
+name=${name}, 
+category=${category}, 
+price=${price}, 
+image=${image}, 
+quantity=${quantity}, 
+id=${id}
+description=${description}
+`)
     
     return (
-      
-        <CardMUI 
+        
+        <CardMUI  
          className={classes.root}>
           <Fav id={id} />
-
           <Link to={'/detail/' + id}
            style={{textDecoration:"none"}}>
             
@@ -204,15 +219,15 @@ function Card({name,category, price, image, quantity, id}) {
           SIN STOCK 
             </Typography>
             <img alt="img not found" src={cartStock} className={classes.cartN}></img>
-          </div> :               
+          </div> : 
 
           <div className={classes.cardDiv}
-          onClick={() => handleCartClick(name, price, image, id)}>
+          onClick={() => handleCartClick(id, name, category, price, image, quantity, description)}>
           
         <Typography
         className={classes.cardTypo}
          variant="body1" color="primary" component="p">
-           añadir al carrito 
+           Añadir al carrito 
             </Typography>
           <img alt="img not found" src={cartEmpty} className={classes.cart}></img>
         </div>}
