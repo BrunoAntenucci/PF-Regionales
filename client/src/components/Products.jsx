@@ -275,7 +275,7 @@ function Products(props) {
                  </section>
               
         </div>
-        {/* <Footer/>   */}
+        <Footer/>  
 
         </div>
         
