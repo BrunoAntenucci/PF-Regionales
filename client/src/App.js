@@ -45,6 +45,7 @@ const theme = createTheme({
     palette: {
 
       primary: {
+        superLight:'#63ccff1a',
         light: '#63ccff',
         main: '#009be5',
         dark: '#006db3',
