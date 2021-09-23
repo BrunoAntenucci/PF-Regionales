@@ -19,18 +19,13 @@ const useStyles = makeStyles((theme) => ({
        display:"flex",
     //   flexDirection:"row",
     //   justifyContent:"center",
-
-
-
     margin: "230px 0 auto " ,
-    display: 'flex',
     textAlign: 'left',
-    marginLeft: '60px',
+    // marginLeft: '60px', <--- se sacooo
     '@media(max-width: 375px)':{
-        marginLeft: '30px',
+        // marginLeft: '30px', <---- se sacooo
         flexDirection: 'column',
   }
-
     },
     font: {
         marginLeft: '10px',
@@ -48,7 +43,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
     },
    
     section:{
-        margin:"0 "
+        margin:"0px"
     },
     gridCard:{
     minWidth:"350px",
@@ -230,15 +225,15 @@ function Products(props) {
                                                     })}
                                                     image={p?.image }
 
-                                                    id={p?._id}
-                                                    onClick={e => {HandleHistoryOnClick(
-                                                        e,
-                                                        p?.name,
-                                                        p?.price,
-                                                        p?.category,
-                                                        p?.image,
-                                                        p?._id
-                                                        )}}
+                                                    // id={p?._id}
+                                                    // onClick={e => {HandleHistoryOnClick(
+                                                    //     e,
+                                                    //     p?.name,
+                                                    //     p?.price,
+                                                    //     p?.category,
+                                                    //     p?.image,
+                                                    //     p?._id
+                                                    //     )}}
                                                     />
                                         </div>
 
