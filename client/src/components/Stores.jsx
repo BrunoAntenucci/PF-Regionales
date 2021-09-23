@@ -108,7 +108,7 @@ const Stores = () => {
          style={{height:"min-content", marginTop:"20px"}}
          
               variant="contained" color="primary">
-                <Link to='/products' style={{textDecoration:"none", color:"white"}}>volver</Link>
+                <Link to='/' style={{textDecoration:"none", color:"white"}}>volver</Link>
                  </Button>
         <div className={classes.root}>
             <div style={{ marginTop:"50px"}}>

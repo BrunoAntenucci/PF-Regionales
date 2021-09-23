@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import './App.css';
 import Home from './components/Home';
@@ -17,9 +17,7 @@ import StoreDetail from './components/StoreDetail'
 import ModifyStore from './components/ModifyStore'
 import { createTheme , ThemeProvider} from '@material-ui/core';
 import Header from "./components/Header";
-// import { useDispatch } from "react-redux";
-// import { guestMati } from "./actions";
-// import { userCheck } from "./actions";
+import Footer from './components/Footer'
 import ModifyProduct from "./components/ModifyProduct";
 import CategoryCreation from "./components/CategoryCreation";
 import ModifyCategory from "./components/ModifyCategory";
@@ -31,16 +29,58 @@ import Reviews from "./components/Reviews";
 import ForgotPass from "./components/Password/ForgotPass";
 import Redirect from "./components/Password/RedirectMail";
 import ResetPass from "./components/Password/ResetPass";
+import Main from "./components/AdminPanel2/main"
+
 
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
 import OrderDetail from "./components/OrderDetail";
-import Newsletter from "./components/Newsletter";
+import { useDispatch } from "react-redux";
+import { getOffers } from "./actions";
+
 
 
 
 const theme = createTheme({
     palette: {
+
+      primary: {
+        superLight:'#63ccff1a',
+        light: '#63ccff',
+        main: '#009be5',
+        dark: '#006db3',
+        superDark:"#081627"
+      },
+      secondary: {
+        light: '#f8bbd0',
+        main: '#f06292',
+        dark: '#f50057',
+        superDark:"#ab003c"
+      },
+    },
+    typography: {
+      h5: {
+        fontWeight: 500,
+        fontSize: 26,
+        letterSpacing: 0.5,
+      },
+    },
+    shape: {
+      borderRadius: 8,
+    },
+    components: {
+      MuiTab: {
+        defaultProps: {
+          disableRipple: true,
+        },
+      },
+    },
+    mixins: {
+      toolbar: {
+        minHeight: 48,
+      },
+      },
+
       // primary: {
       //   superLight:"#d0ebc133",
       //   light: '#d0ebc155',
@@ -91,48 +131,23 @@ const theme = createTheme({
       //     },
       //   },
       // },
+
     //   warning:{
 
     //   },
     //   info:{
 
     //   },
-      // success:{
-      //   main:"#55a"
-      // }
-      primary: {
-        light: '#63ccff',
-        main: '#009be5',
-        dark: '#006db3',
-      },
-    },
-    typography: {
-      h5: {
-        fontWeight: 500,
-        fontSize: 26,
-        letterSpacing: 0.5,
-      },
-    },
-    shape: {
-      borderRadius: 8,
-    },
-    components: {
-      MuiTab: {
-        defaultProps: {
-          disableRipple: true,
-        },
-      },
-    },
-    mixins: {
-      toolbar: {
-        minHeight: 48,
-      },
-    },
+
   });
 
 
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getOffers())
+  })
   return (
     
     <BrowserRouter>
@@ -167,9 +182,13 @@ function App() {
         <Route exact path = "/user/reset/:token" component={ResetPass}/>
         <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/admin" component = {Paperbase} />
+        <Route exact path = "/admin2" component = {Main} />
         {/* <Route exact path = "/orderdetail/:id" component = {OrderDetail} /> */}
         <Route exact path = "/" component = {Home} />
+
       </Switch>
+       {/* <Footer/> */}
+      
       </ThemeProvider>
     </BrowserRouter>
   );

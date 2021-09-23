@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Link} from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteUser, getAllUsers, getProducts, modifyProducts, deleteProducts, mailFav } from '../actions/index';
+import { deleteUser, getAllUsers, getProducts, modifyProducts, deleteProducts, mailFav, getProductDetail } from '../actions/index';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@mui/material/Paper';
@@ -78,25 +78,33 @@ const PanelProduct = () => {
     
     console.log(allUsers, "ALLUSER")
     
-    useEffect(async() => {
-     await dispatch(getProducts())
-      
+    useEffect(() => {
+     dispatch(getProducts())
     }, []);
 
 
-    const handleSendEmail = async (id, pro) => {
+    const handleSendEmail = async (id, quantity) => {
       
-        if(pro.quantity===0){
+        if(quantity===0){
           
           await dispatch(mailFav(id))};
         
       
     }
 
-    const handleStock = async (id, product) => {
-       product.quantity = product.quantity + 1
-       
-        await dispatch(modifyProducts(id, product))
+    const handleStock = async (id, image, name, category, quantity, price, description  ) => {
+       quantity = quantity + 1
+       //arr[i].id, arr[i].image, arr[i].name, arr[i].category[0]?.id, arr[i].quantity, arr[i].price, arr[i].description
+       var pro = {
+        image: image,
+        id: id, 
+        name: name, 
+        category: category,
+        quantity:  quantity,
+        price: price,
+        description: description
+       }
+        await dispatch(modifyProducts(id, pro))
         await dispatch(getProducts())
 
     }
@@ -129,31 +137,23 @@ const PanelProduct = () => {
     function createData(name, category, id, quantity, button, image, button2, button3) {
      category = category[1]
         return {name, category, id, quantity, button, image, button2, button3};
-      }
+    }
 
     let rows = [];
     for (let i = 0; i < arr.length; i++) {
-      var pro = {
-        image: arr[i].image,
-        id: arr[i]._id, 
-        name: arr[i].name, 
-        category: arr[i].category[0]?._id,
-        quantity:  arr[i].quantity,
-        price: arr[i].price,
-        description: arr[i].description
-       }
+      
         rows.push(createData(
             arr[i].name, 
             arr[i].category, 
             <Link to={`/detail/${arr[i].id}`}>{arr[i].id}</Link>,
             arr[i].quantity, 
            
-            <Button variant="outlined" color="success" onClick={() => {handleSendEmail(arr[i].id, pro)
-               handleStock(arr[i].id, pro)}}>+1</Button>,
+            <Button variant="outlined" color="success" onClick={() => {handleSendEmail(arr[i].id, arr[i].quantity)
+               handleStock(arr[i].id, arr[i].image, arr[i].name, arr[i].category[0]?.id, arr[i].quantity, arr[i].price, arr[i].description  )}}>+1</Button>,
             
             <img alt='img not found' width='50px' height='50px' src={arr[i].image}></img>,
             <Button variant="outlined" color="error" onClick={() => handleDeleteProd(arr[i].id, arr[i])}>BORRAR</Button>,
-            <Link to={`/modifyProduct/${arr[i].id}`} style={{textDecoration:"none", color:"white"}}><Button variant="outlined" color="secondary" >Modificar</Button></Link>,
+            <Link to={`/modifyProduct/${arr[i].id}`} style={{textDecoration:"none", color:"white"}}><Button variant="outlined" color="secondary">Modificar</Button></Link>,
             // <Button variant="outlined" color="error" onClick={() => handleStockM(arr[i].id, arr[i])}>-1</Button>,
         ));
     }

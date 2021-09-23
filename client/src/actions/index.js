@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { URL } from '../utils/constants';
 
+//---------PRODUCTS------------------------
+
 export function getProducts() {
     return async function (dispatch) {
         try {
@@ -49,6 +51,74 @@ export function deleteProducts(id, payload){
     }
 }
 
+export function postProducts(dataProduct){
+    
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                dataProduct: dataProduct
+            },
+            withCredentials: true,
+            url: "/petition/newPetition/product"
+          })
+          .then((res) => {
+            console.log("CREATE PRODUCT: ", res.data)
+            dispatch({
+                type: "POST_PRODUCT",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+    
+}
+
+export function modifyProducts(id, payload){
+    console.log(id, payload, "holitas")
+    return function(dispatch) {
+        return axios({
+            method: "PATCH",
+            data: payload,
+            withCredentials: true,
+            url: `/product/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES PATCH_PRODUCT: ", res.data)
+            dispatch({
+                type: "PATCH_PRODUCT",
+                payload: res.data
+            })
+          })
+    }
+}
+
+
+export function getProductDetail(id) {
+    console.log("GET PRODUCT DETAIL")
+    return async function(dispatch) {
+        try {
+            const prodDet = await axios.get('/product/' + id);
+            console.log("RETURN:", prodDet.data)
+            return dispatch({
+                type: 'GET_PRODUCT_DETAIL',
+                payload: prodDet.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+export function getFilterProducts (payload) {
+    return {
+        type: 'FILTER_PRODUCTS',
+        payload      
+    } 
+}
+
+//------------CATEGORIES--------------------
 
 export function getCategories() {
     return async function (dispatch) {
@@ -103,14 +173,13 @@ export function postCategory(dataCategory){
     
 }
 
-
 export function modifyCategory(id, payload){
     return function(dispatch) {
         return axios({
             method: "PATCH",
             data: payload,
             withCredentials: true,
-            url: `/petition/newPetition/categoryModify/${id}`
+            url: `/category/${id}`
           })
           .then((res) => {
             console.log("[ACTION]RES PATCH_CATEGORY: ", res.data)
@@ -122,49 +191,23 @@ export function modifyCategory(id, payload){
     }
 }
 
-
-export function postProducts(dataProduct){
-    
+export function deleteCategory(id){
     return function(dispatch) {
         return axios({
-            method: "post",
-            data: {
-                dataProduct: dataProduct
-            },
+            method: "DELETE",
             withCredentials: true,
-            url: "/petition/newPetition/product"
+            url: `/category/delete/${id}`
           })
           .then((res) => {
-            console.log("CREATE PRODUCT: ", res.data)
+            console.log("[ACTION]RES DELETE_CATEGORY: ", res.data)
             dispatch({
-                type: "POST_PRODUCT",
-                payload: res.data
-            })
-          })
-          .catch((err) => {
-              console.log(err)
-          })
-    }
-    
-}
-
-export function modifyProducts(id, payload){
-    return function(dispatch) {
-        return axios({
-            method: "PATCH",
-            data: payload,
-            withCredentials: true,
-            url: `/product/${id}`
-          })
-          .then((res) => {
-            console.log("[ACTION]RES PATCH_PRODUCT: ", res.data)
-            dispatch({
-                type: "PATCH_PRODUCT",
-                payload: res.data
+                type: "DELETE_CATEGORY",
             })
           })
     }
 }
+
+//----------------STORES----------------------
 
 export function postStore(dataStore){
     return function(dispatch) {
@@ -238,6 +281,23 @@ export function getStoreById(id){
     
 }
 
+export function deleteStore(id){
+    return function(dispatch) {
+        return axios({
+            method: "DELETE",
+            withCredentials: true,
+            url: `/store/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES DELETE_STORE: ", res.data)
+            dispatch({
+                type: "DELETE_STORE",
+            })
+          })
+    }
+}
+
+//-----------------ORDERS----------------------------
 
 export function getOrderDetail() {
     return function(dispatch) {
@@ -382,33 +442,13 @@ export function getUserOrdersByStatus(payload) {
 }
 
 
-export function getProductDetail(id) {
-    return async function(dispatch) {
-        try {
-            const prodDet = await axios.get('/product/' + id);
-            console.log(prodDet)
-            return dispatch({
-                type: 'GET_PRODUCT_DETAIL',
-                payload: prodDet.data
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }
-}
-export function getFilterProducts (payload) {
-    return {
-        type: 'FILTER_PRODUCTS',
-        payload      
-    } 
-}
-
 export function page(payload) {
     return {
         type: 'PAGE',
         payload
     }
 }
+
 //---------LOGING USER ----------------------
 export function signIn(userInfo) {
     return function(dispatch) {
@@ -1030,4 +1070,28 @@ export function deleteOrder(id) {
     }
 }
 
+export function getOffers() {
+    console.log("ACTION GET OFFERS")
+    return function(dispatch) {
+        return axios({
+            method: "GET",
+            withCredentials: true,
+            url: "/offers"
+        })
+        .then((res) => {
+            dispatch({
+                type: "GET_OFFERS",
+                payload: res.data
+            })
+        })
+    }
+}
 
+export function clearProDetail() {
+    return function(dispatch) {
+        dispatch({
+            type: "CLEAR_PROD_DETAIL",
+            payload: {}
+        })
+    }
+}

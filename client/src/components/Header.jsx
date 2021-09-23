@@ -86,7 +86,7 @@ function Header(props) {
                 <div className={classes.searchAndLogo}>
                 <button className={classes.buttonLogo}
                 onClick={(e) => handleClick(e)}>
-                  <Link to = '/products'><img src={imgLogo}   className={classes.logo} alt="logo"/></Link></button>
+                  <Link to = '/'><img src={imgLogo}   className={classes.logo} alt="logo"/></Link></button>
                 {/* <Link to="/products">
                 <img src={imgLogo}   className={classes.logo} alt="logo"/></Link> */}
                 

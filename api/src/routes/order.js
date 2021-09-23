@@ -71,7 +71,15 @@ router.post("/orderByStatus", async (req, res, next) => {
     console.log(`Filtrar ordenes por estado= ${orderStatus}`)
     if (userSessionID) {
         console.log("Filtrar ordenes del usuario en sesion.")
-        const user = await User.findById(userSessionID).populate("order")
+        const user = await User.findById(userSessionID).populate({
+            path: "order",
+            populate: {
+                path: "items",
+                populate: {
+                    path: "product"
+                }
+            }
+        })
         const ordersByStatus = await user.order.filter(order => order.status === orderStatus)
         console.log('orderByStatus',ordersByStatus);
         return res.status(200).send(ordersByStatus)

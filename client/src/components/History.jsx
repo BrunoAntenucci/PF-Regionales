@@ -11,12 +11,12 @@ root:{
    // padding: "0 10px 0 30px",
    width:"95vw",
    background:theme.palette.primary.light,
-   padding:"0 30px 0 0",
+//    padding:"0 30px 0 0",
     borderTop:"30px solid "+theme.palette.primary.main,
     //borderBottom:"30px solid "+theme.palette.primary.main,
     display:"flex",
    flexDirection:"row",
-    overflow:"auto",
+  flexWrap:"wrap",
    justifyContent:"center",
    "box-shadow": "inset 0 0 20px "+theme.palette.primary.main,
    '&::-webkit-scrollbar': {
@@ -45,6 +45,9 @@ root:{
 },
 typografy:{
     padding:"0 20px"
+},
+cardDiv:{
+    margin:"10px"
 }
 
 
@@ -71,13 +74,12 @@ return(<>
         
         {historyProducts?
     <div className={classes.root}>
-       <Typography className={classes.typografy}
-           variant="h4" component="h4" color="primary">
-       {/* últimos {historyProducts.length} productos  */}
-                </Typography>
+       
        
         {historyProducts.map((p,i )=>{
-            return(<Card  
+            return(
+            <div className={classes.cardDiv}>
+            <Card  
                 key={i}                  
                 name= {p?.name}
                 price={p?.price}
@@ -90,6 +92,7 @@ return(<>
                 id={p?.id}
                 
                 />
+                </div>
             )
            
         })}
