@@ -70,6 +70,7 @@ const MyOrders = () => {
     const user = useSelector(state => state.user);
     const orderDetail = useSelector(state => state.orderDetail);
     const stores = useSelector(state => state.stores)
+    const storeDetail = useSelector(state => state.storeDetail);
 
     console.log('detalles',orderDetail)
     
@@ -192,7 +193,7 @@ const MyOrders = () => {
                                             </p>
                                             <p> {order.createdAt}</p>
                                             {order.status==="Completa"?
-                                            <Link to={`/${storesId}/reviews`}>
+                                            <Link to={`/store/${storeDetail._id}/reviews`}>
                                                 <p>Tienda</p>
                                             </Link>
                                             :null}
