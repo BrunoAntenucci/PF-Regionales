@@ -391,7 +391,7 @@ function Home() {
          </div>
          :
        <div style={{textAlign:"center"}}>
-        <img src={NoHistory} style={{width:"45%",textAlign:"center"}}/>
+        <img src={NoHistory} style={{width:"25%",textAlign:"center"}}/>
         </div>  }  
         </section>
       </div>
