@@ -17,6 +17,7 @@ import { Button, Typography } from '@material-ui/core';
 //import cartEmpty from '../img/cart-empty.png'
 import iconChange from '../img/change-icon.png'
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
+import Footer from './Footer';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -102,9 +103,10 @@ const useStyles = makeStyles((theme) => ({
             background:"#eee",
             maxWidth: "4000px",
             minWidth:"450px",
+            height: 600,
             display:"flex",
             flexWrap:"wrap",
-            borderRadius: '1%',
+            // borderRadius: '1%',
     },
     revDiv:{
         display: "flex",
@@ -234,6 +236,7 @@ export default function StoreDetail(props){
 
     return (
         <div>
+            <div> 
             <div className={classes.titular}>
 
                 <Typography 
@@ -404,19 +407,9 @@ export default function StoreDetail(props){
                 : <Loading/>
             }
             </Grid>
+             {/* <Footer  style={{width:"100%"}}/> */}
 
-            {/* <div>{ownProducts.map((e) => <Card
-                                            name= {e?.name}
-                                            price={e?.price}
-                                            quantity={e?.quantity}
-                                            category={e?.category?.map((el, k) => {
-                                                const aux = categories.find(i => i._id === el)
-                                                return <p key={k}>{aux?.name}</p>
-                                                    })}
-                                            image={e?.image }
-                                            id={e?._id}/>
-                )}
-            </div> */}
+     </div>
         </div>
     )
 

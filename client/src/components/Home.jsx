@@ -38,7 +38,6 @@ const useStyles = makeStyles(e => ({
   }
 },
 
-
 typografy:{
   padding:"0 20px"
 },
@@ -78,16 +77,33 @@ borderRadius: '1%',
     color:e.palette.secondary.superDark,
     //background:"#ffffff32",
     flexWrap:"wrap",
+    // width:"1100x",
     padding:"0 20px",
     // borderBottom: `1px solid ${ e.palette.primary.dark}`,
     //borderTop: `3px solid ${ e.palette.secondary.dark}`,
     borderRadius:"2px"
   },link:{
-    padding:"10px",
+    padding:"15px",
     height:"fit-content",
     alignSelf:"center",
     textDecoration:"none",
-    color:e.palette.secondary.light
+    marginTop:"30px",
+    color:e.palette.secondary.light,
+    
+  },
+  link2:{
+    padding:"15px",
+    height:"fit-content",
+    alignSelf:"center",
+    textDecoration:"none",
+    marginTop:"30px",
+    color:e.palette.secondary.light,
+    '@media(max-width: 500px)':{
+      marginTop: '-60px',
+      // flexDirection: 'column',
+      marginRight:"55px",
+      
+    }
   },
   h1:{
     fontSize:"2.2em",
@@ -264,8 +280,9 @@ function Home() {
 
 
     return (
-      <>
       <div >
+      <>
+      {/* <div style= {{width: '115vw'}} > */}
       
             <Header />
         <div  className={classes.root}>
@@ -335,7 +352,7 @@ function Home() {
            
             <div className={classes.leyend}>
             <h1 className={classes.h1}>Basado en tu última visita</h1>
-            <Link className={classes.link} to="/history"><p>ver más</p></Link>
+            <Link className={classes.link2} to="/history"><p>ver más</p></Link>
             </div>
             {historyProducts?
             <div 
@@ -374,7 +391,7 @@ function Home() {
          </div>
          :
        <div style={{textAlign:"center"}}>
-        <img src={NoHistory} style={{width:"45%",textAlign:"center"}}/>
+        <img src={NoHistory} style={{width:"25%",textAlign:"center"}}/>
         </div>  }  
         </section>
       </div>
@@ -427,9 +444,10 @@ function Home() {
 
        
 
-      </div>
-       {/* <Footer  /> */}
+      {/* </div> */}
        </>
+       <Footer />
+       </div>
     )
 }
 

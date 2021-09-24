@@ -18,13 +18,26 @@ const useStyles = makeStyles((e)=>({
         flexDirection:"row",
         //flexWrap:"wrap",
         //width:"80%",
+        '@media(max-width: 375px)':{
+            // marginLeft: '30px',
+            flexDirection: 'column',
+            
+          }
     },
     storeImg:{
       backgroundImage:`url(${stores})`,
-      width:"800px",
+      width:"700px",
         height:"600px",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        '@media(max-width: 500px)':{
+            // marginLeft: '30px',
+            flexDirection: 'column',
+            width:"450px",
+            height:"400px",
+            
+          }
+        
     },
     divStores:{
         display:"flex",
@@ -43,12 +56,23 @@ const useStyles = makeStyles((e)=>({
        margin:"0",
        color:"#eee",
        fontSize:"1.5em",
-       textAlign:"center"
+       textAlign:"center",
        // position:"absolute",
-        //bottom:"300px"
+        //bottom:"300px",
+        '@media(max-width: 500px)':{
+            // marginLeft: '30px',
+            // flexDirection: 'column',
+            // width:"450px",
+            // height:"400px",
+            margin:"0",
+       color:"#eee",
+       fontSize:"0.9em",
+       textAlign:"center",
+          }
     },
     infoDiv:{
         position:"relative",
+
         margin:"0 auto",
         top:"75%",
         // left:"80px",
@@ -62,6 +86,16 @@ const useStyles = makeStyles((e)=>({
         //border: "1px solid #c3c3c3",
         display: "flex",
         flexWrap: "wrap",
+        '@media(max-width: 500px)':{
+            // marginLeft: '30px',
+            // flexDirection: 'column',
+            // width:"450px",
+            // height:"400px",
+            top:"66%",
+        left:"37%",
+       display:"flex",
+          }
+       
         
     },
     title:{
@@ -73,13 +107,21 @@ const useStyles = makeStyles((e)=>({
     },
     revDiv:{
         display: "flex",
-       marginTop: "100px",
+       marginTop: "70px",
         alignItems: 'center',
         flexDirection:"column",
         background:"#eee",
-        padding: "10px",
+        padding: "15px",
+        // height: 'fit-content',
         color: e.palette.text.secondary,
-        border: "1px solid #c3c3c3"
+        border: "1px solid #c3c3c3",
+        marginRight: '35px',
+        '@media(max-width: 500px)':{
+            
+            marginTop:"10px",
+            marginBottom: '20px'
+       
+          }
 
     },
     revbox: {
@@ -90,6 +132,9 @@ const useStyles = makeStyles((e)=>({
         background:"#eee",
         padding: "10px",
         color: e.palette.text.secondary,
+        margin: '10px',
+        
+        
 
     }
 }))
