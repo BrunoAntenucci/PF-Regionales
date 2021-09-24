@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
       boxShadow:" 10px 5px 5px #0002",
       borderRadius:"10px",
       width: "fit-content",
+      height:"100vh",
       margin:"30px auto",
       padding:"20px",
       background:"#eee",
@@ -106,6 +107,7 @@ const useStyles = makeStyles((theme) => ({
             height: 600,
             display:"flex",
             flexWrap:"wrap",
+            paddingBottom:"300px"
             // borderRadius: '1%',
     },
     revDiv:{
@@ -407,7 +409,7 @@ export default function StoreDetail(props){
                 : <Loading/>
             }
             </Grid>
-             {/* <Footer  style={{width:"100%"}}/> */}
+             <Footer/>
 
      </div>
         </div>

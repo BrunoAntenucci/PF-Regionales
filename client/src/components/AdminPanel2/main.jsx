@@ -13,29 +13,45 @@ import AdminAnalytics from "../AdminAnalytics";
 const useStyles = makeStyles(()=>({ 
     root:{
        display:"flex",
-       flexDirection:"row"
+       flexDirection:"row",
+       height:"100vh"
     },
     content:{
         width:"100vw"
     },
     components:{
-        margin:"30px 50px"
+        margin:"30px 50px",
+        height:"100%",
+        overflow:"auto"
     }
     }))
-    
+  
 function AdminPanel(){
     const classes = useStyles()
     const [component, setComponent] = React.useState("")
+    const [mobile,setMobile] = React.useState(false)
+   
+    React.useEffect(()=>{
+        if(window.screen.availWidth >800){
+            setMobile(true)
+        }
+        console.log(mobile,"mobile use effect")
+        console.log(window.screen.availWidth,"window.screen.availWidth use effect")
+    },[mobile])
     return(
         <>
         <div className={classes.root}>
         <Navigator
          setComp={setComponent}
+         mobile={mobile}
+         setMobile={setMobile}
         />
         <div className={classes.content}>
 
-        <Header/>  
-        <div className={classes.components}>
+        <Header setMobile={setMobile} mobile={mobile}/>  
+        <div className={classes.components}
+      
+        >
         {component === "Users" ? <Users />
             : component === "Create"? <MyStore/>
             : component === "Petitions"?  <Petitions />
