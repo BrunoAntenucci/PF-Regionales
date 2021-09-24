@@ -16,12 +16,13 @@ import { checkUser, getAllOrders, getAllPetitions, getAllUsers, getOrderDetail }
 const useStyles = makeStyles((e)=>({ 
 root:{
     width:"256px",
-    height:"100vh",
+    height:"100%",
     background:e.palette.primary.superDark,
     color:"white",
      '@media(max-width: 800px )':{
-     display:"none"
-   
+     display:"none",
+     zIndex:"10000000",
+      position:"absolute"
     }
     
 },
@@ -122,8 +123,24 @@ const role = useSelector(state => state.user.role)
     }
     console.log(props.comp, "props comp")
   }
+  const setDisplay = () =>{
+   if(props.mobile){
+     return "inline-block"
+   }else if(!props.mobile){
+     return "none"
+   }
+  }
+  const setBackground = () =>{
+    if(window.screen.availWidth >800){
+      return "#fff5"
+    }else if( window.screen.availWidth <800){
+      return "#0000"
+    }
+   }
     return(
-        <section className={classes.root}>
+        <section className={classes.root}
+        style={{display:setDisplay()}}
+        >
 
              <Typography className={classes.typo}
               variant="h6"> <Link to='/products' style={{textDecoration:"none",  color:"inherit"}}>
@@ -132,7 +149,17 @@ const role = useSelector(state => state.user.role)
                   <Typography className={classes.typo}
               variant="h6"> Hola {name.first_name}! </Typography> 
         
-            
+        
+                <Typography className={classes.typo}
+                  style={{cursor:"pointer", background:setBackground()}}
+                  onClick={()=>{
+
+                    props.setMobile(false)
+                  }}
+        variant="h6"> cerrar Navegador </Typography> 
+      
+
+
             <div className={classes.content}>
 
 
@@ -278,7 +305,10 @@ const role = useSelector(state => state.user.role)
               </div>
             </div>
             <Typography className={classes.typo}
-              variant="body1"> Role: {role} </Typography> 
+              variant="body1"> 
+              <Link style={{textDecoration:"none",color:"inherit",margin:"0",padding:"0"}}
+              to="/admin">R</Link>
+              ole: {role} </Typography> 
         </section>
     )
 }
