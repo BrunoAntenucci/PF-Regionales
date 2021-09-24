@@ -53,11 +53,11 @@ typografy:{
     // // overflow:"scroll",
    
     // minWidth: "1300px",
-    margin: '0 ',
+    margin: '0',
   },
   products:{
     // background:"#eaeff1",
-    margin:"0 auto",
+    margin:"0px auto",
     maxWidth: "1600px",
     minWidth:"250px",
     display:"flex",
@@ -74,8 +74,8 @@ borderRadius: '1%',
     margin: "0px 30px",
     //background: "rgb(83,83,83)",
     background:e.palette.primary.superLight,
-    // background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
-    color:e.palette.secondary.main,
+     background: "linear-gradient(60deg,  "+e.palette.primary.superLight+" 75%,"+e.palette.secondary.superLight+"  75%, "+e.palette.secondary.superLight+" 76%, "+e.palette.primary.superLight+" 76%, "+e.palette.primary.superLight+ " 78%, "+e.palette.secondary.superLight+"  75%, "+e.palette.secondary.superLight+" 78%, #fff)78%",
+    color:e.palette.secondary.superDark,
     //background:"#ffffff32",
     flexWrap:"wrap",
     padding:"0 20px",
@@ -121,20 +121,20 @@ borderRadius: '1%',
     // position:"absolute",
      //bottom:"300px"
  },
- infoDiv:{
-     position:"relative",
-     top:"75%",
-     left:"36%",
-    display:"flex",
-    flexDirection:"row",
-    flexWrap:"wrap",
+//  infoDiv:{
+//      position:"relative",
+//      top:"75%",
+//      margin:"0 auto",
+//     display:"flex",
+//     flexDirection:"row",
+//     flexWrap:"wrap",
    
-    alignContent:"center",
-   justifyContent:"center",
-   // width:"80%",
-   background:"#eee",
-   borderRadius:"10px"
-},
+//     alignContent:"center",
+//    justifyContent:"center",
+//    // width:"80%",
+//    background:"#eee",
+//    borderRadius:"10px"
+// },
 info:{
   margin:"0",
   color:"#eee",
@@ -146,7 +146,7 @@ info:{
 infoDiv:{
    position:"relative",
    top:"75%",
-   left:"36%",
+   margin:"0 auto",
   display:"flex",
     alignContent:"center",
    justifyContent:"center",
@@ -398,7 +398,8 @@ function Home() {
                 filterStores()?.map(store => {
                   return(
                       <>
-                      <Link to={`/storedetail/${store?._id}`}>
+                      <Link to={`/storedetail/${store?._id}`
+                     } style={{textDecoration:"none",color:"inherit"}} >
                       <div className={classes.divStore}>
                       <div  className={classes.storeImg}>
 

@@ -49,8 +49,10 @@ const useStyles = makeStyles((e)=>({
     },
     infoDiv:{
         position:"relative",
+        margin:"0 auto",
         top:"75%",
-        left:"37%",
+        // left:"80px",
+        // right:"80px",
        display:"flex",
          alignContent:"center",
         justifyContent:"center",
@@ -121,7 +123,7 @@ const Stores = () => {
                 allStores.map(store => {
                     return(
                         <>
-                        <Link to={`/storedetail/${store._id}`}  Style={{textDecoration:"none"}}>
+                        <Link to={`/storedetail/${store._id}`}  style={{textDecoration:"none"}}>
                         <div className={classes.divStore}>
                         <div  className={classes.storeImg}>
 
