@@ -51,7 +51,7 @@ router.get("/filter/:id", (req, res) => {
 
 });
 
-router.patch("/:id", [verifyToken, isSuperAdmin], async (req, res) => {
+router.patch("/:id", async (req, res) => {
     try {
         const {id} = req.params;
         await Category.findByIdAndUpdate({ _id: id },{ ...req.body });

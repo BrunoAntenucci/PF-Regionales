@@ -63,6 +63,10 @@ const storeSchema = new Schema({
     owner: {
         type: Schema.ObjectId,
         ref: "User"
+    },
+    isActive: {
+        type: Boolean,
+        default: true
     }
 }, { timestamps: true} )
 

@@ -215,7 +215,9 @@ export default function Navigator(props) {
           <Divider sx={{ mt: 2 }} />
         </Box>
 
-          <Divider sx={{ mt: 2 }} /> 
+            {(role=="Admin"||role=="superAdmin")?
+            <>
+            <Divider sx={{ mt: 2 }} /> 
           <Box sx={{ bgcolor: '#101F33' }}>
             <ListItem sx={{ py: 2, px: 3 }}>
               <ListItemText sx={{ color: '#fff' }}>Quality</ListItemText>
@@ -233,7 +235,10 @@ export default function Navigator(props) {
                 </ListItemButton>
               </ListItem>
             <Divider sx={{ mt: 2 }} />
-          </Box>
+            </Box>
+            </>:null}
+          
+         
       </List>
     </Drawer>
   );

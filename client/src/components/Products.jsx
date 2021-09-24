@@ -122,6 +122,11 @@ function Products(props) {
     //     const Storage = JSON.parse(localStorage.getItem('history'));
     //     console.log("STORAGE: ", Storage)
 
+    // function checkStorage() {
+    //     console.log("CHECK STORAGE")
+    //     const Storage = JSON.parse(localStorage.getItem('history'));
+    //     console.log("STORAGE: ", Storage)
+
     // }
     // function cleanStorage() {
     //     console.log("CHECK STORAGE")
@@ -133,6 +138,7 @@ function Products(props) {
     return (
         <div>
         <div className={classes.root}>
+        
             {/* <button onClick={cleanStorage}>borrar localStorage</button>
             <button onClick={checkStorage}>check localStorage</button> */}
             <Header guest={props.guest} setGuest={props.setGuest}/>
@@ -270,7 +276,7 @@ function Products(props) {
                  </section>
               
         </div>
-        {/* <Footer/>   */}
+        <Footer/>  
 
         </div>
         

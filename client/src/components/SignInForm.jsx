@@ -136,8 +136,8 @@ React.useEffect(()=>{
     },[])
     React.useEffect(()=>{
 
-      console.log("use effect useState user", userState)
-      if( userState.token ){
+      
+      if( userState._id){
         setErrorUser(false)
         history.push("/products")
       }else  if((!userState || userState == {} 
@@ -160,7 +160,7 @@ React.useEffect(()=>{
         e.preventDefault();
         //dispatch(signInGoogle())
     }
-    console.log(input)
+    console.log("use effect useState user", userState)
     async function handleSubmit(e) {
       setErrorUser(false)
       e.preventDefault();
