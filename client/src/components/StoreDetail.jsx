@@ -196,7 +196,7 @@ export default function StoreDetail(props){
 
     const detail = useSelector((state) => state.storeDetail);
     console.log(detail, 'DETAIL')
-
+    console.log(detail._id, 'id')
     const categories = useSelector((state) => state.categories);
     const products = useSelector((state) => state.products);
     const user = useSelector((state) => state.user);
@@ -302,12 +302,12 @@ export default function StoreDetail(props){
                         : null}    
                     </div>
 
-                    
-                    </div>
-                    <div className={classes.revDiv}>
-                        <Typography 
-                            variant="h5" 
-                            ml={1}>
+                        
+                        </div>
+                        <div className={classes.revDiv}>
+                            <Typography 
+                                variant="h5" 
+                                ml={1}>
                             Reviews
                         </Typography>
                     
@@ -338,6 +338,9 @@ export default function StoreDetail(props){
                                         </div>
                                     )
                             }) : null}
+                            <Link to={`/${detail._id}/reviews`}>
+                                                <p>Dejar Review</p>
+                                            </Link>
                 </div>
             </div>
             <div className={classes.buttonback}>
