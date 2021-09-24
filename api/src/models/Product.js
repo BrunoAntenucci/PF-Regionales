@@ -39,6 +39,10 @@ const ProductSchema = Schema({
     image: {
         type : String,
         required: true
+    },
+    isActive: {
+        type: Boolean,
+        default: true
     }
 }, {
     timestamps: true, versionKey: false

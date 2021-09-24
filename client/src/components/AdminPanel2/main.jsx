@@ -9,6 +9,7 @@ import MyOrders from "../MyOrders";
 import Orders from "../Orders";
 import PanelProduct from "../PanelProduct";
 import BarChart from "../BarChart";
+import AdminAnalytics from "../AdminAnalytics";
 const useStyles = makeStyles(()=>({ 
     root:{
        display:"flex",
@@ -42,7 +43,7 @@ function AdminPanel(){
             : component === "Orders"? <Orders />
             : component === "Products"? <PanelProduct />
             :  component === "Analytics"? <BarChart />
-            :  component === "Analytics"? <BarChart />
+            :  component === "AdminAnalytics"? <AdminAnalytics />
             : ""}
             </div>
         </div>
