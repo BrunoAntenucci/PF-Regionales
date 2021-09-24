@@ -113,39 +113,36 @@ const SignInForm = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const classes = useStyles();
-    var userState = useSelector(  (state) =>  state.user)
+    var userState = useSelector((state) => state.user)
 
     const [errorUser, setErrorUser] = React.useState(false)
     const [input, setInput] = useState({
         email : '',
         password:''
     })
-React.useEffect(()=>{
+// React.useEffect(()=>{
 
-    document.title ="Log In"
-    console.log("use effect render user", userState)
-    setErrorUser(false)
+//     document.title ="Log In"
+//     console.log("use effect render user", userState)
+//     setErrorUser(false)
    
-    if( userState.token ){
-      setErrorUser(false)
-      history.push("/products")
-    }
-    return(()=>{
-        document.title ="E-Market" 
-    })
-    },[])
+//     if( userState.token ){
+//       setErrorUser(false)
+//       history.push("/products")
+//     }
+//     return(()=>{
+//         document.title ="E-Market" 
+//     })
+//     },[])
     React.useEffect(()=>{
 
-      
-      if( userState._id){
-        setErrorUser(false)
-        history.push("/products")
-      }else  if((!userState || userState == {} 
-        || userState == "No user exist") && input.email.length > 5){
-        setErrorUser(true)
-      }
+      dispatch(checkUser())      
+      // if(userState._id){
+      //   setErrorUser(false)
+      //   history.push("/products")
+      // }
      
-      },[userState])
+      },[/*userState*/])
     
     // const [errors, setErrors] = useState({});
 
@@ -172,7 +169,14 @@ React.useEffect(()=>{
         await dispatch(guestCartToUserCart(guestCart))
         await localStorage.clear();
       }
-      dispatch(checkUser())
+      await dispatch(checkUser())
+      if(userState._id) {
+        console.log(useState)
+        setErrorUser(false)
+        history.push("/products")
+      } else {
+        setErrorUser(true)
+      }
       // if(!userState || userState == {} || userState == "No user exist"){
       //   setErrorUser(true)
       // }

@@ -105,8 +105,7 @@ function rootReducer(state = initialState, action) {
             }
         case "SIGN_IN": 
             return {
-                ...state,
-                user: action.payload
+                ...state
             }
         case "SIGN_UP":
             return {
