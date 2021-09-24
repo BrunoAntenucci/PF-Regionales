@@ -266,6 +266,21 @@ export function getStore(){
     
 }
 
+export function getStoreAll(){
+    return async function (dispatch) {
+        try {
+            const stores = await axios.get('/store/all');
+            return dispatch ({
+                type: 'GET_STORES',
+                payload: stores.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+}
+
 export function getStoreById(id){
     return async function (dispatch) {
         try {
@@ -292,6 +307,22 @@ export function deleteStore(id){
             console.log("[ACTION]RES DELETE_STORE: ", res.data)
             dispatch({
                 type: "DELETE_STORE",
+            })
+          })
+    }
+}
+
+export function reviveStore(id){
+    return function(dispatch) {
+        return axios({
+            method: "POST",
+            withCredentials: true,
+            url: `/store/revive/${id}`
+          })
+          .then((res) => {
+            console.log("[ACTION]RES REVIVE_STORE: ", res.data)
+            dispatch({
+                type: "REVIVE_STORE",
             })
           })
     }
@@ -839,6 +870,20 @@ export function getAllUsers() {
     }
 }
 
+export function getUsers() {
+    return async function (dispatch) {
+        try {
+            const allUsers = await axios.get('/user/all');
+            return dispatch ({
+                type: 'GET_USERS',
+                payload: allUsers.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 export function deleteUser(id) {
     return function(dispatch) {
         return axios({
@@ -853,6 +898,29 @@ export function deleteUser(id) {
             console.log("DELETE USER: ", res.data)
             dispatch({
                 type: "DELETE_USER",
+                payload: res.data
+            })
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+    }
+}
+
+export function reviveUser(id) {
+    return function(dispatch) {
+        return axios({
+            method: "post",
+            data: {
+                userId: id
+            },
+            withCredentials: true,
+            url: "/user/revive"
+          })
+          .then((res) => {
+            console.log("REVIVE USER: ", res.data)
+            dispatch({
+                type: "REVIVE_USER",
                 payload: res.data
             })
           })
