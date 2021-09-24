@@ -72,8 +72,11 @@ const useStyles = makeStyles((e)=>({
     },
     infoDiv:{
         position:"relative",
-        top:"66%",
-        left:"37%",
+
+        margin:"0 auto",
+        top:"75%",
+        // left:"80px",
+        // right:"80px",
        display:"flex",
          alignContent:"center",
         justifyContent:"center",
