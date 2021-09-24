@@ -17,19 +17,23 @@ import Footer from './Footer'
 const useStyles = makeStyles((theme) => ({
     root: {
        display:"flex",
+    //   flexDirection:"row",
+    //   justifyContent:"center",
+    // margin: "230px 0 auto " ,
+    // textAlign: 'left',
+    // marginLeft: '60px', <--- se sacooo
     flexDirection:"row",
      justifyContent:"center",
     margin: "230px 0 auto " ,
     // textAlign: 'left',
     // marginLeft: '60px',
     '@media(max-width: 375px)':{
-        marginLeft: '30px',
+        // marginLeft: '30px', <---- se sacooo
         flexDirection: 'column',
   }
-
     },
     font: {
-        marginLeft: '10px',
+       
         padding: "10px 20px",
         //marginTop: '10px',
         marginBottom: '0px',
@@ -44,7 +48,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
     },
    
     section:{
-        margin:"0 "
+        margin:"0px"
     },
     gridCard:{
     minWidth:"350px",
@@ -53,7 +57,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
     products:{
         background:"#eaeff1",
         maxWidth: "1800px",
-        minWidth:"450px",
+        minWidth:"250px",
         display:"flex",
         flexWrap:"wrap",
 
@@ -118,6 +122,11 @@ function Products(props) {
     //     const Storage = JSON.parse(localStorage.getItem('history'));
     //     console.log("STORAGE: ", Storage)
 
+    // function checkStorage() {
+    //     console.log("CHECK STORAGE")
+    //     const Storage = JSON.parse(localStorage.getItem('history'));
+    //     console.log("STORAGE: ", Storage)
+
     // }
     // function cleanStorage() {
     //     console.log("CHECK STORAGE")
@@ -129,6 +138,7 @@ function Products(props) {
     return (
         <div>
         <div className={classes.root}>
+        
             {/* <button onClick={cleanStorage}>borrar localStorage</button>
             <button onClick={checkStorage}>check localStorage</button> */}
             <Header guest={props.guest} setGuest={props.setGuest}/>
@@ -138,7 +148,7 @@ function Products(props) {
                 {/* <Button
          style={{height:"min-content" , marginTop:"10px"}}
          
-              variant="contained" color="primary">
+                variant="contained" color="primary">
                 <Link to='/' style={{textDecoration:"none", color:"white"}}>volver</Link>
                  </Button> */}
                 <section className={classes.section}>
@@ -253,6 +263,7 @@ function Products(props) {
                 : <Loading/>
             }
             </Grid>
+            
             
            <div className={classes.cpaginate}>
             <Paginate 

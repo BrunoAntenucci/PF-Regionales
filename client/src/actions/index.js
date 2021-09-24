@@ -77,6 +77,7 @@ export function postProducts(dataProduct){
 }
 
 export function modifyProducts(id, payload){
+    console.log(id, payload, "holitas")
     return function(dispatch) {
         return axios({
             method: "PATCH",
@@ -884,9 +885,26 @@ export function forgotPass(email){
         })
     }
 }
+
+export function getPass() {
+    return function(dispatch) {
+        return axios({
+            method: "get",
+            withCredentials: true,
+            url: "user/forgot"
+          })
+          .then((res) => {
+              console.log("GET PASS: ", res.data)
+            dispatch({
+                type: "GET_PASS",
+                payload: res.data
+            })
+          })
+    }
+}
 //2 - verifica el token --->get a /reset/:token
 export function getToken(token, userInfo){
-    return async function (dispatch){
+    return  function (dispatch){
         return axios ({
             method: "get",
             data: {

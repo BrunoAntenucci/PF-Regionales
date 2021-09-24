@@ -17,6 +17,7 @@ import { Button, Typography } from '@material-ui/core';
 //import cartEmpty from '../img/cart-empty.png'
 import iconChange from '../img/change-icon.png'
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
+import Footer from './Footer';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -100,11 +101,12 @@ const useStyles = makeStyles((theme) => ({
     },
     products:{
             background:"#eee",
-            maxWidth: "1800px",
+            maxWidth: "4000px",
             minWidth:"450px",
+            height: 600,
             display:"flex",
             flexWrap:"wrap",
-            borderRadius: '1%',
+            // borderRadius: '1%',
     },
     revDiv:{
         display: "flex",
@@ -116,21 +118,21 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.secondary,
 
     },
-    // content:{
-    //     display:"flex",
-    //     flexDirection:"row",
-    //     justifyContent:"center"
+    content:{
+        display:"flex",
+        flexDirection:"row",
+        justifyContent:"center"
 
 
-    // },
-    // info:{
-    //     background:"#fff",
-    //     padding:"10px",
-    //     borderRadius:"10px",
-    //     textAlign:"justify",
-    //     margin:"20px 0",
-    //     border:"1px solid"+theme.palette.primary.main
-    // },
+    },
+    info:{
+        background:"#fff",
+        padding:"10px",
+        borderRadius:"10px",
+        textAlign:"justify",
+        margin:"20px 0",
+        border:"1px solid"+theme.palette.primary.main
+    },
     // cname:{
     //     fontSize:"22px",
     //     color:"#333",
@@ -147,45 +149,45 @@ const useStyles = makeStyles((theme) => ({
         margin:"2px 40px",
        
     },
-    // cardDiv:{
-    //     display: "flex",
-    //     justifyContent: "center",
-    //     alignItems:"center",
-    //     flexDirection:"row",
-    //     padding:"3px 10px",
-    //     borderRadius:"10px",
-    //     background:theme.palette.primary.light,
-    //     cursor:"pointer",
-    //     border:"1px solid "+theme.palette.primary.main,
-    //     "&:hover":{
+    cardDiv:{
+        display: "flex",
+        justifyContent: "center",
+        alignItems:"center",
+        flexDirection:"row",
+        padding:"3px 10px",
+        borderRadius:"10px",
+        background:theme.palette.primary.light,
+        cursor:"pointer",
+        border:"1px solid "+theme.palette.primary.main,
+        "&:hover":{
 
-    //         background:theme.palette.primary.superLight,
+            background:theme.palette.primary.superLight,
           
-    //       },
-    //       "&:active":{
-    //         boxShadow:"inset  2px 2px 4px #0005"
-    //       }
-    //   },
-    //   cart:{
-    //     padding:"7px",
-    //     margin:"0 5px",
-    //     width:"16px",
+          },
+          "&:active":{
+            boxShadow:"inset  2px 2px 4px #0005"
+          }
+      },
+      cart:{
+        padding:"7px",
+        margin:"0 5px",
+        width:"16px",
        
-    //     height:"16px",
-    //     justifySelf: "end",
-    //     background:theme.palette.primary.main,
-    //      borderRadius:"50%",
-    //      border:"3px solid white",
-    //      cursor:"pointer",
+        height:"16px",
+        justifySelf: "end",
+        background:theme.palette.primary.main,
+         borderRadius:"50%",
+         border:"3px solid white",
+         cursor:"pointer",
              
     
         
-    //   },
-    //   cardTypo:{
-    //     height:"max-content",
-    //     padding:"3px 5px",
-    //     color:theme.palette.primary.dark,
-    //   }
+      },
+      cardTypo:{
+        height:"max-content",
+        padding:"3px 5px",
+        color:theme.palette.primary.dark,
+      }
   }));
 
 export default function StoreDetail(props){
@@ -234,6 +236,7 @@ export default function StoreDetail(props){
 
     return (
         <div>
+            <div> 
             <div className={classes.titular}>
 
                 <Typography 
@@ -361,15 +364,15 @@ export default function StoreDetail(props){
 
                                     <div 
 
-                                    onClick={e => {HandleHistoryOnClick(
-                                        e,
-                                        p?.name,
-                                        p?.price,
-                                        p?.category,
-                                        p?.image,
-                                        p?._id
-                                        )}}
-                                        >
+                                    // onClick={e => {HandleHistoryOnClick(
+                                    //     e,
+                                    //     p?.name,
+                                    //     p?.price,
+                                    //     p?.category,
+                                    //     p?.image,
+                                    //     p?._id
+                                    //     )}}
+                                        > 
                                     
                                             <h3>{p?.id}</h3>
 
@@ -404,45 +407,9 @@ export default function StoreDetail(props){
                 : <Loading/>
             }
             </Grid>
+             {/* <Footer  style={{width:"100%"}}/> */}
 
-            {/* <div>{ownProducts.map((e) => <Card
-                                            name= {e?.name}
-                                            price={e?.price}
-                                            quantity={e?.quantity}
-                                            category={e?.category?.map((el, k) => {
-                                                const aux = categories.find(i => i._id === el)
-                                                return <p key={k}>{aux?.name}</p>
-                                                    })}
-                                            image={e?.image }
-                                            id={e?._id}/>
-                )}
-<<<<<<< HEAD
-            </div>
-
-            <div>
-                <h2>Reviews</h2>
-                    {detail.reviews ? detail.reviews.map(review => {
-                            return(
-                                <div>
-                                    <p> {review.first_name}</p>
-                                    <p>={review.rating} </p>
-                                    <p>{review.comment}</p>
-                                    <p>{review.createdAt.substring(0, 10)}</p>
-                                </div>
-                            )
-                    }) : null}
-            </div>
-            <br/>
-            <div>
-                { 
-                <Link to={`/modifystore/${detail.id}`}>Editar tienda</Link>
-                }
-            </div>
-            {/* <div>
-                <Link to={`/store/${detail.id}/reviews`}>Reviews</Link>
-=======
->>>>>>> acb0d242120a2d8d76d512be35be5c075ea9767a
-            </div> */}
+     </div>
         </div>
     )
 

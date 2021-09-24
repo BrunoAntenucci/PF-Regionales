@@ -45,10 +45,18 @@ const theme = createTheme({
     palette: {
 
       primary: {
+        superLight:'#63ccff10',
         light: '#63ccff',
         main: '#009be5',
         dark: '#006db3',
         superDark:"#081627"
+      },
+      secondary: {
+        superLight:'#f8bbd030',
+        light: '#f8bbd0',
+        main: '#f06292',
+        dark: '#f50057',
+        superDark:"#ab003c"
       },
     },
     typography: {

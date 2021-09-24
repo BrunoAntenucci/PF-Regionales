@@ -10,6 +10,7 @@ import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import StyleIcon from '@mui/icons-material/Style';
 import { useDispatch, useSelector } from "react-redux";
 import { checkUser, getAllOrders, getAllPetitions, getAllUsers, getOrderDetail } from "../../actions";
 const useStyles = makeStyles((e)=>({ 
@@ -18,6 +19,10 @@ root:{
     height:"100vh",
     background:e.palette.primary.superDark,
     color:"white",
+     '@media(max-width: 800px )':{
+     display:"none"
+   
+    }
     
 },
 typo:{
@@ -111,6 +116,10 @@ const role = useSelector(state => state.user.role)
       props.setComp("Analytics")
       console.log(e.target.innerText)
     }
+    else if(e.target.innerText === "AdminAnalytics"){
+      props.setComp("AdminAnalytics")
+      console.log(e.target.innerText)
+    }
     console.log(props.comp, "props comp")
   }
     return(
@@ -130,9 +139,9 @@ const role = useSelector(state => state.user.role)
             <Typography className={classes.contentTypo}
               variant="body2"> Actions </Typography> 
               <div >
-                  {role=="Admin"?
-                  <>
-                   <div className={classes.contentActions}
+                  {
+                  role=="superAdmin"?<>
+                  <div className={classes.contentActions}
                    onClick={handleClick}>
                       <PeopleIcon/>
                  <Typography className={classes.contentActionsTypo}
@@ -168,11 +177,75 @@ const role = useSelector(state => state.user.role)
                variant="body1">Mis compras</Typography> 
                  </div><div className={classes.contentActions}
                   onClick={handleClick}>
-                 <LocalMallIcon/>
+                 <StyleIcon/>
                  <Typography className={classes.contentActionsTypo}
                 
                variant="body1">Products</Typography> 
                  </div>
+
+
+                 <div className={classes.content}>
+        <Typography className={classes.contentTypo}>Analytics</Typography>
+
+        <div className={classes.contentActions}
+                   onClick={handleClick}>
+                      <SettingsIcon />
+                 <Typography className={classes.contentActionsTypo}
+               variant="body1">Analytics</Typography> 
+                 </div>
+                 <div className={classes.contentActions}
+                   onClick={handleClick}>
+                      <StyleIcon />
+                 <Typography className={classes.contentActionsTypo}
+               variant="body1">AdminAnalytics</Typography> 
+                 </div>
+                  </div>
+                  
+                  </>
+                  :role=="Admin"?
+                  <>
+                   <div className={classes.contentActions}
+                  onClick={handleClick}>
+                 <AssignmentIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Orders</Typography> 
+                 </div>
+ <div className={classes.contentActions}
+                  onClick={handleClick}>
+                     <CreateIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Create</Typography> 
+                 </div>
+                 <div className={classes.contentActions}
+                  onClick={handleClick}>
+                     <LocalMallIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Mis compras</Typography> 
+                 </div><div className={classes.contentActions}
+                  onClick={handleClick}>
+                 <StyleIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Products</Typography> 
+                 </div>
+                 <div className={classes.content}>
+        <Typography className={classes.contentTypo}>Analytics</Typography>
+        <div className={classes.contentActions}
+                   onClick={handleClick}>
+                      <SettingsIcon />
+                 <Typography className={classes.contentActionsTypo}
+               variant="body1">Analytics</Typography> 
+                 </div>
+                 <div className={classes.contentActions}
+                   onClick={handleClick}>
+                      <StyleIcon />
+                 <Typography className={classes.contentActionsTypo}
+               variant="body1">AdminAnalytics</Typography> 
+                 </div>
+                  </div>
                   </>:
                   role=="User"?
                   <>
@@ -192,7 +265,7 @@ const role = useSelector(state => state.user.role)
                variant="body1">Mis compras</Typography> 
                  </div><div className={classes.contentActions}
                   onClick={handleClick}>
-                 <LocalMallIcon/>
+                 <StyleIcon/>
                  <Typography className={classes.contentActionsTypo}
                 
                variant="body1">Products</Typography> 
@@ -200,15 +273,7 @@ const role = useSelector(state => state.user.role)
                   </>
                   :""
                   }
-               <div className={classes.content}>
-        <Typography className={classes.contentTypo}>Analytics</Typography>
-        <div className={classes.contentActions}
-                   onClick={handleClick}>
-                      <SettingsIcon />
-                 <Typography className={classes.contentActionsTypo}
-               variant="body1">Analytics</Typography> 
-                 </div>
-                  </div>
+             
                 
               </div>
             </div>

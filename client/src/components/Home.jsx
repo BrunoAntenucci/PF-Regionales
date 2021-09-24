@@ -18,26 +18,25 @@ const useStyles = makeStyles(e => ({
   root:{
     // marginTop:"-50px ",
    // padding: "0 10px 0 30px",
-   width:"100vw",
- 
-   background:e.palette.primary.light,
-   padding:"0 30px 0 0",
+   
+    width:"100%",
+   background:e.palette.primary.superLight,
+   //padding:"0 30px 0 0",
   //  borderTop:"30px solid "+e.palette.primary.main,
   //  borderBottom:"30px solid "+e.palette.primary.main,
    borderTop: e.palette.primary.main,
    borderBottom: e.palette.primary.main,
-
-   display:"flex",
-   flexDirection:"row",
-    overflow:"scroll",
+    overflow:"auto",
+  //  display:"flex",
+  //  flexDirection:"row",
+  
     
   '@media(max-width: 375px)':{
     // marginLeft: '30px',
     flexDirection: 'column',
-    overflow:"scroll",
+    
   }
 },
-
 
 typografy:{
   padding:"0 20px"
@@ -57,11 +56,13 @@ typografy:{
   },
   products:{
     // background:"#eaeff1",
-    maxWidth: "1800px",
-    minWidth:"450px",
+    margin:"0px auto",
+    maxWidth: "1600px",
+    minWidth:"250px",
     display:"flex",
+    justifyContent:"center",
     flexWrap:"wrap",
-
+    marginBottom:"20px",
 borderRadius: '1%',
 
 
@@ -70,19 +71,39 @@ borderRadius: '1%',
     display:"flex",
     flexDirection:"row",
     margin: "0px 30px",
-    background: "rgb(83,83,83)",
-    background:e.palette.primary.light,
-    // background: "linear-gradient(60deg, #ffffff 0%, "+e.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.primary.light+" 76%, "+e.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
-    color:e.palette.secondary.main,
+    //background: "rgb(83,83,83)",
+    background:e.palette.primary.superLight,
+     background: "linear-gradient(60deg,  "+e.palette.primary.superLight+" 75%,"+e.palette.secondary.superLight+"  75%, "+e.palette.secondary.superLight+" 76%, "+e.palette.primary.superLight+" 76%, "+e.palette.primary.superLight+ " 78%, "+e.palette.secondary.superLight+"  75%, "+e.palette.secondary.superLight+" 78%, #fff)78%",
+    color:e.palette.secondary.superDark,
     //background:"#ffffff32",
     flexWrap:"wrap",
+    // width:"1100x",
+    padding:"0 20px",
     // borderBottom: `1px solid ${ e.palette.primary.dark}`,
     //borderTop: `3px solid ${ e.palette.secondary.dark}`,
     borderRadius:"2px"
   },link:{
-    margin:"50px 30px 0px 20px",
+    padding:"15px",
+    height:"fit-content",
+    alignSelf:"center",
     textDecoration:"none",
-    color:e.palette.secondary.light
+    marginTop:"30px",
+    color:e.palette.secondary.light,
+    
+  },
+  link2:{
+    padding:"15px",
+    height:"fit-content",
+    alignSelf:"center",
+    textDecoration:"none",
+    marginTop:"30px",
+    color:e.palette.secondary.light,
+    '@media(max-width: 500px)':{
+      marginTop: '-60px',
+      // flexDirection: 'column',
+      marginRight:"55px",
+      
+    }
   },
   h1:{
     fontSize:"2.2em",
@@ -116,20 +137,20 @@ borderRadius: '1%',
     // position:"absolute",
      //bottom:"300px"
  },
- infoDiv:{
-     position:"relative",
-     top:"75%",
-     left:"36%",
-    display:"flex",
-    flexDirection:"row",
-    flexWrap:"wrap",
+//  infoDiv:{
+//      position:"relative",
+//      top:"75%",
+//      margin:"0 auto",
+//     display:"flex",
+//     flexDirection:"row",
+//     flexWrap:"wrap",
    
-    alignContent:"center",
-   justifyContent:"center",
-   // width:"80%",
-   background:"#eee",
-   borderRadius:"10px"
-},
+//     alignContent:"center",
+//    justifyContent:"center",
+//    // width:"80%",
+//    background:"#eee",
+//    borderRadius:"10px"
+// },
 info:{
   margin:"0",
   color:"#eee",
@@ -141,7 +162,7 @@ info:{
 infoDiv:{
    position:"relative",
    top:"75%",
-   left:"36%",
+   margin:"0 auto",
   display:"flex",
     alignContent:"center",
    justifyContent:"center",
@@ -191,21 +212,39 @@ function Home() {
     }
     const filterhistory = () =>{
       var arr = []
-      for (let i = 0; i < 4; i++) {
+      if(historyProducts.length>=4){
+        for (let i = 0; i < 4; i++) {
         
           arr.push(historyProducts[i])        
         
       }
+      }else{
+        for (let i = 0; i < historyProducts.length; i++) {
+        
+          arr.push(historyProducts[i])        
+        
+      }
+      }
+      
       return arr
 
     }
     const filterStores = () =>{
       var arr = []
-      for (let i = 0; i < 3; i++) {
+      if(allStores.length>=3){
+        for (let i = 0; i < 3; i++) {
         
           arr.push(allStores[i])        
         
       }
+    }else{
+        for (let i = 0; i < allStores.length; i++) {
+        
+          arr.push(allStores[i])        
+        
+      }
+      }
+     
       return arr
 
     }
@@ -242,6 +281,8 @@ function Home() {
 
     return (
       <div >
+      <>
+      {/* <div style= {{width: '115vw'}} > */}
       
             <Header />
         <div  className={classes.root}>
@@ -249,10 +290,12 @@ function Home() {
            
             <div className={classes.leyend}>
              <h1 className={classes.h1}> Productos</h1>
-             <Link className={classes.link} to="/products"><p>ver más</p></Link>
+             <Link className={classes.link} 
+      
+             to="/products"><p>ver más</p></Link>
             </div>
             <Grid 
-                    container direction="row"
+                container direction="row"
                 justifyContent="center"
                 alignItems="flex-start"
                 className={classes.products}>  
@@ -309,15 +352,15 @@ function Home() {
            
             <div className={classes.leyend}>
             <h1 className={classes.h1}>Basado en tu última visita</h1>
-            <Link className={classes.link} to="/history"><p>ver más</p></Link>
+            <Link className={classes.link2} to="/history"><p>ver más</p></Link>
             </div>
-            <Grid 
+            {historyProducts?
+            <div 
                     container direction="row"
                 justifyContent="center"
                 alignItems="flex-start"
                 className={classes.products}>  
           
-           
             {
                 filterhistory()?.map((p,i )=>{
                   return (
@@ -345,7 +388,11 @@ function Home() {
                   )
               })
             }
-         </Grid>    
+         </div>
+         :
+       <div style={{textAlign:"center"}}>
+        <img src={NoHistory} style={{width:"25%",textAlign:"center"}}/>
+        </div>  }  
         </section>
       </div>
 
@@ -355,7 +402,7 @@ function Home() {
            
             <div className={classes.leyend}>
             <h1 className={classes.h1}> Tiendas</h1>
-            <Link className={classes.link} to="/store"><p>ver más</p></Link>
+            <Link className={classes.link} to="/stores"><p>ver más</p></Link>
             </div>
             <Grid 
                     container direction="row"
@@ -368,7 +415,7 @@ function Home() {
                 filterStores()?.map(store => {
                   return(
                       <>
-                      <Link to={`/storedetail/${store?._id}`} style={{textDecoration:"none"}}>
+                      <Link to={`/storedetail/${store?._id}`} style={{textDecoration:"none",color:"inherit"}}>
                       <div className={classes.divStore}>
                       <div  className={classes.storeImg}>
 
@@ -393,8 +440,13 @@ function Home() {
       </div>
      
         
-        <Footer  />
-      </div>
+
+       
+
+      {/* </div> */}
+       </>
+       <Footer />
+       </div>
     )
 }
 
