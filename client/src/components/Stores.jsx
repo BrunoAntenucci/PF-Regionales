@@ -74,7 +74,7 @@ const useStyles = makeStyles((e)=>({
         position:"relative",
 
         margin:"0 auto",
-        top:"75%",
+        top:"65%",
         // left:"80px",
         // right:"80px",
        display:"flex",
@@ -108,6 +108,10 @@ const useStyles = makeStyles((e)=>({
     revDiv:{
         display: "flex",
        marginTop: "70px",
+       width:"300px",
+       overflow:"auto",
+       maxHeight:"530px",
+       borderRadius:"10px",
         alignItems: 'center',
         flexDirection:"column",
         background:"#eee",
