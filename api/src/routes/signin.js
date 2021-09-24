@@ -23,14 +23,14 @@ router.post("/", (req, res, next) => {
         else {
             req.logIn(user, (err) => {
                 if(err) return console.log(`Error signin: ${err}`);
-                // res.send("Logeado")
                 console.log("Logueado: ", req.user)
             }) 
         }
-        const token = jwt.sign({id: user._id}, config.SECRET,{
-        expiresIn: 86400 //24hs
-        })
-        return res.json({token})
+        return res.send("Logeado")
+        // const token = jwt.sign({id: user._id}, config.SECRET,{
+        // expiresIn: 86400 //24hs
+        // })
+        // return res.json({token})
       
     })(req, res, next)
 

@@ -415,8 +415,7 @@ function Home() {
                 filterStores()?.map(store => {
                   return(
                       <>
-                      <Link to={`/storedetail/${store?._id}`
-                     } style={{textDecoration:"none",color:"inherit"}} >
+                      <Link to={`/storedetail/${store?._id}`} style={{textDecoration:"none",color:"inherit"}}>
                       <div className={classes.divStore}>
                       <div  className={classes.storeImg}>
 
