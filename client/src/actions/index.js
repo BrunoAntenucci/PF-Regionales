@@ -254,7 +254,7 @@ export function modifyStore(id, payload){
 export function getStore(){
     return async function (dispatch) {
         try {
-            const stores = await axios.get('/store');
+            const stores = await axios.get('/store/actives');
             return dispatch ({
                 type: 'GET_STORES',
                 payload: stores.data
