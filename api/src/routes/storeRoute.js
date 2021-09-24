@@ -1,11 +1,9 @@
 const { Router } = require('express');
 const router = Router();
 const Store = require('../models/store/store.js');
-const verifyToken  = require ("../middlewares/authJwt");
-const isAdmin = require ("../middlewares/authJwt");
 const User = require("../models/user/user");
 
-router.post("/", [verifyToken, isAdmin], async (req, res) => {
+router.post("/", async (req, res) => {
     const {name, description, city, products, address, reputation} = req.body; 
     console.log(req.body)
     if (!name || !description || !city  || !products || !address || !reputation) {
@@ -18,7 +16,7 @@ router.post("/", [verifyToken, isAdmin], async (req, res) => {
     res.json(store);
 });
 
-router.get('/', async (req, res) => {
+router.get('/all', async (req, res) => {
     try{
         const name = req.query.name;
         if(name) {
@@ -31,6 +29,14 @@ router.get('/', async (req, res) => {
     } catch(error){
         res.status(500).send(error)
     }
+})
+router.get("/actives", async(req, res, next) => {
+    const storesActives = await Store.find({isActive: true})
+    return res.status(200).send(storesActives);
+})
+router.get("/inactives", async(req, res, next) => {
+    const storesInactives = await Store.find({isActive: false})
+    return res.status(200).send(storesInactives)
 })
 
 router.get('/:id', async (req, res) => {
@@ -63,23 +69,44 @@ router.patch('/:id', async (req, res) => {
     }
 }) 
 
-router.delete('/:id',[verifyToken, isAdmin], async (req, res) => {
+router.delete('/:id', async(req, res) => {
     const userSessionID = req?.session?.passport?.user
     try {
         const storeCheck = await Store.findById(req.params.id)
         const user = await User.findById(userSessionID)
         if (user.role === "SuperAdmin" || storeCheck.owner.toString() === userSessionID) {
             console.log(`El usuario ${user.name} es SuperAdmin o es el dueño de la Store.`)
-            const store = await Store.findByIdAndDelete(req.params.id)
-            return res.status(200).send(`Store ${store.name} eliminada con exito!`)
+            const store = await Store.findById(req.params.id)
+            store.isActive = false; 
+            await store.save()
+            return res.status(200).send(`Store ${store.name} fue puesta inactiva con exito!`)
         } else {
             console.log(`El usuario con id= ${userSessionID} NO es el dueño de la Store ni SuperAdmin.`)
-            return res.send(`La store ${store.name} no es suya y no podra eliminarla.`)
+            return res.send(`La store ${store.name} no es suya y no podra ponerla como inactiva.`)
         }
     } catch(error) {
         return res.status(500).send(error)
     }
-}) 
+})
+router.post('/revive/:id', async(req, res) => {
+    const userSessionID = req?.session?.passport?.user
+    try {
+        const storeCheck = await Store.findById(req.params.id)
+        const user = await User.findById(userSessionID)
+        if (user.role === "SuperAdmin" || storeCheck.owner.toString() === userSessionID) {
+            console.log(`El usuario ${user.name} es SuperAdmin o es el dueño de la Store.`)
+            const store = await Store.findById(req.params.id)
+            store.isActive = true; 
+            await store.save()
+            return res.status(200).send(`Store ${store.name} fue revivida con exito!`)
+        } else {
+            console.log(`El usuario con id= ${userSessionID} NO es el dueño de la Store ni SuperAdmin.`)
+            return res.send(`La store ${store.name} no es suya y no podra revivirla.`)
+        }
+    } catch(error) {
+        return res.status(500).send(error)
+    }
+})
 router.post('/:id/reviews', async (req, res) => {
     const userSessionID = req?.session?.passport?.user
     const { rating, comment } = req.body;

@@ -2,22 +2,28 @@ const { Router } = require("express");
 const User = require("../models/user/user");
 const PaymentInfo = require("../models/user/payment_info")
 const ShipInfo = require("../models/user/ship_info")
-const Guest = require("../models/guest/guest");
+const Store = require("../models/store/store");
 const async = require("async")
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const Cart = require("../models/cart/cart");
-const verifyToken  = require ("../middlewares/authJwt");
-const isSuperAdmin = require ("../middlewares/authJwt");
 const bcrypt = require("bcryptjs");
+const Product = require("../models/Product");
 
 const router = Router();
 
 router.get("/",(req, res, next) => {
-    User.find({}, (err, users) => {
+    User.find({isActive: true}, (err, users) => {
         res.status(200).send(users)
     })
 });
+
+router.get("/inactives",(req, res, next) => {
+    User.find({isActive: false}, (err, users) => {
+        res.status(200).send(users)
+    })
+});
+
 
 router.get("/all", (req, res, next) => {
     User.find({}, (err, users) => {
@@ -31,18 +37,57 @@ router.get("/all", (req, res, next) => {
     })
 })
 
-router.get("/guest", (req, res, next) => {
-    Guest.find({}, (err, guests) => {
-        res.status(200).send(guests)
+
+router.delete("/delete", async(req, res, next) => {
+    const { userId } = req.body;
+    const user = await User.findById(userId);
+    user.isActive = false;
+    await user.save()
+        .then(() => {
+            console.log(`Usuario ${user.email} ahora es inactivo`)
+        })
+        .catch((err) => {
+            next(err)
+        })
+    const products = await Product.find({user: userId});
+    console.log("Productos de ese usuario: ", products)
+    products.forEach(async(product) => {
+        product.isActive = false;
+        await product.save()
     })
+    const stores = await Store.find({owner: userId});
+    console.log("Stores de ese usuario: ", stores)
+    stores.forEach(async(store) => {
+        store.isActive = false;
+        await store.save()
+    })
+    return res.status(200).send(`Se eliminó el usuario, sus productos y sus tiendas.`)
 })
 
-router.delete("/delete", (req, res, next) => {
+router.post("/revive", async(req, res, next) => {
     const { userId } = req.body;
-    User.findByIdAndRemove(userId)
-    .then((result) => {
-        res.status(200).send(`User with id= ${result._id} removed.`)
+    const user = await User.findById(userId);
+    user.isActive = true;
+    await user.save()
+        .then(() => {
+            console.log(`Usuario ${user.email} ahora es activo nuevamente`)
+        })
+        .catch((err) => {
+            next(err)
+        })
+    const products = await Product.find({user: userId});
+    console.log("Productos de ese usuario: ", products)
+    products.forEach(async(product) => {
+        product.isActive = true;
+        await product.save()
     })
+    const stores = await Store.find({owner: userId});
+    console.log("Stores de ese usuario: ", stores)
+    stores.forEach(async(store) => {
+        store.isActive = true;
+        await store.save()
+    })
+    return res.status(200).send(`Se revivio al usuario, sus productos y sus tiendas.`)
 })
 
 router.get("/forgot", (req, res, next) => {

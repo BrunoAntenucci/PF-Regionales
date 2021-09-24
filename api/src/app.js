@@ -8,7 +8,6 @@ const morgan = require('morgan');
 const routes = require("./routes/index");
 const flash = require("connect-flash");
 const createRoles = require("./libs/initialSetup")
-const offers = require("./middlewares/offers")
 //const cookieSession = require("cookie-session");
 const server = express();
 createRoles(server);
@@ -24,7 +23,7 @@ server.use(express.urlencoded({ extended: true}));
 server.use(express.json());
 server.use(cors({
 
-  origin: "https://pf-regionales.vercel.app", // DEPLOY: https://pf-regionales.vercel.app // DEV: http://localhost:3000
+  origin: "http://localhost:3000", // DEPLOY: https://pf-regionales.vercel.app // DEV: http://localhost:3000
   credentials: true
 }));
 server.use(session({
@@ -41,7 +40,7 @@ server.use((req, res, next) => { //para mostrar el mensaje de flash
   next();
 })
 //--------------------------------ROUTES-------------------------------------------------------------//
-server.use("/", /*offers,*/ routes);
+server.use("/", routes);
 
 //--------------------------------CONTROL GENERALIZADO DE ERRORES-----------------------------------//
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
@@ -53,35 +52,3 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 //--------------------------------EXPORT------------------------------------------------------------//
 module.exports = server;
 
-
-
-// server.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); 
-//   res.header('Access-Control-Allow-Credentials', true);
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-//   next();
-// });
-
-// server.use(cookieSession({
-//   maxAge: 48 * 60 * 60 * 1000,
-//   keys: ["grupo09"]
-// }))
-// server.use(session({
-//   secret: "grupo09",
-//   //cookie: {
-//     //  secure: true
-//     //},
-//     resave: true,
-//     saveUninitialized: true,
-//     //store: new MongoStore({ mongooseConnection: moongose.connection })
-//   }))
-// server.use(cookieParser("grupo09"));
-// server.use(flash());
-// server.use(passport.initialize());
-// server.use(passport.session());
-
-// server.use((req, res, next) => { //para mostrar el mensaje de flash
-//   server.locals.singupMessage = req.flash("singupMessage")
-//   next();
-// })

@@ -368,7 +368,7 @@ function Home() {
                 filterStores()?.map(store => {
                   return(
                       <>
-                      <Link to={`/storedetail/${store?._id}`}>
+                      <Link to={`/storedetail/${store?._id}`} style={{textDecoration:"none"}}>
                       <div className={classes.divStore}>
                       <div  className={classes.storeImg}>
 
