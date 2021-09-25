@@ -1,7 +1,7 @@
 import * as React from 'react';
 // import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import { deleteStore, getStore } from '../actions/index';
+import { deleteStore, getStoreAll, reviveStore } from '../actions/index';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@mui/material/Paper';
@@ -32,6 +32,12 @@ const columns = [
       align: 'center',
     },
     {
+      id: 'active',
+      label: 'Is Active?',
+      minWidth: 170,
+      align: 'center',
+    },
+    {
       id: 'img',
       label: '',
       minWidth: 170,
@@ -58,11 +64,16 @@ const columns = [
 
 const StoresAdmin = () => {
     const dispatch = useDispatch();
+    
     const stores = useSelector(state => state.stores);
 
-    const handleDelete = async (id) => {
-        await dispatch(deleteStore(id));
-        await dispatch(getStore());
+    const handleDelete = async (id, active) => {
+        if(active === 'Active'){
+          await dispatch(deleteStore(id));
+        }else{
+          await dispatch(reviveStore(id))
+        }
+          await dispatch(getStoreAll());
     }
 
 
@@ -72,13 +83,14 @@ const StoresAdmin = () => {
             id: store._id, 
             name: store.name, 
             img: store.img,
-            owner: store.owner
+            owner: store.owner,
+            active: store.isActive ? 'Active' : 'Inactive'
     })
     });
     console.log(arr);
 
-    function createData(name, id, img, owner, button) {
-        return { name, id, img, owner, button };
+    function createData(name, id, img, owner, active, button) {
+        return { name, id, img, owner, active, button };
       }
 
     let rows = [];
@@ -87,8 +99,9 @@ const StoresAdmin = () => {
             arr[i].name, 
             arr[i].id,
             <img src={arr[i].img} height='40px' width='70px'/>,
-            arr[i].owner,   
-            <Button variant="outlined" color="error" onClick={() => handleDelete(arr[i].id)}>Eliminar</Button>,
+            arr[i].owner, 
+            arr[i].active,  
+            <Button variant="outlined" color="error" onClick={() => handleDelete(arr[i].id, arr[i].active)}>Activo/Inactivo</Button>,
             // <Button variant="outlined" color="error">
             //     <Link to = {`/modifycategory/${arr[i].id}`}  style={{textDecoration:"none", }}>Modificar</Link>
             // </Button>
