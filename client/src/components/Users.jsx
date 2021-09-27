@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteUser, getAllUsers } from '../actions/index';
+import { deleteUser, reviveUser, getUsers } from '../actions/index';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@mui/material/Paper';
@@ -29,6 +29,12 @@ const columns = [
       align: 'center',
     },
     {
+      id: 'active',
+      label: 'Is Active?',
+      minWidth: 170,
+      align: 'center',
+    },
+    {
       id: 'button',
       label: '',
       minWidth: 100,
@@ -48,11 +54,16 @@ const columns = [
 
 const Users = () => {
     const dispatch = useDispatch();
+
     const allUsers = useSelector(state => state.users);
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (id, active) => {
+      if(active === 'Active'){
         await dispatch(deleteUser(id));
-        await dispatch(getAllUsers());
+      }else{
+        await dispatch(reviveUser(id));
+      }
+        await dispatch(getUsers());
     }
 
     let arr = [];
@@ -61,12 +72,14 @@ const Users = () => {
             id: user._id, 
             firstName: user.first_name, 
             lastName: user.last_name, 
-            role: user?.role});
+            role: user?.role,
+            active: user.isActive ? 'Active' : 'Inactive'
+          })
     });
     console.log(arr);
 
-    function createData(first_name, last_name, id, role, button) {
-        return { first_name, last_name, id, role, button };
+    function createData(first_name, last_name, id, role, active, button) {
+        return { first_name, last_name, id, role, active, button };
       }
 
     let rows = [];
@@ -75,8 +88,9 @@ const Users = () => {
             arr[i].firstName, 
             arr[i].lastName, 
             arr[i].id, 
-            arr[i].role, 
-            <Button variant="outlined" color="error" onClick={() => handleDelete(arr[i].id)}>Eliminar</Button>
+            arr[i].role,
+            arr[i].active, 
+            <Button variant="outlined" color="error" onClick={() => handleDelete(arr[i].id, arr[i].active)}>Active / Inactive</Button>
         ));
     }
     console.log(rows);

@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
         boxShadow:" 10px 5px 5px #0002",
       borderRadius:"10px",
       width: "fit-content",
+     
       margin:"30px auto",
       padding:"20px",
       background:"#eee",
@@ -46,8 +47,9 @@ const useStyles = makeStyles((theme) => ({
     content:{
         display:"flex",
         flexDirection:"row",
-        justifyContent:"center"
-
+        justifyContent:"center",
+       
+        flexWrap:"wrap",
 
     },
     info:{
@@ -77,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     buttonBack:{
         padding:"10px",
     
-        margin:"2px 40px",
+        margin:"2px 10px",
        
     },
     cardDiv:{
@@ -198,22 +200,19 @@ function ProductDetail(props) {
                
                         </div>
                        
-                        <Button
-                className={classes.buttonBack}
-                 variant="contained" color="primary">
-                   <Link to = '/products' style={{textDecoration:"none", color:"white"}}>lista</Link>
-                    </Button>
-                    <br/>
-                    <br/>
-                    <Button
-                className={classes.buttonBack}
-                 variant="contained" color="primary">
-                   <Link to = '/' style={{textDecoration:"none", color:"white"}}>home</Link>
-                    </Button>
-                    
                    
                          </div>     
                          <div className={classes.contentRight}>
+                         {p.quantity===0?null:<div className={classes.cardDiv}
+                                        onClick={() => handleCartClick(detail.product)}>
+                                <Typography
+                                    className={classes.cardTypo}
+                                    variant="body1" color="primary" component="p"                                  
+                                    >
+                                    añadir al carrito
+                                        </Typography>
+                                    <img src={cartEmpty} className={classes.cart}></img>
+                                    </div>}
                          {user._id && detail.product[0].user === user._id ? 
                             <div className={classes.cardDiv}>
                                     <>
@@ -238,7 +237,7 @@ function ProductDetail(props) {
                             alignItems="flex-start">
                                 <Grid item xs>
                                     <h3 className={classes.paper +" "+classes.cname }>{p.name}</h3>
-                                    {p.isInOffer ? <h3 className={classes.paper  +" "+classes.cprice} ><Typography  className={classes.cpriceoffer}>${p?.price}</Typography>OFERTA!  ${p?.priceInOffer}</h3> : <h3 className={classes.paper  +" "+classes.cprice} >NORMAL: ${p.price}</h3>}
+                                    {p.isInOffer ? <h3 className={classes.paper  +" "+classes.cprice} ><Typography  className={classes.cpriceoffer}>${p?.price}</Typography>OFERTA!  ${p?.priceInOffer}</h3> : <h3 className={classes.paper  +" "+classes.cprice} >${p.price}</h3>}
                                     {/* <h3 className={classes.paper  +" "+classes.cprice} >${p.price}</h3> */}
                                     
                                         <h3  className={classes.paper  +" "+classes.cquantity} >Stock: {p.quantity===0?<h3 style={{color:"#f50057"}}>No hay stock</h3>:p.quantity}</h3>
@@ -248,11 +247,11 @@ function ProductDetail(props) {
                                 </Grid>
                             </Grid>
                             </div>
-                            <div className={classes.info}>
+                            {/* <div className={classes.info}>
                             <h3 className={classes.paper}>Usuario: usuario</h3>
                                     <h3 className={classes.paper}>puntuación: 5</h3>
                             
-                            </div>
+                            </div> */}
                             <div className={classes.info}>
                             <h3 className={classes.paper}>Categoria: 
                               <ul className={classes.paper} >{p.category.map((e,i) => {
@@ -264,16 +263,20 @@ function ProductDetail(props) {
 
                             </div>
                                     
-                            {p.quantity===0?null:<div className={classes.cardDiv}
-                                        onClick={() => handleCartClick(detail.product)}>
-                                <Typography
-                                    className={classes.cardTypo}
-                                    variant="body1" color="primary" component="p"                                  
-                                    >
-                                    añadir al carrito
-                                        </Typography>
-                                    <img src={cartEmpty} className={classes.cart}></img>
-                                    </div>}
+                            <div style={{display:"flex",margin:"30px",justifyContent:"center" }}>
+                        <Button
+                className={classes.buttonBack}
+                 variant="contained" color="primary">
+                   <Link to = '/products' style={{textDecoration:"none", color:"white"}}>lista</Link>
+                    </Button>
+                    <br/>
+                    <br/>
+                    <Button
+                className={classes.buttonBack}
+                 variant="contained" color="primary">
+                   <Link to = '/' style={{textDecoration:"none", color:"white"}}>home</Link>
+                    </Button>
+                    </div>
                                 {/* {product._id && (
                                     <Reviews
                                         id={product._id}

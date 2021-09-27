@@ -10,17 +10,19 @@ import DnsRoundedIcon from '@mui/icons-material/DnsRounded';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import StyleIcon from '@mui/icons-material/Style';
 import { useDispatch, useSelector } from "react-redux";
 import { checkUser, getAllOrders, getAllPetitions, getAllUsers, getOrderDetail } from "../../actions";
 const useStyles = makeStyles((e)=>({ 
 root:{
     width:"256px",
-    height:"100vh",
+    height:"100%",
     background:e.palette.primary.superDark,
     color:"white",
      '@media(max-width: 800px )':{
-     display:"none"
-   
+     display:"none",
+     zIndex:"10000000",
+      position:"absolute"
     }
     
 },
@@ -115,10 +117,30 @@ const role = useSelector(state => state.user.role)
       props.setComp("Analytics")
       console.log(e.target.innerText)
     }
+    else if(e.target.innerText === "AdminAnalytics"){
+      props.setComp("AdminAnalytics")
+      console.log(e.target.innerText)
+    }
     console.log(props.comp, "props comp")
   }
+  const setDisplay = () =>{
+   if(props.mobile){
+     return "inline-block"
+   }else if(!props.mobile){
+     return "none"
+   }
+  }
+  const setBackground = () =>{
+    if(window.screen.availWidth >800){
+      return "#fff5"
+    }else if( window.screen.availWidth <800){
+      return "#0000"
+    }
+   }
     return(
-        <section className={classes.root}>
+        <section className={classes.root}
+        style={{display:setDisplay()}}
+        >
 
              <Typography className={classes.typo}
               variant="h6"> <Link to='/products' style={{textDecoration:"none",  color:"inherit"}}>
@@ -127,16 +149,26 @@ const role = useSelector(state => state.user.role)
                   <Typography className={classes.typo}
               variant="h6"> Hola {name.first_name}! </Typography> 
         
-            
+        
+                <Typography className={classes.typo}
+                  style={{cursor:"pointer", background:setBackground()}}
+                  onClick={()=>{
+
+                    props.setMobile(false)
+                  }}
+        variant="h6"> cerrar Navegador </Typography> 
+      
+
+
             <div className={classes.content}>
 
 
             <Typography className={classes.contentTypo}
               variant="body2"> Actions </Typography> 
               <div >
-                  {role=="Admin"?
-                  <>
-                   <div className={classes.contentActions}
+                  {
+                  role=="superAdmin"?<>
+                  <div className={classes.contentActions}
                    onClick={handleClick}>
                       <PeopleIcon/>
                  <Typography className={classes.contentActionsTypo}
@@ -172,11 +204,75 @@ const role = useSelector(state => state.user.role)
                variant="body1">Mis compras</Typography> 
                  </div><div className={classes.contentActions}
                   onClick={handleClick}>
-                 <LocalMallIcon/>
+                 <StyleIcon/>
                  <Typography className={classes.contentActionsTypo}
                 
                variant="body1">Products</Typography> 
                  </div>
+
+
+                 <div className={classes.content}>
+        <Typography className={classes.contentTypo}>Analytics</Typography>
+
+        <div className={classes.contentActions}
+                   onClick={handleClick}>
+                      <SettingsIcon />
+                 <Typography className={classes.contentActionsTypo}
+               variant="body1">Analytics</Typography> 
+                 </div>
+                 <div className={classes.contentActions}
+                   onClick={handleClick}>
+                      <StyleIcon />
+                 <Typography className={classes.contentActionsTypo}
+               variant="body1">AdminAnalytics</Typography> 
+                 </div>
+                  </div>
+                  
+                  </>
+                  :role=="Admin"?
+                  <>
+                   <div className={classes.contentActions}
+                  onClick={handleClick}>
+                 <AssignmentIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Orders</Typography> 
+                 </div>
+ <div className={classes.contentActions}
+                  onClick={handleClick}>
+                     <CreateIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Create</Typography> 
+                 </div>
+                 <div className={classes.contentActions}
+                  onClick={handleClick}>
+                     <LocalMallIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Mis compras</Typography> 
+                 </div><div className={classes.contentActions}
+                  onClick={handleClick}>
+                 <StyleIcon/>
+                 <Typography className={classes.contentActionsTypo}
+                
+               variant="body1">Products</Typography> 
+                 </div>
+                 <div className={classes.content}>
+        <Typography className={classes.contentTypo}>Analytics</Typography>
+        <div className={classes.contentActions}
+                   onClick={handleClick}>
+                      <SettingsIcon />
+                 <Typography className={classes.contentActionsTypo}
+               variant="body1">Analytics</Typography> 
+                 </div>
+                 <div className={classes.contentActions}
+                   onClick={handleClick}>
+                      <StyleIcon />
+                 <Typography className={classes.contentActionsTypo}
+               variant="body1">AdminAnalytics</Typography> 
+                 </div>
+                  </div>
                   </>:
                   role=="User"?
                   <>
@@ -196,7 +292,7 @@ const role = useSelector(state => state.user.role)
                variant="body1">Mis compras</Typography> 
                  </div><div className={classes.contentActions}
                   onClick={handleClick}>
-                 <LocalMallIcon/>
+                 <StyleIcon/>
                  <Typography className={classes.contentActionsTypo}
                 
                variant="body1">Products</Typography> 
@@ -204,20 +300,15 @@ const role = useSelector(state => state.user.role)
                   </>
                   :""
                   }
-               <div className={classes.content}>
-        <Typography className={classes.contentTypo}>Analytics</Typography>
-        <div className={classes.contentActions}
-                   onClick={handleClick}>
-                      <SettingsIcon />
-                 <Typography className={classes.contentActionsTypo}
-               variant="body1">Analytics</Typography> 
-                 </div>
-                  </div>
+             
                 
               </div>
             </div>
             <Typography className={classes.typo}
-              variant="body1"> Role: {role} </Typography> 
+              variant="body1"> 
+              <Link style={{textDecoration:"none",color:"inherit",margin:"0",padding:"0"}}
+              to="/admin">R</Link>
+              ole: {role} </Typography> 
         </section>
     )
 }

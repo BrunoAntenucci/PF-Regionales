@@ -20,9 +20,9 @@ export default function Fav ({id}) {
             setFav(true)
         }
     }
-    const handleDeleteFav = (e) => {
-        dispatch(deleteFav(id))
-        setFav(false)
+    const handleDeleteFav = async(e) => {
+        await dispatch(deleteFav(id))
+        await setFav(false)
     }
     return(
             <div>

@@ -18,7 +18,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import StyleIcon from '@mui/icons-material/Style';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
-import { getAllUsers, getAllPetitions, getOrderDetail, getAllOrders, getCategories, getStore } from '../../actions';
+import { getUsers, getAllPetitions, getOrderDetail, getAllOrders, getCategories, getStore } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -53,7 +53,7 @@ export default function Navigator(props) {
     e.preventDefault();
     if(e.target.innerText === "Users"){
       props.setComp("Users")
-      dispatch(getAllUsers());
+      dispatch(getUsers());
       console.log(e)
     }else if(e.target.innerText === "Categories"){
       props.setComp("Categorias")
@@ -194,8 +194,7 @@ export default function Navigator(props) {
                     <ListItemText>Products</ListItemText>
                   </ListItemButton>
               </ListItem>
-              
-              {/* VER SI ESTO VA!!!
+
               <ListItem disablePadding>
                 <ListItemButton selected="active" sx={item}  onClick={handleClick}>
                   <ListItemIcon><LocalOfferOutlinedIcon /></ListItemIcon>
@@ -207,7 +206,7 @@ export default function Navigator(props) {
                   <ListItemIcon><StorefrontOutlinedIcon /></ListItemIcon>
                   <ListItemText>Stores</ListItemText>
                 </ListItemButton>
-              </ListItem> */}
+              </ListItem> 
               </>
             : "null"
             }
@@ -215,7 +214,9 @@ export default function Navigator(props) {
           <Divider sx={{ mt: 2 }} />
         </Box>
 
-          <Divider sx={{ mt: 2 }} /> 
+            {(role=="Admin"||role=="superAdmin")?
+            <>
+            <Divider sx={{ mt: 2 }} /> 
           <Box sx={{ bgcolor: '#101F33' }}>
             <ListItem sx={{ py: 2, px: 3 }}>
               <ListItemText sx={{ color: '#fff' }}>Quality</ListItemText>
@@ -233,7 +234,10 @@ export default function Navigator(props) {
                 </ListItemButton>
               </ListItem>
             <Divider sx={{ mt: 2 }} />
-          </Box>
+            </Box>
+            </>:null}
+          
+         
       </List>
     </Drawer>
   );

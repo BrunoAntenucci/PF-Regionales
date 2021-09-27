@@ -68,6 +68,10 @@ const userSchema = new Schema({
     resetPasswordExpires: {
         type: Date,
         default: undefined
+    },
+    isActive: {
+        type: Boolean,
+        default: true
     }
 }, { timestamps: true, versionKey: false })
 

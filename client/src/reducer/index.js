@@ -105,8 +105,7 @@ function rootReducer(state = initialState, action) {
             }
         case "SIGN_IN": 
             return {
-                ...state,
-                user: action.payload
+                ...state
             }
         case "SIGN_UP":
             return {
@@ -202,6 +201,11 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 users: action.payload
             }
+            case 'GET_USERS':
+                return {
+                    ...state,
+                    users: action.payload
+                }
             case 'GET_ALL_PETITIONS':
             return {
                 ...state,
