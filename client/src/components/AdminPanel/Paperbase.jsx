@@ -4,7 +4,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import Navigator from './Navigator';
 import Header from './Header';
 import Users from '../Users';
@@ -16,17 +15,15 @@ import BarChart from '../BarChart';
 import AdminAnalytics from '../AdminAnalytics';
 import Categories from '../Categories';
 import StoresAdmin from '../StoresAdmin';
-import { useSelector } from 'react-redux';
 import PanelProduct from '../PanelProduct';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}.
+        E-market
+      {' '}
+      {new Date().getFullYear()}
     </Typography>
   );
 }
@@ -178,9 +175,8 @@ const drawerWidth = 256;
 
 export default function Paperbase() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-  
   const [component, setComponent] = React.useState("")
+  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
    
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -228,12 +224,12 @@ export default function Paperbase() {
             : component === "Stores"? <StoresAdmin />
             : ""}
 
-
           </Box>
           <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
           </Box>
         </Box>
       </Box>
+      {Copyright()}
     </ThemeProvider>
   );
 }
