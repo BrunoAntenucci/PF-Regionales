@@ -1,8 +1,15 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteUser, reviveUser, getUsers } from '../actions/index';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+//-----Alert-----------------------------
+import Notification from './Notification';
+import ConfirmDialog from './ConfirmDialog';
+import ActionButton from './ActionButton';
+import Button2 from './Button2';
+//---------------------------------------
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,7 +18,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Button from '@mui/material/Button';
+//import Button from '@mui/material/Button';
 
 const columns = [
     { id: 'first_name', label: 'Nombre', minWidth: 170, align: 'center' },
@@ -53,13 +60,28 @@ const columns = [
   });
 
 const Users = () => {
+
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+    const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+
     const dispatch = useDispatch();
 
     const allUsers = useSelector(state => state.users);
 
     const handleDelete = async (id, active) => {
+
+        setConfirmDialog({
+            ...confirmDialog,
+            isOpen: false
+        })
+
       if(active === 'Active'){
         await dispatch(deleteUser(id));
+        setNotify({
+          isOpen: true,
+          message: 'Deleted Successfully',
+          type: 'error'
+      })
       }else{
         await dispatch(reviveUser(id));
       }
@@ -90,7 +112,18 @@ const Users = () => {
             arr[i].id, 
             arr[i].role,
             arr[i].active, 
-            <Button variant="outlined" color="error" onClick={() => handleDelete(arr[i].id, arr[i].active)}>Active / Inactive</Button>
+            //<Button variant="outlined" color="error" onClick={() => handleDelete(arr[i].id, arr[i].active)}>Active / Inactive</Button>
+            <ActionButton
+              color="secondary"
+              onClick={() => {
+                  setConfirmDialog({
+                      isOpen: true,
+                      title: 'Are you sure you want to delete this user?',
+                      subTitle: "",
+                      onConfirm: () => { handleDelete(arr[i].id, arr[i].active) }
+                  })
+              }}
+            >Active | Inactive</ActionButton>
         ));
     }
     console.log(rows);
@@ -153,7 +186,16 @@ const Users = () => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      <Notification
+        notify={notify}
+        setNotify={setNotify}
+      />
+      <ConfirmDialog
+          confirmDialog={confirmDialog}
+          setConfirmDialog={setConfirmDialog}
+      />
     </Paper>
+    
     )
 }
 
