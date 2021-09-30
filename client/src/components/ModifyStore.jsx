@@ -3,17 +3,13 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getProducts, getStore, modifyStore } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
 
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-//import FormControlLabel from '@material-ui/core/FormControlLabel';
-//import Checkbox from '@material-ui/core/Checkbox';
-
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-//import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { Button } from '@material-ui/core';
@@ -80,7 +76,6 @@ background: "linear-gradient(120deg, #ffffff 0%, "+theme.palette.secondary.light
       categoryButton:{
           border: "none",
           padding:"0 15px",
-          //height:"max-content",
           borderRadius:"10px",
           fontSize:"1.3em",
         color:"white",
@@ -117,9 +112,6 @@ function validate(input){
     if(!input.img){
         errors.img = 'Se requiere una imagen';
     }
-    // if(!input.reputation){
-    //     errors.reputation = 'Se requiere una reputacion';
-    // }
     return errors
 }
 
@@ -133,7 +125,7 @@ export default function ModifyStore(props){
     useEffect((id) => {
         dispatch(getStore(id));
 
-    }, [dispatch, getStore()])
+    }, [dispatch, id])
 
     const storedetail = useSelector((state) => state.storeDetail)
     const user = useSelector((state) => state.user)

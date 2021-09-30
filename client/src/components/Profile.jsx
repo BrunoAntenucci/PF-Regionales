@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { checkUser } from '../actions';
 import { Link } from 'react-router-dom';
-import MyStore from './MyStore';
+
 import NavBar from './Navbar';
+
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
