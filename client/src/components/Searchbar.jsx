@@ -17,16 +17,12 @@ const useStyles = makeStyles((theme) => ({
     zIndex:"100",
     flexDirection:"row",
     marginTop: '5px',
-
     '@media(max-width: 900px)':{
       padding: '0 -1rem',
       width: '80%',
       marginLeft: '25px',
       marginTop: '5px',
     whiteSpace: 'nowrap',
-    //  maxHeight: '4px',
-    
-
     },
   
   },
@@ -55,7 +51,6 @@ function Navbar() {
     console.log("response", response)
     setProd(response.data)
   }, []);
-  //console.log(prod)
 
   const handleOnSelect = ({name}) => {
     // the item selected
@@ -76,7 +71,6 @@ function Navbar() {
     const classes = useStyles();
     return (
         <div component="form" className={classes.root}>
-         
           <div className={classes.root}>
             <ReactSearchAutocomplete
              id="dataInput"
