@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getCategories, postProducts } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import Notification from './Notification';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -124,6 +125,7 @@ function validate(input){
 }
 
 export default function ProductCreation(){
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const dispatch = useDispatch();
     const classes = useStyles();
     //const history = useHistory();
@@ -185,11 +187,19 @@ export default function ProductCreation(){
         console.log(e)
         if(errors.name || errors.description || errors.price || errors.category || errors.quantity || errors.image) {
             e.preventDefault();
-            alert('Formulario incompleto');
+            setNotify({
+              isOpen: true,
+              message: 'Formulario incompleto',
+              type: 'error'
+          })
         }else{
             e.preventDefault();   
             dispatch(postProducts(input));
-            alert('Producto creado');     
+            setNotify({
+              isOpen: true,
+              message: 'Producto creado',
+              type: 'success'
+          })
             setInput({
                 name: '',
                 description: '',
@@ -425,6 +435,10 @@ export default function ProductCreation(){
                         })}</ul>
                        
                        </div>
+                       <Notification
+        notify={notify}
+        setNotify={setNotify}
+      />
       </React.Fragment>
 
 
