@@ -79,11 +79,16 @@ const Users = () => {
         await dispatch(deleteUser(id));
         setNotify({
           isOpen: true,
-          message: 'Deleted Successfully',
+          message: 'User deactivated successfully',
           type: 'error'
       })
       }else{
         await dispatch(reviveUser(id));
+        setNotify({
+          isOpen: true,
+          message: 'User activated successfully',
+          type: 'success'
+      })
       }
         await dispatch(getUsers());
     }
@@ -113,12 +118,25 @@ const Users = () => {
             arr[i].role,
             arr[i].active, 
             //<Button variant="outlined" color="error" onClick={() => handleDelete(arr[i].id, arr[i].active)}>Active / Inactive</Button>
+            arr[i].active === 'Active' ? 
             <ActionButton
               color="secondary"
               onClick={() => {
                   setConfirmDialog({
                       isOpen: true,
-                      title: 'Are you sure you want to delete this user?',
+                      title: 'Are you sure you want to deactivate this user?',
+                      subTitle: "",
+                      onConfirm: () => { handleDelete(arr[i].id, arr[i].active) }
+                  })
+              }}
+            >Active | Inactive</ActionButton>
+            : 
+            <ActionButton
+              color="secondary"
+              onClick={() => {
+                  setConfirmDialog({
+                      isOpen: true,
+                      title: 'Are you sure you want to activate this user?',
                       subTitle: "",
                       onConfirm: () => { handleDelete(arr[i].id, arr[i].active) }
                   })
