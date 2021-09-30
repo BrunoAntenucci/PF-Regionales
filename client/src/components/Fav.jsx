@@ -3,8 +3,10 @@ import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addFav, deleteFav, getFav } from '../actions';
+import Notification from './Notification';
 
 export default function Fav ({id}) {
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const dispatch = useDispatch();
     const user = useSelector(state => state.user)
     const wishlist = useSelector(state => state.wishlist);
@@ -18,6 +20,11 @@ export default function Fav ({id}) {
         if(user) {
             dispatch(addFav(id))
             setFav(true)
+            setNotify({
+                isOpen: true,
+                message: 'Producto añadido a Favoritos',
+                type: 'success'
+            })
         }
     }
     const handleDeleteFav = async(e) => {
@@ -36,6 +43,10 @@ export default function Fav ({id}) {
                         <AiFillHeart className='fav' />
                     </button></div>)
                 }  
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
         </div>
     )
 }
