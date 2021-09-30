@@ -118,7 +118,7 @@ const useStyles = makeStyles((e)=>({
         padding: "15px",
         // height: 'fit-content',
         color: e.palette.text.secondary,
-        border: "1px solid #c3c3c3",
+        // border: "1px solid #c3c3c3",
         marginRight: '35px',
         '@media(max-width: 500px)':{
             
@@ -249,16 +249,3 @@ const Stores = () => {
 
 export default Stores
 
-// {store.reviews.map(review => {
-//     return(
-//         <div>
-//             <p> {review.first_name}</p>
-//             <Box component="fieldset" mb={0} borderColor="transparent">
-//                 {/* <Typography component="legend">Read only</Typography> */}
-//                 <Rating name="read-only" value={review.rating} readOnly />
-//             </Box>
-//             <p>{review.comment}</p>
-//             <p>{review.createdAt.substring(0, 10)}</p>
-//         </div>
-//     )
-// })}

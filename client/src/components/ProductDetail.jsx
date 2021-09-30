@@ -277,15 +277,7 @@ function ProductDetail(props) {
                    <Link to = '/' style={{textDecoration:"none", color:"white"}}>home</Link>
                     </Button>
                     </div>
-                                {/* {product._id && (
-                                    <Reviews
-                                        id={product._id}
-                                        setUpdateReview={setUpdateReview}
-                                        updateReview={updateReview}
-                                        allReviews={product.reviews}
-                                        userOrder={userOrder}
-                                    />
-                                )} */}
+                               
                             
                             </div>
                                         

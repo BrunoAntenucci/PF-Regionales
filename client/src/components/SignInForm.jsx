@@ -120,31 +120,14 @@ const SignInForm = () => {
         email : '',
         password:''
     })
-// React.useEffect(()=>{
-
-//     document.title ="Log In"
-//     console.log("use effect render user", userState)
-//     setErrorUser(false)
-   
-//     if( userState.token ){
-//       setErrorUser(false)
-//       history.push("/products")
-//     }
-//     return(()=>{
-//         document.title ="E-Market" 
-//     })
-//     },[])
     React.useEffect(()=>{
 
       dispatch(checkUser())      
-      // if(userState._id){
-      //   setErrorUser(false)
-      //   history.push("/products")
-      // }
+
      
       },[/*userState*/])
     
-    // const [errors, setErrors] = useState({});
+    
 
     const handleChangeEmail = (e) => {
         setInput({...input, email:e.target.value})
@@ -155,7 +138,7 @@ const SignInForm = () => {
    
     const handleSubmitGoogle = async (e) => {
         e.preventDefault();
-        //dispatch(signInGoogle())
+
     }
     console.log("use effect useState user", userState)
     async function handleSubmit(e) {
@@ -177,27 +160,13 @@ const SignInForm = () => {
       } else {
         setErrorUser(true)
       }
-      // if(!userState || userState == {} || userState == "No user exist"){
-      //   setErrorUser(true)
-      // }
+     
       console.log("user",userState)
     }
 
     return(
     <>
-        {/* <div>
-            <h1>Signup Form</h1>
-            <form onSubmit={handleSubmit}>
-            
-                <input type="text" name="user" placeholder="Email" onChange={handleChangeEmail} required/>
-               // <span>{errors?.email?.message}</span> 
-                <input type="password" placeholder="Password" onChange={handleChangePassword} required/>
-              // <span>{errors?.password?.message}</span>
-                <Link to="/saveAccount">Do you forget?</Link>
-                <button>Sign In</button>
-                <h4>New customer?</h4> <Link to="/signup">Start here.</Link>
-            </form>
-        </div>  */}
+        
 
 
         <Container component="main" maxWidth="xs">
@@ -234,10 +203,7 @@ const SignInForm = () => {
               id="password"
               autoComplete="current-password"
             />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
+            
             <Button
               type="submit"
               fullWidth
@@ -257,16 +223,7 @@ const SignInForm = () => {
             >
               Sign In with Google
             </Button>
-            {/* <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              href="http://localhost:3001/google/auth"
-            >
-              Sign In with Google
-            </Button> */}
+           
               
             <Grid container>
               <Grid item xs>

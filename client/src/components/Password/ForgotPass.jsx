@@ -50,12 +50,6 @@ export default function ForgotPass(){
         dispatch(getAllUsers())
     }, [dispatch])
 
-    // const users = useSelector(state => state.users)
-    // const usersE = users.map((el) =>{ return el.email})
-
-    // const userEmail = usersE.find((e) =>e === email)
-    // console.log(`EMAIL FORM: ${email}`)
-
     const handleSubmit =  (e) =>{
       dispatch(forgotPass(email))
       alert('Enviado correctamente')

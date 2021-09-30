@@ -69,14 +69,14 @@ const Favourites = () => {
     const wishlist = useSelector((state) => state.wishlist);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-      dispatch(getFav());
-      return dispatch(getFav())
-    }, [])
+    useEffect(async () => {
+     await dispatch(getFav());
+      
+    }, [dispatch])
 
-    const handleDelete = (id) => {
-      dispatch(deleteFav(id));
-      dispatch(getFav());
+    const handleDelete = async (id) => {
+      await dispatch(deleteFav(id));
+      await dispatch(getFav());
   }
 
 
