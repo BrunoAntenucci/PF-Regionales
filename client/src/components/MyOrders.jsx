@@ -70,6 +70,7 @@ const MyOrders = () => {
     const user = useSelector(state => state.user);
     const orderDetail = useSelector(state => state.orderDetail);
     const stores = useSelector(state => state.stores)
+    const storeDetail = useSelector(state => state.storeDetail);
 
     console.log('detalles',orderDetail)
     
@@ -191,11 +192,7 @@ const MyOrders = () => {
                                                 Fecha y hora de la compra:
                                             </p>
                                             <p> {order.createdAt}</p>
-                                            {/* {order.status==="Completa"?
-                                            <Link to={`/${storesId}/reviews`}>
-                                                <p>Tienda</p>
-                                            </Link>
-                                            :null} */}
+                                          
                                         </div>
                                         <hr></hr>
                                     </div>

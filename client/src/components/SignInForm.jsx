@@ -113,41 +113,21 @@ const SignInForm = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const classes = useStyles();
-    var userState = useSelector(  (state) =>  state.user)
+    var userState = useSelector((state) => state.user)
 
     const [errorUser, setErrorUser] = React.useState(false)
     const [input, setInput] = useState({
         email : '',
         password:''
     })
-React.useEffect(()=>{
-
-    document.title ="Log In"
-    console.log("use effect render user", userState)
-    setErrorUser(false)
-   
-    if( userState.token ){
-      setErrorUser(false)
-      history.push("/products")
-    }
-    return(()=>{
-        document.title ="E-Market" 
-    })
-    },[])
     React.useEffect(()=>{
 
-      
-      if( userState._id){
-        setErrorUser(false)
-        history.push("/products")
-      }else  if((!userState || userState == {} 
-        || userState == "No user exist") && input.email.length > 5){
-        setErrorUser(true)
-      }
+      dispatch(checkUser())      
+
      
-      },[userState])
+      },[/*userState*/])
     
-    // const [errors, setErrors] = useState({});
+    
 
     const handleChangeEmail = (e) => {
         setInput({...input, email:e.target.value})
@@ -158,7 +138,7 @@ React.useEffect(()=>{
    
     const handleSubmitGoogle = async (e) => {
         e.preventDefault();
-        //dispatch(signInGoogle())
+
     }
     console.log("use effect useState user", userState)
     async function handleSubmit(e) {
@@ -172,28 +152,21 @@ React.useEffect(()=>{
         await dispatch(guestCartToUserCart(guestCart))
         await localStorage.clear();
       }
-      dispatch(checkUser())
-      // if(!userState || userState == {} || userState == "No user exist"){
-      //   setErrorUser(true)
-      // }
+      await dispatch(checkUser())
+      if(userState._id) {
+        console.log(useState)
+        setErrorUser(false)
+        history.push("/products")
+      } else {
+        setErrorUser(true)
+      }
+     
       console.log("user",userState)
     }
 
     return(
     <>
-        {/* <div>
-            <h1>Signup Form</h1>
-            <form onSubmit={handleSubmit}>
-            
-                <input type="text" name="user" placeholder="Email" onChange={handleChangeEmail} required/>
-               // <span>{errors?.email?.message}</span> 
-                <input type="password" placeholder="Password" onChange={handleChangePassword} required/>
-              // <span>{errors?.password?.message}</span>
-                <Link to="/saveAccount">Do you forget?</Link>
-                <button>Sign In</button>
-                <h4>New customer?</h4> <Link to="/signup">Start here.</Link>
-            </form>
-        </div>  */}
+        
 
 
         <Container component="main" maxWidth="xs">
@@ -230,10 +203,7 @@ React.useEffect(()=>{
               id="password"
               autoComplete="current-password"
             />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
+            
             <Button
               type="submit"
               fullWidth
@@ -253,16 +223,7 @@ React.useEffect(()=>{
             >
               Sign In with Google
             </Button>
-            {/* <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              href="http://localhost:3001/google/auth"
-            >
-              Sign In with Google
-            </Button> */}
+           
               
             <Grid container>
               <Grid item xs>
