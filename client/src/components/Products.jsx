@@ -141,7 +141,8 @@ function Products(props) {
         
             {/* <button onClick={cleanStorage}>borrar localStorage</button>
             <button onClick={checkStorage}>check localStorage</button> */}
-            <Header guest={props.guest} setGuest={props.setGuest}/>
+            <Header  searchbar={true} guest={props.guest} setGuest={props.setGuest}/>
+            
                {/* <aside className={classes.aside}>
                     <div></div>
                 </aside> */}

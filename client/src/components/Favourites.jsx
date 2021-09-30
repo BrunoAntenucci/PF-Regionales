@@ -14,6 +14,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import { Typography }  from '@material-ui/core';
+import Header from "./Header";
 
 const columns = [
   { id: 'name', label: 'Nombre', minWidth: 170, align: 'center' },
@@ -124,7 +125,7 @@ const Favourites = () => {
     return (
       <>
           <div marginTop="30px">
-            <NavBar />
+          <Header  searchbar={false}/>
           </div>
           <div>
           <Typography 
@@ -137,6 +138,10 @@ const Favourites = () => {
           >Mis Favoritos</Typography>
           <Button
                   className={classes.goBackBtn}
+                  style={{
+                    marginLeft: '40px',
+                    marginBottom: '30px'
+                  }}
                   variant="outlined" 
                   color="primary" 
           ><Link to={`/products`} style={{textDecoration:"none",  color:"inherit"}}> Volver </Link>

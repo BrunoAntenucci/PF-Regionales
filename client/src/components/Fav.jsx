@@ -28,12 +28,12 @@ export default function Fav ({id}) {
             <div>
                 {!fav? (<div>
                     <buton onClick={handleFavClick}>
-                        <AiOutlineHeart className='fav' />
+                        <AiOutlineHeart className='fav' size='2em' style={{color:'red'}}/>
                     </buton>
                     </div>)
                     : (<div>
                     <buton onClick={handleDeleteFav}>
-                        <AiFillHeart className='fav' />
+                        <AiFillHeart className='fav'  size='2em' style={{color:'red'}}/>
                     </buton></div>)
                 }  
         </div>

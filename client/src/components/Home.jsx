@@ -284,7 +284,7 @@ function Home() {
       <>
       {/* <div style= {{width: '115vw'}} > */}
       
-            <Header />
+            <Header searchbar={true}/>
         <div  className={classes.root}>
             <section className={classes.section}>
            
