@@ -3,6 +3,7 @@ import { useState } from 'react';
 //import { Link } from 'react-router-dom';
 import { postCategory } from '../actions';
 import { useDispatch } from 'react-redux';
+import Notification from './Notification';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -54,6 +55,8 @@ function validate(input){
 
 export default function CategoryCreation(){
 
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+
     const dispatch = useDispatch();
 
     const classes = useStyles();
@@ -78,13 +81,21 @@ export default function CategoryCreation(){
     }
 
     function handleSubmit (e){
-        if(errors.name) {
+        if(!input.name) {
             e.preventDefault();
-            alert('Formulario incompleto');
+            setNotify({
+                isOpen: true,
+                message: 'Formulario incompleto',
+                type: 'error'
+            })
         }else{
             e.preventDefault();   
             dispatch(postCategory(input));
-            alert('Categoria creada');     
+            setNotify({
+                isOpen: true,
+                message: 'Categoria creada',
+                type: 'success'
+            })    
             setInput({
                 name: ''
             })
@@ -114,6 +125,7 @@ export default function CategoryCreation(){
         //             <button>Volver</button>
         //         </Link>
         // </div>
+        <>
         <div className={classes.root}>
         <div className={classes.card}>
             <Typography variant="h6" gutterBottom >
@@ -142,6 +154,11 @@ export default function CategoryCreation(){
             </form>
         </div>     
         </div>
+        <Notification
+            notify={notify}
+            setNotify={setNotify}
+        />
+        </>
         
         )
 }

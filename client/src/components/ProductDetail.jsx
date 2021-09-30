@@ -1,8 +1,10 @@
-import React from 'react';
+
+import React, { useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { clearProDetail, getCategories, getProductDetail } from '../actions/index';
+import Notification from './Notification';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -113,6 +115,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductDetail(props) {
 
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const dispatch = useDispatch();
     const classes = useStyles();
     const detail = useSelector((state) => state.prodDetail);
@@ -148,6 +151,11 @@ function ProductDetail(props) {
 
         if (user) {
             dispatch(addProductToCart(item.product._id, parseInt(item.product.price)))
+            setNotify({
+                isOpen: true,
+                message: 'Producto añadido al carrito',
+                type: 'success'
+            })
         }
         if(!localStorage.history && !user) {
             historial.items.push(item)
@@ -174,6 +182,7 @@ function ProductDetail(props) {
     //------------------------------------------------
 
     return (
+        <>
         <div className={classes.root}>
             {}
             <Fav id={props.match.params.id} />
@@ -261,6 +270,11 @@ function ProductDetail(props) {
                 })
             }
         </div>
+        <Notification
+            notify={notify}
+            setNotify={setNotify}
+        />
+        </>
     )
 }
 
