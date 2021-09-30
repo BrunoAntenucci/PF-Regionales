@@ -62,16 +62,6 @@ export default function ResetPass(props){
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // let result = await dispatch (getToken())
-        // if(result === "input new password"){
-        //     if(input.passMatch === false){
-        //         alert('Las contraseñas no coinciden')
-        //     } else {
-        //         dispatch(resetPass(input.password, token))
-        //         alert('Contraseña cambiada éxito!')
-        //         history.push('/products')
-        //     }
-        // }
         if(input.passMatch === false){
             alert('Las contraseñas no coinciden')
         } else {

@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import iconUser from '../img/icon-user.png';
-import Cart from './Cart';
 
 import { getCartByUser } from '../actions/index';
-import axios from 'axios';
+
 
 //-------Menu desplegable-----------//
 import { withStyles } from '@material-ui/core/styles';
@@ -16,18 +15,14 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
+
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import LocalMallIcon from '@material-ui/icons/LocalMall';
-import StorefrontIcon from '@material-ui/icons/Storefront';
+
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
 
-//import axios from 'axios';
 
 //------IMPORT ACTIONS------//
 import { checkUser, logOut } from '../actions/index';
@@ -140,10 +135,7 @@ const User = () => {
     }, [])
 
 
-    // function handleCheckGuest(e) {
-    //   e.preventDefault();
-    //   dispatch(checkUser())
-    // }
+   
     function handleLogOut(e) {
       dispatch(logOut())
       window.location.reload(false);
@@ -168,23 +160,9 @@ const User = () => {
 
     return(
         <div className={classes.root}>
-          {/* <button onClick={handleCheckStorage}>Check STORAGE</button>
-          <button onClick={handleClearStorage}>Clear STORAGE</button> */}
-            {/* <button onClick={handleCheckGuest}>USER CHECK</button> */}
+         
             {user ? <>
-                {/* <img src={iconUser}  className={classes.iconuser}/>
-                <Button  size="small"  className={classes.buttons}>
-                  <Link to='/profile' style={{textDecoration:"none" , color:"white"}}>
-                    {user.first_name}   
-                    </Link>                
-                </Button>
-                <Button  size="small"  className={classes.buttons}>
-                <Link style={{textDecoration:"none" , color:"white"}} to='/favourites' >
-                    Favoritos </Link>
-                </Button>
-                <Button  size="small"  className={classes.buttons} onClick={handleLogOut}>
-                    Cerrar Sesión 
-                </Button> */}
+                
                 {/* Menu desplegable */}
                 <Button
                   aria-controls="customized-menu"
