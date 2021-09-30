@@ -1,58 +1,46 @@
 import React, { Fragment } from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, page, getCategories } from '../actions/index';
-import Card from './Card';
-import Grid from '@material-ui/core/Grid';
+import { getProducts, getCategories } from '../actions/index';
+
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography,Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+
 import Paginate from './Paginate';
 import Header from './Header';
-import History from './History';
 import Loading from './Loading';
 import Footer from './Footer'
+import Card from './Card';
+
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-       display:"flex",
-    //   flexDirection:"row",
-    //   justifyContent:"center",
-    // margin: "230px 0 auto " ,
-    // textAlign: 'left',
-    // marginLeft: '60px', <--- se sacooo
-    flexDirection:"row",
-     justifyContent:"center",
-    margin: "230px 0 auto " ,
-    // textAlign: 'left',
-    // marginLeft: '60px',
-    '@media(max-width: 375px)':{
-        // marginLeft: '30px', <---- se sacooo
+        display:"flex",
+        flexDirection:"row",
+        justifyContent:"center",
+        margin: "230px 0 auto " ,
+        '@media(max-width: 375px)':{
         flexDirection: 'column',
-  }
+        }
     },
     font: {
-       
         padding: "10px 20px",
-        //marginTop: '10px',
         marginBottom: '0px',
         textAlign:"center",
         color:theme.palette.primary.dark,
         borderLeft:"3px solid "+theme.palette.secondary.dark,
         borderRight:"3px solid "+theme.palette.secondary.dark,
-        //borderBottom:"6px solid "+theme.palette.secondary.dark,
         borderRadius:"2px",
-        background: "rgb(83,83,83)",
-background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+theme.palette.primary.light+" 76%, "+theme.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
+        background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+theme.palette.primary.light+" 76%, "+theme.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
     },
-   
     section:{
         margin:"0px"
     },
     gridCard:{
-    minWidth:"350px",
-    maxWidth:"400px"
+        minWidth:"350px",
+        maxWidth:"400px"
     },
     products:{
         background:"#eaeff1",
@@ -60,10 +48,7 @@ background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 
         minWidth:"250px",
         display:"flex",
         flexWrap:"wrap",
-
-    borderRadius: '1%',
-   
-
+        borderRadius: '1%',
     },
     cpaginate:{
         margin: "20px auto",
@@ -77,17 +62,11 @@ function Products(props) {
     const allProducts = useSelector((state) => state.products);
     console.log(allProducts, "dqwdqwdqwdqwdqwdqw")
     const categories = useSelector((state) => state.categories)
-    // const pageN = useSelector((state) => state.page);
     const [pageN, setPageN] = useState(1);
-    const [render, setRender] = useState('');
-    // const [prodPerPage] = useState(9);
-    const [prodPerPage , setProdPerPage] = useState(12)
+    const [prodPerPage] = useState(12)
     const indexOfLastProd = pageN * prodPerPage; 
     const indexOfFirstProd = indexOfLastProd - prodPerPage;  
-
     const currentProd = allProducts && allProducts?.slice(indexOfFirstProd, indexOfLastProd); 
-    //const currentProd = Array.isArray(allProducts) && allProducts.slice(indexOfFirstProd, indexOfLastProd); 
-
     const paginate = (pageNumber) => {
         setPageN(pageNumber);
         window.scroll(0, 0)//UX
@@ -97,7 +76,7 @@ function Products(props) {
         dispatch(getProducts());
         dispatch(getCategories());
         document.title = "E-Market"
-    }, [])
+    }, [dispatch])
 
     
     const HandleHistoryOnClick=(name,price,category,image,id,quantity)=>{
@@ -116,41 +95,14 @@ function Products(props) {
         }
         console.log( JSON.parse(localStorage.getItem("historyProducts")))
     }    
-  
-    // function checkStorage() {
-    //     console.log("CHECK STORAGE")
-    //     const Storage = JSON.parse(localStorage.getItem('history'));
-    //     console.log("STORAGE: ", Storage)
 
-    // function checkStorage() {
-    //     console.log("CHECK STORAGE")
-    //     const Storage = JSON.parse(localStorage.getItem('history'));
-    //     console.log("STORAGE: ", Storage)
-
-    // }
-    // function cleanStorage() {
-    //     console.log("CHECK STORAGE")
-    //     localStorage.clear();
-    //     const StorageCleaned = JSON.parse(localStorage.getItem('history'))
-    //     console.log("STORAGE: ", StorageCleaned)
-    // }
 
     return (
         <div>
         <div className={classes.root}>
-        
-            {/* <button onClick={cleanStorage}>borrar localStorage</button>
-            <button onClick={checkStorage}>check localStorage</button> */}
+
             <Header guest={props.guest} setGuest={props.setGuest}/>
-               {/* <aside className={classes.aside}>
-                    <div></div>
-                </aside> */}
-                {/* <Button
-         style={{height:"min-content" , marginTop:"10px"}}
-         
-                variant="contained" color="primary">
-                <Link to='/' style={{textDecoration:"none", color:"white"}}>volver</Link>
-                 </Button> */}
+
                 <section className={classes.section}>
             <div className={classes.font}>
                 <Typography 

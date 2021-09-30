@@ -8,7 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Notification from './Notification';
 import ConfirmDialog from './ConfirmDialog';
 import ActionButton from './ActionButton';
-import Button2 from './Button2';
 //---------------------------------------
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -18,7 +17,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-//import Button from '@mui/material/Button';
 
 const columns = [
     { id: 'first_name', label: 'Nombre', minWidth: 170, align: 'center' },
