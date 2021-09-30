@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Notification from './Notification';
 import { Button } from '@material-ui/core';
 
 
@@ -115,6 +116,7 @@ function validate(input){
 }
 
 export default function ModifyProduct2({details, categories}){
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const dispatch = useDispatch();
     const classes = useStyles();
     const [ errors, setErrors ] = useState({});
@@ -144,7 +146,11 @@ export default function ModifyProduct2({details, categories}){
 
     function handleCategories(e){
       if (input.category.includes(e.target.value)) {
-        alert("Categoria repetida, prueba con otra!");                
+        setNotify({
+          isOpen: true,
+          message: 'Categoria repetida, prueba con otra!',
+          type: 'warning'
+      })                 
         
     }else{
       setInput({
@@ -171,11 +177,19 @@ export default function ModifyProduct2({details, categories}){
         console.log(e)
         if(errors.name || errors.description || errors.price || errors.category || errors.quantity || errors.image) {
             e.preventDefault();
-            alert('Form incomplete');
+            setNotify({
+              isOpen: true,
+              message: 'Formulario incompleto',
+              type: 'error'
+          })
         }else{
             e.preventDefault();   
             dispatch(modifyProducts(input._id, input));
-            alert('Product modified');     
+            setNotify({
+              isOpen: true,
+              message: 'Producto modificado',
+              type: 'success'
+          })     
 
             }
         
