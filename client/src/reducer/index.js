@@ -201,6 +201,11 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 users: action.payload
             }
+            case 'GET_USERS':
+                return {
+                    ...state,
+                    users: action.payload
+                }
             case 'GET_ALL_PETITIONS':
             return {
                 ...state,
