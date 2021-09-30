@@ -93,7 +93,7 @@ export default function CategoryCreation(){
             dispatch(postCategory(input));
             setNotify({
                 isOpen: true,
-                message: 'Categoria creada',
+                message: 'Petición para crear categoría enviada',
                 type: 'success'
             })    
             setInput({
