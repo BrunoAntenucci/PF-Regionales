@@ -1,9 +1,10 @@
 
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { clearProDetail, getCategories, getProductDetail } from '../actions/index';
+import { addProductToCart, clearProDetail, getCategories, getProductDetail, getStore } from '../actions/index';
+
 import Notification from './Notification';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,18 +16,22 @@ import iconChange from '../img/change-icon.png'
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
 
 import Fav from './Fav';
-
+import stores from '../img/stores.svg'
 
 //--------IMPORT ACTIONS-----------//
-import { addProductToCart } from '../actions/index';
+
+import Header from './Header';
 const useStyles = makeStyles((theme) => ({
     root: {
         boxShadow:" 10px 5px 5px #0002",
-        borderRadius:"10px",
-        width: "fit-content",
-        margin:"30px auto",
-        padding:"20px",
-        background:"#eee",
+      borderRadius:"10px",
+      width: "fit-content",
+     
+      margin:"30px auto",
+      padding:"20px",
+      background: theme.palette.primary.superLight,
+
+
     },
     paper: {
         padding: theme.spacing(1),
@@ -38,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
         width:"500px",
         height:"500px",
         borderRadius:"10px",
-        border:"1px solid"+theme.palette.secondary.light  
+        //border:"1px solid"+theme.palette.secondary.light  
     },
     imageDiv:{
         padding:" 10px 40px",
@@ -47,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
         display:"flex",
         flexDirection:"row",
         justifyContent:"center",
+        background: theme.palette.primary.superLight,
+        padding:"20px",
         flexWrap:"wrap",
     },
     info:{
@@ -55,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius:"10px",
         textAlign:"justify",
         margin:"20px 0",
-        border:"1px solid"+theme.palette.primary.main
+        //border:"1px solid"+theme.palette.primary.main
     },
     cname:{
         fontSize:"26px",
@@ -111,6 +118,82 @@ const useStyles = makeStyles((theme) => ({
         padding:"3px 5px",
         color:theme.palette.primary.dark,
       }
+      ,infoStore:{
+        margin:"0",
+        color:"#eee",
+        fontSize:"1em",
+        textAlign:"center",
+        // position:"absolute",
+         //bottom:"300px",
+         '@media(max-width: 500px)':{
+             // marginLeft: '30px',
+             // flexDirection: 'column',
+             // width:"450px",
+             // height:"400px",
+             margin:"0",
+        color:"#eee",
+        fontSize:"0.9em",
+        textAlign:"center",
+           }
+        },
+        storeImg:{
+            backgroundImage:`url(${stores})`,
+            margin:"auto",
+            width:"500px",
+              height:"400px",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              '@media(max-width: 500px)':{
+                  // marginLeft: '30px',
+                  flexDirection: 'column',
+                  width:"450px",
+                  height:"400px",
+                  
+                }
+              
+          },
+          divStores:{
+              display:"flex",
+              flexDirection:"row",
+              flexWrap:"wrap",
+             
+              alignContent:"center",
+             justifyContent:"center",
+             // width:"80%",
+             background:"#eee",
+             borderRadius:"10px"
+          },
+          divStore:{
+           
+          },
+          infoDiv:{
+            position:"relative",
+    
+            margin:"0 auto",
+            top:"69%",
+            // left:"80px",
+            // right:"80px",
+           display:"flex",
+             alignContent:"center",
+            justifyContent:"center",
+            flexDirection:"column",
+            width: "fit-content",
+            height: "fit-content",
+            //border: "1px solid #c3c3c3",
+            display: "flex",
+            flexWrap: "wrap",
+            '@media(max-width: 500px)':{
+                // marginLeft: '30px',
+                // flexDirection: 'column',
+                // width:"450px",
+                // height:"400px",
+                top:"69%",
+            left:"37%",
+           display:"flex",
+              }
+           
+            
+        },
   }));
 
 function ProductDetail(props) {
@@ -121,15 +204,22 @@ function ProductDetail(props) {
     const detail = useSelector((state) => state.prodDetail);
     const user = useSelector((state) => state.user);
     const categories = useSelector((state) => state.categories)
-
+    const stores = useSelector((state) => state.stores)
     useEffect(() => {
         dispatch(getProductDetail(props.match.params.id));
         dispatch(getCategories());
+        dispatch(getStore());
         return ()=>{
             document.title = "E-Market"
             dispatch(clearProDetail())
         }
-    }, [dispatch, props.match.params.id])
+
+    }, [])
+    
+    
+
+    // }, [dispatch, props.match.params.id])
+
 
 
     const handleCartClick = async (detail) => {
@@ -178,11 +268,15 @@ function ProductDetail(props) {
             localStorage.setItem('history', JSON.stringify(historial));
         }
     }
-    
+
     //------------------------------------------------
 
     return (
         <>
+
+        <Header  searchbar={false}/>
+
+
         <div className={classes.root}>
             {}
             <Fav id={props.match.params.id} />
@@ -250,25 +344,72 @@ function ProductDetail(props) {
                                 <h3 className={classes.paper}>{p.description}</h3>
                             </div>
                                     
-                            <div style={{display:"flex",margin:"30px",justifyContent:"center" }}>
-                                <Button
-                                    className={classes.buttonBack}
-                                    variant="contained" color="primary">
-                                    <Link to = '/products' style={{textDecoration:"none", color:"white"}}>lista</Link>
-                                </Button>
-                            <br/>
-                            <br/>
-                            <Button
-                                className={classes.buttonBack}
-                                variant="contained" color="primary">
-                                <Link to = '/' style={{textDecoration:"none", color:"white"}}>home</Link>
-                            </Button>
-                            </div>    
-                        </div>                                        
-                    </div>
+                            {/* <div style={{display:"flex",margin:"30px",justifyContent:"center" }}>
+                        <Button
+                className={classes.buttonBack}
+                 variant="contained" color="primary">
+                   <Link to = '/products' style={{textDecoration:"none", color:"white"}}>lista</Link>
+                    </Button>
+                    <br/>
+                    <br/>
+                    <Button
+                className={classes.buttonBack}
+                 variant="contained" color="primary">
+                   <Link to = '/' style={{textDecoration:"none", color:"white"}}>home</Link>
+                    </Button>
+                    </div> */}
+                                {/* {product._id && (
+                                    <Reviews
+                                        id={product._id}
+                                        setUpdateReview={setUpdateReview}
+                                        updateReview={updateReview}
+                                        allReviews={product.reviews}
+                                        userOrder={userOrder}
+                                    />
+                                )} */}
+                            
+                            </div>
+                                        
+
+                        </div>
                     )
                 })
             }
+             <div style={{margin:"auto"}}>
+             <Typography
+             style={{textAlign:"center"}}
+             className={classes.cardTypo}
+             variant="h5" color="primary" component="p"                                  
+                                    >Este producto se puede encontrar en las siguientes tiendas</Typography>
+            {  stores?.map(store => {
+            if(detail?.product?.[0]?.user == store?.owner ){
+                //console.log("there's store with product")
+                return(
+                    <>
+                   
+                  <Link to={`/storedetail/${store._id}`}  style={{textDecoration:"none"}}>
+                        <div className={classes.divStore}>
+                        <div  className={classes.storeImg}>
+
+                        <section className={classes.infoDiv}>
+                        <h4  className={classes.infoStore}>{store.name}</h4>
+                        <p  className={classes.infoStore}>{store.description}</p>
+                        <p  className={classes.infoStore}
+                            style={{marginTop:"10px", color:"yellow"}}
+                        >{store.city}</p>
+                        </section>
+                        </div> 
+                        </div>
+                        </Link>
+                       
+                    </>
+                )
+            }
+            
+            
+        })}
+         </div>
+
         </div>
         <Notification
             notify={notify}

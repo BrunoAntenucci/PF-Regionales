@@ -232,7 +232,7 @@ function Home() {
       <>
       
       
-            <Header />
+            <Header searchbar={true}/>
         <div  className={classes.root}>
             <section className={classes.section}>
            

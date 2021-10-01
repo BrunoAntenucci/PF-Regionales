@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/styles';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Header from './Header';
 
 
 
@@ -16,9 +17,15 @@ const useStyles = makeStyles((e)=>({
     root:{
         display:"flex",
         flexDirection:"row",
+        //flexWrap:"wrap",
+        //width:"80%",
+        bottom:"50px ",
         '@media(max-width: 375px)':{
         flexDirection: 'column',            
         }
+    },
+    wholeStore:{
+
     },
     storeImg:{
         backgroundImage:`url(${stores})`,
@@ -65,8 +72,10 @@ const useStyles = makeStyles((e)=>({
         justifyContent:"center",
         flexDirection:"column",
         width: "fit-content",
-        height: "fit-content",        
-        flexWrap: "wrap",
+        height: "fit-content",
+        //border: "1px solid #c3c3c3",
+        display: "flex",
+        //flexWrap: "wrap",
         '@media(max-width: 500px)':{
             top:"66%",
             left:"37%",
@@ -82,17 +91,21 @@ const useStyles = makeStyles((e)=>({
     },
     revDiv:{
         display: "flex",
-        marginTop: "70px",
-        width:"300px",
-        overflow:"auto",
-        maxHeight:"530px",
-        borderRadius:"10px",
+       marginTop: "70px",
+       margin:"auto",
+       //marginRight: '35px',
+       width:"300px",
+       height:"450px",
+       overflow:"auto",
+       maxHeight:"530px",
+       borderRadius:"10px",
+       alignContent:"center",
         alignItems: 'center',
         flexDirection:"column",
         background:"#eee",
         padding: "15px",
         color: e.palette.text.secondary,
-        marginRight: '35px',
+        border: "1px solid #c3c3c3",
         '@media(max-width: 500px)':{
             marginTop:"10px",
             marginBottom: '20px'
@@ -124,22 +137,24 @@ const Stores = () => {
 
     return (
         <>
-            <Button
-                style={{height:"min-content", marginTop:"20px"}}
-                variant="contained" color="primary">
+         <Header  searchbar={false}/>
+            {/* <Button
+         style={{height:"min-content", marginTop:"20px"}}
+         
+              variant="contained" color="primary">
                 <Link to='/' style={{textDecoration:"none", color:"white"}}>volver</Link>
-            </Button>
-
-            <div className={classes.root}>
-                <div style={{ marginTop:"50px"}}>
-                    <Typography variant="h2" className={classes.title}>
-                        Tiendas
+                 </Button> */}
+        <div className={classes.root}>
+            <div style={{ marginTop:"50px"}}>
+                <Typography variant="h2" className={classes.title}>
+                    Tiendas
                     </Typography>
                  <div  className={classes.divStores}>
             {
                 allStores.map(store => {
                     return(
                         <>
+                        <div className={classes.wholeStore}>
                         <Link to={`/storedetail/${store._id}`}  style={{textDecoration:"none"}}>
                             <div className={classes.divStore}>
                                 <div  className={classes.storeImg}>
@@ -197,7 +212,10 @@ const Stores = () => {
                                 </div>
                             )
                         })}
-                        </div>                        
+                        </div>
+                        </div>
+                        
+                        
                         </>
                     )
                 })

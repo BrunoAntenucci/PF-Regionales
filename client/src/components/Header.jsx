@@ -46,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
   },
   logo:{
     backgroundImage:`url (${imgLogo})`,
-    width:"75px",
-    height:"75px",
+    width:"50px",
+    height:"50px",
     position: "relative",
     backgroundSize:"cover",
     margin:"2px",
@@ -89,8 +89,13 @@ function Header(props) {
                   <Link to = '/'><img src={imgLogo}   className={classes.logo} alt="logo"/></Link></button>
                 {/* <Link to="/products">
                 <img src={imgLogo}   className={classes.logo} alt="logo"/></Link> */}
-                
-                <Searchbar className={classes.searchbar} />   
+                {props.searchbar? <Searchbar className={classes.searchbar} />:
+                 <button className={classes.buttonLogo}
+                 onClick={(e) => handleClick(e)}>
+                   <Link to = '/products'><img src={imgLogo}  style={{display:"none"}}
+                    className={classes.logo} alt="logo"/></Link></button>
+                }
+               
                 
 
                 {/*este div sirve para lograr el centrado del search sin margin*/ }

@@ -106,9 +106,20 @@ function Products(props) {
     return (
         <div>
         <div className={classes.root}>
-
-            <Header guest={props.guest} setGuest={props.setGuest}/>
-
+        
+            {/* <button onClick={cleanStorage}>borrar localStorage</button>
+            <button onClick={checkStorage}>check localStorage</button> */}
+            <Header  searchbar={true} guest={props.guest} setGuest={props.setGuest}/>
+            
+               {/* <aside className={classes.aside}>
+                    <div></div>
+                </aside> */}
+                {/* <Button
+         style={{height:"min-content" , marginTop:"10px"}}
+         
+                variant="contained" color="primary">
+                <Link to='/' style={{textDecoration:"none", color:"white"}}>volver</Link>
+                 </Button> */}
                 <section className={classes.section}>
             <div className={classes.font}>
                 <Typography 
