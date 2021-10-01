@@ -2,53 +2,45 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { getStoreById, getProducts } from '../actions'
+
 import Card from '../components/Card'
 import Loading from './Loading'
-//import Reviews from '../components/Reviews'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
-//import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Fragment } from 'react';
-//import market from '../img/market.png'
 import { Button, Typography } from '@material-ui/core';
-//import cartEmpty from '../img/cart-empty.png'
 import iconChange from '../img/change-icon.png'
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
 import Footer from './Footer';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      boxShadow:" 10px 5px 5px #0002",
-      borderRadius:"10px",
-      width: "fit-content",
-      height:"100vh",
-      margin:"30px auto",
-      padding:"20px",
-      background:"#eee",
+        boxShadow:" 10px 5px 5px #0002",
+        borderRadius:"10px",
+        width: "fit-content",
+        height:"100vh",
+        margin:"30px auto",
+        padding:"20px",
+        background:"#eee",
     },
     titular: {
         marginLeft: '10px',
         padding: "10px 20px",
-        //marginTop: '10px',
         marginBottom: '0px',
         textAlign:"center",
         color:theme.palette.primary.dark,
-        //borderLeft:"3px solid "+theme.palette.secondary.dark,
-        //borderRight:"3px solid "+theme.palette.secondary.dark,
         borderBottom:"2px solid "+theme.palette.primary.dark,
         borderRadius:"2px",
-        background: "rgb(83,83,83)",
         background: "linear-gradient(60deg, #ffffff 0%, "+theme.palette.primary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+theme.palette.primary.light+" 76%, "+theme.palette.primary.light+ " 78%, rgba(255,253,253,1) 78%)",
     },
     buttonback: {
         display: "flex",
         justifyContent: "left",    
         background:"#eee",
-
-       alignItems: 'left',
+        alignItems: 'left',
     },
     storedetails: {
         display: "flex",
@@ -77,14 +69,12 @@ const useStyles = makeStyles((theme) => ({
 
     },
     paper: {
-      padding: theme.spacing(1),
-      margin:"0",
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-      textAlign:"justify"
+        padding: theme.spacing(1),
+        margin:"0",
+        color: theme.palette.text.secondary,
+        textAlign:"justify"
     },
-    text:{
-        
+    text:{   
         color:theme.palette.text.secondary,
     },
     image: {
@@ -101,31 +91,26 @@ const useStyles = makeStyles((theme) => ({
         maxWidth:"400px"
     },
     products:{
-            background:"#eee",
-            maxWidth: "4000px",
-            minWidth:"450px",
-            height: 600,
-            display:"flex",
-            flexWrap:"wrap",
-            paddingBottom:"300px"
-            // borderRadius: '1%',
+        background:"#eee",
+        maxWidth: "4000px",
+        minWidth:"450px",
+        height: '600%',
+        display:"flex",
+        flexWrap:"wrap",
+        paddingBottom:"300px"
     },
     revDiv:{
         display: "flex",
-       // justifyContent: "space-between",
         alignItems: 'center',
         flexDirection:"column",
         background:"#eee",
         padding: "10px",
         color: theme.palette.text.secondary,
-
     },
     content:{
         display:"flex",
         flexDirection:"row",
         justifyContent:"center"
-
-
     },
     info:{
         background:"#fff",
@@ -135,21 +120,9 @@ const useStyles = makeStyles((theme) => ({
         margin:"20px 0",
         border:"1px solid"+theme.palette.primary.main
     },
-    // cname:{
-    //     fontSize:"22px",
-    //     color:"#333",
-    //     fontFamily:"tahoma"
-    // },
-    // cprice:{
-    //     fontSize:"36px",
-    //     color:"black",
-    //     fontFamily:"roboto"
-    // },
     buttonBack:{
         padding:"10px",
-    
         margin:"2px 40px",
-       
     },
     cardDiv:{
         display: "flex",
@@ -162,28 +135,22 @@ const useStyles = makeStyles((theme) => ({
         cursor:"pointer",
         border:"1px solid "+theme.palette.primary.main,
         "&:hover":{
-
             background:theme.palette.primary.superLight,
-          
-          },
-          "&:active":{
+        },
+        "&:active":{
             boxShadow:"inset  2px 2px 4px #0005"
-          }
+        }
       },
       cart:{
         padding:"7px",
         margin:"0 5px",
         width:"16px",
-       
         height:"16px",
         justifySelf: "end",
         background:theme.palette.primary.main,
-         borderRadius:"50%",
-         border:"3px solid white",
-         cursor:"pointer",
-             
-    
-        
+        borderRadius:"50%",
+        border:"3px solid white",
+        cursor:"pointer",
       },
       cardTypo:{
         height:"max-content",
@@ -198,7 +165,7 @@ export default function StoreDetail(props){
 
     const detail = useSelector((state) => state.storeDetail);
     console.log(detail, 'DETAIL')
-
+    console.log(detail._id, 'id')
     const categories = useSelector((state) => state.categories);
     const products = useSelector((state) => state.products);
     const user = useSelector((state) => state.user);
@@ -211,7 +178,7 @@ export default function StoreDetail(props){
     useEffect(()=> {
         dispatch(getStoreById(props.match.params.id));
         dispatch(getProducts())
-    }, [dispatch, getStoreById, getProducts])
+    }, [dispatch, props.match.params.id])
 
     const HandleHistoryOnClick=(name,price,category,image,id,quantity)=>{
         var historyArray= [];
@@ -251,7 +218,7 @@ export default function StoreDetail(props){
                 
                 <div className={classes.storedetails}>
                     <div className={classes.imageDiv}>
-                        <img className={classes.image} src={detail.img}/>
+                        <img className={classes.image} src={detail.img} alt=''/>
                     </div>
                     <div className={classes.text}>
                         <Typography
@@ -298,18 +265,19 @@ export default function StoreDetail(props){
                                     </Typography>
                                         {/*le puse la llave mía porque no me mostraba la de material UI*/}
                                         <img src={iconChange?iconChange:BuildOutlinedIcon}
+                                        alt=''
                                         className={classes.cart}></img>
                                     </>
                             </div>
                         : null}    
                     </div>
 
-                    
-                    </div>
-                    <div className={classes.revDiv}>
-                        <Typography 
-                            variant="h5" 
-                            ml={1}>
+                        
+                        </div>
+                        <div className={classes.revDiv}>
+                            <Typography 
+                                variant="h5" 
+                                ml={1}>
                             Reviews
                         </Typography>
                     
@@ -340,6 +308,9 @@ export default function StoreDetail(props){
                                         </div>
                                     )
                             }) : null}
+                            <Link to={`storedetail/${detail._id}/reviews`}>
+                                                <p>Dejar Review</p>
+                                            </Link>
                 </div>
             </div>
             <div className={classes.buttonback}>

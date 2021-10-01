@@ -18,6 +18,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import StyleIcon from '@mui/icons-material/Style';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import { getUsers, getAllPetitions, getOrderDetail, getAllOrders, getCategories, getStore } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -140,6 +141,18 @@ export default function Navigator(props) {
                 </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
+              <ListItemButton selected="active" sx={item}  onClick={handleClick}>
+                <ListItemIcon><LocalOfferOutlinedIcon /></ListItemIcon>
+                <ListItemText>Categories</ListItemText>
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton selected="active" sx={item}  onClick={handleClick}>
+                <ListItemIcon><StorefrontOutlinedIcon /></ListItemIcon>
+                <ListItemText>Stores</ListItemText>
+              </ListItemButton>
+            </ListItem> 
+            <ListItem disablePadding>
                 <ListItemButton selected="active" sx={item} onClick={handleClick}>
                   <ListItemIcon><LocalMallIcon /></ListItemIcon>
                   <ListItemText>Mis compras</ListItemText>
@@ -193,18 +206,6 @@ export default function Navigator(props) {
                   <ListItemText>Products</ListItemText>
                 </ListItemButton>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton selected="active" sx={item}  onClick={handleClick}>
-                <ListItemIcon><LocalOfferOutlinedIcon /></ListItemIcon>
-                <ListItemText>Categories</ListItemText>
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton selected="active" sx={item}  onClick={handleClick}>
-                <ListItemIcon><StorefrontOutlinedIcon /></ListItemIcon>
-                <ListItemText>Stores</ListItemText>
-              </ListItemButton>
-            </ListItem> 
             </>
           : "null"
           }
@@ -227,8 +228,8 @@ export default function Navigator(props) {
             </ListItem>
             <ListItem disablePadding>
                 <ListItemButton selected="active" sx={item} onClick={handleClick}>
-                  <ListItemIcon><StyleIcon /></ListItemIcon>
-                  <ListItemText>AdminAnalytics</ListItemText>
+                  <ListItemIcon><SettingsSuggestIcon /></ListItemIcon>
+                  <ListItemText>Admin Analytics</ListItemText>
                 </ListItemButton>
             </ListItem>
             <Divider sx={{ mt: 2 }} />

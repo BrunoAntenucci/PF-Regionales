@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useState } from 'react';
 import Button from '@material-ui/core/Button';
@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
-import { forgotPass, getAllUsers, getPass } from '../../actions/index';
+import { forgotPass, getAllUsers } from '../../actions/index';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -43,18 +43,11 @@ export default function ForgotPass(){
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const history = useHistory();
     const [email, setEmail] = useState('')
    
     useEffect(()=> {
         dispatch(getAllUsers())
     }, [dispatch])
-
-    // const users = useSelector(state => state.users)
-    // const usersE = users.map((el) =>{ return el.email})
-
-    // const userEmail = usersE.find((e) =>e === email)
-    // console.log(`EMAIL FORM: ${email}`)
 
     const handleSubmit =  (e) =>{
       dispatch(forgotPass(email))

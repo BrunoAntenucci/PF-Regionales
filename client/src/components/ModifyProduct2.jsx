@@ -1,20 +1,17 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { getCategories, getProductDetail, modifyProducts } from '../actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { modifyProducts } from '../actions';
+import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Notification from './Notification';
 import { Button } from '@material-ui/core';
 
 
@@ -119,6 +116,7 @@ function validate(input){
 }
 
 export default function ModifyProduct2({details, categories}){
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const dispatch = useDispatch();
     const classes = useStyles();
     const [ errors, setErrors ] = useState({});
@@ -148,7 +146,11 @@ export default function ModifyProduct2({details, categories}){
 
     function handleCategories(e){
       if (input.category.includes(e.target.value)) {
-        alert("Categoria repetida, prueba con otra!");                
+        setNotify({
+          isOpen: true,
+          message: 'Categoria repetida, prueba con otra!',
+          type: 'warning'
+      })                 
         
     }else{
       setInput({
@@ -163,18 +165,6 @@ export default function ModifyProduct2({details, categories}){
     }
     } 
 
-    function handleChange(e){
-        setInput({
-            ...input,
-            [e.target.name]: e.target.value,
-          })
-          setErrors(validate({
-              ...input,
-              [e.target.name]: e.target.value,
-          }))
-        console.log(input)
-
-    }
 
     function handleClose(e){
         setInput({
@@ -187,11 +177,19 @@ export default function ModifyProduct2({details, categories}){
         console.log(e)
         if(errors.name || errors.description || errors.price || errors.category || errors.quantity || errors.image) {
             e.preventDefault();
-            alert('Form incomplete');
+            setNotify({
+              isOpen: true,
+              message: 'Formulario incompleto',
+              type: 'error'
+          })
         }else{
             e.preventDefault();   
             dispatch(modifyProducts(input._id, input));
-            alert('Product modified');     
+            setNotify({
+              isOpen: true,
+              message: 'Producto modificado',
+              type: 'success'
+          })     
 
             }
         

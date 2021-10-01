@@ -1,18 +1,11 @@
 import React from 'react';
 import { useEffect } from 'react';
-import axios from 'axios'
-import { ReactSearchAutocomplete } from 'react-search-autocomplete'
-// import { Autocomplete } from '@material-ui/lab';
-// import TextField from "@material-ui/core/TextField"
-import { makeStyles,fade } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-// import InputBase from '@material-ui/core/InputBase';
-// import IconButton from '@material-ui/core/IconButton';
-// import SearchIcon from '@material-ui/icons/Search';
+import axios from 'axios';
+import { ReactSearchAutocomplete } from 'react-search-autocomplete';
+import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { getProductsByName } from '../actions';
-//import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,24 +13,16 @@ const useStyles = makeStyles((theme) => ({
   
 
   root: {
-    // padding: '2px 4px',
-    // display: 'flex',
-    // alignItems: 'center',
-    // height:"40px",
     width: "500px",
     zIndex:"100",
     flexDirection:"row",
     marginTop: '5px',
-
     '@media(max-width: 900px)':{
       padding: '0 -1rem',
       width: '80%',
       marginLeft: '25px',
       marginTop: '5px',
     whiteSpace: 'nowrap',
-    //  maxHeight: '4px',
-    
-
     },
   
   },
@@ -57,25 +42,6 @@ const useStyles = makeStyles((theme) => ({
 function Navbar() {
 
   const dispatch = useDispatch();
-  //let history = useHistory ();
-  // const [name, setName] = useState('');
-
-  // const handleInputChange = (e) => {
-  //   e.preventDefault();
-  //   setName(e.target.value);
-  // }
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if(name){
-  //   dispatch(getProductsByName(name));
-  //   //history.push("/products");
-  //   setName('');   
-  //   // let inputId = document.getElementById("dataInput");
-  //   // inputId.value = ""; 
-  //   }
-  // }
-
 
   // --------------------AUTOCOMPLETE---------------------------------
 
@@ -85,30 +51,19 @@ function Navbar() {
     console.log("response", response)
     setProd(response.data)
   }, []);
-  //console.log(prod)
 
   const handleOnSelect = ({name}) => {
     // the item selected
 
     if(name){
     dispatch(getProductsByName(name));
-    //history.push("/products");
-    // setName('');
-    // let inputId = document.getElementById("dataInput");
-    // inputId.value = ""; 
     }
-    //console.log(name)
   }
 
   const handleOnSearch = (e) => {
     if(e){
       dispatch(getProductsByName(e));
-      //history.push("/products");
-      // setName('');
-      // let inputId = document.getElementById("dataInput");
-      // inputId.value = ""; 
       } 
-      console.log(e, "holay45y45yh")
   
   }
 
@@ -116,7 +71,6 @@ function Navbar() {
     const classes = useStyles();
     return (
         <div component="form" className={classes.root}>
-         
           <div className={classes.root}>
             <ReactSearchAutocomplete
              id="dataInput"
@@ -126,11 +80,8 @@ function Navbar() {
             items={prod}
             fuseOptions={{ keys: ["name", "description"] }}
             resultStringKeyName="name"
-            onSearch={handleOnSearch}
-            
-            // onClick = {handleSubmit}
-            onSelect={handleOnSelect}
-            // size={"small"}
+            onSearch={handleOnSearch}         
+            onSelect={handleOnSelect}      
             style={{ width: 300 }}
             placeholder={"Buscar..."}
             />               

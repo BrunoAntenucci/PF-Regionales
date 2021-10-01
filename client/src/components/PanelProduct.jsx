@@ -1,9 +1,11 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom'
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteUser, getAllUsers, getProducts, modifyProducts, deleteProducts, mailFav, getProductDetail } from '../actions/index';
 import { useSelector } from 'react-redux';
+
+import { getProducts, modifyProducts, deleteProducts, mailFav } from '../actions/index';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -73,14 +75,14 @@ const PanelProduct = () => {
     const dispatch = useDispatch();
     var allProduct = useSelector(state => state.products)
     const allUsers = useSelector(state => state.user);
-    allProduct = allProduct.filter(e => e.user==allUsers._id)
+    allProduct = allProduct.filter(e => e.user === allUsers._id)
     console.log(allProduct, "allproduct SASASA")
     
     console.log(allUsers, "ALLUSER")
     
     useEffect(() => {
      dispatch(getProducts())
-    }, []);
+    }, [dispatch]);
 
 
     const handleSendEmail = async (id, quantity) => {

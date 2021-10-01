@@ -1,8 +1,14 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteUser, reviveUser, getUsers } from '../actions/index';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+//-----Alert-----------------------------
+import Notification from './Notification';
+import ConfirmDialog from './ConfirmDialog';
+import ActionButton from './ActionButton';
+//---------------------------------------
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,7 +17,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Button from '@mui/material/Button';
+
 
 const columns = [
     { id: 'first_name', label: 'Nombre', minWidth: 170, align: 'center' },
@@ -30,7 +36,7 @@ const columns = [
     },
     {
       id: 'active',
-      label: 'Is Active?',
+      label: 'Status',
       minWidth: 170,
       align: 'center',
     },
@@ -53,15 +59,31 @@ const columns = [
   });
 
 const Users = () => {
-    const dispatch = useDispatch();
 
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+    const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+    const dispatch = useDispatch();
     const allUsers = useSelector(state => state.users);
 
     const handleDelete = async (id, active) => {
+        setConfirmDialog({
+            ...confirmDialog,
+            isOpen: false
+        })
       if(active === 'Active'){
         await dispatch(deleteUser(id));
+        setNotify({
+          isOpen: true,
+          message: 'User deactivated successfully',
+          type: 'success'
+      })
       }else{
         await dispatch(reviveUser(id));
+        setNotify({
+          isOpen: true,
+          message: 'User activated successfully',
+          type: 'success'
+      })
       }
         await dispatch(getUsers());
     }
@@ -90,12 +112,35 @@ const Users = () => {
             arr[i].id, 
             arr[i].role,
             arr[i].active, 
-            <Button variant="outlined" color="error" onClick={() => handleDelete(arr[i].id, arr[i].active)}>Active / Inactive</Button>
+            arr[i].active === 'Active' ? 
+            <ActionButton
+              color="secondary"
+              onClick={() => {
+                  setConfirmDialog({
+                      isOpen: true,
+                      title: 'Are you sure you want to deactivate this user?',
+                      subTitle: "",
+                      onConfirm: () => { handleDelete(arr[i].id, arr[i].active) }
+                  })
+              }}
+            >Active | Inactive</ActionButton>
+            : 
+            <ActionButton
+              color="secondary"
+              onClick={() => {
+                  setConfirmDialog({
+                      isOpen: true,
+                      title: 'Are you sure you want to activate this user?',
+                      subTitle: "",
+                      onConfirm: () => { handleDelete(arr[i].id, arr[i].active) }
+                  })
+              }}
+            >Active | Inactive</ActionButton>
         ));
     }
-    console.log(rows);
+    
 
-    const classes = useStyles();
+  const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -153,7 +198,16 @@ const Users = () => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      <Notification
+        notify={notify}
+        setNotify={setNotify}
+      />
+      <ConfirmDialog
+          confirmDialog={confirmDialog}
+          setConfirmDialog={setConfirmDialog}
+      />
     </Paper>
+    
     )
 }
 
