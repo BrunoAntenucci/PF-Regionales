@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, getCategories } from '../actions/index';
-
+import Notification from './Notification';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function Products(props) {
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const classes = useStyles();
     const dispatch = useDispatch();
     const allProducts = useSelector((state) => state.products);
@@ -80,6 +81,11 @@ function Products(props) {
 
     
     const HandleHistoryOnClick=(name,price,category,image,id,quantity)=>{
+        setNotify({
+            isOpen: true,
+            message: 'Producto añadido al carrito',
+            type: 'success'
+        })
         var historyArray= [];
         if(!localStorage.getItem("historyProducts")){
             historyArray.push({name,price,category,image,id,quantity })
@@ -229,7 +235,10 @@ function Products(props) {
               
         </div>
         <Footer/>  
-
+        <Notification
+          notify={notify}
+          setNotify={setNotify}
+      />
         </div>
         
     )
