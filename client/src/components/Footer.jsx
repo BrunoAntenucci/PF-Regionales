@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((e)=>({
   footer:{
   padding: "40px",
-  background: "#32323f",
+  background: "grey",
 //background: "linear-gradient(112deg,"+e.palette.secondary.main+" 11%, "+e.palette.secondary.dark+" 33%, "+e.palette.secondary.main+" 55%)",
 
   color:"white",
