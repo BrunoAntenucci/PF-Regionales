@@ -341,6 +341,9 @@ export default function StoreDetail(props){
                                     )
                             }) : null}
                 </div>
+                <Link to={`/${detail._id}/reviews`}>
+                    <p>Dejar Review</p>
+                </Link>
             </div>
             <div className={classes.buttonback}>
                 <Button

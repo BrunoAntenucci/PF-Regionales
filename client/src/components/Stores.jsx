@@ -118,7 +118,6 @@ const useStyles = makeStyles((e)=>({
         padding: "15px",
         // height: 'fit-content',
         color: e.palette.text.secondary,
-        border: "1px solid #c3c3c3",
         marginRight: '35px',
         '@media(max-width: 500px)':{
             

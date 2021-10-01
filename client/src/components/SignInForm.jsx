@@ -120,29 +120,31 @@ const SignInForm = () => {
         email : '',
         password:''
     })
-// React.useEffect(()=>{
-
-//     document.title ="Log In"
-//     console.log("use effect render user", userState)
-//     setErrorUser(false)
-   
-//     if( userState.token ){
-//       setErrorUser(false)
-//       history.push("/products")
-//     }
-//     return(()=>{
-//         document.title ="E-Market" 
-//     })
-//     },[])
     React.useEffect(()=>{
 
-      dispatch(checkUser())      
-      // if(userState._id){
-      //   setErrorUser(false)
-      //   history.push("/products")
-      // }
+      document.title ="Log In"
+      console.log("use effect render user", userState)
+      setErrorUser(false)
      
-      },[/*userState*/])
+      if( userState._id ){
+        setErrorUser(false)
+        history.push("/")
+      }
+      return(()=>{
+          document.title ="E-Market" 
+      })
+      },[])
+  React.useEffect(()=>{
+  
+    console.log("use effect useState user", userState)
+    if( userState._id ){
+      setErrorUser(false)
+      history.push("/")
+    }else if((!userState || userState == {} || userState == "No user exist") && input.email.length > 5) {
+      setErrorUser(true)
+    }
+   
+    },[userState])
     
     // const [errors, setErrors] = useState({});
 

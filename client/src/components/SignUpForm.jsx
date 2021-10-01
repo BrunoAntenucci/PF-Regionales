@@ -106,7 +106,7 @@ const SignUpForm = () => {
         } else {
             dispatch(signUp(register))
             alert('La cuenta fue creada exitosamente');
-            history.push('/products');
+            history.push('/');
             }
         } 
         console.log(register)
