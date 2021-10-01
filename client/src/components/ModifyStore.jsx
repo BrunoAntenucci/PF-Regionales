@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getProducts, getStore, modifyStore } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
-
+import Notification from './Notification';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -118,6 +118,7 @@ function validate(input){
 export default function ModifyStore(props){
     const dispatch = useDispatch();
     //const history = useHistory();
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [ errors, setErrors ] = useState({});
     const id  = props.match.params.id
     console.log(id, "ID")
@@ -155,7 +156,11 @@ export default function ModifyStore(props){
 
     function handleProducts(e){
         if (input.products.includes(e.target.value)) {
-          alert("Producto repetido, prueba con otro!");                
+          setNotify({
+            isOpen: true,
+            message: 'Producto repetido, prueba con otro!',
+            type: 'warning'
+        })               
           
       }else{
         setInput({
@@ -194,11 +199,19 @@ export default function ModifyStore(props){
         console.log(e)
         if(errors.name || errors.description || errors.city) {
             e.preventDefault();
-            alert('Form incomplete');
+            setNotify({
+                isOpen: true,
+                message: 'Formulario incompleto',
+                type: 'error'
+            })
         }else{
             e.preventDefault();   
             dispatch(modifyStore(input._id, input));
-            alert('Store modified');     
+            setNotify({
+                isOpen: true,
+                message: 'Tienda modificada',
+                type: 'success'
+            })    
             setInput({
                 name: '',
                 description: '',
@@ -450,7 +463,10 @@ export default function ModifyStore(props){
                        
                        </div>
 
-
+                       <Notification
+                        notify={notify}
+                        setNotify={setNotify}
+                    />
 
         </>
         )
