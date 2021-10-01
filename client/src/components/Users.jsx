@@ -36,7 +36,7 @@ const columns = [
     },
     {
       id: 'active',
-      label: 'Is Active?',
+      label: 'Status',
       minWidth: 170,
       align: 'center',
     },
@@ -62,18 +62,14 @@ const Users = () => {
 
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
-
     const dispatch = useDispatch();
-
     const allUsers = useSelector(state => state.users);
 
     const handleDelete = async (id, active) => {
-
         setConfirmDialog({
             ...confirmDialog,
             isOpen: false
         })
-
       if(active === 'Active'){
         await dispatch(deleteUser(id));
         setNotify({

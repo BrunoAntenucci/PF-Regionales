@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { createReview, getStoreReview, checkUser } from '../actions/index';
 import { makeStyles } from '@material-ui/core/styles';
+import Notification from './Notification';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -43,7 +44,7 @@ card:{
 export default function Reviews(props){
     
     const dispatch = useDispatch();
-    
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
     const [hover, setHover] = useState(-1);
@@ -75,7 +76,12 @@ export default function Reviews(props){
                 // e.prevent.default()
                 dispatch(createReview(id, review))
                 console.log(createReview, 'review')
-                alert(`${userInfo.first_name} Gracias por tu review!`);
+                //alert(`${userInfo.first_name} Gracias por tu review!`);
+                setNotify({
+                  isOpen: true,
+                  message: `${userInfo.first_name} Gracias por tu review!`,
+                  type: 'info'
+              })
                 history.push('/products')
             }
 
@@ -133,6 +139,10 @@ export default function Reviews(props){
          ): null}
             
         </div>
+        <Notification
+        notify={notify}
+        setNotify={setNotify}
+      />
         </div>
     )
 }
