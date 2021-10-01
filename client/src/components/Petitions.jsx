@@ -1,7 +1,9 @@
 import React from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { getAllPetitions, acceptPetition, denyPetition } from '../actions';
+import Notification from './Notification';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -54,15 +56,26 @@ const columns = [
 const Petitions = () => {
 
     const allPetitions = useSelector(state => state.petitions);
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const dispatch = useDispatch();
 
     const handleAccept = async (id) => {
         await dispatch(acceptPetition(id));
+        setNotify({
+          isOpen: true,
+          message: 'Petición aceptada',
+          type: 'success'
+      })
         await dispatch(getAllPetitions());
     }
 
     const handleDeny = async (id) => {
         await dispatch(denyPetition(id));
+        setNotify({
+          isOpen: true,
+          message: 'Petición rechazada',
+          type: 'error'
+      })
         await dispatch(getAllPetitions());
     }
 
@@ -153,6 +166,10 @@ const Petitions = () => {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
+        <Notification
+          notify={notify}
+          setNotify={setNotify}
+      />
       </Paper>
     )
 }

@@ -33,7 +33,7 @@ const columns = [
     },
     {
       id: 'active',
-      label: 'Is Active?',
+      label: 'Status',
       minWidth: 170,
       align: 'center',
     },
