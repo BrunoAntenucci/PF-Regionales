@@ -1,23 +1,18 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { getCategories, postProducts } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { makeStyles } from '@material-ui/core/styles';
+import Notification from './Notification';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-//import FormControlLabel from '@material-ui/core/FormControlLabel';
-//import Checkbox from '@material-ui/core/Checkbox';
-
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-//import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { Button } from '@material-ui/core';
-
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
         width:"fit-content",
     },
     card:{
-        // display:"flex",
         margin:"30px auto",
         width:"800px",
         padding: "40px",
@@ -82,7 +76,6 @@ background: "linear-gradient(120deg, #ffffff 0%, "+theme.palette.primary.light+"
       categoryButton:{
           border: "none",
           padding:"0 15px",
-          //height:"max-content",
           borderRadius:"10px",
           fontSize:"1.3em",
         color:"white",
@@ -124,9 +117,9 @@ function validate(input){
 }
 
 export default function ProductCreation(){
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const dispatch = useDispatch();
     const classes = useStyles();
-    //const history = useHistory();
     const [ errors, setErrors ] = useState({});
 
     const [ input, setInput ] = useState({
@@ -185,11 +178,19 @@ export default function ProductCreation(){
         console.log(e)
         if(errors.name || errors.description || errors.price || errors.category || errors.quantity || errors.image) {
             e.preventDefault();
-            alert('Formulario incompleto');
+            setNotify({
+              isOpen: true,
+              message: 'Formulario incompleto',
+              type: 'error'
+          })
         }else{
             e.preventDefault();   
             dispatch(postProducts(input));
-            alert('Producto creado');     
+            setNotify({
+              isOpen: true,
+              message: 'Petición para crear producto enviada',
+              type: 'success'
+          })
             setInput({
                 name: '',
                 description: '',
@@ -202,117 +203,20 @@ export default function ProductCreation(){
     }
     console.log(input)
     return(
-        // <div className={classes.root}>
-        //     <h1>Crear Un Nuevo Producto</h1>
-        //         <form onSubmit={(e) => handleSubmit(e)}>
-        //             <div>
-        //                 <label>Nombre</label>
-        //                 <input 
-        //                  type='text'
-        //                  value={input.name}
-        //                  name='name'
-        //                  onChange={handleChange}
-        //                 />
-        //                 {errors.name && (
-        //                     <p>{errors.name}</p>
-        //                 )} 
-        //             </div>
-        //             <div>
-        //                 <label>Descripcion</label>
-        //                 <input
-        //                 type='text'
-        //                 value={input.description}
-        //                 name='description'
-        //                 onChange={handleChange}
-        //                 />
-        //                 {errors.description && (
-        //                     <p>{errors.description}</p>
-        //                 )} 
-        //             </div>
-        //             <div>
-        //                 <label>Precio</label>
-        //                 <input
-        //                 type='text'
-        //                 value={input.price}
-        //                 name='price'
-        //                 onChange={handleChange}
-        //                 />
-        //                 {errors.price && (
-        //                     <p>{errors.price}</p>
-        //                 )}
-        //             </div>
-        //             <div>
-        //                 <select onChange={handleCategories} required>
-        //                     {
-        //                         categories.map((e) => 
-        //                         <option value={e._id}>{e.name}</option>
-        //                         )
-        //                     }
-        //                 </select>
-        //                 {errors.category && (
-        //                     <p>{errors.category}</p>
-        //                 )}
-
-        //             </div>
-        //             <div>
-        //                 <label>Cantidad</label>
-        //                 <input
-        //                 type='number'
-        //                 value={input.quantity}
-        //                 name='quantity'
-        //                 onChange={handleChange}
-        //                 />
-        //                 {errors.quantity && (
-        //                     <p>{errors.quantity}</p>
-        //                 )}
-
-        //             </div>
-        //             <div>
-        //                 <label>Imagen</label>
-        //                 <input
-        //                 type='text'
-        //                 value={input.image}
-        //                 name='image'
-        //                 onChange={handleChange}
-        //                 />
-        //                 {errors.image && (
-        //                     <p>{errors.image}</p>
-        //                 )}
-        //             </div>
-        //             <button type='submit'>Crear Producto</button>
-        //         </form>
-                           
-        //                 <ul >{input.category.map(e => {
-        //                     const aux = categories.find(i => i._id === e)
-        //                     return <div style={{display:'flex', flexDirection:'row'}}>
-        //                                 <p>{aux.name}</p>
-        //                                 <button onClick={() => handleClose(e)}>x</button>
-        //                            </div>
-        //                 })}</ul>
-                       
-        //         <Link to='/'>
-        //             <button>Volver</button>
-        //         </Link>
-        // </div>
-
-
-
-
         <React.Fragment>
             <div className={classes.root}>
             <div className={classes.card}>
         <Typography variant="h6" gutterBottom >
-        Crear Un Nuevo Producto
+          Crear Un Nuevo Producto
         </Typography>
         <form onSubmit={(e) => handleSubmit(e)}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <TextField
-              
+            <TextField   
               value={input.name}
               name='name'
-             label="Nombre"
-             onChange={handleChange}
+              label="Nombre"
+              onChange={handleChange}
               fullWidth
               autoComplete="given-name"
             />
@@ -323,12 +227,10 @@ export default function ProductCreation(){
           
           <Grid item xs={12} sm={6}>
             <TextField
-              
-          
               value={input.description}
-                 name='description'
-                onChange={handleChange}
-                label="description"
+              name='description'
+              onChange={handleChange}
+              label="description"
               fullWidth
               autoComplete="family-name"
             />
@@ -336,95 +238,91 @@ export default function ProductCreation(){
                              <p className={classes.error}>{errors.description}</p>
                              )} 
           </Grid>
+
           <Grid item xs={12} sm={3}>
-          <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">categorías</InputLabel>
-        <Select
-        className={classes.cateroriesSelect}
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          
-          onChange={handleCategories}
-        >
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-simple-select-label">categorías</InputLabel>
+                <Select
+                  className={classes.cateroriesSelect}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  onChange={handleCategories}
+                >
              {
                                 categories.map((e, i) => 
                                <MenuItem key={i} value={e._id}>{e.name}</MenuItem>
                                  )
              }
-        </Select>
-      </FormControl>
-      {errors.categories && (
+                </Select>
+              </FormControl>
+                    {errors.categories && (
                           <p className={classes.error} >{errors.categories}</p>
                     )}
           </Grid>
+
           <Grid item xs={12} sm={3}>
-            <TextField
-              
-            value={input.quantity}
+            <TextField              
+              value={input.quantity}
               name='quantity'
-             onChange={handleChange}
+              onChange={handleChange}
               label="quantity"
-              fullWidth
-              
-            />{errors.quantity && (
+              fullWidth  
+            />
+            {errors.quantity && (
                 <p className={classes.error} >{errors.quantity}</p>
-          )}
-         
+            )}
           </Grid>
+
           <Grid item xs={12}  sm={3}>
-            <TextField
-              
-              
+            <TextField                            
               label="precio"
               value={input.price}
-               name='price'
-             onChange={handleChange}
+              name='price'
+              onChange={handleChange}
               fullWidth
-             
             />
-             {errors.price && (
+            {errors.price && (
                             <p className={classes.error}>{errors.price}</p>
-                     )}
+            )}
           </Grid>
         
           <Grid item xs={12} sm={12}>
-            <TextField
-              
+            <TextField  
               value={input.image}
-             name='image'   
-             onChange={handleChange}
+              name='image'   
+              onChange={handleChange}
               label="imagen"
               fullWidth
-         
             />
-                        {errors.image && (
-    <p className={classes.error} >{errors.image}</p>
-                    )}
+            {errors.image && (
+              <p className={classes.error} >{errors.image}</p>
+            )}
           </Grid>
           
-        </Grid>
-        <div className={classes.buttonsDiv}>
-        
-                    <Button  variant="contained" className={classes.button} 
-                  color="primary" type='submit'>Crear Producto</Button>
-           </div>
-        </form>
-        
+          </Grid>
+            <div className={classes.buttonsDiv}>
+              <Button  variant="contained" className={classes.button} 
+                color="primary" type='submit'>Crear Producto</Button>
+            </div>
+          </form>  
                   
-        </div>
-                         <ul className={classes.ul}>{input.category.map(e => {
-                            const aux = categories.find(i => i._id === e)
-                            return <div 
-                            className={classes.categoryDiv}
-                          >
-                                        <p className={classes.categoryName}
-                                        >{aux.name}</p>
-                                        <button className={classes.categoryButton}
-                                        onClick={() => handleClose(e)}>x</button>
-                                   </div>
-                        })}</ul>
-                       
+          </div>
+            <ul className={classes.ul}>{input.category.map(e => {
+              const aux = categories.find(i => i._id === e)
+              return <div 
+                className={classes.categoryDiv}
+                    >
+                    <p className={classes.categoryName}
+                    >{aux.name}</p>
+                    <button className={classes.categoryButton}
+                      onClick={() => handleClose(e)}>x</button>
+                     </div>
+            })}</ul>
                        </div>
+                       <Notification
+        notify={notify}
+        setNotify={setNotify}
+      />
       </React.Fragment>
 
 

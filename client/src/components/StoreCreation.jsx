@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { getProducts, postStore } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import Notification from './Notification';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -124,6 +125,7 @@ function validate(input){
 }
 
 export default function StoreCreation(){
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const dispatch = useDispatch();
     //const history = useHistory();
     const [ errors, setErrors ] = useState({});
@@ -149,7 +151,11 @@ export default function StoreCreation(){
 
     function handleProducts(e){
         if (input.products.includes(e.target.value)) {
-          alert("Producto repetido, prueba con otro!");                
+          setNotify({
+            isOpen: true,
+            message: 'Producto repetido, prueba con otro!',
+            type: 'warning'
+        })                  
           
       }else{
         setInput({
@@ -188,11 +194,19 @@ export default function StoreCreation(){
         console.log(e)
         if(errors.name || errors.description || errors.city || errors.products || errors.address || errors.img ){
             e.preventDefault();
-            alert('Formulario incompleto');
+            setNotify({
+                isOpen: true,
+                message: 'Formulario incompleto',
+                type: 'error'
+            })
         }else{
             e.preventDefault();   
             dispatch(postStore(input));
-            alert('Tienda creada');     
+            setNotify({
+                isOpen: true,
+                message: 'Petición para crear tienda enviada',
+                type: 'success'
+            })   
             setInput({
                 name: '',
                 description: '',
@@ -440,7 +454,10 @@ export default function StoreCreation(){
                        
                        </div>
 
-
+        <Notification
+            notify={notify}
+            setNotify={setNotify}
+        />
 
         </>
         )

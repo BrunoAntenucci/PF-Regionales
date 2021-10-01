@@ -13,7 +13,7 @@ export default function ModifyProduct(props){
       document.title = "E-Market"
       dispatch(clearProDetail())
   }
-  }, [])
+  }, [dispatch, props.match.params.id])
     const detail = useSelector((state) => state.prodDetail);
     const categories = useSelector((state) => state.categories)
     

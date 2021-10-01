@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { getToken, resetPass } from '../../actions/index';
+import { resetPass } from '../../actions/index';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -62,16 +62,6 @@ export default function ResetPass(props){
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // let result = await dispatch (getToken())
-        // if(result === "input new password"){
-        //     if(input.passMatch === false){
-        //         alert('Las contraseñas no coinciden')
-        //     } else {
-        //         dispatch(resetPass(input.password, token))
-        //         alert('Contraseña cambiada éxito!')
-        //         history.push('/products')
-        //     }
-        // }
         if(input.passMatch === false){
             alert('Las contraseñas no coinciden')
         } else {

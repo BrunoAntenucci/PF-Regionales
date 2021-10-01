@@ -35,7 +35,7 @@ divElection:{
     cursor:"pointer",
     filter: "saturate(0%)",
     "&:hover": {
-        width:"350px",
+        width:"310px",
         filter: "saturate(100%)"
       }
 }

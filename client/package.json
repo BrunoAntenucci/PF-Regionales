@@ -44,7 +44,6 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0",
-    "slick-carousel": "^1.8.1",
     "styled-components": "^4.4.1",
     "supertest": "^6.1.6",
     "supertest-session": "^4.1.0",

@@ -194,11 +194,15 @@ const MyOrders = () => {
                                                 Fecha y hora de la compra:
                                             </p>
                                             <p> {order.createdAt}</p>
+
+                                          
+
                                             {/* {order.status==="Completa"?
                                             <Link to={`/store/${storesId}/reviews`}>
                                                 <p>Tienda</p>
                                             </Link>
                                             :null} */}
+
                                         </div>
                                         <hr></hr>
                                     </div>

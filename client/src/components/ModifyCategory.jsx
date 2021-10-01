@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
-import { getCategories, getCategoryToModify, modifyCategory } from '../actions';
+import { getCategoryToModify, modifyCategory } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 
@@ -64,7 +64,7 @@ export default function ModifyCategory(props){
     useEffect(() => {
         //dispatch(getCategories());
         dispatch(getCategoryToModify(props.match.params.id));
-    }, [])
+    }, [dispatch, props.match.params.id])
 
     const detail = useSelector((state) => state.catDetail);
     //const categories = useSelector((state) => state.categories)

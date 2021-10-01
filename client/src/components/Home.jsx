@@ -1,14 +1,13 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { Fragment }  from 'react';
 import Header from './Header';
-import { getProducts, getCategories } from '../actions/index';
+import { getProducts } from '../actions/index';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from './Card';
-import { makeStyles,Typography ,Button} from '@material-ui/core';
+import { makeStyles} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import NoHistory from '../img/no-history.svg';
-import Rating from '../utils/rating';
-import {FaStar} from 'react-icons/fa';
 import { getStore } from '../actions';
 import stores from '../img/stores.svg';
 import Grid from '@material-ui/core/Grid';
@@ -72,9 +71,9 @@ borderRadius: '1%',
     flexDirection:"row",
     margin: "0px 30px",
     //background: "rgb(83,83,83)",
-    background:e.palette.primary.superLight,
+    // background:e.palette.primary.superLight,
      background: "linear-gradient(60deg,  "+e.palette.primary.superLight+" 75%,"+e.palette.secondary.superLight+"  75%, "+e.palette.secondary.superLight+" 76%, "+e.palette.primary.superLight+" 76%, "+e.palette.primary.superLight+ " 78%, "+e.palette.secondary.superLight+"  75%, "+e.palette.secondary.superLight+" 78%, #fff)78%",
-    color:e.palette.secondary.superDark,
+    color:e.palette.secondary.dark,
     //background:"#ffffff32",
     flexWrap:"wrap",
     // width:"1100x",
@@ -151,14 +150,7 @@ borderRadius: '1%',
 //    background:"#eee",
 //    borderRadius:"10px"
 // },
-info:{
-  margin:"0",
-  color:"#eee",
-  fontSize:"1em",
-  textAlign:"center"
-  // position:"absolute",
-   //bottom:"300px"
-},
+
 infoDiv:{
    position:"relative",
    top:"75%",
@@ -170,7 +162,6 @@ infoDiv:{
    width: "fit-content",
    height: "fit-content",
    //border: "1px solid #c3c3c3",
-   display: "flex",
    flexWrap: "wrap",
    
 },
