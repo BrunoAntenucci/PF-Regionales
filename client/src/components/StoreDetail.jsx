@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
         background:"#eee",
         maxWidth: "4000px",
         minWidth:"450px",
-        height: 600,
+        height: '600%',
         display:"flex",
         flexWrap:"wrap",
         paddingBottom:"300px"
