@@ -204,7 +204,7 @@ export default function StoreCreation(){
             dispatch(postStore(input));
             setNotify({
                 isOpen: true,
-                message: 'Tienda creada',
+                message: 'Petición para crear tienda enviada',
                 type: 'success'
             })   
             setInput({

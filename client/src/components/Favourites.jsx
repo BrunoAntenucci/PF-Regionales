@@ -135,9 +135,10 @@ const Favourites = () => {
             marginTop="30px"
             marginBottom="30px"
           >Mis Favoritos</Typography>
-          <Button variant="outlined" 
-                  color="primary" 
+          <Button
                   className={classes.goBackBtn}
+                  variant="outlined" 
+                  color="primary" 
           ><Link to={`/products`} style={{textDecoration:"none",  color:"inherit"}}> Volver </Link>
           </Button>
         

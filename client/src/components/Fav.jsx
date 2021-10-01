@@ -39,9 +39,9 @@ export default function Fav ({id}) {
                     </buton>
                     </div>)
                     : (<div>
-                    <button onClick={handleDeleteFav}>
+                    <buton onClick={handleDeleteFav}>
                         <AiFillHeart className='fav' />
-                    </button></div>)
+                    </buton></div>)
                 }  
             <Notification
                 notify={notify}

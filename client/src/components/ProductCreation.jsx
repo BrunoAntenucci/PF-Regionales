@@ -188,7 +188,7 @@ export default function ProductCreation(){
             dispatch(postProducts(input));
             setNotify({
               isOpen: true,
-              message: 'Producto creado',
+              message: 'Petición para crear producto enviada',
               type: 'success'
           })
             setInput({

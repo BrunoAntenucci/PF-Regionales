@@ -18,6 +18,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
+
 const columns = [
     { id: 'first_name', label: 'Nombre', minWidth: 170, align: 'center' },
     { id: 'last_name', label: 'Apellido', minWidth: 170, align: 'center' },
@@ -35,7 +36,7 @@ const columns = [
     },
     {
       id: 'active',
-      label: 'Is Active?',
+      label: 'Status',
       minWidth: 170,
       align: 'center',
     },
@@ -61,27 +62,28 @@ const Users = () => {
 
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
-
     const dispatch = useDispatch();
-
     const allUsers = useSelector(state => state.users);
 
     const handleDelete = async (id, active) => {
-
         setConfirmDialog({
             ...confirmDialog,
             isOpen: false
         })
-
       if(active === 'Active'){
         await dispatch(deleteUser(id));
         setNotify({
           isOpen: true,
-          message: 'Deleted Successfully',
-          type: 'error'
+          message: 'User deactivated successfully',
+          type: 'success'
       })
       }else{
         await dispatch(reviveUser(id));
+        setNotify({
+          isOpen: true,
+          message: 'User activated successfully',
+          type: 'success'
+      })
       }
         await dispatch(getUsers());
     }
@@ -110,13 +112,25 @@ const Users = () => {
             arr[i].id, 
             arr[i].role,
             arr[i].active, 
-            //<Button variant="outlined" color="error" onClick={() => handleDelete(arr[i].id, arr[i].active)}>Active / Inactive</Button>
+            arr[i].active === 'Active' ? 
             <ActionButton
               color="secondary"
               onClick={() => {
                   setConfirmDialog({
                       isOpen: true,
-                      title: 'Are you sure you want to delete this user?',
+                      title: 'Are you sure you want to deactivate this user?',
+                      subTitle: "",
+                      onConfirm: () => { handleDelete(arr[i].id, arr[i].active) }
+                  })
+              }}
+            >Active | Inactive</ActionButton>
+            : 
+            <ActionButton
+              color="secondary"
+              onClick={() => {
+                  setConfirmDialog({
+                      isOpen: true,
+                      title: 'Are you sure you want to activate this user?',
                       subTitle: "",
                       onConfirm: () => { handleDelete(arr[i].id, arr[i].active) }
                   })
@@ -124,9 +138,9 @@ const Users = () => {
             >Active | Inactive</ActionButton>
         ));
     }
-    console.log(rows);
+    
 
-    const classes = useStyles();
+  const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 

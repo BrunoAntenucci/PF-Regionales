@@ -61,7 +61,7 @@ function History(){
        historyProducts = historyProducts.reverse()
 
    }
-   console.log(historyProducts)
+   console.log(historyProducts, "history Product")
 return(<>
 
     <Header />
