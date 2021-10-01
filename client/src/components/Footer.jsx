@@ -2,18 +2,24 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((e)=>({
+  footer:{
+  padding: "40px",
+  background: e.palette.secondary.main,
+background: "linear-gradient(112deg,"+e.palette.secondary.main+" 11%, "+e.palette.secondary.dark+" 33%, "+e.palette.secondary.main+" 55%)",
+
+  color:"white",
+  fontSize:"1.5em"
+  }
+}))
 
 export default function Footer() {
+  const classes = useStyles()
   return (
-    <footer style={{margin:"0 auto"}}>
-      <Box
-        
-        px={{ xs: 3, sm: 10 }}
-        bgcolor="text.secondary"
-        py={{ xs: 5, sm: 10 }}
-        color="white"
-        width= '92.75vw'
-      >
+    <footer className={classes.footer}>
+      
         <Container maxWidth="lg">
           <Grid container spacing={5}>
             <Grid item xs={12} sm={4}>
@@ -70,7 +76,7 @@ export default function Footer() {
             e-MARKET &reg; {new Date().getFullYear()}
           </Box>
         </Container>
-      </Box>
+      
       </footer>
   );
 }
