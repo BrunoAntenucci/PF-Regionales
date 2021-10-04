@@ -1,38 +1,26 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { Fragment }  from 'react';
 import Header from './Header';
-import { getProducts, getCategories } from '../actions/index';
+import { getProducts } from '../actions/index';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from './Card';
-import { makeStyles,Typography ,Button} from '@material-ui/core';
+import { makeStyles} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import NoHistory from '../img/no-history.svg';
-import Rating from '../utils/rating';
-import {FaStar} from 'react-icons/fa';
 import { getStore } from '../actions';
 import stores from '../img/stores.svg';
 import Grid from '@material-ui/core/Grid';
 import Footer from './Footer';
 
 const useStyles = makeStyles(e => ({
-  root:{
-    // marginTop:"-50px ",
-   // padding: "0 10px 0 30px",
-   
+  root:{  
     width:"100%",
    background:e.palette.primary.superLight,
-   //padding:"0 30px 0 0",
-  //  borderTop:"30px solid "+e.palette.primary.main,
-  //  borderBottom:"30px solid "+e.palette.primary.main,
    borderTop: e.palette.primary.main,
    borderBottom: e.palette.primary.main,
-    overflow:"auto",
-  //  display:"flex",
-  //  flexDirection:"row",
-  
-    
+    overflow:"auto",    
   '@media(max-width: 375px)':{
-    // marginLeft: '30px',
     flexDirection: 'column',
     
   }
@@ -43,19 +31,9 @@ typografy:{
 },
 
   section:{
-    // display:"flex",
-    // margin: "80px auto",
-    // flexDirection:"column",
-    // // background:e.palette.secondary.dark,
-   
-    // borderBottom: `1px solid ${ e.palette.primary.dark}` ,
-    // // overflow:"scroll",
-   
-    // minWidth: "1300px",
     margin: '0',
   },
   products:{
-    // background:"#eaeff1",
     margin:"0px auto",
     maxWidth: "1600px",
     minWidth:"250px",
@@ -64,32 +42,30 @@ typografy:{
     flexWrap:"wrap",
     marginBottom:"20px",
 borderRadius: '1%',
-
-
 },
   leyend:{
     display:"flex",
     flexDirection:"row",
     margin: "0px 30px",
-    //background: "rgb(83,83,83)",
-    background:e.palette.primary.superLight,
-     background: "linear-gradient(60deg,  "+e.palette.primary.superLight+" 75%,"+e.palette.secondary.superLight+"  75%, "+e.palette.secondary.superLight+" 76%, "+e.palette.primary.superLight+" 76%, "+e.palette.primary.superLight+ " 78%, "+e.palette.secondary.superLight+"  75%, "+e.palette.secondary.superLight+" 78%, #fff)78%",
+
+    background: "linear-gradient(60deg,  "+e.palette.primary.superLight+" 75%,"+e.palette.secondary.superLight+"  75%, "+e.palette.secondary.superLight+" 76%, "+e.palette.primary.superLight+" 76%, "+e.palette.primary.superLight+ " 78%, "+e.palette.secondary.superLight+"  75%, "+e.palette.secondary.superLight+" 78%, #fff)78%",
     color:e.palette.secondary.superDark,
+    //background: "rgb(83,83,83)",
+    // background:e.palette.primary.superLight,
+     background: "linear-gradient(60deg,  "+e.palette.primary.superLight+" 75%,"+e.palette.secondary.superLight+"  75%, "+e.palette.secondary.superLight+" 76%, "+e.palette.primary.superLight+" 76%, "+e.palette.primary.superLight+ " 78%, "+e.palette.secondary.superLight+"  75%, "+e.palette.secondary.superLight+" 78%, #fff)78%",
+    color:e.palette.secondary.dark,
     //background:"#ffffff32",
     flexWrap:"wrap",
-    // width:"1100x",
-    padding:"0 20px",
-    // borderBottom: `1px solid ${ e.palette.primary.dark}`,
-    //borderTop: `3px solid ${ e.palette.secondary.dark}`,
+    padding:"0 20px", 
     borderRadius:"2px"
-  },link:{
+  },
+  link:{
     padding:"15px",
     height:"fit-content",
     alignSelf:"center",
     textDecoration:"none",
     marginTop:"30px",
-    color:e.palette.secondary.light,
-    
+    color:e.palette.secondary.light,    
   },
   link2:{
     padding:"15px",
@@ -100,7 +76,6 @@ borderRadius: '1%',
     color:e.palette.secondary.light,
     '@media(max-width: 500px)':{
       marginTop: '-60px',
-      // flexDirection: 'column',
       marginRight:"55px",
       
     }
@@ -125,7 +100,6 @@ borderRadius: '1%',
      
       alignContent:"center",
      justifyContent:"center",
-     // width:"80%",
      background:"#eee",
      borderRadius:"10px"
   },
@@ -134,52 +108,27 @@ borderRadius: '1%',
     color:"#eee",
     fontSize:"1em",
     textAlign:"center"
-    // position:"absolute",
-     //bottom:"300px"
  },
-//  infoDiv:{
-//      position:"relative",
-//      top:"75%",
-//      margin:"0 auto",
-//     display:"flex",
-//     flexDirection:"row",
-//     flexWrap:"wrap",
-   
-//     alignContent:"center",
-//    justifyContent:"center",
-//    // width:"80%",
-//    background:"#eee",
-//    borderRadius:"10px"
-// },
-info:{
-  margin:"0",
-  color:"#eee",
-  fontSize:"1em",
-  textAlign:"center"
-  // position:"absolute",
-   //bottom:"300px"
-},
+
 infoDiv:{
    position:"relative",
    top:"75%",
    margin:"0 auto",
-  display:"flex",
-    alignContent:"center",
+   display:"flex",
+   alignContent:"center",
    justifyContent:"center",
    flexDirection:"column",
    width: "fit-content",
    height: "fit-content",
-   //border: "1px solid #c3c3c3",
-   display: "flex",
    flexWrap: "wrap",
    
 },
 title:{
-   borderTop:"1px solid"+e.palette.primary.dark,
-textAlign:"center",
-color:"#fff",
-padding:"30px",
-background:"linear-gradient( "+e.palette.primary.main+" 70%, #eee)"
+  borderTop:"1px solid"+e.palette.primary.dark,
+  textAlign:"center",
+  color:"#fff",
+  padding:"30px",
+  background:"linear-gradient( "+e.palette.primary.main+" 70%, #eee)"
 }
 
 }));
@@ -199,7 +148,6 @@ function Home() {
 
     var historyProducts = JSON.parse(localStorage.getItem("historyProducts"))
     
-    //solo función de ejemplo
     const filterProductsByCat = () => {
       var arr = []
       for (let i = 0; i < 4; i++) {
@@ -259,7 +207,7 @@ function Home() {
     var historyArray= [];
     
     
-   // var historyArraySTringify = JSON.stringify(historyArray)
+   
     if(!localStorage.getItem("historyProducts")){
         historyArray.push({name,price,category,image,id,quantity })
         localStorage.setItem("historyProducts", JSON.stringify(historyArray))
@@ -282,9 +230,9 @@ function Home() {
     return (
       <div >
       <>
-      {/* <div style= {{width: '115vw'}} > */}
       
-            <Header />
+      
+            <Header searchbar={true}/>
         <div  className={classes.root}>
             <section className={classes.section}>
            
@@ -437,13 +385,7 @@ function Home() {
             }
          </Grid>    
         </section>
-      </div>
-     
-        
-
-       
-
-      {/* </div> */}
+      </div>  
        </>
        <Footer />
        </div>

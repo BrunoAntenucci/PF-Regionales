@@ -1,9 +1,9 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
-import { getCategories, getCategoryToModify, modifyCategory } from '../actions';
+import { getCategoryToModify, modifyCategory } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-
+import Notification from './Notification';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Grid from '@material-ui/core/Grid';
@@ -54,6 +54,7 @@ function validate(input){
 export default function ModifyCategory(props){
 
     console.log('PROPS', props)
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
 
     const dispatch = useDispatch();
 
@@ -64,7 +65,7 @@ export default function ModifyCategory(props){
     useEffect(() => {
         //dispatch(getCategories());
         dispatch(getCategoryToModify(props.match.params.id));
-    }, [])
+    }, [dispatch, props.match.params.id])
 
     const detail = useSelector((state) => state.catDetail);
     //const categories = useSelector((state) => state.categories)
@@ -96,11 +97,19 @@ export default function ModifyCategory(props){
     function handleSubmit(e){
         if(errors.name) {
             e.preventDefault();
-            alert('Form incomplete');
+            setNotify({
+                isOpen: true,
+                message: 'Formulario incompleto',
+                type: 'error'
+            })
         }else{
             e.preventDefault();   
             dispatch(modifyCategory(input._id, input));
-            alert('Category modified');     
+            setNotify({
+                isOpen: true,
+                message: 'Categoría modificada',
+                type: 'success'
+            })       
             setInput({
                 name: ''
             })
@@ -159,6 +168,10 @@ export default function ModifyCategory(props){
                     </div> 
             </form>
         </div>     
+        <Notification
+            notify={notify}
+            setNotify={setNotify}
+        />
         </div>
         
         )

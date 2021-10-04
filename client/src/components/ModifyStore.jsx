@@ -3,17 +3,13 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getProducts, getStore, modifyStore } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
+import Notification from './Notification';
 import { makeStyles } from '@material-ui/core/styles';
-
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-//import FormControlLabel from '@material-ui/core/FormControlLabel';
-//import Checkbox from '@material-ui/core/Checkbox';
-
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-//import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { Button } from '@material-ui/core';
@@ -80,7 +76,6 @@ background: "linear-gradient(120deg, #ffffff 0%, "+theme.palette.secondary.light
       categoryButton:{
           border: "none",
           padding:"0 15px",
-          //height:"max-content",
           borderRadius:"10px",
           fontSize:"1.3em",
         color:"white",
@@ -117,15 +112,13 @@ function validate(input){
     if(!input.img){
         errors.img = 'Se requiere una imagen';
     }
-    // if(!input.reputation){
-    //     errors.reputation = 'Se requiere una reputacion';
-    // }
     return errors
 }
 
 export default function ModifyStore(props){
     const dispatch = useDispatch();
     //const history = useHistory();
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const [ errors, setErrors ] = useState({});
     const id  = props.match.params.id
     console.log(id, "ID")
@@ -133,7 +126,7 @@ export default function ModifyStore(props){
     useEffect((id) => {
         dispatch(getStore(id));
 
-    }, [dispatch, getStore()])
+    }, [dispatch, id])
 
     const storedetail = useSelector((state) => state.storeDetail)
     const user = useSelector((state) => state.user)
@@ -163,7 +156,11 @@ export default function ModifyStore(props){
 
     function handleProducts(e){
         if (input.products.includes(e.target.value)) {
-          alert("Producto repetido, prueba con otro!");                
+          setNotify({
+            isOpen: true,
+            message: 'Producto repetido, prueba con otro!',
+            type: 'warning'
+        })               
           
       }else{
         setInput({
@@ -202,11 +199,19 @@ export default function ModifyStore(props){
         console.log(e)
         if(errors.name || errors.description || errors.city) {
             e.preventDefault();
-            alert('Form incomplete');
+            setNotify({
+                isOpen: true,
+                message: 'Formulario incompleto',
+                type: 'error'
+            })
         }else{
             e.preventDefault();   
             dispatch(modifyStore(input._id, input));
-            alert('Store modified');     
+            setNotify({
+                isOpen: true,
+                message: 'Tienda modificada',
+                type: 'success'
+            })    
             setInput({
                 name: '',
                 description: '',
@@ -458,7 +463,10 @@ export default function ModifyStore(props){
                        
                        </div>
 
-
+                       <Notification
+                        notify={notify}
+                        setNotify={setNotify}
+                    />
 
         </>
         )

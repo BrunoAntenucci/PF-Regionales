@@ -1,8 +1,9 @@
 import React from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { getAllOrders, completeOrder, cancelOrder, deleteOrder, getOrderByStatus } from '../actions';
-import { Link } from 'react-router-dom';
+import Notification from './Notification';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -62,21 +63,37 @@ const Orders = () => {
 
   const classes = useStyles();
   const allOrders = useSelector(state => state.orders);
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
   const dispatch = useDispatch();
   const [idOrder, setIdOrder] = React.useState("")
     
   const handleComplete = async (id) => {
         await dispatch(completeOrder(id));
+        setNotify({
+          isOpen: true,
+          message: 'Orden aceptada',
+          type: 'success'
+      })
         await dispatch(getAllOrders());
     }
 
   const handleCancel = async (id) => {
       await dispatch(cancelOrder(id));
+      setNotify({
+        isOpen: true,
+        message: 'Orden cancelada',
+        type: 'error'
+    })
       await dispatch(getAllOrders());
   }
 
   const handleDelete = async (id) => {
       await dispatch(deleteOrder(id));
+      setNotify({
+        isOpen: true,
+        message: 'Orden eliminada',
+        type: 'error'
+    })
       await dispatch(getAllOrders());
   }
 
@@ -205,6 +222,10 @@ const Orders = () => {
         />
       </Paper>
       <OrderDetail idOrder ={idOrder}/>
+      <Notification
+          notify={notify}
+          setNotify={setNotify}
+      />
       </>
     )
 }

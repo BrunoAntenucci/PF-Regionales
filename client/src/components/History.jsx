@@ -61,16 +61,11 @@ function History(){
        historyProducts = historyProducts.reverse()
 
    }
-   console.log(historyProducts)
+   console.log(historyProducts, "history Product")
 return(<>
 
-    <Header />
-    <Button
-         style={{height:"min-content" , marginTop:"20px"}}
-         
-              variant="contained" color="primary">
-                <Link to='/' style={{textDecoration:"none", color:"white"}}>volver</Link>
-                 </Button>
+    <Header searchbar={false}/>
+
         
         {historyProducts?
     <div className={classes.root}>

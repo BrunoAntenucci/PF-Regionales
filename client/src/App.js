@@ -8,7 +8,6 @@ import SignUpForm from './components/SignUpForm'
 import Profile from './components/Profile';
 import Favourites from "./components/Favourites";
 import Paperbase from "./components/AdminPanel/Paperbase";
-import './App.css';
 import Products from "./components/Products";
 import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart"
@@ -16,8 +15,6 @@ import StoreCreation from './components/StoreCreation';
 import StoreDetail from './components/StoreDetail'
 import ModifyStore from './components/ModifyStore'
 import { createTheme , ThemeProvider} from '@material-ui/core';
-import Header from "./components/Header";
-import Footer from './components/Footer'
 import ModifyProduct from "./components/ModifyProduct";
 import CategoryCreation from "./components/CategoryCreation";
 import ModifyCategory from "./components/ModifyCategory";
@@ -30,11 +27,8 @@ import ForgotPass from "./components/Password/ForgotPass";
 import Redirect from "./components/Password/RedirectMail";
 import ResetPass from "./components/Password/ResetPass";
 import Main from "./components/AdminPanel2/main"
-
-
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
-import OrderDetail from "./components/OrderDetail";
 import { useDispatch } from "react-redux";
 import { getOffers } from "./actions";
 
@@ -154,12 +148,7 @@ function App() {
     <BrowserRouter>
     <ThemeProvider theme={theme}>
     <ReactNotification />
-    {/* <Header /> */}
       <Switch>
-        {/* <Route exact path="/" >
-          <Products guest={guest} setGuest={setGuest}/> 
-          <Products/>
-        </Route> */}
         <Route exact path = "/creation" component = {ProductCreation} />
         <Route exact path="/signin" component={SignInForm} />
         <Route exact path="/signup" component={SignUpForm} />
@@ -184,13 +173,9 @@ function App() {
         <Route exact path = "/store" component = {MyStore} />
         <Route exact path = "/admin" component = {Paperbase} />
         <Route exact path = "/admin2" component = {Main} />
-        {/* <Route exact path = "/orderdetail/:id" component = {OrderDetail} /> */}
         <Route exact path = "/" component = {Home} />
-
       </Switch>
-       {/* <Footer/> */}
-      
-      </ThemeProvider>
+    </ThemeProvider>
     </BrowserRouter>
   );
 }

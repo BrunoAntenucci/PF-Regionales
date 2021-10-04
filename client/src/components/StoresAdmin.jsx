@@ -33,7 +33,7 @@ const columns = [
     },
     {
       id: 'active',
-      label: 'Is Active?',
+      label: 'Status',
       minWidth: 170,
       align: 'center',
     },
@@ -98,7 +98,7 @@ const StoresAdmin = () => {
         rows.push(createData(
             arr[i].name, 
             arr[i].id,
-            <img src={arr[i].img} height='40px' width='70px'/>,
+            <img src={arr[i].img} height='40px' width='70px' alt=''/>,
             arr[i].owner, 
             arr[i].active,  
             <Button variant="outlined" color="error" onClick={() => handleDelete(arr[i].id, arr[i].active)}>Activo/Inactivo</Button>,
