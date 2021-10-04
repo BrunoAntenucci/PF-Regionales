@@ -175,9 +175,9 @@ function App() {
         <Route path="/detail/:id" component={ProductDetail} /> 
         <Route path='/storedetail/:id' component={StoreDetail} />
         <Route exact path = "/cart" component = {Cart} />
-        <Route exact path = "/stores" component = {Stores} />
+        <Route exact path = "/stores/actives" component = {Stores} />
         <Route exact path = "/orders" component = {MyOrders} />
-        <Route exact path= "/store/:id/reviews" component = {Reviews} /> 
+        <Route exact path= "/storedetail/:id/reviews" component = {Reviews} /> 
         <Route exact path = "/forgot" component={ForgotPass}/>
         <Route exact path = "/forgot/redirect" component={Redirect}/>
         <Route exact path = "/user/reset/:token" component={ResetPass}/>

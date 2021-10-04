@@ -413,7 +413,7 @@ function Navbar(props) {
       <Link to="/history" style={{textDecoration:"none", color:"inherit"}}>
         <Tab label="historial" size="small"  className={classes.tabs} color="secondary"/>
         </Link>
-        <Link to="/stores" style={{textDecoration:"none", color:"inherit"}}>
+        <Link to="/stores/actives" style={{textDecoration:"none", color:"inherit"}}>
         <Tab label="tiendas" size="small"  className={classes.tabs} color="secondary"/>
         </Link>
 

@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUpForm = () => {
     const classes = useStyles();
-    // const { register, errors, handleSubmit } = useForm();
+    
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -72,20 +72,14 @@ const SignUpForm = () => {
         password: '',
         passMatch: false
     });
-    // const [errors, setErrors] = useState({}); 
-    // useEffect(()=> {
-    //     setErrors({})
-    // }, [register])
-
+    
     const handleFirstName = (e) => {
         setRegister({...register, first_name: e.target.value})
     }
     const handleLastName = (e) => {
         setRegister({...register, last_name: e.target.value})
     }
-    // const handleDni = (e) => {
-    //     setRegister({...register, dni: e.target.value})
-    // }
+
     const handleEmail = (e) => {
         setRegister({...register, email: e.target.value})
     }
@@ -112,27 +106,7 @@ const SignUpForm = () => {
         console.log(register)
     return(
 
-        // <div>
-        //     <h1>Welcome</h1>
-        //     <form onSubmit={(e) => handleSubmit(e)}>
-        //         <input type="text" id="firstName" placeholder="Firstname" name="first_name" onChange={handleFirstName} required/>
-                
-                
-        //         <input type="text" id="lastName" name="last_name" placeholder="LastName" onChange={handleLastName} required/>
-                
-
-        //         //<input name="dni" id="dni" type="number" placeholder="DNI" onChange={(e) => handleDni} required/>
-        //         <input name="email" id="email" type="email" placeholder="Email" onChange={handleEmail} required/>
-        //         <input name="password" id="password" type="password" placeholder="Password" onChange={handlePassword} required/>
-        //         <input type="password" onChange={PasswordCorroboration} id="password-confirm" placeholder="Confirm Password" required/>
-        //         <button type="submit">Create Account</button>
-        //     </form>
-
-        //     <div>
-        //         <span>Do yo have account? </span>
-        //         <Link to='/signin'>Sign In</Link>
-        //     </div>
-        // </div>
+    
 <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -209,23 +183,10 @@ const SignUpForm = () => {
                
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid> */}
+      
           </Grid>
           <input type="submit" className={classes.submit} name ="sign Up"/>
-          {/* <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button> */}
+ 
           
           <Grid container justifyContent="flex-end">
             <Grid item>
