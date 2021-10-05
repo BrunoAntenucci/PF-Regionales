@@ -2,7 +2,7 @@ import { Button, makeStyles, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addProductToCart, getCartByUser, removeProductFromCart, removeItemFromCart } from '../actions';
+import { addProductToCart, getCartByUser, removeItemFromCart, removeProductFromCart} from '../actions';
 import Loading from './Loading'
 import { useMercadopago } from "react-sdk-mercadopago";
 import axios from 'axios';
@@ -41,7 +41,7 @@ const useStyles = makeStyles((e)=>({
         width:"max-content",
         flexDirection:"row",
         borderRadius:"10px",
-        background:e.palette.secondary.light,
+        //background:e.palette.secondary.light,
         justifyContent:"space-around",
         background: "linear-gradient(120deg, "+e.palette.secondary.light+" 75%, rgba(255,253,253,1) 75%,  rgba(255,253,253,1) 76%, "+e.palette.secondary.light+" 76%, "+e.palette.secondary.light+ " 78%, rgba(255,253,253,1) 78%)",
         alignContent:"center",
@@ -95,7 +95,6 @@ const Cart = () => {
         boolean:false,
         id:""
     });
-    const infoUser = useSelector((state) => state.user);
     const classes = useStyles();
     const [user,setUser]= useState({
         cartId:"",
@@ -112,7 +111,7 @@ const Cart = () => {
             boolean:false,
             id:""
         }) 
-    },[])
+    },[dispatch])
 
     console.log("my cart: ", myCart);
 
@@ -204,15 +203,15 @@ const Cart = () => {
                        <div className={classes.cart}>
                         <div className={classes.imageDiv}>
 
-                       <img src={item.product?.image} className={classes.image}/>
+                       <img src={item.product?.image} className={classes.image} alt=''/>
                         </div>
                         <div className={classes.quantity}>
-                       <Button variant="outlined" className={classes.ButtonQua} variant="h6"
+                       <Button variant="outlined" className={classes.ButtonQua} 
                         onClick = {() => handleDeleteProductClick(item?.product?._id, item?.product?.price)}>-</Button>
                        <p className={classes.info} >{item.quantity}</p>
-                       <Button variant="outlined" className={classes.ButtonQua} variant="h6"
+                       <Button variant="outlined" className={classes.ButtonQua} 
                        onClick = {() => handleAddProductClick(item?.product?._id, item?.product?.price)}>+</Button>
-                       {loading.boolean && loading.id == item?.product?._id
+                       {loading.boolean && loading.id === item?.product?._id
                        &&
                        <Loading/>
                        }

@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFav, deleteFav, getFav } from '../actions';
+import { addFav, deleteFav } from '../actions';
 import Notification from './Notification';
 
 export default function Fav ({id}) {
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
     const dispatch = useDispatch();
     const user = useSelector(state => state.user)
-    const wishlist = useSelector(state => state.wishlist);
     const [fav, setFav] = useState(false)
  
     //console.log(wishlist, 'wish')

@@ -5,7 +5,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import cartEmpty from '../img/cart-empty.png'
 import cartStock from '../img/outStock-cart.png'
@@ -13,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Fav from './Fav'; 
 //--------IMPORT ACTIONS-----------//
-import { addProductToCart, removeProductFromCart } from '../actions/index';
+import { addProductToCart } from '../actions/index';
 
 const useStyles = makeStyles((e) =>({
   root: {
