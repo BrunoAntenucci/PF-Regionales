@@ -48,7 +48,7 @@ export default function Navigator(props) {
   
   useEffect(() => {
     dispatch(checkUser())
-  }, [])
+  }, [dispatch])
   
   const handleClick = (e) => {
     e.preventDefault();

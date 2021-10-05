@@ -69,7 +69,7 @@ function Navigator(props){
   React.useEffect(()=>{
       dispatch(checkUser())
       document.title = "Admin Pannel (2)"
-  },[])
+  },[dispatch])
   
   const handleClick = (e) => {
     e.preventDefault();
