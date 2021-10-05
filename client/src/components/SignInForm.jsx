@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 //------IMPORT ACTIONS------//
-import { checkUser, signIn, signInGoogle, guestCartToUserCart} from "../actions/index";
+import { checkUser, signIn, guestCartToUserCart} from "../actions/index";
 
 function Copyright() {
     return (
@@ -125,7 +125,7 @@ const SignInForm = () => {
       dispatch(checkUser())      
 
      
-      },[/*userState*/])
+      },[dispatch])
     
     
 
@@ -136,10 +136,6 @@ const SignInForm = () => {
         setInput({...input, password:e.target.value})
     }
    
-    const handleSubmitGoogle = async (e) => {
-        e.preventDefault();
-
-    }
     console.log("use effect useState user", userState)
     async function handleSubmit(e) {
       setErrorUser(false)

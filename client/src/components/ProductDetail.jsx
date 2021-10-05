@@ -1,5 +1,5 @@
 
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -10,7 +10,7 @@ import Notification from './Notification';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import market from '../img/market.png'
-import { Button, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import cartEmpty from '../img/cart-empty.png'
 import iconChange from '../img/change-icon.png'
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
@@ -180,7 +180,6 @@ const useStyles = makeStyles((theme) => ({
             width: "fit-content",
             height: "fit-content",
             //border: "1px solid #c3c3c3",
-            display: "flex",
             flexWrap: "wrap",
             '@media(max-width: 500px)':{
                 // marginLeft: '30px',
@@ -214,7 +213,7 @@ function ProductDetail(props) {
             dispatch(clearProDetail())
         }
 
-    }, [])
+    }, [dispatch, props.match.params.id])
     
     
 
@@ -382,8 +381,7 @@ function ProductDetail(props) {
              variant="h5" color="primary" component="p"                                  
                                     >Este producto se puede encontrar en las siguientes tiendas</Typography>
             {  stores?.map(store => {
-            if(detail?.product?.[0]?.user == store?.owner ){
-                //console.log("there's store with product")
+            if(detail?.product?.[0]?.user === store?.owner ){
                 return(
                     <>
                    
