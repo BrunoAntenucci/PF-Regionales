@@ -11,7 +11,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Notification from './Notification';
 import { Button } from '@material-ui/core';
 
 
@@ -116,7 +115,7 @@ function validate(input){
 }
 
 export default function ModifyProduct2({details, categories}){
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+  const [setNotify] = useState({ isOpen: false, message: '', type: '' })
     const dispatch = useDispatch();
     const classes = useStyles();
     const [ errors, setErrors ] = useState({});

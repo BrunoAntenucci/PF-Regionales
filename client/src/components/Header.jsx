@@ -1,7 +1,6 @@
 import React from 'react'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Searchbar from './Searchbar';
 import Navbar from './Navbar';
@@ -9,8 +8,7 @@ import { Link } from 'react-router-dom';
 import imgLogo from '../img/market.png';
 import { useDispatch } from 'react-redux';
 import { getProducts } from '../actions';
-import ProductCreation from './ProductCreation';
-import { Button } from '@material-ui/core';
+
 
 
 const useStyles = makeStyles((theme) => ({

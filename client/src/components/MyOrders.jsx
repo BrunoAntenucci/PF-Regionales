@@ -67,7 +67,6 @@ const useStyles = makeStyles((e) => ({
 const MyOrders = () => {
     const dispatch = useDispatch();
     const classes = useStyles()
-    const user = useSelector(state => state.user);
     const orderDetail = useSelector(state => state.orderDetail);
     const stores = useSelector(state => state.stores)
 
@@ -83,7 +82,7 @@ const MyOrders = () => {
     
     useEffect(() => {
         dispatch(getOrderDetail());
-    }, [])
+    }, [dispatch])
 
     const [status, setStatus] = React.useState('');
 
