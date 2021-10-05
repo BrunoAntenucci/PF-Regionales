@@ -1,10 +1,9 @@
-import { makeStyles, Typography,Button } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core"
 import React from "react"
 import Header from "./Header"
 import Card from './Card'
 import { useSelector } from "react-redux"
 import NoHistory from '../img/no-history.svg';
-import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
 root:{
     margin:"80px auto",
@@ -95,7 +94,7 @@ return(<>
         </div>
         :
        <div style={{textAlign:"center"}}>
-        <img src={NoHistory} style={{width:"50%",textAlign:"center"}}/>
+        <img src={NoHistory} style={{width:"50%",textAlign:"center"}} alt=''/>
         </div>
     }
   

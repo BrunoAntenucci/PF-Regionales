@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import ProductCreation from './ProductCreation';
 import StoreCreation from './StoreCreation';
@@ -48,12 +47,12 @@ const MyStore = () => {
     
     const handlerStore = (e) => {
    
-    if(e.target.nextSibling.innerHTML == "crear producto"){
+    if(e.target.nextSibling.innerHTML === "crear producto"){
         setStore("crear producto")
     }
-    else if(e.target.nextSibling.innerHTML == "crear tienda"){
+    else if(e.target.nextSibling.innerHTML === "crear tienda"){
         setStore("crear tienda")
-    }else if(e.target.nextSibling.innerHTML == "crear categoria"){
+    }else if(e.target.nextSibling.innerHTML === "crear categoria"){
         setStore("crear categoria")
     }
     }
@@ -65,7 +64,7 @@ const MyStore = () => {
             
                     
           
-           {store == "crear producto"?
+           {store === "crear producto"?
            <>
             <Button
             style={{height:"min-content"}}
@@ -78,7 +77,7 @@ const MyStore = () => {
                     </Button>
                     <ProductCreation />
            </>:
-           store == "crear tienda"?
+           store === "crear tienda"?
            <>
             <Button
             style={{height:"min-content"}}
@@ -92,7 +91,7 @@ const MyStore = () => {
                     <StoreCreation/>
           
            </>:
-           store == "crear categoria"?
+           store === "crear categoria"?
            <>
             <Button
             style={{height:"min-content"}}
@@ -109,19 +108,19 @@ const MyStore = () => {
            <div className={classes.divElection}
            onClick={handlerStore}>
                <img className={classes.imgElection}
-                src={createStore}/>
+                src={createStore} alt=''/>
             <h2>crear tienda</h2>
            </div>
            <div className={classes.divElection}
             onClick={handlerStore}>
            <img className={classes.imgElection}
-            src={createProduct}/> 
+            src={createProduct} alt=''/> 
            <h2>crear producto</h2>
            </div>
            <div className={classes.divElection}
             onClick={handlerStore}>
            <img className={classes.imgElection}
-            src={createCategory}/> 
+            src={createCategory} alt=''/> 
            <h2>crear categoria</h2>
            </div>
            </>}
