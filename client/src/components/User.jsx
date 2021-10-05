@@ -132,7 +132,7 @@ const User = () => {
 
     useEffect(() => {
         dispatch(checkUser())
-    }, [])
+    }, [dispatch])
 
 
    
@@ -140,15 +140,7 @@ const User = () => {
       dispatch(logOut())
       window.location.reload(false);
     }
-    function handleClearStorage(e) {
-      e.preventDefault();
-      localStorage.clear();
-    }
-    function handleCheckStorage(e) {
-      e.preventDefault();
-      const history = JSON.parse(localStorage.getItem('history'));
-      console.log(history)
-    }
+
 
     function handleClickCart(e) {
       e.preventDefault();
@@ -171,7 +163,7 @@ const User = () => {
                   color="primary"
                   onClick={handleClick}
                 >
-                  <img src={iconUser}  className={classes.iconuser}/>
+                  <img src={iconUser}  className={classes.iconuser} alt=''/>
                   {user.first_name}
                 </Button>
                 <StyledMenu

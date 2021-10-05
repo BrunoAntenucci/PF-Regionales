@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getStore } from '../actions';
-import { Button } from '@material-ui/core';
 import stores from '../img/stores.svg'
 import { makeStyles } from '@material-ui/styles';
 import Rating from '@material-ui/lab/Rating';
@@ -74,7 +73,6 @@ const useStyles = makeStyles((e)=>({
         width: "fit-content",
         height: "fit-content",
         //border: "1px solid #c3c3c3",
-        display: "flex",
         //flexWrap: "wrap",
         '@media(max-width: 500px)':{
             top:"66%",
